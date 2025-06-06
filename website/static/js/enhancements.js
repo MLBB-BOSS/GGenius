@@ -898,4 +898,346 @@ class ProgressiveScrollAccordion {
                 break;
                 
             case 'End':
-                event
+                event.preventDefault();
+                this.navigateToSection(this.state.sections.length - 1);
+                handled = true;
+                break;
+                
+            case 'Escape':
+                // Toggle pause/resume
+                this.togglePause();
+                handled = true;
+                break;
+        }
+
+        if (handled && this.config.enableSounds) {
+            this.audio.play('click', { volume: 0.3 });
+        }
+    }
+
+    /**
+     * Navigate to previous section
+     */
+    navigateToPrevious() {
+        const prevIndex = Math.max(0, this.state.activeIndex - 1);
+        if (prevIndex !== this.state.activeIndex) {
+            this.navigateToSection(prevIndex);
+        }
+    }
+
+    /**
+     * Navigate to next section
+     */
+    navigateToNext() {
+        const nextIndex = Math.min(this.state.sections.length - 1, this.state.activeIndex + 1);
+        if (nextIndex !== this.state.activeIndex) {
+            this.navigateToSection(nextIndex);
+        }
+    }
+
+    /**
+     * Toggle pause/resume functionality
+     */
+    togglePause() {
+        this.state.isPaused = !this.state.isPaused;
+        
+        if (this.state.isPaused) {
+            document.body.classList.add('accordion-paused');
+            console.log('⏸️ Accordion paused');
+        } else {
+            document.body.classList.remove('accordion-paused');
+            console.log('▶️ Accordion resumed');
+        }
+        
+        this.dispatchEvent('accordion:toggled', { isPaused: this.state.isPaused });
+    }
+
+    /**
+     * Handle window resize with smart recalculation
+     */
+    handleResize() {
+        // Update mobile detection
+        const wasMobile = this.device.isMobile;
+        this.device.isMobile = window.innerWidth <= 768;
+        
+        if (wasMobile !== this.device.isMobile) {
+            // Recreate observer with new settings
+            this.observer?.disconnect();
+            this.config.threshold = this.device.isMobile ? [0.5] : [0.2, 0.5, 0.8];
+            this.config.rootMargin = this.device.isMobile ? '-15% 0px -15% 0px' : '-20% 0px -20% 0px';
+            this.createEnhancedObserver();
+            
+            console.log(`📱 Resized: Mobile mode ${this.device.isMobile ? 'enabled' : 'disabled'}`);
+        }
+
+        // Recalculate natural heights
+        this.state.sections.forEach(section => {
+            section.naturalHeight = this.calculateNaturalHeight(section.element);
+        });
+    }
+
+    /**
+     * Handle visibility change for performance optimization
+     */
+    handleVisibilityChange() {
+        if (document.hidden) {
+            // Pause when tab is hidden
+            this.state.wasPlayingBeforeHidden = !this.state.isPaused;
+            this.state.isPaused = true;
+            
+            // Suspend audio context
+            if (this.audio.context) {
+                this.audio.context.suspend();
+            }
+        } else {
+            // Resume when tab becomes visible
+            if (this.state.wasPlayingBeforeHidden) {
+                this.state.isPaused = false;
+            }
+            
+            // Resume audio context
+            if (this.audio.context) {
+                this.audio.context.resume();
+            }
+        }
+    }
+
+    /**
+     * Set smart initial state based on scroll position
+     */
+    setSmartInitialState() {
+        if (this.state.sections.length === 0) return;
+
+        // Find section closest to viewport center
+        const viewportCenter = window.innerHeight / 2;
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+
+        this.state.sections.forEach((section, index) => {
+            const rect = section.element.getBoundingClientRect();
+            const elementCenter = rect.top + (rect.height / 2);
+            const distance = Math.abs(viewportCenter - elementCenter);
+
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestIndex = index;
+            }
+        });
+
+        // Set initial state
+        this.state.activeIndex = closestIndex;
+        this.expandSection(closestIndex);
+        this.updateEnhancedNavigation(closestIndex);
+
+        // Collapse others
+        this.state.sections.forEach((section, index) => {
+            if (index !== closestIndex) {
+                section.element.classList.add('collapsed');
+            }
+        });
+
+        console.log(`🎯 Smart initial state: Section ${closestIndex} active`);
+    }
+
+    /**
+     * Setup scroll fallback for unsupported browsers
+     */
+    setupScrollFallback() {
+        console.log('🔄 Setting up scroll fallback');
+        
+        const handleScrollFallback = this.throttle(() => {
+            if (this.state.isTransitioning) return;
+
+            const scrollPosition = window.pageYOffset;
+            const viewportHeight = window.innerHeight;
+            
+            // Simple section detection based on scroll position
+            let targetIndex = 0;
+            
+            this.state.sections.forEach((section, index) => {
+                const rect = section.element.getBoundingClientRect();
+                if (rect.top <= viewportHeight / 2 && rect.bottom >= viewportHeight / 2) {
+                    targetIndex = index;
+                }
+            });
+
+            if (targetIndex !== this.state.activeIndex) {
+                this.transitionToSection(targetIndex);
+            }
+        }, 100);
+
+        window.addEventListener('scroll', handleScrollFallback, { passive: true });
+    }
+
+    /**
+     * Fallback to static sections
+     */
+    fallbackToStatic() {
+        console.warn('⚠️ Falling back to static sections');
+        
+        this.state.sections.forEach(section => {
+            section.element.classList.remove('progressive-section', 'collapsed', 'expanded');
+            section.element.classList.add('static-section');
+        });
+
+        // Disable navigation
+        if (this.navigation) {
+            this.navigation.style.display = 'none';
+        }
+    }
+
+    /**
+     * Utility: Debounce function
+     */
+    debounce(func, delay) {
+        let timeoutId;
+        return (...args) => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => func.apply(this, args), delay);
+        };
+    }
+
+    /**
+     * Utility: Throttle function
+     */
+    throttle(func, limit) {
+        let inThrottle;
+        return (...args) => {
+            if (!inThrottle) {
+                func.apply(this, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    }
+
+    /**
+     * Dispatch custom event
+     */
+    dispatchEvent(eventName, detail = {}) {
+        const event = new CustomEvent(eventName, {
+            detail: {
+                ...detail,
+                accordion: this,
+                timestamp: performance.now()
+            },
+            bubbles: true,
+            cancelable: true
+        });
+        
+        window.dispatchEvent(event);
+        console.log(`📡 Event dispatched: ${eventName}`, detail);
+    }
+
+    /**
+     * Cleanup and destroy accordion
+     */
+    destroy() {
+        console.log('🗑️ Destroying Enhanced Accordion...');
+
+        // Disconnect observers
+        if (this.observer) {
+            this.observer.disconnect();
+            this.observer = null;
+        }
+
+        // Remove event listeners
+        document.removeEventListener('keydown', this.boundHandlers.keydown);
+        window.removeEventListener('resize', this.boundHandlers.resize);
+        window.removeEventListener('scroll', this.boundHandlers.scroll);
+        document.removeEventListener('visibilitychange', this.boundHandlers.visibilityChange);
+
+        // Clear timeouts
+        if (this.scrollTimeout) {
+            clearTimeout(this.scrollTimeout);
+        }
+
+        // Remove navigation
+        if (this.navigation) {
+            this.navigation.remove();
+            this.navigation = null;
+        }
+
+        // Destroy audio system
+        this.audio?.destroy();
+
+        // Reset sections
+        this.state.sections.forEach(section => {
+            section.element.classList.remove(
+                'progressive-section', 'expanded', 'collapsed', 'static-section'
+            );
+            
+            // Remove custom styles
+            section.element.style.height = '';
+        });
+
+        // Reset state
+        this.state.isInitialized = false;
+        this.state.sections = [];
+        
+        // Dispatch destroyed event
+        this.dispatchEvent('accordion:destroyed');
+        
+        console.log('✅ Enhanced Accordion destroyed successfully');
+    }
+}
+
+// Auto-initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    // Enhanced configuration for GGenius MLBB site
+    const config = {
+        sectionSelector: '.about-section, .features-section, .contact-section',
+        enableSounds: true,
+        enableNavigation: true,
+        enableKeyboard: true,
+        enableSmoothScrolling: true
+    };
+
+    // Create global instance with error handling
+    try {
+        window.progressiveAccordion = new ProgressiveScrollAccordion(config);
+        
+        // Enhanced event listeners for external integrations
+        window.addEventListener('section:changed', (event) => {
+            const { previousIndex, currentIndex } = event.detail;
+            console.log(`🎯 Section transition: ${previousIndex} → ${currentIndex}`);
+            
+            // Analytics tracking (if available)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'section_view', {
+                    section_index: currentIndex,
+                    section_id: event.detail.section?.id,
+                    performance_score: event.detail.accordion.device.performanceScore
+                });
+            }
+            
+            // Add custom tracking here if needed
+        });
+
+        // Handle accordion errors gracefully
+        window.addEventListener('accordion:error', (event) => {
+            console.error('🚨 Accordion error:', event.detail);
+            // Could send to error tracking service
+        });
+
+        console.log('🎮 GGenius Enhanced Accordion ready for MLBB domination!');
+        
+    } catch (error) {
+        console.error('❌ Failed to initialize Enhanced Accordion:', error);
+        
+        // Fallback to basic functionality
+        document.querySelectorAll('.progressive-section').forEach(section => {
+            section.classList.add('static-section');
+        });
+    }
+});
+
+// Export for module usage
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = ProgressiveScrollAccordion;
+}
+
+// AMD support
+if (typeof define === 'function' && define.amd) {
+    define('ProgressiveScrollAccordion', [], () => ProgressiveScrollAccordion);
+}
