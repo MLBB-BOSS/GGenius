@@ -9,11 +9,12 @@ class GameWebsiteEnhancer {
 
     init() {
         this.setupScrollProgress();
-        this.setupParallaxEffect();
+        // this.setupParallaxEffect(); // Якщо ця функція існує, залиште її
         this.setupTypingAnimation();
         this.setupGamingCursor();
         this.setupSoundEffects();
         this.setupPerformanceMode();
+        this.setupAccordionEffect(); // Додаємо виклик нового методу
     }
 
     // Scroll progress bar
@@ -85,9 +86,8 @@ class GameWebsiteEnhancer {
             oscillator.stop(audioContext.currentTime + duration);
         };
 
-        // Add sound to buttons
-        document.querySelectorAll('.cta-button, button').forEach(button => {
-            button.addEventListener('click', () => playSound(800, 0.1));
+        document.querySelectorAll('.cta-button, button, .accordion-header').forEach(element => {
+            element.addEventListener('click', () => playSound(800, 0.05)); // Зменшив тривалість для швидких кліків
         });
     }
 
@@ -99,6 +99,72 @@ class GameWebsiteEnhancer {
         if (isLowPerformance) {
             document.body.classList.add('performance-mode');
         }
+    }
+
+    // Accordion effect for sections
+    setupAccordionEffect() {
+        const accordionSections = document.querySelectorAll('.accordion-section');
+
+        accordionSections.forEach((section, index) => {
+            const header = section.querySelector('.accordion-header');
+            const content = section.querySelector('.accordion-content');
+
+            if (!header || !content) {
+                console.warn('Accordion section missing header or content:', section);
+                return;
+            }
+
+            // Встановлюємо ARIA атрибути для доступності
+            header.setAttribute('aria-expanded', 'false');
+            content.setAttribute('aria-hidden', 'true');
+            
+            // За замовчуванням відкриваємо першу секцію (Про Проєкт)
+            if (index === 0) {
+                header.classList.add('active');
+                content.classList.add('active');
+                const innerContent = content.querySelector('.accordion-content-inner');
+                content.style.maxHeight = (innerContent ? innerContent.scrollHeight : content.scrollHeight) + 'px';
+                header.setAttribute('aria-expanded', 'true');
+                content.setAttribute('aria-hidden', 'false');
+            } else {
+                content.style.maxHeight = '0px'; // Переконуємось, що інші закриті
+            }
+
+            header.addEventListener('click', () => {
+                const isActive = header.classList.contains('active');
+
+                // Опціонально: закривати інші відкриті секції (якщо потрібен режим "тільки одна відкрита")
+                // if (!isActive) {
+                //     accordionSections.forEach(otherSection => {
+                //         if (otherSection !== section) {
+                //             const otherHeader = otherSection.querySelector('.accordion-header');
+                //             const otherContent = otherSection.querySelector('.accordion-content');
+                //             if (otherHeader && otherContent && otherHeader.classList.contains('active')) {
+                //                 otherHeader.classList.remove('active');
+                //                 otherContent.classList.remove('active');
+                //                 otherContent.style.maxHeight = '0px';
+                //                 otherHeader.setAttribute('aria-expanded', 'false');
+                //                 otherContent.setAttribute('aria-hidden', 'true');
+                //             }
+                //         }
+                //     });
+                // }
+
+                header.classList.toggle('active');
+                content.classList.toggle('active');
+
+                if (header.classList.contains('active')) {
+                    const innerContent = content.querySelector('.accordion-content-inner');
+                    content.style.maxHeight = (innerContent ? innerContent.scrollHeight : content.scrollHeight) + 'px';
+                    header.setAttribute('aria-expanded', 'true');
+                    content.setAttribute('aria-hidden', 'false');
+                } else {
+                    content.style.maxHeight = '0px';
+                    header.setAttribute('aria-expanded', 'false');
+                    content.setAttribute('aria-hidden', 'true');
+                }
+            });
+        });
     }
 }
 
