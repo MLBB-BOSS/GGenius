@@ -4,33 +4,33 @@
 /* CSS Variables for easy theme management and consistency */
 :root {
     /* Core Colors */
-    --primary-bg-color: #0a0c0f; /* Дуже темний фон, як в IUI */
-    --secondary-bg-color: #14181e; /* Трохи світліший для карток/секцій, схожий на IUI картки */
-    --tertiary-bg-color: #252a32; /* Для інших елементів */
-    --surface-color: #1a1d23; /* Ще один варіант для поверхонь */
+    --primary-bg-color: #0a0c0f;
+    --secondary-bg-color: #14181e;
+    --tertiary-bg-color: #252a32;
+    --surface-color: #1a1d23;
     
     /* Text Colors */
     --text-primary: #ffffff;
-    --text-secondary: #b0c4de; /* Світло-сталевий синій, для кращого контрасту на темному */
+    --text-secondary: #b0c4de;
     --text-muted: #8899a6;
     
     /* Brand Colors - IUI Inspired */
-    --accent-primary: #007bff; /* Яскравий, насичений синій (головний акцент) */
+    --accent-primary: #007bff;
     --accent-primary-glow: color-mix(in srgb, var(--accent-primary) 35%, transparent);
     
-    --accent-secondary: #ffc107; /* Яскравий жовтий/золотий */
+    --accent-secondary: #ffc107;
     --accent-secondary-glow: color-mix(in srgb, var(--accent-secondary) 40%, transparent);
 
-    /* GGenius Original Accents (можна використовувати для специфічних елементів GGenius) */
+    /* GGenius Original Accents */
     --ggenius-cyan: #00d4ff;
     --ggenius-cyan-glow: color-mix(in srgb, var(--ggenius-cyan) 30%, transparent);
     --ggenius-purple: #a55eea; 
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, var(--ggenius-cyan), var(--ggenius-purple)); /* Поточний GGenius градієнт для заголовків */
-    --gradient-cta-primary: linear-gradient(135deg, var(--accent-primary), color-mix(in srgb, var(--accent-primary) 70%, var(--ggenius-purple) 30%)); /* Для синіх CTA */
-    --gradient-cta-secondary: linear-gradient(135deg, var(--accent-secondary), color-mix(in srgb, var(--accent-secondary) 70%, var(--ggenius-warning-orange) 30%)); /* Для жовтих CTA */
-    --gradient-bg: linear-gradient(145deg, var(--primary-bg-color) 0%, #0d1014 50%, #080a0c 100%); /* Більш глибокий темний фон */
+    --gradient-primary: linear-gradient(135deg, var(--ggenius-cyan), var(--ggenius-purple));
+    --gradient-cta-primary: linear-gradient(135deg, var(--accent-primary), color-mix(in srgb, var(--accent-primary) 70%, var(--ggenius-purple) 30%));
+    --gradient-cta-secondary: linear-gradient(135deg, var(--accent-secondary), color-mix(in srgb, var(--accent-secondary) 70%, #ff8c00 30%));
+    --gradient-bg: linear-gradient(145deg, var(--primary-bg-color) 0%, #0d1014 50%, #080a0c 100%);
     
     /* Typography */
     --font-primary: 'Exo 2', 'Arial Black', 'Helvetica', sans-serif;
@@ -51,8 +51,8 @@
     --border-radius-xl: 24px;
     --border-neon: 1px solid color-mix(in srgb, var(--accent-primary) 50%, transparent);
 
-    /* Spacing (залишаємо як є, добре налаштовані) */
-    --spacing-xs: 8px; /* ... */
+    /* Spacing */
+    --spacing-xs: 8px;
     --spacing-sm: 16px;
     --spacing-md: 24px;
     --spacing-lg: 32px;
@@ -60,22 +60,22 @@
     --spacing-2xl: 64px;
     
     /* Layout */
-    --container-width: 1140px; /* Трохи вужчий контейнер, як в IUI */
-    --header-height: 70px; /* Висота хедера */
+    --container-width: 1140px;
+    --header-height: 70px;
     
-    /* Transitions (залишаємо) */
-    --transition-fast: 0.15s ease-out; /* ... */
+    /* Transitions */
+    --transition-fast: 0.15s ease-out;
     --transition-normal: 0.3s ease-out;
     --transition-slow: 0.5s ease-out;
     
-    /* Z-indexes (залишаємо) */
-    --z-background: -1; /* ... */
+    /* Z-indexes */
+    --z-background: -1;
     --z-normal: 1;
     --z-elevated: 10;
     --z-sticky: 100;
     --z-modal: 1000;
 
-    /* Кольори для градієнта SVG логотипу (використовуємо нові акценти) */
+    /* SVG Logo Colors */
     --logo-gradient-color-1: var(--accent-primary); 
     --logo-gradient-color-2: var(--accent-secondary);
 }
@@ -90,22 +90,22 @@
 html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
-    font-size: 100%; /* 1rem = 16px by default */
+    font-size: 100%;
 }
 
 body {
     font-family: var(--font-secondary);
     background: var(--gradient-bg);
     color: var(--text-primary);
-    line-height: 1.7; /* Трохи збільшено для читабельності */
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     position: relative;
-    padding-top: var(--header-height); /* Щоб контент не ховався під фіксованим хедером */
+    padding-top: var(--header-height);
 }
 
-/* Animated Background (зробимо його менш нав'язливим) */
+/* Animated Background */
 body::before {
     content: '';
     position: fixed;
@@ -118,7 +118,7 @@ body::before {
         radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--accent-secondary) 8%, transparent) 0%, transparent 40%),
         radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--ggenius-purple) 5%, transparent) 0%, transparent 50%);
     z-index: var(--z-background);
-    animation: backgroundMove 25s ease-in-out infinite alternate; /* Додано alternate */
+    animation: backgroundMove 25s ease-in-out infinite alternate;
     pointer-events: none;
 }
 
@@ -127,31 +127,26 @@ body::before {
     width: min(90%, var(--container-width));
     margin-left: auto;
     margin-right: auto;
-    padding-left: var(--spacing-sm); /* Додано горизонтальні падінги */
+    padding-left: var(--spacing-sm);
     padding-right: var(--spacing-sm);
 }
-.header-container { /* Специфічний для хедера, щоб не було вертикальних падінгів за замовчуванням */
-     padding-top: 0;
-     padding-bottom: 0;
-}
 
+.header-container {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-primary);
     font-weight: 700;
     line-height: 1.3;
-    color: var(--text-primary); /* За замовчуванням білий, градієнт можна застосувати окремо */
-    /* Забираємо глобальний градієнт з усіх заголовків, будемо застосовувати точково */
-    /* background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text; */
+    color: var(--text-primary);
     margin-bottom: var(--spacing-md);
 }
 
-.section-title-iui { /* Спеціальний клас для заголовків секцій у стилі IUI */
-    font-size: clamp(2rem, 5vw, 3rem); /* Розмір як в IUI */
+.section-title-iui {
+    font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 900;
     text-align: center;
     margin-bottom: var(--spacing-xl);
@@ -159,19 +154,19 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-.section-title-iui.text-gradient { /* Якщо потрібен градієнтний заголовок */
+
+.section-title-iui.text-gradient {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    padding-bottom: 5px; /* Для кращого вигляду градієнта */
+    padding-bottom: 5px;
 }
-
 
 p {
     margin-bottom: var(--spacing-md);
     color: var(--text-secondary);
-    font-size: clamp(1rem, 1.5vw, 1.125rem); /* Адаптивний розмір тексту */
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
 }
 
 /* Links */
@@ -185,15 +180,11 @@ a:hover, a:focus {
     color: color-mix(in srgb, var(--accent-primary) 70%, white);
     text-shadow: 0 0 8px var(--accent-primary-glow);
 }
-/* Прибираємо ::after підкреслення, якщо не відповідає стилю IUI */
-/* a::after { ... } */
-/* a:hover::after { ... } */
 
-
-/* === Site Header === */
+/* Site Header */
 .site-header {
-    background-color: rgba(10, 12, 15, 0.8); /* Напівпрозорий темний фон */
-    backdrop-filter: blur(10px);
+    background-color: rgba(10, 12, 15, 0.95);
+    backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     position: fixed;
     top: 0;
@@ -203,6 +194,12 @@ a:hover, a:focus {
     height: var(--header-height);
     display: flex;
     align-items: center;
+    transition: all var(--transition-normal);
+}
+
+.site-header.scrolled {
+    background-color: rgba(10, 12, 15, 0.98);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 .header-container {
@@ -215,19 +212,36 @@ a:hover, a:focus {
 .header-logo-link {
     text-decoration: none;
 }
+
 .header-logo-text {
     font-family: var(--font-primary);
     font-size: clamp(1.5rem, 3vw, 1.8rem);
     font-weight: 900;
     color: var(--text-primary);
-    /* Можна додати градієнт, якщо потрібно */
-    /* background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; */
-    transition: color var(--transition-normal);
+    transition: all var(--transition-normal);
+    position: relative;
 }
+
+.header-logo-text::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transition: width var(--transition-normal);
+}
+
 .header-logo-link:hover .header-logo-text {
-    color: var(--accent-primary);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header-logo-link:hover .header-logo-text::after {
+    width: 100%;
 }
 
 .main-navigation ul {
@@ -246,8 +260,10 @@ a:hover, a:focus {
     padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--border-radius-sm);
     position: relative;
+    transition: all var(--transition-normal);
 }
-.main-navigation a::after { /* Ефект підкреслення при наведенні */
+
+.main-navigation a::after {
     content: '';
     position: absolute;
     bottom: -2px;
@@ -258,37 +274,48 @@ a:hover, a:focus {
     background-color: var(--accent-primary);
     transition: width var(--transition-normal);
 }
+
 .main-navigation a:hover,
 .main-navigation a:focus,
-.main-navigation a.active { /* Клас .active для поточної сторінки */
+.main-navigation a.active {
     color: var(--text-primary);
     text-shadow: 0 0 5px var(--accent-primary-glow);
 }
+
 .main-navigation a:hover::after,
 .main-navigation a:focus::after,
 .main-navigation a.active::after {
     width: 70%;
 }
 
-
-/* Sections (загальні стилі для секцій, адаптовані під IUI) */
-section {
-    padding: var(--spacing-2xl) 0; /* Вертикальні падінги для секцій */
-    margin-bottom: 0; /* Прибираємо, якщо фон суцільний */
-    background: transparent; /* Фон буде від body або специфічний для секції */
-    backdrop-filter: none; /* Прибираємо, якщо не потрібен глобальний блюр */
-    border: none; /* Прибираємо глобальні рамки */
-    box-shadow: none; /* Прибираємо глобальні тіні */
-    position: relative;
-    overflow: hidden; 
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-xs);
 }
-/* Прибираємо section::before, якщо не потрібна верхня лінія для всіх секцій */
-/* section::before { display: none; } */
 
+.mobile-menu-toggle span {
+    width: 25px;
+    height: 2px;
+    background-color: var(--text-primary);
+    margin: 3px 0;
+    transition: var(--transition-normal);
+}
+
+/* Sections */
+section {
+    padding: var(--spacing-2xl) 0;
+    position: relative;
+    overflow: hidden;
+}
 
 /* Hero Section */
 .hero-section {
-    min-height: calc(100vh - var(--header-height)); /* На весь екран мінус хедер */
+    min-height: calc(100vh - var(--header-height));
     padding-top: var(--spacing-xl);
     padding-bottom: var(--spacing-xl);
     display: flex;
@@ -296,17 +323,18 @@ section {
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: relative; /* Для псевдоелементів, якщо потрібні */
+    position: relative;
 }
 
 .hero-logo-container {
     width: 100%;
-    max-width: clamp(150px, 30vw, 220px); /* Адаптивний розмір SVG лого */
+    max-width: clamp(150px, 30vw, 220px);
     margin-bottom: var(--spacing-md);
+    opacity: 0;
     animation: heroSlideIn 1s ease-out 0.2s forwards;
 }
 
-.hero-title { /* Новий заголовок H1 під логотипом */
+.hero-title {
     font-size: clamp(2.2rem, 6vw, 4rem);
     font-weight: 900;
     line-height: 1.2;
@@ -314,22 +342,32 @@ section {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: var(--spacing-sm);
+    opacity: 0;
     animation: heroSlideIn 1s ease-out 0.4s forwards;
-    /* Можна додати текстову тінь для неонового ефекту */
     text-shadow: 0 0 10px var(--accent-primary-glow), 0 0 20px var(--accent-primary-glow);
 }
 
 .hero-section .subtitle {
     font-size: clamp(1.1rem, 2.5vw, 1.3rem);
     color: var(--text-secondary); 
-    max-width: 700px; /* Ширина підзаголовка */
-    margin-bottom: var(--spacing-lg); /* Збільшено відступ */
-    animation: heroSlideIn 1s ease-out 0.6s both; 
-    line-height: 1.8; /* Збільшено для читабельності */
+    max-width: 700px;
+    margin-bottom: var(--spacing-lg);
+    opacity: 0;
+    animation: heroSlideIn 1s ease-out 0.6s forwards;
+    line-height: 1.8;
 }
 
-/* CTA Button (оновлено для стилю IUI) */
-.cta-button { /* Загальний стиль для всіх CTA */
+.hero-cta-group {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: heroSlideIn 1s ease-out 0.8s forwards;
+}
+
+/* CTA Button */
+.cta-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -345,36 +383,48 @@ section {
     position: relative;
     overflow: hidden;
     transition: all var(--transition-normal);
-    border: 2px solid transparent; /* Для ефекту рамки при наведенні */
+    border: 2px solid transparent;
+    text-decoration: none;
 }
-.cta-button.hero-cta { /* Специфічно для CTA в hero */
-    background: var(--gradient-cta-primary); /* Синій градієнт */
+
+.cta-button.hero-cta {
+    background: var(--gradient-cta-primary);
     color: var(--text-primary);
     box-shadow: 0 0 15px var(--accent-primary-glow), 0 0 25px var(--accent-primary-glow);
-    animation: pulseGlow 2.5s infinite ease-in-out 1s; /* Адаптована анімація */
+    animation: pulseGlow 2.5s infinite ease-in-out 1s;
 }
-.cta-button.hero-cta:hover, .cta-button.hero-cta:focus {
-    background-position: 100% 0; /* Для градієнтів з background-size 200% */
+
+.cta-button.hero-cta:hover,
+.cta-button.hero-cta:focus {
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 0 25px var(--accent-primary-glow), 0 0 40px var(--accent-primary-glow);
     border-color: var(--accent-primary);
 }
-/* Якщо є жовта CTA (як на Image 5) */
+
 .cta-button.cta-yellow {
     background: var(--gradient-cta-secondary);
-    color: var(--primary-bg-color); /* Темний текст на жовтому */
+    color: var(--primary-bg-color);
     box-shadow: 0 0 15px var(--accent-secondary-glow), 0 0 25px var(--accent-secondary-glow);
 }
-.cta-button.cta-yellow:hover, .cta-button.cta-yellow:focus {
+
+.cta-button.cta-yellow:hover,
+.cta-button.cta-yellow:focus {
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 0 25px var(--accent-secondary-glow), 0 0 40px var(--accent-secondary-glow);
     border-color: var(--accent-secondary);
 }
 
+.cta-button svg {
+    transition: transform var(--transition-normal);
+}
 
-/* === Features Section (IUI Style) === */
+.cta-button:hover svg {
+    transform: translateX(3px);
+}
+
+/* Features Section (IUI Style) */
 .features-section-iui {
-    background-color: rgba(10,12,15,0.3); /* Легкий фон для секції */
+    background-color: rgba(10,12,15,0.3);
     padding-top: var(--spacing-2xl);
     padding-bottom: var(--spacing-2xl);
     border-top: 1px solid rgba(255,255,255,0.05);
@@ -383,7 +433,7 @@ section {
 
 .features-grid-iui {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); /* Адаптивні колонки */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: var(--spacing-lg);
 }
 
@@ -396,9 +446,10 @@ section {
     text-align: center;
     transition: transform var(--transition-normal), box-shadow var(--transition-normal);
     position: relative;
-    overflow: hidden; /* Для псевдо-елементів */
+    overflow: hidden;
 }
-.feature-card-iui::before { /* Неонова рамка зверху */
+
+.feature-card-iui::before {
     content: '';
     position: absolute;
     top: 0;
@@ -410,10 +461,12 @@ section {
     opacity: 0.7;
     transition: opacity var(--transition-normal);
 }
+
 .feature-card-iui:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 20px var(--accent-primary-glow);
 }
+
 .feature-card-iui:hover::before {
     opacity: 1;
 }
@@ -426,12 +479,19 @@ section {
     align-items: center;
     justify-content: center;
 }
+
 .feature-card-icon svg {
     width: 100%;
     height: 100%;
-    stroke: var(--accent-primary); /* Колір іконки */
-    stroke-width: 1.5; /* Тонші лінії для неонового ефекту */
-    filter: drop-shadow(0 0 8px var(--accent-primary-glow)); /* Світіння для іконки */
+    stroke: var(--accent-primary);
+    stroke-width: 1.5;
+    filter: drop-shadow(0 0 8px var(--accent-primary-glow));
+    transition: all var(--transition-normal);
+}
+
+.feature-card-iui:hover .feature-card-icon svg {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 12px var(--accent-primary-glow));
 }
 
 .feature-card-title {
@@ -439,10 +499,6 @@ section {
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: var(--spacing-sm);
-    /* Прибираємо градієнт з заголовків карток, вони будуть білими */
-    background: none;
-    -webkit-background-clip: initial;
-    -webkit-text-fill-color: initial;
 }
 
 .feature-card-description {
@@ -451,12 +507,97 @@ section {
     line-height: 1.6;
 }
 
+/* Accordion Styles */
+.accordion-section {
+    background-color: rgba(20, 24, 30, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-lg);
+    margin-bottom: var(--spacing-md);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+}
 
-/* === Tech Stack Section === (Опціонально) */
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    cursor: pointer;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.02));
+    transition: all var(--transition-normal);
+    user-select: none;
+}
+
+.accordion-header:hover {
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.05), rgba(255, 255, 255, 0.02));
+}
+
+.accordion-header h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.accordion-indicator {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-primary);
+    transition: transform var(--transition-normal);
+    line-height: 1;
+}
+
+.accordion-header[aria-expanded="true"] .accordion-indicator {
+    transform: rotate(45deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-slow) ease-out;
+}
+
+.accordion-content-inner {
+    padding: 0 var(--spacing-lg) var(--spacing-lg);
+}
+
+.accordion-content ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.accordion-content li {
+    position: relative;
+    padding-left: var(--spacing-md);
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-secondary);
+}
+
+.accordion-content li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-primary);
+    font-weight: bold;
+}
+
+.contact-info {
+    margin: var(--spacing-md) 0;
+    padding: var(--spacing-md);
+    background-color: rgba(255, 255, 255, 0.02);
+    border-radius: var(--border-radius-sm);
+    border-left: 3px solid var(--accent-primary);
+}
+
+.social-links {
+    margin-top: var(--spacing-md);
+}
+
+/* Tech Stack Section */
 .tech-stack-section {
     padding: var(--spacing-xl) 0;
     text-align: center;
 }
+
 .tech-logos {
     display: flex;
     flex-wrap: wrap;
@@ -465,60 +606,45 @@ section {
     gap: var(--spacing-lg);
     margin-top: var(--spacing-md);
 }
-.tech-logos span { /* Замінити на <img> або <svg> для логотипів */
+
+.tech-logos span {
     font-family: var(--font-secondary);
     font-size: 1rem;
+    font-weight: 600;
     color: var(--text-muted);
     padding: var(--spacing-xs) var(--spacing-sm);
     background-color: var(--surface-color);
     border-radius: var(--border-radius-sm);
     border: 1px solid rgba(255,255,255,0.1);
+    transition: all var(--transition-normal);
 }
 
-
-/* === Accordion Styles === (Залишаємо, якщо використовується для About/Contact) */
-/* ... (всі ваші існуючі стилі для акордеону з попереднього повного коду) ... */
-/* Я їх тут пропущу для скорочення, але вони мають бути у вашому файлі */
-section.accordion-section { /* ... */ }
-.accordion-header { /* ... */ }
-/* і т.д. */
-
-
-/* === Utility Text Styles === */
-.text-top-highlight { /* ... (як було) ... */ }
-.text-gradient { /* Універсальний клас для градієнтного тексту */
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.tech-logos span:hover {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 10px var(--accent-primary-glow);
+    transform: translateY(-2px);
 }
 
-
-/* === Анімації для вбудованого SVG логотипу === */
-/* ... (всі стилі для #ggeniusAnimatedLogo та його анімацій з попереднього повного коду) ... */
-/* Я їх тут пропущу для скорочення, але вони мають бути у вашому файлі */
-#ggeniusAnimatedLogo { /* ... */ }
-#ggeniusAnimatedLogo .gradient-stop-1 { /* ... */ }
-/* і т.д. */
-
-
-/* === Footer (IUI Style) === */
+/* Footer */
 .site-footer-iui {
     background-color: var(--primary-bg-color);
     padding: var(--spacing-lg) 0;
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    margin-top: var(--spacing-xl); /* Відступ зверху */
+    margin-top: var(--spacing-xl);
 }
+
 .site-footer-iui p {
     color: var(--text-muted);
     font-size: 0.9rem;
     margin-bottom: var(--spacing-xs);
 }
+
 .site-footer-iui .footer-glory {
     font-family: var(--font-primary);
     font-weight: 700;
-    color: var(--accent-secondary); /* Жовтий акцент */
+    color: var(--accent-secondary);
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 1rem;
@@ -526,75 +652,14 @@ section.accordion-section { /* ... */ }
     text-shadow: 0 0 10px var(--accent-secondary-glow);
 }
 
-
-/* ... (Решта ваших стилів: Loading, Scroll Progress, Animations, Responsive, Accessibility, Print, Light Theme, Scrollbar) ... */
-/* Важливо: переконайтеся, що всі необхідні @keyframes (включаючи для SVG) присутні */
-/* Я пропущу їх тут для скорочення, але вони мають бути у вашому файлі */
-
-/* Animations (Приклад ключових анімацій, що використовуються) */
-@keyframes heroSlideIn { /* ... (як було) ... */ }
-@keyframes expandLine { /* ... (як було) ... */ }
-@keyframes pulseGlow { /* Оновлено для використання --accent-primary-glow */
-    0%, 100% { box-shadow: 0 0 15px var(--accent-primary-glow), 0 0 25px var(--accent-primary-glow); }
-    50% { box-shadow: 0 0 25px var(--accent-primary-glow), 0 0 40px var(--accent-primary-glow); }
-}
-@keyframes shine { /* ... (як було) ... */ }
-@keyframes float { /* ... (як було) ... */ }
-@keyframes backgroundMove { /* ... (як було, додано alternate) ... */ }
-@keyframes spin { /* ... (як було) ... */ }
-
-/* Ключові кадри для SVG анімацій */
-@keyframes svgDrawStroke { /* ... (як було) ... */ }
-@keyframes svgDrawStrokeAndFadeIn { /* ... (як було) ... */ }
-@keyframes svgFadeIn { /* ... (як було) ... */ }
-@keyframes svgGradientPulseStart { /* ... (як було) ... */ }
-@keyframes svgGradientPulseEnd { /* ... (як було) ... */ }
-
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .container {
-        width: min(95%, var(--container-width));
-    }
-    .main-navigation ul {
-        gap: var(--spacing-sm);
-    }
-    .main-navigation a {
-        font-size: 0.9rem;
-        padding: var(--spacing-xs);
-    }
+/* Utility Classes */
+.text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-@media (max-width: 768px) {
-    :root {
-        --header-height: 60px;
-    }
-    body {
-        padding-top: var(--header-height);
-    }
-    .site-header {
-        /* Тут можна додати логіку для мобільного меню (бургер) */
-    }
-    .main-navigation {
-        display: none; /* Приклад: ховаємо навігацію для мобільного, потрібен бургер */
-        /* Або робимо її вертикальною, якщо вона відкривається */
-    }
-    .hero-title {
-        font-size: clamp(1.8rem, 5vw, 3rem);
-    }
-    .hero-section .subtitle {
-        font-size: clamp(1rem, 2vw, 1.15rem);
-    }
-    .features-grid-iui {
-        grid-template-columns: 1fr; /* Картки одна під одною */
-    }
-    .section-title-iui {
-        font-size: clamp(1.8rem, 4vw, 2.5rem);
-    }
-}
-
-/* ... (Решта @media запитів та специфічних стилів для доступності, друку, світлої теми) ... */
-/* Важливо додати стилі для .visually-hidden, якщо він використовується в HTML */
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -604,4 +669,270 @@ section.accordion-section { /* ... */ }
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+/* Loading Indicator */
+#loading-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: var(--z-modal);
+    transition: opacity var(--transition-normal);
+}
+
+.loading-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top: 3px solid var(--accent-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* SVG Logo Animations */
+#ggeniusAnimatedLogo {
+    animation: float 6s ease-in-out infinite;
+}
+
+#ggeniusAnimatedLogo .gradient-stop-1 {
+    stop-color: var(--logo-gradient-color-1);
+    animation: svgGradientPulseStart 3s ease-in-out infinite alternate;
+}
+
+#ggeniusAnimatedLogo .gradient-stop-2 {
+    stop-color: var(--logo-gradient-color-2);
+    animation: svgGradientPulseEnd 3s ease-in-out infinite alternate;
+}
+
+#ggeniusAnimatedLogo .logo-hexagon-frame {
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: svgDrawStroke 2s ease-out 0.5s forwards;
+}
+
+#ggeniusAnimatedLogo .gamepad-element {
+    opacity: 0;
+    animation: svgFadeIn 1s ease-out 1.5s forwards;
+}
+
+#ggeniusAnimatedLogo .logo-brain-line {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: svgDrawStrokeAndFadeIn 1.5s ease-out 2s forwards;
+}
+
+/* Keyframe Animations */
+@keyframes heroSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { 
+        box-shadow: 0 0 15px var(--accent-primary-glow), 0 0 25px var(--accent-primary-glow); 
+    }
+    50% { 
+        box-shadow: 0 0 25px var(--accent-primary-glow), 0 0 40px var(--accent-primary-glow); 
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes backgroundMove {
+    0% { transform: translateX(-10px) translateY(-10px); }
+    100% { transform: translateX(10px) translateY(10px); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* SVG Animation Keyframes */
+@keyframes svgDrawStroke {
+    to { stroke-dashoffset: 0; }
+}
+
+@keyframes svgDrawStrokeAndFadeIn {
+    to { 
+        stroke-dashoffset: 0; 
+        opacity: 1; 
+    }
+}
+
+@keyframes svgFadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes svgGradientPulseStart {
+    0% { stop-opacity: 0.8; }
+    100% { stop-opacity: 1; }
+}
+
+@keyframes svgGradientPulseEnd {
+    0% { stop-opacity: 0.9; }
+    100% { stop-opacity: 0.7; }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        width: min(95%, var(--container-width));
+    }
+    
+    .main-navigation ul {
+        gap: var(--spacing-sm);
+    }
+    
+    .main-navigation a {
+        font-size: 0.9rem;
+        padding: var(--spacing-xs);
+    }
+    
+    .hero-cta-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cta-button {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --header-height: 60px;
+        --spacing-2xl: 48px;
+        --spacing-xl: 32px;
+    }
+    
+    body {
+        padding-top: var(--header-height);
+    }
+    
+    .main-navigation {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .hero-title {
+        font-size: clamp(1.8rem, 5vw, 3rem);
+    }
+    
+    .hero-section .subtitle {
+        font-size: clamp(1rem, 2vw, 1.15rem);
+    }
+    
+    .features-grid-iui {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .section-title-iui {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+    }
+    
+    .accordion-header {
+        padding: var(--spacing-md);
+    }
+    
+    .accordion-content-inner {
+        padding: 0 var(--spacing-md) var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: min(98%, var(--container-width));
+        padding-left: var(--spacing-xs);
+        padding-right: var(--spacing-xs);
+    }
+    
+    .hero-logo-container {
+        max-width: 150px;
+    }
+    
+    .tech-logos {
+        gap: var(--spacing-xs);
+    }
+    
+    .tech-logos span {
+        font-size: 0.8rem;
+        padding: var(--spacing-xs);
+    }
+}
+
+/* Focus Styles for Accessibility */
+.cta-button:focus,
+.accordion-header:focus,
+.main-navigation a:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    :root {
+        --text-secondary: #ffffff;
+        --border-neon: 2px solid #ffffff;
+    }
+    
+    .feature-card-iui {
+        border: 2px solid var(--accent-primary);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .site-header,
+    .mobile-menu-toggle,
+    #loading-indicator {
+        display: none;
+    }
+    
+    body {
+        padding-top: 0;
+        background: white;
+        color: black;
+    }
+    
+    .cta-button {
+        border: 1px solid black;
+        background: white;
+        color: black;
+    }
 }
