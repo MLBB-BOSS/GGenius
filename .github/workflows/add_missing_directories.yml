@@ -11,71 +11,65 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          # Забезпечуємо, що ми працюємо з актуальним станом гілки
-          # Це важливо, якщо Action запускається не одразу після push
-          fetch-depth: 0 
+        # fetch-depth: 0 # Зазвичай не потрібно для таких операцій, але не шкодить
 
-      - name: Create Missing Directories
+      - name: Create Missing Directories and .gitkeep files
         id: create_dirs
         run: |
-          missing_created=false
+          directories_actually_created_or_updated=false # Прапорець, що вказує на фактичні зміни
           
-          if [ ! -d "shared" ]; then
-            mkdir -p shared
-            echo "Directory 'shared' created."
-            missing_created=true
-          else
-            echo "Directory 'shared' already exists."
-          fi
+          create_dir_and_gitkeep() {
+            local dir_path="$1"
+            if [ ! -d "$dir_path" ]; then
+              mkdir -p "$dir_path"
+              touch "$dir_path/.gitkeep"
+              echo "Directory '$dir_path' and '$dir_path/.gitkeep' created."
+              directories_actually_created_or_updated=true
+            elif [ ! -f "$dir_path/.gitkeep" ]; then
+              # Директорія існує, але .gitkeep відсутній
+              touch "$dir_path/.gitkeep"
+              echo "File '$dir_path/.gitkeep' created in existing directory."
+              directories_actually_created_or_updated=true
+            else
+              echo "Directory '$dir_path' and '$dir_path/.gitkeep' already exist."
+            fi
+          }
 
-          if [ ! -d "infrastructure" ]; then
-            mkdir -p infrastructure
-            echo "Directory 'infrastructure' created."
-            missing_created=true
-          else
-            echo "Directory 'infrastructure' already exists."
-          fi
+          create_dir_and_gitkeep "shared"
+          create_dir_and_gitkeep "infrastructure"
+          create_dir_and_gitkeep "infrastructure/nginx"
+          create_dir_and_gitkeep "infrastructure/ssl"
           
-          if [ ! -d "infrastructure/nginx" ]; then
-            mkdir -p infrastructure/nginx
-            echo "Directory 'infrastructure/nginx' created."
-            missing_created=true # Вже буде true, якщо infrastructure створено, але для логіки залишаємо
-          else
-            echo "Directory 'infrastructure/nginx' already exists."
-          fi
-
-          if [ ! -d "infrastructure/ssl" ]; then
-            mkdir -p infrastructure/ssl
-            echo "Directory 'infrastructure/ssl' created."
-            missing_created=true # Аналогічно
-          else
-            echo "Directory 'infrastructure/ssl' already exists."
-          fi
-          
-          echo "::set-output name=directories_created::$missing_created"
+          echo "::set-output name=made_changes::$directories_actually_created_or_updated"
         shell: bash
 
       - name: Commit and Push Changes
-        if: steps.create_dirs.outputs.directories_created == 'true'
+        # Крок виконується, якщо прапорець made_changes встановлено в true
+        if: steps.create_dirs.outputs.made_changes == 'true'
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # Додаємо лише ті зміни, які могли бути зроблені (нові папки)
-          # git add . може бути занадто широким, якщо є інші незакомічені зміни.
-          # Краще додати конкретні шляхи, якщо ми точно знаємо, що створюємо.
-          # Але оскільки mkdir -p не видає помилку, якщо папка існує,
-          # а ми комітимо тільки якщо щось *було* створено, git add . безпечно.
-          git add shared infrastructure 
+          # Додаємо всі зміни. Оскільки ми створюємо .gitkeep, зміни будуть, якщо папки/файли були нові.
+          git add .
           
-          git commit -m "Chore: Add missing project directories (shared, infrastructure and subdirectories)"
-          git push
-          echo "Missing directories added, committed, and pushed."
+          # Перевіряємо, чи є фактичні зміни, готові до коміту
+          if ! git diff --staged --quiet; then
+            echo "Changes detected by git, proceeding with commit and push."
+            git commit -m "Chore: Ensure project directories (shared, infrastructure) and .gitkeep files exist"
+            git push
+            echo "Project directories and/or .gitkeep files ensured, committed, and pushed."
+          else
+            # Цей блок тепер менш імовірний, якщо made_changes == 'true', 
+            # але залишаємо для повноти, якщо git add . чомусь не спрацює як очікувалось
+            echo "Output 'made_changes' was true, but git detected no staged changes. This is unexpected."
+            echo "Manual review of the workspace might be needed if directories were expected to be created/updated."
+          fi
         shell: bash
 
-      - name: No Changes to Commit
-        if: steps.create_dirs.outputs.directories_created == 'false'
+      - name: No Changes Detected by Script
+        # Крок виконується, якщо прапорець made_changes встановлено в false
+        if: steps.create_dirs.outputs.made_changes == 'false'
         run: |
-          echo "No missing directories were found to create. No commit needed."
+          echo "No missing directories or .gitkeep files were found/created by the script. No commit attempted."
         shell: bash
