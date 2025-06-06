@@ -122,7 +122,7 @@ section {
     color: var(--text-color);
     opacity: 0.9;
     animation: fadeInUp 1s ease-out 0.5s forwards;
-    animation-fill-mode: backwards;
+    animation-fill-mode: backwards; /* Ensures styles are applied before animation starts if delayed */
 }
 
 /* Call-to-Action Button Styling */
@@ -308,24 +308,24 @@ footer p {
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 5px 12px rgba(0, 169, 255, 0.35); }
-    50% { transform: scale(1.03); box-shadow: 0 8px 20px rgba(0, 169, 255, 0.5); }
-    100% { transform: scale(1); box-shadow: 0 5px 12px rgba(0, 169, 255, 0.35); }
+    0% { transform: scale(1); box-shadow: 0 5px 12px rgba(var(--accent-color-1), 0.35); } /* Corrected to use accent color variable */
+    50% { transform: scale(1.03); box-shadow: 0 8px 20px rgba(var(--accent-color-1), 0.5); } /* Corrected to use accent color variable */
+    100% { transform: scale(1); box-shadow: 0 5px 12px rgba(var(--accent-color-1), 0.35); } /* Corrected to use accent color variable */
 }
 
-/* Responsive Adjustments (Example) */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
     h1 {
-        font-size: 2.8em; /* Adjust for smaller screens */
+        font-size: clamp(2.2em, 4vw, 2.8em); /* Adjust for smaller screens */
     }
     .hero-section h1 {
-        font-size: 3.2em;
+        font-size: clamp(2.5em, 5vw, 3.2em);
     }
     .hero-section .subtitle {
-        font-size: 1.2em;
+        font-size: clamp(1em, 2vw, 1.2em);
     }
     h2 {
-        font-size: 1.8em;
+        font-size: clamp(1.6em, 3.5vw, 2em);
     }
     .features-section ul {
         grid-template-columns: 1fr; /* Stack features on smaller screens */
@@ -334,31 +334,42 @@ footer p {
         padding: 12px 30px;
         font-size: 1.05em;
     }
+    section {
+        padding: 40px 20px;
+    }
 }
 
 @media (max-width: 480px) {
     :root {
-        --container-width: 100%; /* Full width for very small screens */
+        /* On very small screens, container might not need to be full width if padding is handled well */
+        /* --container-width: 100%; */
     }
     body {
         font-size: 15px; /* Slightly smaller base font for small devices */
     }
     .container {
-        width: 95%;
+        width: 95%; /* Ensure some padding from screen edges */
     }
      h1 {
-        font-size: 2.2em;
+        font-size: clamp(1.8em, 3.5vw, 2.2em);
     }
     .hero-section h1 {
-        font-size: 2.5em;
+        font-size: clamp(2em, 4.5vw, 2.5em);
     }
     .hero-section .subtitle {
-        font-size: 1em;
+        font-size: clamp(0.9em, 1.8vw, 1em);
     }
     h2 {
-        font-size: 1.6em;
+        font-size: clamp(1.4em, 3vw, 1.6em);
     }
      section {
         padding: 30px 15px;
+    }
+    .features-section li {
+        padding: 20px;
+    }
+    .cta-button, .contact-section button[type="submit"] {
+        padding: 10px 25px;
+        font-size: 1em;
     }
 }
