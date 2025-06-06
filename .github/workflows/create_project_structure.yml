@@ -1,0 +1,100 @@
+name: Create Project Structure
+
+on:
+  workflow_dispatch: # Дозволяє ручний запуск
+
+jobs:
+  scaffold_project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create Directories
+        run: |
+          # ggenius-api
+          mkdir -p ggenius-api/api/v1/endpoints
+          mkdir -p ggenius-api/core
+          mkdir -p ggenius-api/models
+          mkdir -p ggenius-api/services/ai
+          mkdir -p ggenius-api/services/blockchain
+          mkdir -p ggenius-api/services/tournament
+          mkdir -p ggenius-api/services/analytics
+          mkdir -p ggenius-api/schemas
+          mkdir -p ggenius-api/utils
+          
+          # bots
+          mkdir -p bots/telegram/handlers
+          mkdir -p bots/telegram/middlewares
+          mkdir -p bots/telegram/keyboards
+          mkdir -p bots/telegram/states
+          mkdir -p bots/telegram/utils
+          mkdir -p bots/discord
+          
+          # website
+          mkdir -p website/src
+          mkdir -p website/public
+          
+          # shared
+          mkdir -p shared
+          
+          # database
+          mkdir -p database
+          
+          # infrastructure
+          mkdir -p infrastructure/nginx
+          mkdir -p infrastructure/ssl
+          echo "Directories created."
+
+      - name: Create Placeholder Files
+        run: |
+          # ggenius-api
+          touch ggenius-api/api/v1/dependencies.py
+          touch ggenius-api/api/v1/router.py
+          touch ggenius-api/api/__init__.py
+          touch ggenius-api/core/config.py
+          touch ggenius-api/core/database.py
+          touch ggenius-api/core/cache.py
+          touch ggenius-api/core/security.py
+          touch ggenius-api/core/middleware.py
+          touch ggenius-api/core/exceptions.py
+          touch ggenius-api/core/logging_config.py
+          touch ggenius-api/models/user.py
+          touch ggenius-api/models/tournament.py
+          touch ggenius-api/models/match.py
+          touch ggenius-api/models/nft.py
+          touch ggenius-api/main.py
+          touch ggenius-api/requirements.txt
+          touch ggenius-api/Dockerfile
+          
+          # bots
+          touch bots/telegram/main.py
+          touch bots/telegram/requirements.txt
+          
+          # website
+          touch website/package.json
+          touch website/next.config.js
+          touch website/tailwind.config.js
+          
+          # database
+          touch database/init.sql
+          
+          # root
+          touch docker-compose.yml
+          touch .env.example
+          touch README.md # Ensuring it exists or updating timestamp
+          echo "Placeholder files created/touched."
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          # Перевіряємо, чи є зміни для коміту
+          if ! git diff --staged --quiet; then
+            git commit -m "Chore: Initialize project structure via GitHub Action"
+            git push
+            echo "Project structure committed and pushed."
+          else
+            echo "No new structural changes to commit."
+          fi
