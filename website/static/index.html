@@ -3,49 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GGenius - Революція в MLBB Кіберспорті</title>
-    <link rel="stylesheet" href="/static/css/style.css"> 
-    <!-- Важливо: шлях до CSS має бути абсолютним від кореня сайту, 
-         або відносним, якщо сервер правильно налаштований.
-         Для FastAPI з StaticFiles, /static/css/style.css буде правильним,
-         якщо ми монтуємо папку static/ як /static -->
+    <meta name="description" content="GGenius - Революційна AI-платформа для кіберспорту Mobile Legends: Bang Bang. AI-покращений геймплей, NFT нагороди, турніри та соціальна мережа геймерів.">
+    <meta name="keywords" content="Mobile Legends, MLBB, кіберспорт, AI, штучний інтелект, турніри, геймінг, Україна">
+    <meta name="author" content="MLBB-BOSS Team">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="GGenius - Революційна AI-платформа для MLBB">
+    <meta property="og:description" content="Приєднуйся до ігрової революції! AI-покращений геймплей, NFT нагороди та турніри.">
+    <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png') }}">
+    <meta property="og:url" content="https://ggenius.pro">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GGenius - Революційна AI-платформа для MLBB">
+    <meta name="twitter:description" content="Приєднуйся до ігрової революції! AI-покращений геймплей, NFT нагороди та турніри.">
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/twitter-image.png') }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="{{ url_for('static', filename='css/style.css') }}" as="style">
+    <link rel="preload" href="{{ url_for('static', filename='js/enhancements.js') }}" as="script">
+    
+    <title>GGenius - Революційна AI-платформа для Mobile Legends: Bang Bang</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <header>
-        <h1>Ласкаво просимо до GGenius!</h1>
-        <p>Ваш шлях до домінування в Mobile Legends: Bang Bang починається тут.</p>
-    </header>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>GGenius</h1>
+            <p class="subtitle">
+                🚀 Революційна AI-платформа для кіберспорту Mobile Legends: Bang Bang<br>
+                Де штучний інтелект зустрічається з геніальністю гравців
+            </p>
+            <a href="#about" class="cta-button" aria-label="Дізнатися більше про GGenius">
+                Приєднуйся до революції
+                <span aria-hidden="true">⚡</span>
+            </a>
+        </div>
+    </section>
 
-    <main>
-        <section id="about">
-            <h2>Про Проєкт</h2>
-            <p>GGenius - це інноваційна платформа, що об'єднує гравців, команди та турнірних організаторів MLBB...</p>
-            <!-- Додайте більше інформації про ваш проєкт -->
-        </section>
+    <!-- About Section -->
+    <section id="about" class="about-section progressive-section">
+        <div class="container">
+            <h2>Про GGenius Platform</h2>
+            <div class="section-content">
+                <p>
+                    <strong>GGenius</strong> - це першопіонерська платформа, що революціонізує світ кіберспорту 
+                    Mobile Legends: Bang Bang за допомогою передових технологій штучного інтелекту та 
+                    блокчейн-інновацій.
+                </p>
+                
+                <p>
+                    Наша місія полягає у створенні унікальної екосистеми, де кожен гравець може розкрити 
+                    свій повний потенціал через персоналізований AI-аналіз, отримувати справедливі 
+                    винагороди за досягнення та брати участь в найзахопливіших турнірах України.
+                </p>
+                
+                <p>
+                    <strong>Чому GGenius?</strong> Ми об'єднуємо три ключові елементи успіху:
+                </p>
+                
+                <ul style="list-style: none; padding: 0; margin: 2rem 0;">
+                    <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                        <span style="position: absolute; left: 0; top: 0; font-size: 1.2rem;">🧠</span>
+                        <strong>Штучний інтелект</strong> - персоналізовані рекомендації та аналіз геймплею
+                    </li>
+                    <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                        <span style="position: absolute; left: 0; top: 0; font-size: 1.2rem;">🏆</span>
+                        <strong>Кіберспортивні турніри</strong> - професійні змагання з чесною системою рейтингу
+                    </li>
+                    <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                        <span style="position: absolute; left: 0; top: 0; font-size: 1.2rem;">💎</span>
+                        <strong>NFT екосистема</strong> - унікальні цифрові нагороди та колекційні предмети
+                    </li>
+                </ul>
+                
+                <p>
+                    Приєднуйтесь до спільноти, яка вже сьогодні будує майбутнє кіберспорту в Україні!
+                </p>
+            </div>
+        </div>
+    </section>
 
-        <section id="features">
-            <h2>Ключові Можливості (Майбутні)</h2>
-            <ul>
-                <li>Аналітика матчів на основі ШІ</li>
-                <li>Автоматизоване створення турнірних сіток</li>
-                <li>Персоналізовані рекомендації для тренувань</li>
-                <li>Соціальна платформа для гравців</li>
-                <!-- Додайте інші функції -->
-            </ul>
-        </section>
+    <!-- Features Section -->
+    <section id="features" class="features-section progressive-section">
+        <div class="container">
+            <h2>Ключові Інновації</h2>
+            <div class="section-content">
+                <p>
+                    Відкрийте для себе унікальні можливості, які роблять GGenius найпередовішою 
+                    платформою для Mobile Legends: Bang Bang в Україні та світі.
+                </p>
+                
+                <ul>
+                    <li>
+                        <div class="feature-icon">🤖</div>
+                        <div class="feature-title">AI-аналітика матчів у реальному часі</div>
+                        <div class="feature-description">
+                            Наш революційний алгоритм штучного інтелекту аналізує кожен ваш матч, 
+                            виявляє сильні та слабкі сторони, пропонує персоналізовані стратегії 
+                            покращення. Отримуйте детальні звіти з рекомендаціями щодо вибору 
+                            героїв, позиціонування та макро-гри.
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="feature-icon">🏆</div>
+                        <div class="feature-title">Автоматизовані турнірні системи</div>
+                        <div class="feature-description">
+                            Створюйте та керуйте турнірами з автоматичним браккетингом, 
+                            справедливим матчмейкінгом та миттєвими виплатами призів. 
+                            Система автоматично підбирає рівних за силою суперників та 
+                            гарантує чесність кожного матчу.
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-title">Персональні тренувальні програми</div>
+                        <div class="feature-description">
+                            AI-тренер розробляє індивідуальні програми розвитку на основі 
+                            вашого стилю гри. Отримуйте щоденні завдання, челенджі та 
+                            мікро-цілі, які допомагають системно покращувати навички 
+                            та досягати нових вершин у рейтингу.
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="feature-icon">👥</div>
+                        <div class="feature-title">Соціальна мережа геймерів</div>
+                        <div class="feature-description">
+                            Знаходьте ідеальних тімейтів за допомогою AI-алгоритмів сумісності, 
+                            створюйте команди мрії, діліться досвідом та стратегіями. 
+                            Вбудована система менторства допомагає новачкам швидше 
+                            інтегруватися у кіберспортивне середовище.
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="feature-icon">💎</div>
+                        <div class="feature-title">NFT нагороди та досягнення</div>
+                        <div class="feature-description">
+                            Заробляйте унікальні NFT за особливі досягнення, участь у турнірах 
+                            та внесок у спільноту. Кожен NFT має реальну цінність та може 
+                            використовуватися для отримання ексклюзивних привілеїв на платформі 
+                            або продаватися на маркетплейсі.
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Глибока аналітика та статистика</div>
+                        <div class="feature-description">
+                            Відстежуйте свій прогрес через детальні дашборди з метриками 
+                            продуктивності, тенденціями розвитку та порівняннями з топ-гравцями. 
+                            Система прогнозує ваш потенційний рейтинг та рекомендує 
+                            оптимальні стратегії для досягнення цілей.
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="feature-icon">🛡️</div>
+                        <div class="feature-title">Античит та чесна гра</div>
+                        <div class="feature-description">
+                            Наша AI-система автоматично виявляє підозрілу активність, 
+                            смурфінг та інші порушення. Гарантуємо чесне ігрове середовище 
+                            для всіх учасників платформи через передові алгоритми 
+                            детекції аномалій та поведінкового аналізу.
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="feature-icon">🎮</div>
+                        <div class="feature-title">Інтеграція з ігровими сервісами</div>
+                        <div class="feature-description">
+                            Безпосередня інтеграція з Mobile Legends через API для 
+                            автоматичного збору статистики, синхронізації досягнень 
+                            та миттєвого оновлення рейтингів. Підтримка стрімінгу, 
+                            запису реплеїв та поширення хайлайтів у соціальних мережах.
+                        </div>
+                    </li>
+                </ul>
+                
+                <p style="margin-top: 3rem; text-align: center; font-style: italic; color: var(--text-secondary);">
+                    🌟 <strong>Це лише початок!</strong> Ми постійно розробляємо нові функції 
+                    та можливості на основі відгуків нашої спільноти.
+                </p>
+            </div>
+        </div>
+    </section>
 
-        <section id="contact">
-            <h2>Зв'яжіться з Нами</h2>
-            <p>Слідкуйте за новинами та майбутніми анонсами!</p>
-            <!-- Можна додати посилання на соціальні мережі або форму контакту в майбутньому -->
-        </section>
-    </main>
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section progressive-section">
+        <div class="container">
+            <h2>Приєднуйся до Спільноти</h2>
+            <div class="section-content">
+                <p>
+                    <strong>Готові стати частиною майбутнього кіберспорту?</strong> 
+                    Приєднуйтесь до нашої спільноти та будьте серед перших, хто отримає 
+                    доступ до революційних можливостей GGenius!
+                </p>
+                
+                <p>
+                    📅 <strong>Запуск платформи:</strong> Q2 2025<br>
+                    🎯 <strong>Бета-тестування:</strong> Вже незабаром<br>
+                    💰 <strong>Призові фонди:</strong> Понад $100,000 на рік<br>
+                    🏆 <strong>Турніри:</strong> Щотижневі та місячні змагання
+                </p>
+                
+                <div class="social-links">
+                    <a href="https://discord.gg/ggenius" aria-label="Приєднатися до Discord сервера" target="_blank" rel="noopener">
+                        <i>🎮</i>
+                    </a>
+                    <a href="https://t.me/ggenius_official" aria-label="Підписатися на Telegram канал" target="_blank" rel="noopener">
+                        <i>📱</i>
+                    </a>
+                    <a href="https://instagram.com/ggenius.pro" aria-label="Слідкувати в Instagram" target="_blank" rel="noopener">
+                        <i>📷</i>
+                    </a>
+                    <a href="https://youtube.com/@ggenius" aria-label="Підписатися на YouTube канал" target="_blank" rel="noopener">
+                        <i>🎥</i>
+                    </a>
+                    <a href="https://twitter.com/ggenius_pro" aria-label="Слідкувати в Twitter" target="_blank" rel="noopener">
+                        <i>🐦</i>
+                    </a>
+                    <a href="https://facebook.com/ggenius.pro" aria-label="Слідкувати в Facebook" target="_blank" rel="noopener">
+                        <i>📘</i>
+                    </a>
+                </div>
 
+                <form method="POST" action="/contact" class="contact-form" novalidate>
+                    {{ csrf_token() }}
+                    <div class="form-group">
+                        <input 
+                            type="email" 
+                            name="email"
+                            placeholder="Ваш email для раннього доступу" 
+                            required 
+                            aria-label="Email адреса"
+                            autocomplete="email"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            name="game_id"
+                            placeholder="Ваш ID в Mobile Legends (опціонально)" 
+                            aria-label="Ігровий ID"
+                            maxlength="20"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <select name="interest" aria-label="Область інтересів" required>
+                            <option value="">Що вас найбільше цікавить?</option>
+                            <option value="tournaments">🏆 Турніри та змагання</option>
+                            <option value="ai_coaching">🤖 AI-коучинг та аналітика</option>
+                            <option value="team_building">👥 Пошук команди</option>
+                            <option value="nft_rewards">💎 NFT нагороди</option>
+                            <option value="content_creation">🎬 Створення контенту</option>
+                            <option value="beta_testing">🧪 Бета-тестування</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea 
+                            name="message"
+                            placeholder="Розкажіть про свій досвід у MLBB, цілі та очікування від платформи..."
+                            rows="5"
+                            aria-label="Повідомлення"
+                            maxlength="1000"
+                        ></textarea>
+                    </div>
+                    
+                    <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input 
+                            type="checkbox" 
+                            id="newsletter" 
+                            name="newsletter"
+                            checked
+                            style="width: auto; margin: 0;"
+                        >
+                        <label for="newsletter" style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                            Отримувати новини про розвиток платформи та ексклюзивні пропозиції
+                        </label>
+                    </div>
+                    
+                    <button type="submit" aria-label="Надіслати форму">
+                        Приєднатися до революції
+                        <span aria-hidden="true">🚀</span>
+                    </button>
+                </form>
+                
+                <div style="margin-top: 3rem; padding: 2rem; background: rgba(var(--purple-rgb), 0.1); border-radius: var(--radius-xl); border: 1px solid rgba(var(--purple-rgb), 0.2);">
+                    <h3 style="margin-bottom: 1rem; color: var(--brand-pink);">🎁 Ранні переваги</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;">✅ Безкоштовний преміум доступ на 6 місяців</li>
+                        <li style="margin-bottom: 0.5rem;">✅ Ексклюзивний NFT для ранніх користувачів</li>
+                        <li style="margin-bottom: 0.5rem;">✅ Пріоритетна підтримка та фідбек</li>
+                        <li style="margin-bottom: 0.5rem;">✅ Участь у закритих турнірах</li>
+                        <li>✅ Можливість впливати на розвиток платформи</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 GGenius by MLBB-BOSS. Всі права захищено.</p>
+        <div class="container">
+            <p>
+                &copy; 2025 <strong>GGenius</strong>. Всі права захищені.<br>
+                Створено з ❤️ для української MLBB спільноти командою <strong>MLBB-BOSS</strong>
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7;">
+                🇺🇦 Proudly made in Ukraine | 
+                <a href="/privacy" style="color: var(--text-secondary);">Політика конфіденційності</a> | 
+                <a href="/terms" style="color: var(--text-secondary);">Умови використання</a>
+            </p>
+        </div>
     </footer>
 
-    <!-- <script src="/static/js/main.js"></script> --> 
-    <!-- Якщо потрібен JS -->
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/enhancements.js') }}" defer></script>
+    
+    <!-- Performance Monitoring -->
+    <script>
+        // Simple performance monitoring
+        window.addEventListener('load', () => {
+            const timing = performance.timing;
+            const loadTime = timing.loadEventEnd - timing.navigationStart;
+            console.log(`🚀 GGenius loaded in ${loadTime}ms`);
+            
+            // Report to analytics if available
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'timing_complete', {
+                    name: 'load',
+                    value: loadTime
+                });
+            }
+        });
+    </script>
 </body>
 </html>
