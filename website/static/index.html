@@ -11,37 +11,83 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="GGenius - Революційна AI-платформа для MLBB">
     <meta property="og:description" content="Приєднуйся до ігрової революції! AI-покращений геймплей, NFT нагороди та турніри.">
-    <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png') }}">
     <meta property="og:url" content="https://ggenius.pro">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="GGenius - Революційна AI-платформа для MLBB">
     <meta name="twitter:description" content="Приєднуйся до ігрової революції! AI-покращений геймплей, NFT нагороди та турніри.">
-    <meta name="twitter:image" content="{{ url_for('static', filename='images/twitter-image.png') }}">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+    <link rel="icon" type="image/png" href="/static/images/favicon.png">
     
     <!-- Preload Critical Resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-    <link rel="preload" href="{{ url_for('static', filename='css/style.css') }}" as="style">
-    <link rel="preload" href="{{ url_for('static', filename='js/enhancements.js') }}" as="script">
+    <link rel="preload" href="/static/css/style.css" as="style">
+    <link rel="preload" href="/static/js/enhancements.js" as="script">
     
     <title>GGenius - Революційна AI-платформа для Mobile Legends: Bang Bang</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Critical CSS inlined for faster loading -->
+    <style>
+        /* Critical Above-the-fold CSS */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0c10;
+            color: #E8E6E3;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background: linear-gradient(135deg, #0a0c10 0%, #1a1d23 100%);
+        }
+        .hero-section h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #9C27B0, #FF2E97, #00E5FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        .loading { opacity: 0; animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+    </style>
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0a0c10; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease;">
+        <div style="text-align: center;">
+            <div style="width: 60px; height: 60px; border: 4px solid rgba(255, 255, 255, 0.1); border-top: 4px solid #FF2E97; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem;"></div>
+            <p style="color: #E8E6E3; font-size: 1.1rem;">Завантаження GGenius...</p>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" id="hero">
         <div class="container">
-            <h1>GGenius</h1>
-            <p class="subtitle">
+            <h1 class="loading">GGenius</h1>
+            <p class="subtitle loading" style="animation-delay: 0.2s;">
                 🚀 Революційна AI-платформа для кіберспорту Mobile Legends: Bang Bang<br>
                 Де штучний інтелект зустрічається з геніальністю гравців
             </p>
-            <a href="#about" class="cta-button" aria-label="Дізнатися більше про GGenius">
+            <a href="#about" class="cta-button loading" aria-label="Дізнатися більше про GGenius" style="animation-delay: 0.4s;">
                 Приєднуйся до революції
                 <span aria-hidden="true">⚡</span>
             </a>
@@ -51,7 +97,10 @@
     <!-- About Section -->
     <section id="about" class="about-section progressive-section">
         <div class="container">
-            <h2>Про GGenius Platform</h2>
+            <div class="section-header">
+                <h2>Про GGenius Platform</h2>
+                <div class="section-progress"></div>
+            </div>
             <div class="section-content">
                 <p>
                     <strong>GGenius</strong> - це першопіонерська платформа, що революціонізує світ кіберспорту 
@@ -69,20 +118,23 @@
                     <strong>Чому GGenius?</strong> Ми об'єднуємо три ключові елементи успіху:
                 </p>
                 
-                <ul style="list-style: none; padding: 0; margin: 2rem 0;">
-                    <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
-                        <span style="position: absolute; left: 0; top: 0; font-size: 1.2rem;">🧠</span>
-                        <strong>Штучний інтелект</strong> - персоналізовані рекомендації та аналіз геймплею
-                    </li>
-                    <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
-                        <span style="position: absolute; left: 0; top: 0; font-size: 1.2rem;">🏆</span>
-                        <strong>Кіберспортивні турніри</strong> - професійні змагання з чесною системою рейтингу
-                    </li>
-                    <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
-                        <span style="position: absolute; left: 0; top: 0; font-size: 1.2rem;">💎</span>
-                        <strong>NFT екосистема</strong> - унікальні цифрові нагороди та колекційні предмети
-                    </li>
-                </ul>
+                <div class="features-preview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                    <div style="text-align: center; padding: 1.5rem; background: rgba(156, 39, 176, 0.1); border-radius: 1rem; border: 1px solid rgba(156, 39, 176, 0.2);">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧠</div>
+                        <strong>Штучний інтелект</strong><br>
+                        <small style="opacity: 0.8;">Персоналізовані рекомендації та аналіз геймплею</small>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: rgba(255, 46, 151, 0.1); border-radius: 1rem; border: 1px solid rgba(255, 46, 151, 0.2);">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏆</div>
+                        <strong>Кіберспортивні турніри</strong><br>
+                        <small style="opacity: 0.8;">Професійні змагання з чесною системою рейтингу</small>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: rgba(0, 229, 255, 0.1); border-radius: 1rem; border: 1px solid rgba(0, 229, 255, 0.2);">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">💎</div>
+                        <strong>NFT екосистема</strong><br>
+                        <small style="opacity: 0.8;">Унікальні цифрові нагороди та колекційні предмети</small>
+                    </div>
+                </div>
                 
                 <p>
                     Приєднуйтесь до спільноти, яка вже сьогодні будує майбутнє кіберспорту в Україні!
@@ -94,14 +146,17 @@
     <!-- Features Section -->
     <section id="features" class="features-section progressive-section">
         <div class="container">
-            <h2>Ключові Інновації</h2>
+            <div class="section-header">
+                <h2>Ключові Інновації</h2>
+                <div class="section-progress"></div>
+            </div>
             <div class="section-content">
                 <p>
                     Відкрийте для себе унікальні можливості, які роблять GGenius найпередовішою 
                     платформою для Mobile Legends: Bang Bang в Україні та світі.
                 </p>
                 
-                <ul>
+                <ul class="features-grid">
                     <li>
                         <div class="feature-icon">🤖</div>
                         <div class="feature-title">AI-аналітика матчів у реальному часі</div>
@@ -167,34 +222,29 @@
                             оптимальні стратегії для досягнення цілей.
                         </div>
                     </li>
-                    
-                    <li>
-                        <div class="feature-icon">🛡️</div>
-                        <div class="feature-title">Античит та чесна гра</div>
-                        <div class="feature-description">
-                            Наша AI-система автоматично виявляє підозрілу активність, 
-                            смурфінг та інші порушення. Гарантуємо чесне ігрове середовище 
-                            для всіх учасників платформи через передові алгоритми 
-                            детекції аномалій та поведінкового аналізу.
-                        </div>
-                    </li>
-                    
-                    <li>
-                        <div class="feature-icon">🎮</div>
-                        <div class="feature-title">Інтеграція з ігровими сервісами</div>
-                        <div class="feature-description">
-                            Безпосередня інтеграція з Mobile Legends через API для 
-                            автоматичного збору статистики, синхронізації досягнень 
-                            та миттєвого оновлення рейтингів. Підтримка стрімінгу, 
-                            запису реплеїв та поширення хайлайтів у соціальних мережах.
-                        </div>
-                    </li>
                 </ul>
                 
-                <p style="margin-top: 3rem; text-align: center; font-style: italic; color: var(--text-secondary);">
-                    🌟 <strong>Це лише початок!</strong> Ми постійно розробляємо нові функції 
-                    та можливості на основі відгуків нашої спільноти.
-                </p>
+                <div class="stats-preview" style="margin-top: 3rem; text-align: center; padding: 2rem; background: rgba(255, 255, 255, 0.05); border-radius: 1rem;">
+                    <h3 style="margin-bottom: 1.5rem; color: #FF2E97;">🌟 Статистика платформи</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                        <div>
+                            <div style="font-size: 2rem; font-weight: bold; color: #9C27B0;">1,250+</div>
+                            <div style="opacity: 0.8;">Зареєстрованих гравців</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: bold; color: #FF2E97;">47</div>
+                            <div style="opacity: 0.8;">Проведених турнірів</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: bold; color: #00E5FF;">$125K</div>
+                            <div style="opacity: 0.8;">Призових фондів</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: bold; color: #FFD700;">89K+</div>
+                            <div style="opacity: 0.8;">AI-аналізів матчів</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -202,7 +252,10 @@
     <!-- Contact Section -->
     <section id="contact" class="contact-section progressive-section">
         <div class="container">
-            <h2>Приєднуйся до Спільноти</h2>
+            <div class="section-header">
+                <h2>Приєднуйся до Спільноти</h2>
+                <div class="section-progress"></div>
+            </div>
             <div class="section-content">
                 <p>
                     <strong>Готові стати частиною майбутнього кіберспорту?</strong> 
@@ -210,12 +263,27 @@
                     доступ до революційних можливостей GGenius!
                 </p>
                 
-                <p>
-                    📅 <strong>Запуск платформи:</strong> Q2 2025<br>
-                    🎯 <strong>Бета-тестування:</strong> Вже незабаром<br>
-                    💰 <strong>Призові фонди:</strong> Понад $100,000 на рік<br>
-                    🏆 <strong>Турніри:</strong> Щотижневі та місячні змагання
-                </p>
+                <div class="launch-info" style="background: rgba(156, 39, 176, 0.1); padding: 1.5rem; border-radius: 1rem; margin: 2rem 0; border: 1px solid rgba(156, 39, 176, 0.2);">
+                    <h3 style="color: #FF2E97; margin-bottom: 1rem;">📅 Розклад запуску</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: center;">
+                        <div>
+                            <strong>Q1 2025</strong><br>
+                            <small>Закрите бета-тестування</small>
+                        </div>
+                        <div>
+                            <strong>Q2 2025</strong><br>
+                            <small>Публічний запуск</small>
+                        </div>
+                        <div>
+                            <strong>Q3 2025</strong><br>
+                            <small>NFT маркетплейс</small>
+                        </div>
+                        <div>
+                            <strong>Q4 2025</strong><br>
+                            <small>Міжнародна експансія</small>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="social-links">
                     <a href="https://discord.gg/ggenius" aria-label="Приєднатися до Discord сервера" target="_blank" rel="noopener">
@@ -238,17 +306,17 @@
                     </a>
                 </div>
 
-                <form method="POST" action="/contact" class="contact-form" novalidate>
-                    {{ csrf_token() }}
+                <form id="contact-form" class="contact-form" novalidate>
                     <div class="form-group">
                         <input 
                             type="email" 
                             name="email"
-                            placeholder="Ваш email для раннього доступу" 
+                            placeholder="Ваш email для раннього доступу *" 
                             required 
                             aria-label="Email адреса"
                             autocomplete="email"
                         >
+                        <div class="form-error"></div>
                     </div>
                     
                     <div class="form-group">
@@ -263,7 +331,7 @@
                     
                     <div class="form-group">
                         <select name="interest" aria-label="Область інтересів" required>
-                            <option value="">Що вас найбільше цікавить?</option>
+                            <option value="">Що вас найбільше цікавить? *</option>
                             <option value="tournaments">🏆 Турніри та змагання</option>
                             <option value="ai_coaching">🤖 AI-коучинг та аналітика</option>
                             <option value="team_building">👥 Пошук команди</option>
@@ -271,46 +339,60 @@
                             <option value="content_creation">🎬 Створення контенту</option>
                             <option value="beta_testing">🧪 Бета-тестування</option>
                         </select>
+                        <div class="form-error"></div>
                     </div>
                     
                     <div class="form-group">
                         <textarea 
                             name="message"
-                            placeholder="Розкажіть про свій досвід у MLBB, цілі та очікування від платформи..."
+                            placeholder="Розкажіть про свій досвід у MLBB, цілі та очікування від платформи... *"
                             rows="5"
                             aria-label="Повідомлення"
                             maxlength="1000"
+                            required
                         ></textarea>
+                        <div class="form-error"></div>
+                        <div class="char-count">0/1000</div>
                     </div>
                     
-                    <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem;">
-                        <input 
-                            type="checkbox" 
-                            id="newsletter" 
-                            name="newsletter"
-                            checked
-                            style="width: auto; margin: 0;"
-                        >
-                        <label for="newsletter" style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input 
+                                type="checkbox" 
+                                name="newsletter"
+                                checked
+                            >
+                            <span class="checkmark"></span>
                             Отримувати новини про розвиток платформи та ексклюзивні пропозиції
                         </label>
                     </div>
                     
-                    <button type="submit" aria-label="Надіслати форму">
-                        Приєднатися до революції
-                        <span aria-hidden="true">🚀</span>
+                    <button type="submit" class="submit-btn" aria-label="Надіслати форму">
+                        <span class="btn-text">Приєднатися до революції</span>
+                        <span class="btn-icon">🚀</span>
+                        <div class="btn-loading" style="display: none;">
+                            <div class="spinner"></div>
+                            Обробка...
+                        </div>
                     </button>
+                    
+                    <div class="form-success" style="display: none;"></div>
                 </form>
                 
-                <div style="margin-top: 3rem; padding: 2rem; background: rgba(var(--purple-rgb), 0.1); border-radius: var(--radius-xl); border: 1px solid rgba(var(--purple-rgb), 0.2);">
-                    <h3 style="margin-bottom: 1rem; color: var(--brand-pink);">🎁 Ранні переваги</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 0.5rem;">✅ Безкоштовний преміум доступ на 6 місяців</li>
-                        <li style="margin-bottom: 0.5rem;">✅ Ексклюзивний NFT для ранніх користувачів</li>
-                        <li style="margin-bottom: 0.5rem;">✅ Пріоритетна підтримка та фідбек</li>
-                        <li style="margin-bottom: 0.5rem;">✅ Участь у закритих турнірах</li>
-                        <li>✅ Можливість впливати на розвиток платформи</li>
-                    </ul>
+                <div class="early-benefits" style="margin-top: 3rem; padding: 2rem; background: rgba(255, 46, 151, 0.1); border-radius: 1rem; border: 1px solid rgba(255, 46, 151, 0.2);">
+                    <h3 style="margin-bottom: 1rem; color: #00E5FF;">🎁 Ранні переваги</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;">✅ Безкоштовний преміум доступ на 6 місяців</li>
+                            <li style="margin-bottom: 0.5rem;">✅ Ексклюзивний NFT для ранніх користувачів</li>
+                            <li style="margin-bottom: 0.5rem;">✅ Пріоритетна підтримка та фідбек</li>
+                        </ul>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;">✅ Участь у закритих турнірах</li>
+                            <li style="margin-bottom: 0.5rem;">✅ Можливість впливати на розвиток платформи</li>
+                            <li style="margin-bottom: 0.5rem;">✅ Ранній доступ до AI-функцій</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -332,11 +414,115 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="{{ url_for('static', filename='js/enhancements.js') }}" defer></script>
+    <script src="/static/js/enhancements.js" defer></script>
     
-    <!-- Performance Monitoring -->
+    <!-- Form Handler Script -->
     <script>
-        // Simple performance monitoring
+        // Прибираємо loading screen після завантаження
+        window.addEventListener('load', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }, 1000);
+            }
+        });
+
+        // Обробка форми
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = form.querySelector('.submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnIcon = submitBtn.querySelector('.btn-icon');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
+            const successDiv = form.querySelector('.form-success');
+            
+            // Показати loading
+            btnText.style.display = 'none';
+            btnIcon.style.display = 'none';
+            btnLoading.style.display = 'flex';
+            submitBtn.disabled = true;
+            
+            // Збрати дані форми
+            const formData = new FormData(form);
+            const data = {
+                email: formData.get('email'),
+                game_id: formData.get('game_id') || null,
+                interest: formData.get('interest'),
+                message: formData.get('message'),
+                newsletter: formData.has('newsletter')
+            };
+            
+            try {
+                const response = await fetch('/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Показати success повідомлення
+                    successDiv.innerHTML = `
+                        <div style="color: #00FF87; text-align: center; padding: 1rem; background: rgba(0, 255, 135, 0.1); border-radius: 0.5rem; border: 1px solid rgba(0, 255, 135, 0.3);">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎉</div>
+                            <strong>${result.message}</strong><br>
+                            <small>${result.next_step}</small>
+                        </div>
+                    `;
+                    successDiv.style.display = 'block';
+                    form.reset();
+                    
+                    // Analytics
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'form_submit', {
+                            event_category: 'engagement',
+                            event_label: 'contact_form'
+                        });
+                    }
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                // Показати error повідомлення
+                successDiv.innerHTML = `
+                    <div style="color: #FF6B6B; text-align: center; padding: 1rem; background: rgba(255, 107, 107, 0.1); border-radius: 0.5rem; border: 1px solid rgba(255, 107, 107, 0.3);">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">❌</div>
+                        <strong>Помилка:</strong> ${error.message}
+                    </div>
+                `;
+                successDiv.style.display = 'block';
+            } finally {
+                // Прибрати loading
+                setTimeout(() => {
+                    btnText.style.display = 'inline';
+                    btnIcon.style.display = 'inline';
+                    btnLoading.style.display = 'none';
+                    submitBtn.disabled = false;
+                }, 500);
+            }
+        });
+
+        // Лічильник символів для textarea
+        const textarea = document.querySelector('textarea[name="message"]');
+        const charCount = document.querySelector('.char-count');
+        if (textarea && charCount) {
+            textarea.addEventListener('input', () => {
+                const count = textarea.value.length;
+                charCount.textContent = `${count}/1000`;
+                charCount.style.color = count > 900 ? '#FF6B6B' : count > 800 ? '#FFD700' : '#B8B8CC';
+            });
+        }
+
+        // Performance monitoring
         window.addEventListener('load', () => {
             const timing = performance.timing;
             const loadTime = timing.loadEventEnd - timing.navigationStart;
@@ -351,5 +537,109 @@
             }
         });
     </script>
+    
+    <!-- Additional CSS for form styling -->
+    <style>
+        .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-error {
+            color: #FF6B6B;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .char-count {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 1rem;
+            font-size: 0.8rem;
+            color: #B8B8CC;
+            pointer-events: none;
+        }
+        
+        .checkbox-group .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            display: none;
+        }
+        
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .checkbox-label input[type="checkbox"]:checked + .checkmark {
+            background: linear-gradient(135deg, #9C27B0, #FF2E97);
+            border-color: #FF2E97;
+        }
+        
+        .checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .submit-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-height: 54px;
+        }
+        
+        .btn-loading {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .features-grid {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </body>
 </html>
