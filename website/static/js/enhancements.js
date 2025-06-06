@@ -1,174 +1,346 @@
 /**
- * Gaming-style website enhancements for MLBB community
+ * GGenius Website Enhancement Script
+ * Handles accordion functionality, smooth scrolling, and visual effects
  */
 
-class GameWebsiteEnhancer {
+class GGeniusEnhancements {
     constructor() {
-        this.init();
+        this.initializeComponents();
+        this.setupEventListeners();
+        this.handleInitialLoad();
     }
 
-    init() {
-        this.setupScrollProgress();
-        // this.setupParallaxEffect(); // Якщо ця функція існує, залиште її
-        this.setupTypingAnimation();
-        this.setupGamingCursor();
-        this.setupSoundEffects();
-        this.setupPerformanceMode();
-        this.setupAccordionEffect(); // Додаємо виклик нового методу
-    }
-
-    // Scroll progress bar
-    setupScrollProgress() {
-        const progressBar = document.createElement('div');
-        progressBar.className = 'scroll-progress';
-        document.body.appendChild(progressBar);
-
-        window.addEventListener('scroll', () => {
-            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            progressBar.style.width = `${scrolled}%`;
-        });
-    }
-
-    // Gaming cursor effect
-    setupGamingCursor() {
-        const cursor = document.createElement('div');
-        cursor.className = 'gaming-cursor';
-        cursor.innerHTML = '<div class="cursor-dot"></div><div class="cursor-ring"></div>';
-        document.body.appendChild(cursor);
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        document.addEventListener('mousedown', () => cursor.classList.add('clicked'));
-        document.addEventListener('mouseup', () => cursor.classList.remove('clicked'));
-    }
-
-    // Typing animation for hero subtitle
-    setupTypingAnimation() {
-        const subtitle = document.querySelector('.hero-section .subtitle');
-        if (!subtitle) return;
-
-        const text = subtitle.textContent;
-        subtitle.textContent = '';
+    /**
+     * Initialize all interactive components
+     */
+    initializeComponents() {
+        this.accordions = document.querySelectorAll('.accordion-header');
+        this.navLinks = document.querySelectorAll('.main-navigation a');
+        this.header = document.querySelector('.site-header');
+        this.loadingIndicator = document.getElementById('loading-indicator');
+        this.logo = document.getElementById('ggeniusAnimatedLogo');
         
-        let i = 0;
-        const typeWriter = () => {
-            if (i < text.length) {
-                subtitle.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 50);
+        // Initialize intersection observer for animations
+        this.initializeIntersectionObserver();
+    }
+
+    /**
+     * Set up all event listeners
+     */
+    setupEventListeners() {
+        // Accordion functionality
+        this.accordions.forEach(header => {
+            header.addEventListener('click', this.handleAccordionClick.bind(this));
+            header.addEventListener('keydown', this.handleAccordionKeydown.bind(this));
+        });
+
+        // Navigation
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', this.handleNavClick.bind(this));
+        });
+
+        // Scroll events
+        window.addEventListener('scroll', this.handleScroll.bind(this));
+        
+        // Resize events
+        window.addEventListener('resize', this.handleResize.bind(this));
+
+        // Logo hover effects
+        if (this.logo) {
+            this.logo.addEventListener('mouseenter', this.handleLogoHover.bind(this));
+            this.logo.addEventListener('mouseleave', this.handleLogoLeave.bind(this));
+        }
+
+        // Page visibility
+        document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
+    }
+
+    /**
+     * Handle accordion clicks
+     */
+    handleAccordionClick(event) {
+        const header = event.currentTarget;
+        const content = header.nextElementSibling;
+        const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+        // Close other accordions (optional - remove for multiple open)
+        this.accordions.forEach(otherHeader => {
+            if (otherHeader !== header) {
+                this.closeAccordion(otherHeader);
             }
-        };
-        
-        setTimeout(typeWriter, 1000);
-    }
-
-    // Sound effects for interactions
-    setupSoundEffects() {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        
-        const playSound = (frequency, duration) => {
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.value = frequency;
-            oscillator.type = 'sine';
-            
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + duration);
-        };
-
-        document.querySelectorAll('.cta-button, button, .accordion-header').forEach(element => {
-            element.addEventListener('click', () => playSound(800, 0.05)); // Зменшив тривалість для швидких кліків
         });
-    }
 
-    // Performance mode toggle
-    setupPerformanceMode() {
-        const isLowPerformance = navigator.hardwareConcurrency < 4 || 
-                                navigator.deviceMemory < 4;
-        
-        if (isLowPerformance) {
-            document.body.classList.add('performance-mode');
+        // Toggle current accordion
+        if (isExpanded) {
+            this.closeAccordion(header);
+        } else {
+            this.openAccordion(header);
         }
     }
 
-    // Accordion effect for sections
-    setupAccordionEffect() {
-        const accordionSections = document.querySelectorAll('.accordion-section');
+    /**
+     * Handle keyboard navigation for accordions
+     */
+    handleAccordionKeydown(event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            this.handleAccordionClick(event);
+        }
+    }
 
-        accordionSections.forEach((section, index) => {
-            const header = section.querySelector('.accordion-header');
-            const content = section.querySelector('.accordion-content');
+    /**
+     * Open accordion
+     */
+    openAccordion(header) {
+        const content = header.nextElementSibling;
+        const inner = content.querySelector('.accordion-content-inner');
+        
+        header.setAttribute('aria-expanded', 'true');
+        content.style.maxHeight = inner.scrollHeight + 'px';
+        
+        // Add animation class
+        header.parentElement.classList.add('accordion-open');
+    }
 
-            if (!header || !content) {
-                console.warn('Accordion section missing header or content:', section);
-                return;
-            }
+    /**
+     * Close accordion
+     */
+    closeAccordion(header) {
+        const content = header.nextElementSibling;
+        
+        header.setAttribute('aria-expanded', 'false');
+        content.style.maxHeight = '0';
+        
+        // Remove animation class
+        header.parentElement.classList.remove('accordion-open');
+    }
 
-            // Встановлюємо ARIA атрибути для доступності
-            header.setAttribute('aria-expanded', 'false');
-            content.setAttribute('aria-hidden', 'true');
+    /**
+     * Handle navigation clicks with smooth scrolling
+     */
+    handleNavClick(event) {
+        const href = event.currentTarget.getAttribute('href');
+        
+        if (href.startsWith('#')) {
+            event.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
             
-            // За замовчуванням відкриваємо першу секцію (Про Проєкт)
-            if (index === 0) {
-                header.classList.add('active');
-                content.classList.add('active');
-                const innerContent = content.querySelector('.accordion-content-inner');
-                content.style.maxHeight = (innerContent ? innerContent.scrollHeight : content.scrollHeight) + 'px';
-                header.setAttribute('aria-expanded', 'true');
-                content.setAttribute('aria-hidden', 'false');
-            } else {
-                content.style.maxHeight = '0px'; // Переконуємось, що інші закриті
+            if (targetElement) {
+                // Update active nav link
+                this.updateActiveNavLink(event.currentTarget);
+                
+                // Smooth scroll to target
+                const headerHeight = this.header.offsetHeight;
+                const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
             }
+        }
+    }
 
-            header.addEventListener('click', () => {
-                const isActive = header.classList.contains('active');
+    /**
+     * Update active navigation link
+     */
+    updateActiveNavLink(activeLink) {
+        this.navLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+        activeLink.classList.add('active');
+    }
 
-                // Опціонально: закривати інші відкриті секції (якщо потрібен режим "тільки одна відкрита")
-                // if (!isActive) {
-                //     accordionSections.forEach(otherSection => {
-                //         if (otherSection !== section) {
-                //             const otherHeader = otherSection.querySelector('.accordion-header');
-                //             const otherContent = otherSection.querySelector('.accordion-content');
-                //             if (otherHeader && otherContent && otherHeader.classList.contains('active')) {
-                //                 otherHeader.classList.remove('active');
-                //                 otherContent.classList.remove('active');
-                //                 otherContent.style.maxHeight = '0px';
-                //                 otherHeader.setAttribute('aria-expanded', 'false');
-                //                 otherContent.setAttribute('aria-hidden', 'true');
-                //             }
-                //         }
-                //     });
-                // }
+    /**
+     * Handle scroll events
+     */
+    handleScroll() {
+        const scrollTop = window.pageYOffset;
+        
+        // Header scroll effect
+        if (scrollTop > 50) {
+            this.header.classList.add('scrolled');
+        } else {
+            this.header.classList.remove('scrolled');
+        }
 
-                header.classList.toggle('active');
-                content.classList.toggle('active');
+        // Update active nav based on scroll position
+        this.updateNavOnScroll();
+    }
 
-                if (header.classList.contains('active')) {
-                    const innerContent = content.querySelector('.accordion-content-inner');
-                    content.style.maxHeight = (innerContent ? innerContent.scrollHeight : content.scrollHeight) + 'px';
-                    header.setAttribute('aria-expanded', 'true');
-                    content.setAttribute('aria-hidden', 'false');
-                } else {
-                    content.style.maxHeight = '0px';
-                    header.setAttribute('aria-expanded', 'false');
-                    content.setAttribute('aria-hidden', 'true');
+    /**
+     * Update navigation based on scroll position
+     */
+    updateNavOnScroll() {
+        const sections = ['home', 'features', 'about', 'contact'];
+        const scrollPosition = window.pageYOffset + this.header.offsetHeight + 100;
+
+        for (let i = sections.length - 1; i >= 0; i--) {
+            const section = document.getElementById(sections[i]);
+            if (section && scrollPosition >= section.offsetTop) {
+                const activeLink = document.querySelector(`[href="#${sections[i]}"]`);
+                if (activeLink && !activeLink.classList.contains('active')) {
+                    this.updateActiveNavLink(activeLink);
+                }
+                break;
+            }
+        }
+    }
+
+    /**
+     * Handle window resize
+     */
+    handleResize() {
+        // Recalculate accordion heights if open
+        const openAccordions = document.querySelectorAll('.accordion-header[aria-expanded="true"]');
+        openAccordions.forEach(header => {
+            const content = header.nextElementSibling;
+            const inner = content.querySelector('.accordion-content-inner');
+            content.style.maxHeight = inner.scrollHeight + 'px';
+        });
+    }
+
+    /**
+     * Handle logo hover effects
+     */
+    handleLogoHover() {
+        if (this.logo) {
+            this.logo.style.animationPlayState = 'paused';
+            this.logo.style.transform = 'scale(1.05)';
+        }
+    }
+
+    /**
+     * Handle logo leave effects
+     */
+    handleLogoLeave() {
+        if (this.logo) {
+            this.logo.style.animationPlayState = 'running';
+            this.logo.style.transform = 'scale(1)';
+        }
+    }
+
+    /**
+     * Handle page visibility changes
+     */
+    handleVisibilityChange() {
+        if (document.hidden) {
+            // Pause animations when page is hidden
+            document.body.style.animationPlayState = 'paused';
+        } else {
+            // Resume animations when page is visible
+            document.body.style.animationPlayState = 'running';
+        }
+    }
+
+    /**
+     * Initialize intersection observer for scroll animations
+     */
+    initializeIntersectionObserver() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
                 }
             });
+        }, observerOptions);
+
+        // Observe feature cards
+        const featureCards = document.querySelectorAll('.feature-card-iui');
+        featureCards.forEach(card => {
+            this.observer.observe(card);
         });
+
+        // Observe sections
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            this.observer.observe(section);
+        });
+    }
+
+    /**
+     * Handle initial page load
+     */
+    handleInitialLoad() {
+        // Hide loading indicator
+        setTimeout(() => {
+            if (this.loadingIndicator) {
+                this.loadingIndicator.classList.add('loading-hidden');
+            }
+        }, 500);
+
+        // Initialize any hash-based navigation
+        if (window.location.hash) {
+            setTimeout(() => {
+                const targetElement = document.querySelector(window.location.hash);
+                if (targetElement) {
+                    const headerHeight = this.header.offsetHeight;
+                    const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 100);
+        }
+
+        // Trigger initial scroll check
+        this.handleScroll();
+    }
+
+    /**
+     * Utility method to add CSS classes with animation delays
+     */
+    addStaggeredAnimation(elements, baseClass, delay = 100) {
+        elements.forEach((element, index) => {
+            setTimeout(() => {
+                element.classList.add(baseClass);
+            }, index * delay);
+        });
+    }
+
+    /**
+     * Debounce utility for performance
+     */
+    debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
     }
 }
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    new GameWebsiteEnhancer();
+    window.ggeniusApp = new GGeniusEnhancements();
 });
+
+// Add error handling
+window.addEventListener('error', (event) => {
+    console.error('GGenius App Error:', event.error);
+});
+
+// Add performance monitoring
+if ('performance' in window) {
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            console.log('Page Load Performance:', {
+                domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+                loadComplete: perfData.loadEventEnd - perfData.loadEventStart,
+                totalTime: perfData.loadEventEnd - perfData.fetchStart
+            });
+        }, 0);
+    });
+}
