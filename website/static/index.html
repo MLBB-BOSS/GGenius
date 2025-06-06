@@ -4,98 +4,290 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GGenius - Революція в MLBB Кіберспорті</title>
+    <meta name="description" content="Інноваційна платформа для Mobile Legends: Bang Bang гравців. Аналітика матчів на основі ШІ, турнірні системи, персоналізовані тренування.">
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" as="style">
 </head>
 <body>
-    <main>
-        <section id="home" class="hero-section">
-            <div class="hero-logo-container">
-                <!-- Вбудований SVG логотип GGenius -->
-                <svg width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" id="ggeniusAnimatedLogo" role="img" aria-labelledby="ggeniusLogoTitle">
-                    <title id="ggeniusLogoTitle">Анімований логотип GGenius: мозок та геймпад у шестикутнику</title>
-                    <defs>
-                        <linearGradient id="logoSvgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <!-- Кольори будуть застосовані через CSS змінні для узгодженості -->
-                            <stop offset="0%" class="gradient-stop-1" />
-                            <stop offset="100%" class="gradient-stop-2" />
-                        </linearGradient>
-                        <!-- Стилі анімації тепер будуть в основному CSS файлі -->
-                    </defs>
-                
-                    <polygon class="logo-hexagon-frame" points="50,5 93,25 93,75 50,95 7,75 7,25" />
-                
-                    <g class="logo-gamepad">
-                        <path class="logo-gamepad-base gamepad-element" d="M25,65 Q20,55 30,50 L70,50 Q80,55 75,65 L70,75 Q50,85 30,75 L25,65 Z" />
-                        <g class="logo-d-pad gamepad-element">
-                            <rect x="30" y="58" width="5" height="10" rx="1"/>
-                            <rect x="27" y="61" width="10" height="5" rx="1"/>
-                        </g>
-                        <g class="logo-buttons-group gamepad-element">
-                            <circle cx="60" cy="58" r="3" />
-                            <circle cx="68" cy="63" r="3" />
-                        </g>
-                    </g>
-                    
-                    <g class="logo-brain">
-                        <path class="logo-brain-line brain-left" d="M48,20 Q40,25 45,35 Q40,45 48,50"/>
-                        <path class="logo-brain-line brain-left-secondary" d="M48,25 Q35,30 40,40"/>
-                        <path class="logo-brain-line brain-right" d="M52,20 Q60,25 55,35 Q60,45 52,50"/>
-                        <path class="logo-brain-line brain-right-secondary" d="M52,25 Q65,30 60,40"/>
-                    </g>
-                </svg>
-                <!-- Кінець вбудованого SVG -->
-            </div>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="#home" class="header-logo-link">
+                <span class="header-logo-text">GGenius</span>
+            </a>
             
-            <p class="subtitle">Ваш шлях до домінування в Mobile Legends: Bang Bang починається тут.</p>
-            <a href="#features" class="cta-button">Дізнатися більше</a>
+            <nav class="main-navigation" role="navigation" aria-label="Головна навігація">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Головна</a></li>
+                    <li><a href="#features" class="nav-link">Можливості</a></li>
+                    <li><a href="#about" class="nav-link">Про нас</a></li>
+                    <li><a href="#contact" class="nav-link">Контакти</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Mobile menu button (for future implementation) -->
+            <button class="mobile-menu-toggle" aria-label="Відкрити меню" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="container">
+                <div class="hero-logo-container">
+                    <!-- Покращений SVG логотип з активними анімаціями -->
+                    <svg width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" 
+                         id="ggeniusAnimatedLogo" role="img" aria-labelledby="ggeniusLogoTitle">
+                        <title id="ggeniusLogoTitle">Анімований логотип GGenius: мозок та геймпад у шестикутнику</title>
+                        <defs>
+                            <linearGradient id="logoSvgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" class="gradient-stop-1" />
+                                <stop offset="100%" class="gradient-stop-2" />
+                            </linearGradient>
+                            
+                            <!-- Додаткові градієнти для анімацій -->
+                            <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color: var(--accent-primary); stop-opacity: 0.8" />
+                                <stop offset="100%" style="stop-color: var(--ggenius-cyan); stop-opacity: 0.9" />
+                            </linearGradient>
+                            
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge> 
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                    
+                        <!-- Шестикутна рамка -->
+                        <polygon class="logo-hexagon-frame" 
+                                 points="50,5 93,25 93,75 50,95 7,75 7,25" 
+                                 fill="none" 
+                                 stroke="url(#logoSvgGradient)" 
+                                 stroke-width="2"
+                                 filter="url(#glow)" />
+                    
+                        <!-- Геймпад -->
+                        <g class="logo-gamepad">
+                            <path class="logo-gamepad-base gamepad-element" 
+                                  d="M25,65 Q20,55 30,50 L70,50 Q80,55 75,65 L70,75 Q50,85 30,75 L25,65 Z" 
+                                  fill="url(#logoSvgGradient)" 
+                                  stroke="none" />
+                            
+                            <!-- D-pad -->
+                            <g class="logo-d-pad gamepad-element">
+                                <rect x="30" y="58" width="5" height="10" rx="1" fill="var(--primary-bg-color)"/>
+                                <rect x="27" y="61" width="10" height="5" rx="1" fill="var(--primary-bg-color)"/>
+                            </g>
+                            
+                            <!-- Кнопки -->
+                            <g class="logo-buttons-group gamepad-element">
+                                <circle cx="60" cy="58" r="3" fill="var(--primary-bg-color)" />
+                                <circle cx="68" cy="63" r="3" fill="var(--primary-bg-color)" />
+                            </g>
+                        </g>
+                        
+                        <!-- Мозок -->
+                        <g class="logo-brain">
+                            <path class="logo-brain-line brain-left" 
+                                  d="M48,20 Q40,25 45,35 Q40,45 48,50"
+                                  fill="none" 
+                                  stroke="url(#brainGradient)" 
+                                  stroke-width="2"
+                                  stroke-linecap="round" />
+                            <path class="logo-brain-line brain-left-secondary" 
+                                  d="M48,25 Q35,30 40,40"
+                                  fill="none" 
+                                  stroke="url(#brainGradient)" 
+                                  stroke-width="1.5"
+                                  stroke-linecap="round" />
+                            <path class="logo-brain-line brain-right" 
+                                  d="M52,20 Q60,25 55,35 Q60,45 52,50"
+                                  fill="none" 
+                                  stroke="url(#brainGradient)" 
+                                  stroke-width="2"
+                                  stroke-linecap="round" />
+                            <path class="logo-brain-line brain-right-secondary" 
+                                  d="M52,25 Q65,30 60,40"
+                                  fill="none" 
+                                  stroke="url(#brainGradient)" 
+                                  stroke-width="1.5"
+                                  stroke-linecap="round" />
+                        </g>
+                    </svg>
+                </div>
+                
+                <!-- Головний заголовок H1 -->
+                <h1 class="hero-title text-gradient">GGenius</h1>
+                
+                <p class="subtitle">Ваш шлях до домінування в Mobile Legends: Bang Bang починається тут. 
+                   Інноваційна платформа з аналітикою на основі ШІ та турнірними системами.</p>
+                
+                <div class="hero-cta-group">
+                    <a href="#features" class="cta-button hero-cta">
+                        <span>Дізнатися більше</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </a>
+                    <a href="#contact" class="cta-button cta-yellow">
+                        <span>Зв'язатися</span>
+                    </a>
+                </div>
+            </div>
         </section>
 
-        <!-- ... решта секцій ... -->
+        <!-- Features Section (IUI Style) -->
+        <section id="features" class="features-section-iui">
+            <div class="container">
+                <h2 class="section-title-iui">Майбутні можливості</h2>
+                
+                <div class="features-grid-iui">
+                    <div class="feature-card-iui">
+                        <div class="feature-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 12l2 2 4-4"/>
+                                <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
+                                <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
+                                <path d="M3 12c0 5.5 4.5 10 10 10s10-4.5 10-10"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card-title">ШІ Аналітика</h3>
+                        <p class="feature-card-description">
+                            Глибокий аналіз ваших матчів з рекомендаціями для покращення гри та стратегії.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card-iui">
+                        <div class="feature-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <path d="M9 9h6v6H9z"/>
+                                <path d="M9 1v6M15 1v6M9 17v6M15 17v6M1 9h6M1 15h6M17 9h6M17 15h6"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card-title">Турнірні Системи</h3>
+                        <p class="feature-card-description">
+                            Автоматизоване створення турнірних сіток та управління змаганнями.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card-iui">
+                        <div class="feature-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card-title">Соціальна Платформа</h3>
+                        <p class="feature-card-description">
+                            Об'єднання гравців, формування команд та спілкування з спільнотою.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card-iui">
+                        <div class="feature-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card-title">Персональні Тренування</h3>
+                        <p class="feature-card-description">
+                            Індивідуальні програми тренувань та рекомендації для вашого стилю гри.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
         <section id="about" class="accordion-section">
-            <div class="accordion-header">
-                <h2>Про Проєкт</h2>
-                <span class="accordion-indicator">+</span>
-            </div>
-            <div class="accordion-content">
-                <div class="accordion-content-inner">
-                    <p>GGenius - це інноваційна платформа, що об'єднує гравців, команди та турнірних організаторів MLBB...</p>
+            <div class="container">
+                <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+                    <h2>Про Проєкт</h2>
+                    <span class="accordion-indicator" aria-hidden="true">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p><strong>GGenius</strong> - це інноваційна платформа, що об'єднує гравців, команди та турнірних організаторів Mobile Legends: Bang Bang в єдину екосистему.</p>
+                        
+                        <p>Наша мета - революціонізувати підхід до кіберспорту через:</p>
+                        <ul>
+                            <li>Передові технології штучного інтелекту</li>
+                            <li>Глибоку аналітику ігрового процесу</li>
+                            <li>Автоматизацію турнірних процесів</li>
+                            <li>Створення активної спільноти гравців</li>
+                        </ul>
+                        
+                        <p>Приєднуйтеся до майбутнього кіберспорту вже сьогодні!</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="features" class="accordion-section features-section">
-            <div class="accordion-header">
-                <h2>Ключові Можливості (Майбутні)</h2>
-                <span class="accordion-indicator">+</span>
-            </div>
-            <div class="accordion-content">
-                <div class="accordion-content-inner">
-                    <ul>
-                        <li>Аналітика матчів на основі ШІ</li>
-                        <li>Автоматизоване створення турнірних сіток</li>
-                        <li>Персоналізовані рекомендації для тренувань</li>
-                        <li>Соціальна платформа для гравців</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
+        <!-- Contact Section -->
         <section id="contact" class="accordion-section contact-section">
-            <div class="accordion-header">
-                <h2>Зв'яжіться з Нами</h2>
-                <span class="accordion-indicator">+</span>
+            <div class="container">
+                <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+                    <h2>Зв'яжіться з Нами</h2>
+                    <span class="accordion-indicator" aria-hidden="true">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>Слідкуйте за новинами та майбутніми анонсами!</p>
+                        
+                        <div class="contact-info">
+                            <p><strong>Розробник:</strong> MLBB-BOSS</p>
+                            <p><strong>GitHub:</strong> <a href="https://github.com/MLBB-BOSS/GGenius" target="_blank" rel="noopener">github.com/MLBB-BOSS/GGenius</a></p>
+                            <p><strong>Статус:</strong> В розробці</p>
+                        </div>
+                        
+                        <div class="social-links">
+                            <p>Підписуйтесь на оновлення:</p>
+                            <!-- Тут будуть соціальні мережі в майбутньому -->
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="accordion-content">
-                <div class="accordion-content-inner">
-                    <p>Слідкуйте за новинами та майбутніми анонсами!</p>
+        </section>
+
+        <!-- Tech Stack Section (Optional) -->
+        <section class="tech-stack-section">
+            <div class="container">
+                <h2 class="section-title-iui">Технології</h2>
+                <div class="tech-logos">
+                    <span>Python</span>
+                    <span>aiogram</span>
+                    <span>FastAPI</span>
+                    <span>PostgreSQL</span>
+                    <span>Redis</span>
+                    <span>Docker</span>
+                    <span>AI/ML</span>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 GGenius by MLBB-BOSS. Всі права захищено.</p>
+    <!-- Footer -->
+    <footer class="site-footer-iui">
+        <div class="container">
+            <p>&copy; 2025 GGenius by MLBB-BOSS. Всі права захищено.</p>
+            <p class="footer-glory">Революція в MLBB кіберспорті</p>
+        </div>
     </footer>
+    
+    <!-- Loading indicator -->
+    <div id="loading-indicator" class="loading-hidden">
+        <div class="loading-spinner"></div>
+    </div>
     
     <script src="/static/js/enhancements.js" defer></script>
 </body>
