@@ -10,22 +10,21 @@
     --surface-color: #2d3439;
     
     /* Text Colors */
-    --text-primary: #ffffff; /* Головний, найяскравіший текст */
-    /* --text-secondary: #b8c5d1; */ /* Попереднє значення для вторинного тексту */
-    --text-secondary: #cccccc; /* ПРИКЛАД: Змінено на світліший сірий */ 
-    /* Або, наприклад, на один з ваших акцентних кольорів: */
-    /* --text-secondary: var(--accent-warning); */ /* Жовто-гарячий для прикладу */
-    --text-muted: #8899a6;   /* Для менш важливого, приглушеного тексту */
+    --text-primary: #ffffff;
+    --text-secondary: #b8c5d1; /* Поточний колір для вторинного тексту */
+    --text-muted: #8899a6;
     
     /* Brand Colors */
-    --accent-primary: #00d4ff; /* Яскравий ціан */
-    --accent-secondary: #ff4757; /* Червоний акцент */
-    --accent-success: #2ed573; /* Зелений для успіху */
-    --accent-warning: #ffa502; /* Помаранчевий для попереджень */
-    --accent-purple: #a55eea; /* Фіолетовий акцент */
+    /* --accent-primary: #00d4ff; */ /* ПОПЕРЕДНЄ ЗНАЧЕННЯ для основного акценту (посилання) */
+    --accent-primary: var(--accent-success); /* НОВЕ ЗНАЧЕННЯ: тепер посилання будуть зеленими */
+    --accent-secondary: #ff4757;
+    --accent-success: #2ed573; /* Зелений для успіху - ВИКОРИСТОВУЄМО ЦЕЙ для посилань */
+    --accent-warning: #ffa502;
+    --accent-purple: #a55eea;
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
+    /* Градієнт для заголовків тепер буде починатися з зеленого, якщо він використовує --accent-primary */
+    --gradient-primary: linear-gradient(135deg, var(--accent-primary), var(--accent-purple)); 
     --gradient-secondary: linear-gradient(135deg, var(--accent-secondary), var(--accent-warning));
     --gradient-bg: linear-gradient(135deg, #0a0c0f 0%, #1a1d23 50%, #252a32 100%);
     
@@ -37,7 +36,8 @@
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 20px rgba(0, 212, 255, 0.3);
+    /* Тінь світіння також може змінити відтінок, якщо --accent-primary використовується в ній опосередковано */
+    --shadow-glow: 0 0 20px color-mix(in srgb, var(--accent-primary) 70%, transparent); /* Адаптовано для використання зміненого --accent-primary */
     --shadow-glow-red: 0 0 20px rgba(255, 71, 87, 0.3);
     
     /* Borders */
@@ -84,7 +84,7 @@ html {
 body {
     font-family: var(--font-secondary);
     background: var(--gradient-bg);
-    color: var(--text-primary); /* Базовий колір тексту для body, якщо не перевизначено */
+    color: var(--text-primary);
     margin: 0;
     padding: 0;
     line-height: 1.6;
@@ -104,12 +104,12 @@ body::before {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, color-mix(in srgb, var(--accent-primary) 20%, transparent) 0%, transparent 50%), /* Адаптовано */
         radial-gradient(circle at 80% 20%, rgba(255, 71, 87, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(165, 94, 234, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 40% 40%, color-mix(in srgb, var(--accent-purple) 20%, transparent) 0%, transparent 50%); /* Адаптовано */
     z-index: var(--z-background);
     animation: backgroundMove 20s ease-in-out infinite;
-    will-change: transform;
+    will-change: transform; 
 }
 
 /* Main Container */
@@ -127,7 +127,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     line-height: 1.2;
     margin: 0 0 var(--spacing-sm) 0;
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* Цей градієнт зміниться через --accent-primary */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -154,7 +154,7 @@ h2::after {
     left: 0;
     width: 60px;
     height: 4px;
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* І ця лінія зміниться */
     border-radius: 2px;
     animation: expandLine 0.8s ease-out forwards;
 }
@@ -165,20 +165,20 @@ h3 {
 
 p {
     margin-bottom: var(--spacing-sm);
-    color: var(--text-secondary); /* Використовує оновлену змінну --text-secondary */
+    color: var(--text-secondary); 
     font-size: 1.1rem;
 }
 
 /* Links */
 a {
-    color: var(--accent-primary);
+    color: var(--accent-primary); /* ОСНОВНА ЗМІНА: посилання тепер будуть зеленими */
     text-decoration: none;
     transition: all var(--transition-normal);
     position: relative;
 }
 
 a:hover, a:focus {
-    color: var(--accent-secondary);
+    color: var(--accent-secondary); /* Колір при наведенні залишаємо червоним для контрасту, або можна змінити */
     text-shadow: 0 0 8px currentColor;
 }
 
@@ -189,7 +189,7 @@ a::after {
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* Підкреслення теж зміниться */
     transition: width var(--transition-normal);
 }
 
@@ -217,7 +217,7 @@ section::before {
     left: 0;
     right: 0;
     height: 1px;
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* І ця лінія зміниться */
     opacity: 0.5;
 }
 
@@ -245,12 +245,12 @@ section::before {
     font-size: clamp(3rem, 8vw, 6rem);
     margin-bottom: var(--spacing-md);
     animation: heroSlideIn 1s ease-out forwards;
-    text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+    text-shadow: 0 0 30px color-mix(in srgb, var(--accent-primary) 50%, transparent); /* Адаптовано */
 }
 
 .hero-section .subtitle {
     font-size: clamp(1.2rem, 3vw, 1.8rem);
-    color: var(--text-secondary); /* Також використовує --text-secondary */
+    color: var(--text-secondary); 
     max-width: 800px;
     margin-bottom: var(--spacing-xl);
     animation: heroSlideIn 1s ease-out 0.3s both;
@@ -263,8 +263,8 @@ section::before {
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-xs);
-    background: var(--gradient-primary);
-    color: var(--text-primary); /* Текст кнопки - основний білий */
+    background: var(--gradient-primary); /* Кнопка також змінить градієнт */
+    color: var(--text-primary); 
     padding: var(--spacing-sm) var(--spacing-lg);
     font-size: 1.1rem;
     font-family: var(--font-primary);
@@ -277,8 +277,18 @@ section::before {
     position: relative;
     overflow: hidden;
     transition: all var(--transition-normal);
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--shadow-glow); /* Світіння кнопки також зміниться */
     animation: pulseGlow 2s infinite ease-in-out 1s;
+}
+
+/* Оновлення анімації pulseGlow для відповідності новому --accent-primary */
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: var(--shadow-glow);
+    }
+    50% {
+        box-shadow: 0 0 30px color-mix(in srgb, var(--accent-primary) 80%, transparent);
+    }
 }
 
 .cta-button::before {
@@ -301,8 +311,8 @@ section::before {
 
 .cta-button:hover {
     transform: translateY(-4px) scale(1.05);
-    box-shadow: var(--shadow-glow-red);
-    background: var(--gradient-secondary);
+    box-shadow: var(--shadow-glow-red); /* Залишаємо червоне світіння при наведенні для контрасту */
+    background: var(--gradient-secondary); /* Градієнт при наведенні також можна адаптувати, якщо потрібно */
 }
 
 /* Features Section (Gaming Stats Cards) */
@@ -332,15 +342,15 @@ section::before {
     left: 0;
     width: 4px;
     height: 100%;
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* І ця лінія зміниться */
     transition: transform var(--transition-normal); 
     transform-origin: bottom; 
 }
 
 .features-section li:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
-    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-lg), var(--shadow-glow); /* Світіння зміниться */
+    border-color: var(--accent-primary); /* Колір рамки при наведенні зміниться */
 }
 
 .features-section li:hover::before {
@@ -351,7 +361,7 @@ section::before {
 .feature-icon {
     width: 60px;
     height: 60px;
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* Іконка зміниться */
     border-radius: var(--border-radius-md);
     display: flex;
     align-items: center;
@@ -368,7 +378,7 @@ section::before {
 }
 
 .feature-description {
-    color: var(--text-secondary); /* Також використовує --text-secondary */
+    color: var(--text-secondary); 
     line-height: 1.6;
 }
 
@@ -384,7 +394,7 @@ section::before {
     right: 20px;
     width: 100px;
     height: 100px;
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* Декоративний елемент зміниться */
     border-radius: 50%;
     opacity: 0.1;
     animation: float 3s ease-in-out infinite;
@@ -392,7 +402,7 @@ section::before {
 }
 
 .about-section .highlight { 
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* Виділений текст зміниться */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -417,7 +427,7 @@ section::before {
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
-    color: var(--text-secondary); /* Іконки соцмереж - також вторинний колір */
+    color: var(--text-secondary); 
     transition: all var(--transition-normal);
     position: relative;
     overflow: hidden;
@@ -430,7 +440,7 @@ section::before {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* Заповнення при наведенні зміниться */
     transition: all var(--transition-normal);
     z-index: -1; 
 }
@@ -441,9 +451,9 @@ section::before {
 
 .contact-section .social-links a:hover {
     color: var(--text-primary);
-    border-color: var(--accent-primary);
+    border-color: var(--accent-primary); /* Колір рамки при наведенні зміниться */
     transform: translateY(-4px) rotate(5deg);
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--shadow-glow); /* Світіння зміниться */
 }
 
 /* Modern Form Styling (if used within contact accordion) */
@@ -466,7 +476,7 @@ section::before {
     background: var(--surface-color);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius-md);
-    color: var(--text-primary); /* Текст у полях вводу - основний білий */
+    color: var(--text-primary); 
     font-family: var(--font-secondary);
     font-size: 1rem;
     transition: all var(--transition-normal);
@@ -475,8 +485,8 @@ section::before {
 .contact-section input:focus,
 .contact-section textarea:focus {
     outline: none;
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+    border-color: var(--accent-primary); /* Колір рамки при фокусі зміниться */
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 20%, transparent); /* Тінь при фокусі зміниться */
     background: var(--tertiary-bg-color);
 }
 
@@ -516,14 +526,14 @@ section.accordion-section {
     left: 0;
     width: 60px; 
     height: 4px;
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* Лінія під заголовком акордеону зміниться */
     border-radius: 2px;
     animation: none; 
 }
 
 .accordion-indicator {
     font-size: 2rem; 
-    color: var(--accent-primary); /* Колір індикатора акордеону */
+    color: var(--accent-primary); /* Індикатор акордеону зміниться */
     transition: transform 0.3s ease-out;
     margin-left: var(--spacing-sm); 
     line-height: 1; 
@@ -555,7 +565,7 @@ section.accordion-section {
 .text-top-highlight {
     font-family: var(--font-primary); 
     font-weight: 700; 
-    color: var(--accent-primary); /* Колір для .text-top-highlight */
+    color: var(--accent-primary); /* Цей текст також стане зеленим */
     text-transform: uppercase; 
     letter-spacing: 1px; 
     text-shadow: 
@@ -583,7 +593,7 @@ footer::before {
     transform: translateX(-50%);
     width: 100px;
     height: 2px;
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* Лінія у футері зміниться */
 }
 
 /* Loading Animation */
@@ -606,7 +616,7 @@ footer::before {
     width: 60px;
     height: 60px;
     border: 3px solid rgba(255, 255, 255, 0.1);
-    border-top: 3px solid var(--accent-primary);
+    border-top: 3px solid var(--accent-primary); /* Спіннер завантаження зміниться */
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -618,7 +628,7 @@ footer::before {
     left: 0;
     width: 0%;
     height: 3px;
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* Прогрес-бар зміниться */
     z-index: var(--z-sticky);
     transition: width 0.1s ease-out;
 }
@@ -644,14 +654,7 @@ footer::before {
     }
 }
 
-@keyframes pulseGlow {
-    0%, 100% {
-        box-shadow: var(--shadow-glow);
-    }
-    50% {
-        box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
-    }
-}
+/* pulseGlow анімація вже оновлена вище */
 
 @keyframes shine {
     0% {
@@ -773,7 +776,8 @@ footer::before {
     :root {
         --text-primary-high-contrast: #ffffff; 
         --text-secondary-high-contrast: #e0e0e0; 
-        --accent-primary-high-contrast: #00ffff; 
+        /* --accent-primary-high-contrast: #00ffff;  Оновлюємо згідно з новим --accent-primary */
+        --accent-primary-high-contrast: var(--accent-success); /* Зелений для високого контрасту теж */
         --accent-secondary-high-contrast: #ff00ff; 
         
         --text-primary: var(--text-primary-high-contrast);
@@ -848,7 +852,7 @@ footer::before {
     }
 
     a {
-      color: #0000ff !important; 
+      color: #0000ff !important; /* Стандартний синій для друку, або можна var(--accent-primary) якщо він буде чорним */
       text-decoration: underline !important;
     }
     a::after {
@@ -887,14 +891,19 @@ footer::before {
     --text-primary: #212529;
     --text-secondary: #495057;
     --text-muted: #6c757d;
+    
+    /* --accent-primary для світлої теми може потребувати іншого значення, якщо зелений не пасує */
+    /* Наприклад, можна залишити його як var(--accent-success) або вибрати інший колір */
+    /* --accent-primary: #007bff; (приклад синього для світлої теми) */
+
 
     --gradient-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     
     body::before {
         background: 
-            radial-gradient(circle at 20% 80%, rgba(0, 123, 255, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 20% 80%, color-mix(in srgb, var(--accent-primary) 10%, transparent) 0%, transparent 50%),
             radial-gradient(circle at 80% 20%, rgba(255, 100, 150, 0.05) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(100, 200, 230, 0.05) 0%, transparent 50%);
+            radial-gradient(circle at 40% 40%, color-mix(in srgb, var(--accent-purple) 10%, transparent) 0%, transparent 50%);
     }
 
     section {
@@ -930,7 +939,7 @@ footer::before {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--gradient-primary);
+    background: var(--gradient-primary); /* Смуга прокрутки також зміниться */
     border-radius: 4px;
 }
 
