@@ -1,0 +1,81 @@
+name: Add Missing Project Directories
+
+on:
+  workflow_dispatch: # Дозволяє ручний запуск
+
+jobs:
+  add_missing_dirs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Необхідно для запису змін (push) до репозиторію
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Забезпечуємо, що ми працюємо з актуальним станом гілки
+          # Це важливо, якщо Action запускається не одразу після push
+          fetch-depth: 0 
+
+      - name: Create Missing Directories
+        id: create_dirs
+        run: |
+          missing_created=false
+          
+          if [ ! -d "shared" ]; then
+            mkdir -p shared
+            echo "Directory 'shared' created."
+            missing_created=true
+          else
+            echo "Directory 'shared' already exists."
+          fi
+
+          if [ ! -d "infrastructure" ]; then
+            mkdir -p infrastructure
+            echo "Directory 'infrastructure' created."
+            missing_created=true
+          else
+            echo "Directory 'infrastructure' already exists."
+          fi
+          
+          if [ ! -d "infrastructure/nginx" ]; then
+            mkdir -p infrastructure/nginx
+            echo "Directory 'infrastructure/nginx' created."
+            missing_created=true # Вже буде true, якщо infrastructure створено, але для логіки залишаємо
+          else
+            echo "Directory 'infrastructure/nginx' already exists."
+          fi
+
+          if [ ! -d "infrastructure/ssl" ]; then
+            mkdir -p infrastructure/ssl
+            echo "Directory 'infrastructure/ssl' created."
+            missing_created=true # Аналогічно
+          else
+            echo "Directory 'infrastructure/ssl' already exists."
+          fi
+          
+          echo "::set-output name=directories_created::$missing_created"
+        shell: bash
+
+      - name: Commit and Push Changes
+        if: steps.create_dirs.outputs.directories_created == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Додаємо лише ті зміни, які могли бути зроблені (нові папки)
+          # git add . може бути занадто широким, якщо є інші незакомічені зміни.
+          # Краще додати конкретні шляхи, якщо ми точно знаємо, що створюємо.
+          # Але оскільки mkdir -p не видає помилку, якщо папка існує,
+          # а ми комітимо тільки якщо щось *було* створено, git add . безпечно.
+          git add shared infrastructure 
+          
+          git commit -m "Chore: Add missing project directories (shared, infrastructure and subdirectories)"
+          git push
+          echo "Missing directories added, committed, and pushed."
+        shell: bash
+
+      - name: No Changes to Commit
+        if: steps.create_dirs.outputs.directories_created == 'false'
+        run: |
+          echo "No missing directories were found to create. No commit needed."
+        shell: bash
