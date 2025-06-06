@@ -1,0 +1,44 @@
+/* Gaming Cursor Styles */
+.gaming-cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+}
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+}
+
+.cursor-ring {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--accent-primary);
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    opacity: 0.5;
+}
+
+.gaming-cursor.clicked .cursor-ring {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 1;
+}
+
+/* Performance mode - reduced animations */
+.performance-mode * {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.3s !important;
+}
+
+.performance-mode .gaming-cursor,
+.performance-mode body::before {
+    display: none !important;
+}
