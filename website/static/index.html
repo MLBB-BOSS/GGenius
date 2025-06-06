@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GGenius - Революція в MLBB Кіберспорті</title>
-    <link rel="stylesheet" href="/static/css/style.css"> 
-    <!-- Важливо: шлях до CSS має бути абсолютним від кореня сайту, 
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- Важливо: шлях до CSS має бути абсолютним від кореня сайту,
          або відносним, якщо сервер правильно налаштований.
          Для FastAPI з StaticFiles, /static/css/style.css буде правильним,
          якщо ми монтуємо папку static/ як /static -->
@@ -17,27 +17,49 @@
     </header>
 
     <main>
-        <section id="about">
-            <h2>Про Проєкт</h2>
-            <p>GGenius - це інноваційна платформа, що об'єднує гравців, команди та турнірних організаторів MLBB...</p>
-            <!-- Додайте більше інформації про ваш проєкт -->
+        <section id="about" class="accordion-section">
+            <div class="accordion-header">
+                <h2>Про Проєкт</h2>
+                <span class="accordion-indicator">+</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>GGenius - це інноваційна платформа, що об'єднує гравців, команди та турнірних організаторів MLBB...</p>
+                    <!-- Додайте більше інформації про ваш проєкт -->
+                </div>
+            </div>
         </section>
 
-        <section id="features">
-            <h2>Ключові Можливості (Майбутні)</h2>
-            <ul>
-                <li>Аналітика матчів на основі ШІ</li>
-                <li>Автоматизоване створення турнірних сіток</li>
-                <li>Персоналізовані рекомендації для тренувань</li>
-                <li>Соціальна платформа для гравців</li>
-                <!-- Додайте інші функції -->
-            </ul>
+        <section id="features" class="accordion-section features-section"> <!-- Додано features-section для збереження стилів списку -->
+            <div class="accordion-header">
+                <h2>Ключові Можливості (Майбутні)</h2>
+                <span class="accordion-indicator">+</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <ul>
+                        <li>Аналітика матчів на основі ШІ</li>
+                        <li>Автоматизоване створення турнірних сіток</li>
+                        <li>Персоналізовані рекомендації для тренувань</li>
+                        <li>Соціальна платформа для гравців</li>
+                        <!-- Додайте інші функції -->
+                    </ul>
+                </div>
+            </div>
         </section>
 
-        <section id="contact">
-            <h2>Зв'яжіться з Нами</h2>
-            <p>Слідкуйте за новинами та майбутніми анонсами!</p>
-            <!-- Можна додати посилання на соціальні мережі або форму контакту в майбутньому -->
+        <section id="contact" class="accordion-section contact-section"> <!-- Додано contact-section для збереження стилів -->
+            <div class="accordion-header">
+                <h2>Зв'яжіться з Нами</h2>
+                <span class="accordion-indicator">+</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-content-inner">
+                    <p>Слідкуйте за новинами та майбутніми анонсами!</p>
+                    <!-- Можна додати посилання на соціальні мережі або форму контакту в майбутньому -->
+                    <!-- Якщо тут були .social-links або form, їх потрібно залишити всередині .accordion-content-inner -->
+                </div>
+            </div>
         </section>
     </main>
 
@@ -45,7 +67,7 @@
         <p>&copy; 2025 GGenius by MLBB-BOSS. Всі права захищено.</p>
     </footer>
 
-    <!-- <script src="/static/js/main.js"></script> --> 
-    <!-- Якщо потрібен JS -->
+    <script src="/static/js/enhancements.js" defer></script>
+    <!-- Якщо потрібен JS, він тепер підключений через enhancements.js -->
 </body>
 </html>
