@@ -558,6 +558,23 @@ section.accordion-section {
 }
 /* === End of Accordion Styles === */
 
+/* === Utility Text Styles === */
+.text-top-highlight {
+    font-family: var(--font-primary); /* Exo 2 */
+    font-weight: 700; /* Bold. Consider 900 for even stronger emphasis */
+    color: var(--accent-primary); /* #00d4ff */
+    text-transform: uppercase; /* Common for impactful gaming text */
+    letter-spacing: 1px; /* Adds a bit of "design" feel */
+    /* Neon-like glow effect using modern CSS color-mix */
+    text-shadow: 
+        0 0 8px color-mix(in srgb, var(--accent-primary) 60%, transparent),
+        0 0 12px color-mix(in srgb, var(--accent-primary) 40%, transparent),
+        0 0 16px color-mix(in srgb, var(--accent-primary) 20%, transparent);
+    /* Fallback for text-shadow if color-mix is not supported (though it should be by 2025) */
+    /* text-shadow: 0 0 8px rgba(0, 212, 255, 0.5), 0 0 12px rgba(0, 212, 255, 0.3); */
+}
+/* === End of Utility Text Styles === */
+
 
 /* Enhanced Footer */
 footer {
@@ -770,20 +787,26 @@ footer::before {
         --text-secondary-high-contrast: #e0e0e0; /* Or specific high contrast color */
         --accent-primary-high-contrast: #00ffff; /* Cyan, very high contrast */
         --accent-secondary-high-contrast: #ff00ff; /* Magenta, very high contrast */
+        
+        /* Overriding original variables for simplicity if they are widely used */
+        --text-primary: var(--text-primary-high-contrast);
+        --text-secondary: var(--text-secondary-high-contrast);
+        --accent-primary: var(--accent-primary-high-contrast);
+        --accent-secondary: var(--accent-secondary-high-contrast);
     }
 
     /* Override text colors for better contrast */
     body {
-        color: var(--text-primary-high-contrast);
+        color: var(--text-primary); /* Uses overridden variable */
     }
     p {
-        color: var(--text-secondary-high-contrast);
+        color: var(--text-secondary); /* Uses overridden variable */
     }
     a {
-        color: var(--accent-primary-high-contrast);
+        color: var(--accent-primary); /* Uses overridden variable */
     }
     a:hover, a:focus {
-        color: var(--accent-secondary-high-contrast);
+        color: var(--accent-secondary); /* Uses overridden variable */
     }
 
     /* Ensure gradient texts become solid and high-contrast */
@@ -791,21 +814,27 @@ footer::before {
     .about-section .highlight,
     .feature-title { /* If feature-title might use gradient */
         background: none !important; /* Remove gradient */
-        -webkit-text-fill-color: var(--text-primary-high-contrast) !important; /* Solid color */
-        color: var(--text-primary-high-contrast) !important; /* Fallback */
+        -webkit-text-fill-color: var(--text-primary) !important; /* Solid color */
+        color: var(--text-primary) !important; /* Fallback */
         text-shadow: none !important; /* Remove potentially low-contrast shadows */
     }
 
     /* Adjust other elements for high contrast as needed */
     .cta-button {
-        background: var(--accent-primary-high-contrast);
+        background: var(--accent-primary);
         color: var(--primary-bg-color); /* Dark text on light button */
     }
     .cta-button:hover {
-        background: var(--accent-secondary-high-contrast);
+        background: var(--accent-secondary);
     }
     .scroll-progress {
-        background: var(--accent-primary-high-contrast);
+        background: var(--accent-primary);
+    }
+
+    /* Ensure .text-top-highlight is high contrast */
+    .text-top-highlight {
+        text-shadow: none !important; /* Remove glow for clarity */
+        /* Color will use the overridden --accent-primary for high contrast */
     }
 }
 
@@ -861,6 +890,10 @@ footer::before {
     .accordion-indicator {
         display: none !important; /* Hide +/- indicators */
     }
+    .text-top-highlight {
+        color: black !important; /* Ensure highlight text is black in print */
+        text-shadow: none !important;
+    }
 }
 
 /* Light theme toggle (if implemented) */
@@ -901,6 +934,14 @@ footer::before {
     .contact-section textarea:focus {
         border-color: var(--accent-primary); /* Keep accent for focus */
         background: var(--secondary-bg-color);
+    }
+
+    .text-top-highlight {
+        /* Adjust shadow for light theme if needed, or rely on accent color change */
+        text-shadow: 
+            0 0 8px color-mix(in srgb, var(--accent-primary) 60%, transparent),
+            0 0 12px color-mix(in srgb, var(--accent-primary) 40%, transparent);
+        /* Ensure --accent-primary is suitable for light theme or define a light theme specific accent */
     }
 }
 
