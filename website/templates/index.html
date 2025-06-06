@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GGenius - MLBB Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>Ласкаво просимо до GGenius!</h1>
+            <p class="subtitle">Ваш шлях до домінування в Mobile Legends: Bang Bang починається тут.</p>
+            <a href="#about" class="cta-button">Розпочати подорож</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section progressive-section">
+        <div class="container">
+            <h2>Про Проєкт</h2>
+            <div class="section-content">
+                <p>GGenius - це <strong>інноваційна платформа</strong>, що об'єднує гравців, команди та турнірних організаторів MLBB в єдину екосистему для розвитку кіберспорту.</p>
+                <p>Наша місія - створити найкращі умови для зростання українського кіберспорту та допомогти кожному гравцю розкрити свій потенціал.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section progressive-section">
+        <div class="container">
+            <h2>Ключові Можливості (Майбутні)</h2>
+            <div class="section-content">
+                <ul>
+                    <li>
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Аналітика матчів на основі ШІ</div>
+                        <div class="feature-description">Детальний розбір ваших ігор з рекомендаціями для покращення</div>
+                    </li>
+                    <li>
+                        <div class="feature-icon">🏆</div>
+                        <div class="feature-title">Автоматизоване створення турнірних сіток</div>
+                        <div class="feature-description">Організовуйте турніри з автоматичним підбором суперників</div>
+                    </li>
+                    <li>
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-title">Персоналізовані рекомендації для тренувань</div>
+                        <div class="feature-description">ШІ-алгоритми допоможуть створити ідеальний план розвитку</div>
+                    </li>
+                    <li>
+                        <div class="feature-icon">👥</div>
+                        <div class="feature-title">Соціальна платформа для гравців</div>
+                        <div class="feature-description">Знаходьте однодумців, створюйте команди, діліться досвідом</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section progressive-section">
+        <div class="container">
+            <h2>Зв'яжіться з Нами</h2>
+            <div class="section-content">
+                <p>Готові приєднатися до майбутнього кіберспорту? Зв'яжіться з нами!</p>
+                
+                <div class="social-links">
+                    <a href="#" aria-label="Discord"><i>🎮</i></a>
+                    <a href="#" aria-label="Telegram"><i>📱</i></a>
+                    <a href="#" aria-label="Instagram"><i>📷</i></a>
+                    <a href="#" aria-label="YouTube"><i>🎥</i></a>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <input type="email" placeholder="Ваш email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Повідомлення" rows="4" required></textarea>
+                    </div>
+                    <button type="submit">Надіслати</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 GGenius. Всі права захищені. Створено для MLBB спільноти України.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/progressive-accordion.js') }}"></script>
+</body>
+</html>
