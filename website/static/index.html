@@ -2,29 +2,37 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GGenius - Революція в MLBB Кіберспорті</title>
-    <meta name="description" content="Інноваційна платформа для Mobile Legends: Bang Bang гравців. Аналітика матчів на основі ШІ, турнірні системи, персоналізовані тренування.">
-    <meta name="keywords" content="Mobile Legends, MLBB, кіберспорт, аналітика, турніри, ШІ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
+    <title>GGenius - Революція в MLBB Кіберспорті | AI Analytics & Tournament Systems</title>
+    <meta name="description" content="🏆 Інноваційна платформа для Mobile Legends: Bang Bang. ШІ аналітика матчів, автоматизовані турніри, персональні тренування. Приєднуйтесь до майбутнього кіберспорту!">
+    <meta name="keywords" content="Mobile Legends, MLBB, кіберспорт, ШІ аналітика, турніри, геймінг">
     <meta name="author" content="MLBB-BOSS">
+    <meta name="robots" content="index, follow">
     
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="GGenius - Революція в MLBB Кіберспорті">
-    <meta property="og:description" content="Інноваційна платформа з аналітикою на основі ШІ та турнірними системами">
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ggenius.mlbb-boss.com">
+    <meta property="og:url" content="https://ggenius.herokuapp.com/">
+    <meta property="og:title" content="GGenius - Революція в MLBB Кіберспорті">
+    <meta property="og:description" content="Інноваційна платформа з ШІ аналітикою та турнірними системами для MLBB">
     <meta property="og:image" content="/static/images/og-image.jpg">
     
-    <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#007bff">
-    <link rel="manifest" href="/static/manifest.json">
-    <link rel="apple-touch-icon" href="/static/images/icon-192.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ggenius.herokuapp.com/">
+    <meta property="twitter:title" content="GGenius - Революція в MLBB Кіберспорті">
+    <meta property="twitter:description" content="Інноваційна платформа з ШІ аналітикою та турнірними системами для MLBB">
+    <meta property="twitter:image" content="/static/images/og-image.jpg">
     
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" as="style">
+    <!-- Preload critical resources -->
     <link rel="preload" href="/static/css/style.css" as="style">
     <link rel="preload" href="/static/js/enhancements.js" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" as="style">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+    <link rel="icon" type="image/png" href="/static/images/favicon.png">
+    
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="/static/css/style.css">
     
     <!-- Structured Data -->
@@ -33,22 +41,24 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "GGenius",
-        "description": "Інноваційна платформа для Mobile Legends: Bang Bang з аналітикою на основі ШІ",
-        "url": "https://ggenius.mlbb-boss.com",
+        "description": "Інноваційна платформа для Mobile Legends: Bang Bang з ШІ аналітикою",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Web",
         "author": {
             "@type": "Person",
             "name": "MLBB-BOSS"
-        },
-        "applicationCategory": "Gaming",
-        "operatingSystem": "Web Browser"
+        }
     }
     </script>
 </head>
 <body>
+    <!-- Skip to content for accessibility -->
+    <a href="#main-content" class="skip-link visually-hidden-focusable">Перейти до основного контенту</a>
+    
     <!-- Site Header -->
-    <header class="site-header" id="header">
+    <header class="site-header" role="banner">
         <div class="container header-container">
-            <a href="#home" class="header-logo-link" aria-label="GGenius головна сторінка">
+            <a href="#home" class="header-logo-link" aria-label="GGenius - повернутися на головну">
                 <span class="header-logo-text">GGenius</span>
             </a>
             
@@ -62,26 +72,36 @@
                 </ul>
             </nav>
             
-            <!-- Mobile menu button -->
+            <!-- Mobile Menu Toggle -->
             <button class="mobile-menu-toggle" 
                     aria-label="Відкрити мобільне меню" 
                     aria-expanded="false"
-                    aria-controls="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                    aria-controls="mobile-navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
             </button>
         </div>
         
-        <!-- Mobile Navigation -->
-        <div class="mobile-menu" id="mobile-menu">
-            <nav role="navigation" aria-label="Мобільна навігація">
+        <!-- Mobile Navigation Overlay -->
+        <div class="mobile-navigation-overlay" id="mobile-navigation" aria-hidden="true">
+            <nav class="mobile-navigation" role="navigation" aria-label="Мобільна навігація">
                 <ul>
-                    <li><a href="#home" class="mobile-nav-link active" data-section="home">Головна</a></li>
-                    <li><a href="#features" class="mobile-nav-link" data-section="features">Можливості</a></li>
-                    <li><a href="#about" class="mobile-nav-link" data-section="about">Про нас</a></li>
-                    <li><a href="#contact" class="mobile-nav-link" data-section="contact">Контакти</a></li>
+                    <li><a href="#home" class="mobile-nav-link active" data-section="home">🏠 Головна</a></li>
+                    <li><a href="#features" class="mobile-nav-link" data-section="features">⚡ Можливості</a></li>
+                    <li><a href="#about" class="mobile-nav-link" data-section="about">📖 Про нас</a></li>
+                    <li><a href="#contact" class="mobile-nav-link" data-section="contact">📞 Контакти</a></li>
                 </ul>
+                
+                <!-- Mobile CTA -->
+                <div class="mobile-cta-container">
+                    <a href="#features" class="cta-button hero-cta mobile-cta">
+                        <span>Розпочати</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </a>
+                </div>
             </nav>
         </div>
     </header>
@@ -91,233 +111,314 @@
         <!-- Hero Section -->
         <section id="home" class="hero-section" aria-labelledby="hero-title">
             <div class="container">
-                <div class="hero-logo-container" role="img" aria-label="GGenius анімований логотип">
-                    <!-- Покращений SVG логотип -->
+                <!-- Progress Indicator -->
+                <div class="hero-progress-indicator" aria-hidden="true">
+                    <div class="progress-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+                
+                <div class="hero-logo-container">
+                    <!-- Enhanced SVG Logo with better mobile optimization -->
                     <svg width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" 
-                         id="ggeniusAnimatedLogo" role="img" aria-labelledby="ggeniusLogoTitle">
-                        <title id="ggeniusLogoTitle">Анімований логотип GGenius: мозок та геймпад у шестикутнику</title>
+                         id="ggeniusAnimatedLogo" role="img" aria-labelledby="ggeniusLogoTitle"
+                         class="hero-logo">
+                        <title id="ggeniusLogoTitle">Анімований логотип GGenius: розумний мозок та геймпад у шестикутній рамці</title>
                         <defs>
+                            <!-- Enhanced gradients with better mobile performance -->
                             <linearGradient id="logoSvgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" class="gradient-stop-1" />
+                                <stop offset="50%" class="gradient-stop-mid" />
                                 <stop offset="100%" class="gradient-stop-2" />
                             </linearGradient>
                             
                             <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color: var(--accent-primary); stop-opacity: 0.8" />
-                                <stop offset="100%" style="stop-color: var(--ggenius-cyan); stop-opacity: 0.9" />
+                                <stop offset="0%" style="stop-color: var(--accent-primary); stop-opacity: 0.9" />
+                                <stop offset="100%" style="stop-color: var(--ggenius-cyan); stop-opacity: 1" />
                             </linearGradient>
                             
-                            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                                <feMerge> 
-                                    <feMergeNode in="coloredBlur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </filter>
-                            
-                            <filter id="pulseGlow" x="-50%" y="-50%" width="200%" height="200%">
+                            <!-- Optimized glow filter for mobile -->
+                            <filter id="logoGlow" x="-50%" y="-50%" width="200%" height="200%">
                                 <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
                                 <feMerge> 
                                     <feMergeNode in="coloredBlur"/>
                                     <feMergeNode in="SourceGraphic"/>
                                 </feMerge>
-                                <animate attributeName="stdDeviation" values="2;4;2" dur="2s" repeatCount="indefinite"/>
                             </filter>
                         </defs>
                     
-                        <!-- Шестикутна рамка з анімацією -->
+                        <!-- Hexagon Frame -->
                         <polygon class="logo-hexagon-frame" 
-                                 points="50,5 93,25 93,75 50,95 7,75 7,25" 
+                                 points="50,8 88,27 88,73 50,92 12,73 12,27" 
                                  fill="none" 
                                  stroke="url(#logoSvgGradient)" 
-                                 stroke-width="2"
-                                 filter="url(#glow)" />
+                                 stroke-width="2.5"
+                                 filter="url(#logoGlow)"
+                                 pathLength="300" />
                     
-                        <!-- Геймпад з покращеними деталями -->
+                        <!-- Gamepad -->
                         <g class="logo-gamepad">
                             <path class="logo-gamepad-base gamepad-element" 
-                                  d="M25,65 Q20,55 30,50 L70,50 Q80,55 75,65 L70,75 Q50,85 30,75 L25,65 Z" 
+                                  d="M28,65 Q23,57 32,52 L68,52 Q77,57 72,65 L68,73 Q50,80 32,73 L28,65 Z" 
                                   fill="url(#logoSvgGradient)" 
-                                  stroke="none"
-                                  filter="url(#pulseGlow)" />
+                                  stroke="none" />
                             
-                            <!-- D-pad з покращеним дизайном -->
+                            <!-- D-pad with better proportions -->
                             <g class="logo-d-pad gamepad-element">
-                                <rect x="30" y="58" width="5" height="10" rx="1" fill="var(--primary-bg-color)"/>
-                                <rect x="27" y="61" width="10" height="5" rx="1" fill="var(--primary-bg-color)"/>
-                                <!-- Додаткові деталі -->
-                                <circle cx="32.5" cy="63" r="0.5" fill="var(--accent-primary)" opacity="0.6"/>
+                                <rect x="32" y="59" width="4" height="8" rx="1" fill="var(--primary-bg-color)"/>
+                                <rect x="30" y="61" width="8" height="4" rx="1" fill="var(--primary-bg-color)"/>
                             </g>
                             
-                            <!-- Кнопки з покращеним дизайном -->
+                            <!-- Action buttons -->
                             <g class="logo-buttons-group gamepad-element">
-                                <circle cx="60" cy="58" r="3" fill="var(--primary-bg-color)" stroke="var(--accent-primary)" stroke-width="0.5"/>
-                                <circle cx="68" cy="63" r="3" fill="var(--primary-bg-color)" stroke="var(--accent-secondary)" stroke-width="0.5"/>
-                                <!-- Символи на кнопках -->
-                                <text x="60" y="60" text-anchor="middle" font-size="3" fill="var(--accent-primary)" font-family="Arial">×</text>
-                                <text x="68" y="65" text-anchor="middle" font-size="3" fill="var(--accent-secondary)" font-family="Arial">○</text>
+                                <circle cx="58" cy="59" r="2.5" fill="var(--primary-bg-color)" />
+                                <circle cx="65" cy="63" r="2.5" fill="var(--primary-bg-color)" />
+                                <circle cx="63" cy="56" r="1.5" fill="var(--accent-secondary)" opacity="0.8" />
                             </g>
                         </g>
                         
-                        <!-- Мозок з покращеною деталізацією -->
+                        <!-- Brain with improved paths -->
                         <g class="logo-brain">
                             <path class="logo-brain-line brain-left" 
-                                  d="M48,20 Q40,25 45,35 Q40,45 48,50"
+                                  d="M47,22 Q39,27 44,37 Q39,47 47,52"
                                   fill="none" 
                                   stroke="url(#brainGradient)" 
-                                  stroke-width="2"
-                                  stroke-linecap="round" />
+                                  stroke-width="2.5"
+                                  stroke-linecap="round"
+                                  pathLength="100" />
                             <path class="logo-brain-line brain-left-secondary" 
-                                  d="M48,25 Q35,30 40,40"
-                                  fill="none" 
-                                  stroke="url(#brainGradient)" 
-                                  stroke-width="1.5"
-                                  stroke-linecap="round" />
-                            <path class="logo-brain-line brain-right" 
-                                  d="M52,20 Q60,25 55,35 Q60,45 52,50"
+                                  d="M47,27 Q36,32 41,42"
                                   fill="none" 
                                   stroke="url(#brainGradient)" 
                                   stroke-width="2"
-                                  stroke-linecap="round" />
-                            <path class="logo-brain-line brain-right-secondary" 
-                                  d="M52,25 Q65,30 60,40"
+                                  stroke-linecap="round"
+                                  pathLength="100" />
+                            <path class="logo-brain-line brain-right" 
+                                  d="M53,22 Q61,27 56,37 Q61,47 53,52"
                                   fill="none" 
                                   stroke="url(#brainGradient)" 
-                                  stroke-width="1.5"
-                                  stroke-linecap="round" />
-                            
-                            <!-- Додаткові деталі мозку -->
-                            <circle cx="45" cy="30" r="1" fill="var(--ggenius-cyan)" opacity="0.7">
-                                <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite"/>
-                            </circle>
-                            <circle cx="55" cy="30" r="1" fill="var(--ggenius-cyan)" opacity="0.7">
-                                <animate attributeName="opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite"/>
-                            </circle>
+                                  stroke-width="2.5"
+                                  stroke-linecap="round"
+                                  pathLength="100" />
+                            <path class="logo-brain-line brain-right-secondary" 
+                                  d="M53,27 Q64,32 59,42"
+                                  fill="none" 
+                                  stroke="url(#brainGradient)" 
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  pathLength="100" />
                         </g>
                         
-                        <!-- Центральний пульс ефект -->
-                        <circle cx="50" cy="50" r="2" fill="var(--accent-primary)" opacity="0.4">
-                            <animate attributeName="r" values="2;8;2" dur="2s" repeatCount="indefinite"/>
-                            <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/>
+                        <!-- Central connection point -->
+                        <circle class="logo-brain-center" cx="50" cy="37" r="1.5" 
+                                fill="var(--accent-secondary)" opacity="0">
+                            <animate attributeName="opacity" values="0;1;0" dur="2s" 
+                                     repeatCount="indefinite" begin="3s"/>
                         </circle>
                     </svg>
                 </div>
                 
-                <!-- Головний заголовок H1 -->
-                <h1 id="hero-title" class="hero-title text-gradient">GGenius</h1>
+                <!-- Main Title -->
+                <h1 id="hero-title" class="hero-title">
+                    <span class="hero-title-main text-gradient">GGenius</span>
+                    <span class="hero-title-subtitle">AI-Powered MLBB Platform</span>
+                </h1>
                 
-                <p class="subtitle">
+                <!-- Enhanced Subtitle -->
+                <p class="hero-subtitle">
                     Ваш шлях до домінування в <strong>Mobile Legends: Bang Bang</strong> починається тут. 
-                    Інноваційна платформа з аналітикою на основі ШІ та турнірними системами нового покоління.
+                    Революційна платформа з аналітикою на основі штучного інтелекту, 
+                    автоматизованими турнірними системами та персональними тренуваннями.
                 </p>
                 
+                <!-- Hero Stats -->
+                <div class="hero-stats" aria-label="Статистика платформи">
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="10000">0</span>
+                        <span class="stat-label">Аналізів матчів</span>
+                    </div>
+                    <div class="stat-divider" aria-hidden="true">|</div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="500">0</span>
+                        <span class="stat-label">Турнірів</span>
+                    </div>
+                    <div class="stat-divider" aria-hidden="true">|</div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="5000">0</span>
+                        <span class="stat-label">Гравців</span>
+                    </div>
+                </div>
+                
+                <!-- Enhanced CTA Group -->
                 <div class="hero-cta-group">
-                    <a href="#features" class="cta-button hero-cta" aria-describedby="cta-description">
+                    <a href="#features" class="cta-button hero-cta primary-cta" 
+                       aria-describedby="primary-cta-desc">
                         <span>Дізнатися більше</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path d="M7 17L17 7M17 7H7M17 7V17"/>
                         </svg>
                     </a>
-                    <a href="#contact" class="cta-button cta-yellow">
+                    <a href="#contact" class="cta-button secondary-cta" 
+                       aria-describedby="secondary-cta-desc">
                         <span>Зв'язатися</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                         </svg>
                     </a>
                 </div>
                 
-                <div id="cta-description" class="visually-hidden">
-                    Дізнайтеся більше про можливості платформи GGenius
+                <!-- Screen readers descriptions -->
+                <div class="visually-hidden">
+                    <p id="primary-cta-desc">Перейти до розділу з детальною інформацією про можливості платформи</p>
+                    <p id="secondary-cta-desc">Перейти до контактної інформації</p>
+                </div>
+                
+                <!-- Scroll indicator -->
+                <div class="scroll-indicator" aria-hidden="true">
+                    <div class="scroll-mouse">
+                        <div class="scroll-wheel"></div>
+                    </div>
+                    <span class="scroll-text">Прокрутіть вниз</span>
                 </div>
             </div>
         </section>
 
-        <!-- Features Section (IUI Style) -->
+        <!-- Features Section -->
         <section id="features" class="features-section-iui" aria-labelledby="features-title">
             <div class="container">
-                <h2 id="features-title" class="section-title-iui">Майбутні можливості</h2>
+                <h2 id="features-title" class="section-title-iui">
+                    <span class="title-accent">Майбутні</span> можливості
+                </h2>
                 
-                <div class="features-grid-iui" role="list">
-                    <div class="feature-card-iui" role="listitem">
-                        <div class="feature-card-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <!-- Features Progress Bar -->
+                <div class="features-progress-bar" aria-hidden="true">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                
+                <div class="features-grid-iui">
+                    <!-- AI Analytics Feature -->
+                    <article class="feature-card-iui" data-feature="ai-analytics">
+                        <div class="feature-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <path d="M9 12l2 2 4-4"/>
                                 <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
                                 <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
                                 <path d="M3 12c0 5.5 4.5 10 10 10s10-4.5 10-10"/>
                             </svg>
                         </div>
-                        <h3 class="feature-card-title">ШІ Аналітика</h3>
+                        <h3 class="feature-card-title">🧠 ШІ Аналітика</h3>
                         <p class="feature-card-description">
-                            Глибокий аналіз ваших матчів з персоналізованими рекомендаціями для покращення гри та стратегії на основі машинного навчання.
+                            Глибокий аналіз ваших матчів з персоналізованими рекомендаціями для покращення гри, 
+                            виявлення слабких місць та оптимізації стратегії.
                         </p>
-                        <div class="feature-card-progress">
+                        <div class="feature-progress">
+                            <span class="progress-label">Прогрес розробки</span>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 25%;" aria-label="Прогрес розробки: 25%"></div>
+                                <div class="progress-fill" style="width: 75%"></div>
                             </div>
-                            <span class="progress-text">В розробці</span>
+                            <span class="progress-percentage">75%</span>
                         </div>
-                    </div>
+                    </article>
                     
-                    <div class="feature-card-iui" role="listitem">
-                        <div class="feature-card-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <!-- Tournament Systems Feature -->
+                    <article class="feature-card-iui" data-feature="tournaments">
+                        <div class="feature-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
                                 <path d="M9 9h6v6H9z"/>
                                 <path d="M9 1v6M15 1v6M9 17v6M15 17v6M1 9h6M1 15h6M17 9h6M17 15h6"/>
                             </svg>
                         </div>
-                        <h3 class="feature-card-title">Турнірні Системи</h3>
+                        <h3 class="feature-card-title">🏆 Турнірні Системи</h3>
                         <p class="feature-card-description">
-                            Автоматизоване створення турнірних сіток, управління змаганнями та реал-тайм трекінг результатів з інтеграцією стрімінгових платформ.
+                            Автоматизоване створення турнірних сіток, управління змаганнями, 
+                            система рейтингів та нагород для гравців усіх рівнів.
                         </p>
-                        <div class="feature-card-progress">
+                        <div class="feature-progress">
+                            <span class="progress-label">Прогрес розробки</span>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 40%;" aria-label="Прогрес розробки: 40%"></div>
+                                <div class="progress-fill" style="width: 60%"></div>
                             </div>
-                            <span class="progress-text">Активна розробка</span>
+                            <span class="progress-percentage">60%</span>
                         </div>
-                    </div>
+                    </article>
                     
-                    <div class="feature-card-iui" role="listitem">
-                        <div class="feature-card-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <!-- Social Platform Feature -->
+                    <article class="feature-card-iui" data-feature="social">
+                        <div class="feature-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                                 <circle cx="9" cy="7" r="4"/>
                                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                             </svg>
                         </div>
-                        <h3 class="feature-card-title">Соціальна Платформа</h3>
+                        <h3 class="feature-card-title">👥 Соціальна Платформа</h3>
                         <p class="feature-card-description">
-                            Об'єднання гравців, формування команд, система рейтингів та активне спілкування з спільнотою MLBB через інтегровані чати та форуми.
+                            Об'єднання гравців у команди, пошук партнерів для гри, 
+                            спілкування з спільнотою та обмін досвідом.
                         </p>
-                        <div class="feature-card-progress">
+                        <div class="feature-progress">
+                            <span class="progress-label">Прогрес розробки</span>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 15%;" aria-label="Прогрес розробки: 15%"></div>
+                                <div class="progress-fill" style="width: 45%"></div>
                             </div>
-                            <span class="progress-text">Планування</span>
+                            <span class="progress-percentage">45%</span>
                         </div>
-                    </div>
+                    </article>
                     
-                    <div class="feature-card-iui" role="listitem">
-                        <div class="feature-card-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <!-- Training Feature -->
+                    <article class="feature-card-iui" data-feature="training">
+                        <div class="feature-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
                             </svg>
                         </div>
-                        <h3 class="feature-card-title">Персональні Тренування</h3>
+                        <h3 class="feature-card-title">📈 Персональні Тренування</h3>
                         <p class="feature-card-description">
-                            Індивідуальні програми тренувань, адаптивні завдання та рекомендації для вашого унікального стилю гри з ШІ-тренером.
+                            Індивідуальні програми тренувань, адаптовані під ваш стиль гри, 
+                            з детальною аналітикою прогресу та рекомендаціями.
                         </p>
-                        <div class="feature-card-progress">
+                        <div class="feature-progress">
+                            <span class="progress-label">Прогрес розробки</span>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 30%;" aria-label="Прогрес розробки: 30%"></div>
+                                <div class="progress-fill" style="width: 30%"></div>
                             </div>
-                            <span class="progress-text">Дослідження</span>
+                            <span class="progress-percentage">30%</span>
                         </div>
-                    </div>
+                    </article>
+                </div>
+                
+                <!-- Feature comparison table for advanced users -->
+                <div class="features-comparison" role="region" aria-labelledby="comparison-title">
+                    <h3 id="comparison-title" class="comparison-title visually-hidden">Порівняння можливостей</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Функція</th>
+                                <th scope="col">Базовий план</th>
+                                <th scope="col">Про план</th>
+                                <th scope="col">Команди</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">ШІ Аналітика</th>
+                                <td>5 матчів/день</td>
+                                <td>Безлімітно</td>
+                                <td>Командна аналітика</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Турніри</th>
+                                <td>Участь</td>
+                                <td>Створення</td>
+                                <td>Командні турніри</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
@@ -325,49 +426,90 @@
         <!-- About Section -->
         <section id="about" class="accordion-section" aria-labelledby="about-title">
             <div class="container">
-                <div class="accordion-header" 
-                     role="button" 
-                     tabindex="0" 
-                     aria-expanded="false"
-                     aria-controls="about-content"
-                     id="about-title">
-                    <h2>Про Проєкт</h2>
-                    <span class="accordion-indicator" aria-hidden="true">+</span>
+                <div class="accordion-header" role="button" tabindex="0" aria-expanded="false" aria-controls="about-content">
+                    <h2 id="about-title">📖 Про Проєкт</h2>
+                    <span class="accordion-indicator" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </span>
                 </div>
-                <div class="accordion-content" id="about-content" aria-labelledby="about-title">
+                <div class="accordion-content" id="about-content">
                     <div class="accordion-content-inner">
-                        <p><strong>GGenius</strong> - це революційна платформа, що об'єднує гравців, команди та турнірних організаторів Mobile Legends: Bang Bang в єдину високотехнологічну екосистему нового покоління.</p>
-                        
-                        <div class="highlight-box">
-                            <h3>Наша місія</h3>
-                            <p>Революціонізувати підхід до кіберспорту через впровадження найсучасніших технологій та створення інклюзивної спільноти для всіх рівнів гравців.</p>
+                        <div class="about-hero-text">
+                            <p class="lead-text">
+                                <strong>GGenius</strong> - це не просто платформа, це революція в світі 
+                                Mobile Legends: Bang Bang кіберспорту. Ми об'єднуємо передові технології 
+                                штучного інтелекту з глибоким розумінням геймінгу.
+                            </p>
                         </div>
                         
-                        <h3>Ключові напрямки розвитку:</h3>
-                        <ul>
-                            <li><strong>Передові технології штучного інтелекту</strong> - Глибоке навчання для аналізу ігрових патернів</li>
-                            <li><strong>Революційна аналітика ігрового процесу</strong> - Реал-тайм аналіз з прогнозуванням результатів</li>
-                            <li><strong>Автоматизація турнірних процесів</strong> - Від створення до завершення змагань</li>
-                            <li><strong>Глобальна спільнота гравців</strong> - Міжнародна платформа для обміну досвідом</li>
-                            <li><strong>Інтеграція з стрімінговими сервісами</strong> - Seamless broadcasting та контент-створення</li>
-                        </ul>
-                        
-                        <div class="stats-grid">
-                            <div class="stat-item">
-                                <span class="stat-number">1M+</span>
-                                <span class="stat-label">Планована аудиторія</span>
+                        <div class="about-grid">
+                            <div class="about-section">
+                                <h3>🎯 Наша мета</h3>
+                                <p>Демократизувати доступ до професійної аналітики та тренувань, 
+                                зробивши їх доступними для кожного гравця, незалежно від рівня майстерності.</p>
                             </div>
-                            <div class="stat-item">
-                                <span class="stat-number">50+</span>
-                                <span class="stat-label">Країн охоплення</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-number">24/7</span>
-                                <span class="stat-label">Підтримка спільноти</span>
+                            
+                            <div class="about-section">
+                                <h3>🚀 Наші цінності</h3>
+                                <ul>
+                                    <li><strong>Інновації:</strong> Постійне впровадження найновіших технологій</li>
+                                    <li><strong>Спільнота:</strong> Створення дружнього середовища для всіх гравців</li>
+                                    <li><strong>Якість:</strong> Найвищі стандарти у всьому, що ми робимо</li>
+                                    <li><strong>Прозорість:</strong> Відкритість у розробці та спілкуванні</li>
+                                </ul>
                             </div>
                         </div>
                         
-                        <p class="cta-text">Приєднуйтеся до майбутнього кіберспорту вже сьогодні та станьте частиною революції у світі Mobile Legends!</p>
+                        <div class="timeline-section">
+                            <h3>🗓️ Дорожня карта розвитку</h3>
+                            <div class="timeline">
+                                <div class="timeline-item completed">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h4>Q1 2025 - Фундамент</h4>
+                                        <p>Створення базової архітектури та веб-платформи</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item current">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h4>Q2 2025 - ШІ Аналітика</h4>
+                                        <p>Запуск системи аналізу матчів та персональних рекомендацій</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h4>Q3 2025 - Турнірна система</h4>
+                                        <p>Впровадження автоматизованих турнірів та рейтингової системи</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h4>Q4 2025 - Мобільний додаток</h4>
+                                        <p>Запуск нативних мобільних додатків для iOS та Android</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="team-section">
+                            <h3>👨‍💻 Команда розробки</h3>
+                            <div class="team-grid">
+                                <div class="team-member">
+                                    <div class="member-avatar">🚀</div>
+                                    <h4>MLBB-BOSS</h4>
+                                    <p class="member-role">Lead Developer & Product Owner</p>
+                                    <p class="member-description">
+                                        Досвідчений розробник з пристрастю до геймінгу та інновацій. 
+                                        Спеціалізується на Python, AI/ML та веб-технологіях.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -376,84 +518,82 @@
         <!-- Contact Section -->
         <section id="contact" class="accordion-section contact-section" aria-labelledby="contact-title">
             <div class="container">
-                <div class="accordion-header" 
-                     role="button" 
-                     tabindex="0" 
-                     aria-expanded="false"
-                     aria-controls="contact-content"
-                     id="contact-title">
-                    <h2>Зв'яжіться з Нами</h2>
-                    <span class="accordion-indicator" aria-hidden="true">+</span>
+                <div class="accordion-header" role="button" tabindex="0" aria-expanded="false" aria-controls="contact-content">
+                    <h2 id="contact-title">📞 Зв'яжіться з Нами</h2>
+                    <span class="accordion-indicator" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </span>
                 </div>
-                <div class="accordion-content" id="contact-content" aria-labelledby="contact-title">
+                <div class="accordion-content" id="contact-content">
                     <div class="accordion-content-inner">
-                        <p class="contact-intro">Ми завжди відкриті для спілкування! Слідкуйте за новинами, діліться ідеями та будьте першими, хто дізнається про майбутні анонси.</p>
+                        <div class="contact-intro">
+                            <p class="lead-text">
+                                Готові приєднатися до революції в MLBB кіберспорті? 
+                                Слідкуйте за новинами та будьте першими, хто дізнається про запуск!
+                            </p>
+                        </div>
                         
-                        <div class="contact-cards">
-                            <div class="contact-card">
-                                <div class="contact-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M9 19c-5 0-8-3-8-8s3-8 8-8 8 3 8 8-3 8-8 8z"/>
-                                        <path d="M15 13l-3-3 3-3"/>
+                        <div class="contact-grid">
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 19c-5 0-8-3-8-8s3-8 8-8 8 3 8 8-3 8-8 8Z"/>
+                                        <path d="M16 16h2a2 2 0 0 1 2 2 2 2 0 0 1-2 2H4a2 2 0 0 1-2-2 2 2 0 0 1 2-2h2"/>
                                     </svg>
                                 </div>
-                                <h3>Розробка</h3>
-                                <div class="contact-info">
-                                    <p><strong>Розробник:</strong> MLBB-BOSS</p>
-                                    <p><strong>GitHub:</strong> <a href="https://github.com/MLBB-BOSS/GGenius" target="_blank" rel="noopener noreferrer">github.com/MLBB-BOSS/GGenius</a></p>
-                                    <p><strong>Статус:</strong> <span class="status-badge status-active">Активна розробка</span></p>
-                                </div>
+                                <h3>GitHub</h3>
+                                <p>Відкритий код та співпраця</p>
+                                <a href="https://github.com/MLBB-BOSS/GGenius" 
+                                   target="_blank" rel="noopener noreferrer"
+                                   class="contact-link">
+                                    github.com/MLBB-BOSS/GGenius
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                        <path d="M15 3h6v6"/>
+                                        <path d="M10 14L21 3"/>
+                                    </svg>
+                                </a>
                             </div>
                             
-                            <div class="contact-card">
-                                <div class="contact-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                        <polyline points="22,6 12,13 2,6"/>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="4"/>
+                                        <path d="M16 8v5a3 3 0 0 0 6 0v-5a10 10 0 1 0-20 0v5a3 3 0 0 0 6 0v-5"/>
                                     </svg>
                                 </div>
-                                <h3>Контакти</h3>
-                                <div class="contact-info">
-                                    <p><strong>Email:</strong> <a href="mailto:contact@ggenius.mlbb-boss.com">contact@ggenius.mlbb-boss.com</a></p>
-                                    <p><strong>Telegram:</strong> <a href="https://t.me/GGeniusBot" target="_blank" rel="noopener noreferrer">@GGeniusBot</a></p>
-                                    <p><strong>Discord:</strong> <a href="#" target="_blank" rel="noopener noreferrer">GGenius Community</a></p>
-                                </div>
+                                <h3>Розробник</h3>
+                                <p>Прямий зв'язок з командою</p>
+                                <p class="contact-info">
+                                    <strong>MLBB-BOSS</strong><br>
+                                    Lead Developer & Founder
+                                </p>
                             </div>
                             
-                            <div class="contact-card">
-                                <div class="contact-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/>
                                     </svg>
                                 </div>
-                                <h3>Оновлення</h3>
-                                <div class="contact-info">
-                                    <p>Підписуйтесь на наші канали для отримання останніх новин та оновлень:</p>
-                                    <div class="social-links">
-                                        <a href="#" class="social-link" aria-label="YouTube канал">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                                            </svg>
-                                        </a>
-                                        <a href="#" class="social-link" aria-label="Twitter профіль">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                                            </svg>
-                                        </a>
-                                        <a href="#" class="social-link" aria-label="Twitch канал">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
-                                            </svg>
-                                        </a>
-                                    </div>
+                                <h3>Статус проєкту</h3>
+                                <p>Поточний стан розробки</p>
+                                <div class="project-status">
+                                    <span class="status-badge in-development">🚧 В розробці</span>
+                                    <p class="status-description">
+                                        Активна розробка основних функцій. 
+                                        Очікуваний запуск бета-версії: Q2 2025
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="newsletter-signup">
-                            <h3>Будьте в курсі останніх новин</h3>
-                            <p>Отримуйте ексклюзивні оновлення про розробку GGenius</p>
+                        <!-- Newsletter Signup -->
+                        <div class="newsletter-section">
+                            <h3>📧 Підписатися на оновлення</h3>
+                            <p>Будьте першими, хто дізнається про запуск нових функцій!</p>
                             <form class="newsletter-form" aria-label="Підписка на новини">
                                 <div class="form-group">
                                     <label for="email" class="visually-hidden">Email адреса</label>
@@ -461,16 +601,19 @@
                                            id="email" 
                                            name="email" 
                                            placeholder="Ваша email адреса" 
-                                           required
-                                           autocomplete="email">
-                                    <button type="submit" class="newsletter-btn" aria-label="Підписатися на новини">
+                                           required 
+                                           aria-describedby="email-help">
+                                    <button type="submit" class="newsletter-submit">
                                         <span>Підписатися</span>
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <line x1="22" y1="2" x2="11" y2="13"></line>
-                                            <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <path d="M22 2L11 13"/>
+                                            <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
                                         </svg>
                                     </button>
                                 </div>
+                                <p id="email-help" class="form-help">
+                                    Ми поважаємо вашу приватність. Ніякого спаму, тільки важливі оновлення.
+                                </p>
                             </form>
                         </div>
                     </div>
@@ -481,37 +624,77 @@
         <!-- Tech Stack Section -->
         <section class="tech-stack-section" aria-labelledby="tech-title">
             <div class="container">
-                <h2 id="tech-title" class="section-title-iui">Технології майбутнього</h2>
-                <p class="tech-description">Ми використовуємо найсучасніші технології для створення найкращого досвіду</p>
+                <h2 id="tech-title" class="section-title-iui">
+                    <span class="title-accent">Технології</span> майбутнього
+                </h2>
                 
                 <div class="tech-categories">
-                    <div class="tech-category">
-                        <h3>Backend</h3>
+                    <div class="tech-category" data-category="backend">
+                        <h3 class="category-title">Backend</h3>
                         <div class="tech-logos">
-                            <span data-tech="python">Python 3.11+</span>
-                            <span data-tech="aiogram">aiogram 3.19</span>
-                            <span data-tech="fastapi">FastAPI</span>
-                            <span data-tech="postgresql">PostgreSQL</span>
+                            <div class="tech-item" data-tech="python">
+                                <span class="tech-icon">🐍</span>
+                                <span class="tech-name">Python 3.11+</span>
+                                <span class="tech-description">Основна мова розробки</span>
+                            </div>
+                            <div class="tech-item" data-tech="aiogram">
+                                <span class="tech-icon">🤖</span>
+                                <span class="tech-name">aiogram 3.19</span>
+                                <span class="tech-description">Telegram Bot Framework</span>
+                            </div>
+                            <div class="tech-item" data-tech="fastapi">
+                                <span class="tech-icon">⚡</span>
+                                <span class="tech-name">FastAPI</span>
+                                <span class="tech-description">Високопродуктивний API</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="tech-category">
-                        <h3>Infrastructure</h3>
+                    <div class="tech-category" data-category="database">
+                        <h3 class="category-title">База даних</h3>
                         <div class="tech-logos">
-                            <span data-tech="redis">Redis</span>
-                            <span data-tech="docker">Docker</span>
-                            <span data-tech="nginx">Nginx</span>
-                            <span data-tech="kubernetes">Kubernetes</span>
+                            <div class="tech-item" data-tech="postgresql">
+                                <span class="tech-icon">🐘</span>
+                                <span class="tech-name">PostgreSQL</span>
+                                <span class="tech-description">Основна база даних</span>
+                            </div>
+                            <div class="tech-item" data-tech="redis">
+                                <span class="tech-icon">🔴</span>
+                                <span class="tech-name">Redis</span>
+                                <span class="tech-description">Кешування та сесії</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="tech-category">
-                        <h3>AI & Analytics</h3>
+                    <div class="tech-category" data-category="ai">
+                        <h3 class="category-title">AI/ML</h3>
                         <div class="tech-logos">
-                            <span data-tech="tensorflow">TensorFlow</span>
-                            <span data-tech="pytorch">PyTorch</span>
-                            <span data-tech="pandas">Pandas</span>
-                            <span data-tech="numpy">NumPy</span>
+                            <div class="tech-item" data-tech="tensorflow">
+                                <span class="tech-icon">🧠</span>
+                                <span class="tech-name">TensorFlow</span>
+                                <span class="tech-description">Машинне навчання</span>
+                            </div>
+                            <div class="tech-item" data-tech="pytorch">
+                                <span class="tech-icon">🔥</span>
+                                <span class="tech-name">PyTorch</span>
+                                <span class="tech-description">Глибоке навчання</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category" data-category="devops">
+                        <h3 class="category-title">DevOps</h3>
+                        <div class="tech-logos">
+                            <div class="tech-item" data-tech="docker">
+                                <span class="tech-icon">🐳</span>
+                                <span class="tech-name">Docker</span>
+                                <span class="tech-description">Контейнеризація</span>
+                            </div>
+                            <div class="tech-item" data-tech="heroku">
+                                <span class="tech-icon">☁️</span>
+                                <span class="tech-name">Heroku</span>
+                                <span class="tech-description">Cloud Platform</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -519,18 +702,18 @@
         </section>
     </main>
 
-    <!-- Footer -->
+    <!-- Enhanced Footer -->
     <footer class="site-footer-iui" role="contentinfo">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <span class="footer-logo-text">GGenius</span>
+                <div class="footer-brand">
+                    <h3 class="footer-title">GGenius</h3>
                     <p class="footer-tagline">Революція в MLBB кіберспорті</p>
                 </div>
                 
                 <div class="footer-links">
-                    <div class="footer-column">
-                        <h3>Проєкт</h3>
+                    <div class="footer-section">
+                        <h4>Проєкт</h4>
                         <ul>
                             <li><a href="#about">Про нас</a></li>
                             <li><a href="#features">Можливості</a></li>
@@ -538,52 +721,62 @@
                         </ul>
                     </div>
                     
-                    <div class="footer-column">
-                        <h3>Спільнота</h3>
+                    <div class="footer-section">
+                        <h4>Розробка</h4>
                         <ul>
-                            <li><a href="#contact">Контакти</a></li>
-                            <li><a href="#" target="_blank" rel="noopener">Discord</a></li>
-                            <li><a href="#" target="_blank" rel="noopener">Telegram</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h3>Підтримка</h3>
-                        <ul>
-                            <li><a href="mailto:contact@ggenius.mlbb-boss.com">Email</a></li>
-                            <li><a href="#" target="_blank" rel="noopener">Документація</a></li>
-                            <li><a href="#" target="_blank" rel="noopener">FAQ</a></li>
+                            <li><a href="https://github.com/MLBB-BOSS/GGenius/issues" target="_blank" rel="noopener">Багтрекер</a></li>
+                            <li><a href="https://github.com/MLBB-BOSS/GGenius/wiki" target="_blank" rel="noopener">Документація</a></li>
+                            <li><a href="#contact">Зв'язок</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 GGenius by MLBB-BOSS. Всі права захищено.</p>
-                <div class="footer-legal">
-                    <a href="#privacy">Політика конфіденційності</a>
-                    <a href="#terms">Умови використання</a>
-                </div>
+                <p class="footer-copyright">
+                    &copy; 2025 GGenius by 
+                    <a href="https://github.com/MLBB-BOSS" target="_blank" rel="noopener">MLBB-BOSS</a>. 
+                    Всі права захищено.
+                </p>
+                <p class="footer-glory">Powered by AI & Passion 🚀</p>
             </div>
         </div>
     </footer>
     
-    <!-- Back to Top Button -->
-    <button class="back-to-top" aria-label="Повернутися до початку сторінки" title="Вгору">
+    <!-- Loading indicator with better UX -->
+    <div id="loading-indicator" class="loading-hidden" aria-hidden="true">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <svg width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="25" stroke="var(--accent-primary)" stroke-width="3" fill="none">
+                        <animate attributeName="stroke-dasharray" values="0 157;78.5 78.5;0 157" dur="1.5s" repeatCount="indefinite"/>
+                        <animate attributeName="stroke-dashoffset" values="0;-78.5;-157" dur="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+            </div>
+            <p class="loading-text">Завантаження GGenius...</p>
+        </div>
+    </div>
+    
+    <!-- Back to top button -->
+    <button id="back-to-top" class="back-to-top-btn" aria-label="Повернутися на початок сторінки" style="display: none;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M18 15l-6-6-6 6"/>
         </svg>
     </button>
     
-    <!-- Loading indicator -->
-    <div id="loading-indicator" class="loading-hidden" aria-hidden="true">
-        <div class="loading-spinner"></div>
-        <p>Завантаження GGenius...</p>
-    </div>
-    
-    <!-- Skip to content link for accessibility -->
-    <a href="#main-content" class="skip-link">Перейти до основного контенту</a>
-    
+    <!-- Scripts -->
     <script src="/static/js/enhancements.js" defer></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/static/js/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(registrationError => console.log('SW registration failed'));
+            });
+        }
+    </script>
 </body>
 </html>
