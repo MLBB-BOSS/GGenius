@@ -6,6 +6,8 @@ on:
 jobs:
   scaffold_project:
     runs-on: ubuntu-latest
+    permissions: # <--- ДОДАЙТЕ ЦЮ СЕКЦІЮ
+      contents: write # <--- НАДАЄ ДОЗВІЛ НА ЗАПИС ДО РЕПОЗИТОРІЮ
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
