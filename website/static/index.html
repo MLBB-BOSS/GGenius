@@ -5,18 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GGenius - Революція в MLBB Кіберспорті</title>
     <link rel="stylesheet" href="/static/css/style.css">
-    <!-- Важливо: шлях до CSS має бути абсолютним від кореня сайту,
-         або відносним, якщо сервер правильно налаштований.
-         Для FastAPI з StaticFiles, /static/css/style.css буде правильним,
-         якщо ми монтуємо папку static/ як /static -->
 </head>
 <body>
-    <header>
-        <h1>Ласкаво просимо до GGenius!</h1>
-        <p>Ваш шлях до домінування в Mobile Legends: Bang Bang починається тут.</p>
-    </header>
-
     <main>
+        <section id="home" class="hero-section">
+            <div class="hero-logo-container">
+                <!-- Вбудований SVG логотип GGenius -->
+                <svg width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" id="ggeniusAnimatedLogo" role="img" aria-labelledby="ggeniusLogoTitle">
+                    <title id="ggeniusLogoTitle">Анімований логотип GGenius: мозок та геймпад у шестикутнику</title>
+                    <defs>
+                        <linearGradient id="logoSvgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <!-- Кольори будуть застосовані через CSS змінні для узгодженості -->
+                            <stop offset="0%" class="gradient-stop-1" />
+                            <stop offset="100%" class="gradient-stop-2" />
+                        </linearGradient>
+                        <!-- Стилі анімації тепер будуть в основному CSS файлі -->
+                    </defs>
+                
+                    <polygon class="logo-hexagon-frame" points="50,5 93,25 93,75 50,95 7,75 7,25" />
+                
+                    <g class="logo-gamepad">
+                        <path class="logo-gamepad-base gamepad-element" d="M25,65 Q20,55 30,50 L70,50 Q80,55 75,65 L70,75 Q50,85 30,75 L25,65 Z" />
+                        <g class="logo-d-pad gamepad-element">
+                            <rect x="30" y="58" width="5" height="10" rx="1"/>
+                            <rect x="27" y="61" width="10" height="5" rx="1"/>
+                        </g>
+                        <g class="logo-buttons-group gamepad-element">
+                            <circle cx="60" cy="58" r="3" />
+                            <circle cx="68" cy="63" r="3" />
+                        </g>
+                    </g>
+                    
+                    <g class="logo-brain">
+                        <path class="logo-brain-line brain-left" d="M48,20 Q40,25 45,35 Q40,45 48,50"/>
+                        <path class="logo-brain-line brain-left-secondary" d="M48,25 Q35,30 40,40"/>
+                        <path class="logo-brain-line brain-right" d="M52,20 Q60,25 55,35 Q60,45 52,50"/>
+                        <path class="logo-brain-line brain-right-secondary" d="M52,25 Q65,30 60,40"/>
+                    </g>
+                </svg>
+                <!-- Кінець вбудованого SVG -->
+            </div>
+            
+            <p class="subtitle">Ваш шлях до домінування в Mobile Legends: Bang Bang починається тут.</p>
+            <a href="#features" class="cta-button">Дізнатися більше</a>
+        </section>
+
+        <!-- ... решта секцій ... -->
         <section id="about" class="accordion-section">
             <div class="accordion-header">
                 <h2>Про Проєкт</h2>
@@ -25,12 +59,11 @@
             <div class="accordion-content">
                 <div class="accordion-content-inner">
                     <p>GGenius - це інноваційна платформа, що об'єднує гравців, команди та турнірних організаторів MLBB...</p>
-                    <!-- Додайте більше інформації про ваш проєкт -->
                 </div>
             </div>
         </section>
 
-        <section id="features" class="accordion-section features-section"> <!-- Додано features-section для збереження стилів списку -->
+        <section id="features" class="accordion-section features-section">
             <div class="accordion-header">
                 <h2>Ключові Можливості (Майбутні)</h2>
                 <span class="accordion-indicator">+</span>
@@ -42,13 +75,12 @@
                         <li>Автоматизоване створення турнірних сіток</li>
                         <li>Персоналізовані рекомендації для тренувань</li>
                         <li>Соціальна платформа для гравців</li>
-                        <!-- Додайте інші функції -->
                     </ul>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="accordion-section contact-section"> <!-- Додано contact-section для збереження стилів -->
+        <section id="contact" class="accordion-section contact-section">
             <div class="accordion-header">
                 <h2>Зв'яжіться з Нами</h2>
                 <span class="accordion-indicator">+</span>
@@ -56,8 +88,6 @@
             <div class="accordion-content">
                 <div class="accordion-content-inner">
                     <p>Слідкуйте за новинами та майбутніми анонсами!</p>
-                    <!-- Можна додати посилання на соціальні мережі або форму контакту в майбутньому -->
-                    <!-- Якщо тут були .social-links або form, їх потрібно залишити всередині .accordion-content-inner -->
                 </div>
             </div>
         </section>
@@ -66,8 +96,7 @@
     <footer>
         <p>&copy; 2025 GGenius by MLBB-BOSS. Всі права захищено.</p>
     </footer>
-
+    
     <script src="/static/js/enhancements.js" defer></script>
-    <!-- Якщо потрібен JS, він тепер підключений через enhancements.js -->
 </body>
 </html>
