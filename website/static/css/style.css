@@ -53,7 +53,7 @@
     
     /* Layout */
     --container-width: 1200px;
-    --header-height: 80px;
+    --header-height: 80px; /* Example variable, ensure it's used if needed */
     
     /* Transitions */
     --transition-fast: 0.15s ease-out;
@@ -106,6 +106,7 @@ body::before {
         radial-gradient(circle at 40% 40%, rgba(165, 94, 234, 0.1) 0%, transparent 50%);
     z-index: var(--z-background);
     animation: backgroundMove 20s ease-in-out infinite;
+    will-change: transform; /* Hint for performance */
 }
 
 /* Main Container */
@@ -127,6 +128,7 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    /* color: transparent; For fallback if needed, but -webkit-text-fill-color handles it for webkit */
 }
 
 h1 {
@@ -136,14 +138,14 @@ h1 {
     margin-bottom: var(--spacing-md);
 }
 
-h2 {
+h2 { /* General H2 styling */
     font-size: clamp(1.8rem, 4vw, 3rem);
     position: relative;
     padding-bottom: var(--spacing-sm);
     margin-bottom: var(--spacing-lg);
 }
 
-h2::after {
+h2::after { /* General H2 underline */
     content: '';
     position: absolute;
     bottom: 0;
@@ -197,13 +199,13 @@ a:hover::after {
 section {
     padding: var(--spacing-2xl) var(--spacing-md);
     margin-bottom: var(--spacing-xl);
-    background: rgba(26, 29, 35, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(26, 29, 35, 0.8); /* semi-transparent background */
+    backdrop-filter: blur(10px); /* can be performance heavy, use with consideration */
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-lg);
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* Good for containing pseudo-elements or effects */
 }
 
 section::before {
@@ -233,7 +235,7 @@ section::before {
     position: relative;
 }
 
-.hero-section::before {
+.hero-section::before { /* Override general section::before for hero */
     display: none;
 }
 
@@ -301,7 +303,7 @@ section::before {
     background: var(--gradient-secondary);
 }
 
-/* Gaming Stats Cards */
+/* Features Section (Gaming Stats Cards) */
 .features-section ul {
     list-style: none;
     padding: 0;
@@ -329,6 +331,8 @@ section::before {
     width: 4px;
     height: 100%;
     background: var(--gradient-primary);
+    transition: transform var(--transition-normal); /* Added for animation */
+    transform-origin: bottom; /* Animation from bottom to top */
 }
 
 .features-section li:hover {
@@ -336,6 +340,11 @@ section::before {
     box-shadow: var(--shadow-lg), var(--shadow-glow);
     border-color: var(--accent-primary);
 }
+
+.features-section li:hover::before {
+    transform: scaleY(1.5); /* Example animation: line grows */
+}
+
 
 .feature-icon {
     width: 60px;
@@ -353,7 +362,7 @@ section::before {
     font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: var(--spacing-xs);
-    color: var(--text-primary);
+    color: var(--text-primary); /* Ensures title is not gradient by default */
 }
 
 .feature-description {
@@ -362,11 +371,11 @@ section::before {
 }
 
 /* About Section with Gaming Elements */
-.about-section {
+.about-section { /* This class can be used if specific styling for #about is needed beyond accordion */
     position: relative;
 }
 
-.about-section::after {
+.about-section::after { /* Example decorative element */
     content: '';
     position: absolute;
     top: 20px;
@@ -377,9 +386,10 @@ section::before {
     border-radius: 50%;
     opacity: 0.1;
     animation: float 3s ease-in-out infinite;
+    z-index: -1; /* Ensure it's behind content */
 }
 
-.about-section .highlight {
+.about-section .highlight { /* For specific highlighted text within about section */
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -387,7 +397,7 @@ section::before {
     font-weight: 700;
 }
 
-/* Social Links Gaming Style */
+/* Contact Section Specific Styles (if any beyond accordion) */
 .contact-section .social-links {
     display: flex;
     justify-content: center;
@@ -411,7 +421,7 @@ section::before {
     overflow: hidden;
 }
 
-.contact-section .social-links a::before {
+.contact-section .social-links a::before { /* Hover fill effect */
     content: '';
     position: absolute;
     top: 0;
@@ -420,7 +430,7 @@ section::before {
     height: 100%;
     background: var(--gradient-primary);
     transition: all var(--transition-normal);
-    z-index: -1;
+    z-index: -1; /* Place behind icon/text */
 }
 
 .contact-section .social-links a:hover::before {
@@ -434,7 +444,7 @@ section::before {
     box-shadow: var(--shadow-glow);
 }
 
-/* Modern Form Styling */
+/* Modern Form Styling (if used within contact accordion) */
 .contact-section form {
     max-width: 600px;
     margin: var(--spacing-xl) auto;
@@ -472,6 +482,82 @@ section::before {
     resize: vertical;
     min-height: 120px;
 }
+
+/* === Accordion Styles === */
+/* This targets sections that are designated as accordions */
+section.accordion-section {
+    /* Override general section padding for accordion structure */
+    padding-left: var(--spacing-md); /* Keep horizontal padding consistent */
+    padding-right: var(--spacing-md);
+    padding-top: 0; 
+    padding-bottom: 0;
+    /* Inherits margin-bottom, background, backdrop-filter, border, etc. from general 'section' rule */
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding-top: var(--spacing-xl); /* Top padding for the clickable header area */
+    padding-bottom: var(--spacing-md); /* Bottom padding for the header, before content or section end */
+    position: relative; /* For positioning elements like h2::after if needed */
+}
+
+/* Styling for H2 specifically within an accordion header */
+.accordion-header h2 {
+    margin: 0; /* Remove default h2 margins */
+    /* Inherits font, gradient text from general h2 */
+    position: relative; /* For ::after pseudo-element */
+    padding-bottom: var(--spacing-sm); /* Space for the underline */
+    /* The general h2 gradient text style applies here */
+}
+
+/* Underline for H2 within an accordion header - static, no animation */
+.accordion-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px; /* Static width for accordion header underline */
+    height: 4px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+    animation: none; /* Override general h2::after animation */
+}
+
+.accordion-indicator {
+    font-size: 2rem; /* Size of the '+' / 'x' icon */
+    color: var(--accent-primary);
+    transition: transform 0.3s ease-out;
+    margin-left: var(--spacing-sm); /* Space between title and indicator */
+    line-height: 1; /* For better vertical alignment */
+}
+
+.accordion-header.active .accordion-indicator {
+    transform: rotate(45deg); /* Transforms '+' to 'x' */
+}
+
+.accordion-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.645, 0.045, 0.355, 1), /* Smooth animation */
+                opacity 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.accordion-content.active {
+    opacity: 1;
+    /* max-height is set dynamically by JavaScript */
+}
+
+/* Inner wrapper for accordion content to manage padding */
+.accordion-content-inner {
+    padding-top: var(--spacing-sm); /* Padding above the actual content */
+    padding-bottom: var(--spacing-xl); /* Padding below the actual content */
+}
+/* === End of Accordion Styles === */
+
 
 /* Enhanced Footer */
 footer {
@@ -542,7 +628,7 @@ footer::before {
     }
 }
 
-@keyframes expandLine {
+@keyframes expandLine { /* For general H2 underlines, not accordion H2s */
     from {
         width: 0;
     }
@@ -603,13 +689,20 @@ footer::before {
         gap: var(--spacing-md);
     }
     
-    section {
+    section { /* General section padding adjustment */
         padding: var(--spacing-xl) var(--spacing-sm);
+    }
+
+    /* Adjust accordion padding for consistency if needed, or rely on its specific overrides */
+    section.accordion-section {
+        padding-left: var(--spacing-sm);
+        padding-right: var(--spacing-sm);
+        /* vertical padding is handled by .accordion-header and .accordion-content-inner */
     }
 }
 
 @media (max-width: 768px) {
-    :root {
+    :root { /* Scale down spacing variables */
         --spacing-xs: 6px;
         --spacing-sm: 12px;
         --spacing-md: 18px;
@@ -623,7 +716,7 @@ footer::before {
     }
     
     .features-section ul {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack feature cards */
     }
     
     .contact-section .social-links {
@@ -631,8 +724,11 @@ footer::before {
         gap: var(--spacing-sm);
     }
     
-    h2::after {
+    h2::after { /* General h2 underline */
         width: 40px;
+    }
+    .accordion-header h2::after { /* Accordion h2 underline, keep consistent or adjust if needed */
+        width: 40px; /* Or maintain 60px if preferred for accordions */
     }
 }
 
@@ -656,7 +752,7 @@ footer::before {
     }
 }
 
-/* Accessibility */
+/* Accessibility Enhancements */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -664,16 +760,52 @@ footer::before {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
 
-/* High contrast mode */
 @media (prefers-contrast: high) {
     :root {
-        --text-primary: #ffffff;
-        --text-secondary: #ffffff;
-        --accent-primary: #00ffff;
-        --accent-secondary: #ff0000;
+        --text-primary-high-contrast: #ffffff; /* Or specific high contrast color */
+        --text-secondary-high-contrast: #e0e0e0; /* Or specific high contrast color */
+        --accent-primary-high-contrast: #00ffff; /* Cyan, very high contrast */
+        --accent-secondary-high-contrast: #ff00ff; /* Magenta, very high contrast */
+    }
+
+    /* Override text colors for better contrast */
+    body {
+        color: var(--text-primary-high-contrast);
+    }
+    p {
+        color: var(--text-secondary-high-contrast);
+    }
+    a {
+        color: var(--accent-primary-high-contrast);
+    }
+    a:hover, a:focus {
+        color: var(--accent-secondary-high-contrast);
+    }
+
+    /* Ensure gradient texts become solid and high-contrast */
+    h1, h2, h3, h4, h5, h6,
+    .about-section .highlight,
+    .feature-title { /* If feature-title might use gradient */
+        background: none !important; /* Remove gradient */
+        -webkit-text-fill-color: var(--text-primary-high-contrast) !important; /* Solid color */
+        color: var(--text-primary-high-contrast) !important; /* Fallback */
+        text-shadow: none !important; /* Remove potentially low-contrast shadows */
+    }
+
+    /* Adjust other elements for high contrast as needed */
+    .cta-button {
+        background: var(--accent-primary-high-contrast);
+        color: var(--primary-bg-color); /* Dark text on light button */
+    }
+    .cta-button:hover {
+        background: var(--accent-secondary-high-contrast);
+    }
+    .scroll-progress {
+        background: var(--accent-primary-high-contrast);
     }
 }
 
@@ -682,24 +814,97 @@ footer::before {
     body {
         background: white !important;
         color: black !important;
+        font-size: 12pt;
     }
     
     .hero-section,
-    .contact-section,
-    footer {
-        display: none;
+    .contact-section, /* Consider if contact info should print */
+    footer,
+    .scroll-progress,
+    .loading-overlay,
+    .gaming-cursor, /* Assuming .gaming-cursor exists from JS */
+    section::before, /* Decorative lines */
+    body::before /* Animated background */
+    {
+        display: none !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      background: none !important;
+      -webkit-text-fill-color: black !important;
+      color: black !important;
+      text-shadow: none !important;
+    }
+
+    a {
+      color: #0000ff !important; /* Standard blue for links in print */
+      text-decoration: underline !important;
+    }
+    a::after {
+      display: none !important;
+    }
+
+    section {
+      box-shadow: none !important;
+      border: 1px solid #ccc !important;
+      padding: var(--spacing-md) !important;
+      margin-bottom: var(--spacing-md) !important;
+      backdrop-filter: none !important;
+    }
+
+    /* Accordion content should be visible in print */
+    .accordion-content {
+        max-height: none !important;
+        opacity: 1 !important;
+        overflow: visible !important;
+    }
+    .accordion-indicator {
+        display: none !important; /* Hide +/- indicators */
     }
 }
 
-/* Dark mode toggle (if needed) */
+/* Light theme toggle (if implemented) */
 [data-theme="light"] {
+    /* Define light theme variables here */
     --primary-bg-color: #ffffff;
     --secondary-bg-color: #f8f9fa;
-    --text-primary: #2d3748;
-    --text-secondary: #4a5568;
+    --tertiary-bg-color: #e9ecef;
+    --surface-color: #f1f3f5;
+    
+    --text-primary: #212529;
+    --text-secondary: #495057;
+    --text-muted: #6c757d;
+
+    /* Adjust gradients for light theme if necessary */
+    --gradient-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    
+    /* Animated background for light theme */
+    body::before {
+        background: 
+            radial-gradient(circle at 20% 80%, rgba(0, 123, 255, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 100, 150, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(100, 200, 230, 0.05) 0%, transparent 50%);
+    }
+
+    /* Other light theme adjustments */
+    section {
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .contact-section input,
+    .contact-section textarea {
+        background: var(--surface-color);
+        border: 2px solid rgba(0, 0, 0, 0.1);
+        color: var(--text-primary);
+    }
+    .contact-section input:focus,
+    .contact-section textarea:focus {
+        border-color: var(--accent-primary); /* Keep accent for focus */
+        background: var(--secondary-bg-color);
+    }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar (WebKit) */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -714,5 +919,5 @@ footer::before {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-secondary);
-    }
+    background: var(--accent-secondary); /* Using a solid color for hover might be more distinct */
+}
