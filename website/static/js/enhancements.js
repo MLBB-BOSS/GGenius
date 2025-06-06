@@ -1,8 +1,8 @@
 /**
- * GGenius Progressive Scroll Accordion - Simplified Version
- * Lightweight and efficient MLBB gaming website enhancement
+ * GGenius Progressive Scroll Accordion - Enhanced Version
+ * Smooth scrolling with advanced gaming UX
  * 
- * @version 2.0.0
+ * @version 2.1.0
  * @author MLBB-BOSS Team
  * @license MIT
  */
@@ -10,19 +10,44 @@
 'use strict';
 
 /**
- * Lightweight device detection
+ * Enhanced device detection with performance optimization
  */
 class DeviceDetector {
     constructor() {
         this.isMobile = window.innerWidth <= 768;
-        this.isLowEnd = navigator.hardwareConcurrency < 4 || navigator.deviceMemory < 4;
+        this.isLowEnd = this.detectLowEndDevice();
         this.hasTouch = 'ontouchstart' in window;
         this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        this.supportsIntersectionObserver = 'IntersectionObserver' in window;
+        
+        // Performance metrics
+        this.performanceScore = this.calculatePerformanceScore();
+    }
+
+    detectLowEndDevice() {
+        const nav = navigator;
+        return (
+            (nav.hardwareConcurrency && nav.hardwareConcurrency < 4) ||
+            (nav.deviceMemory && nav.deviceMemory < 4) ||
+            /Android [4-6]/.test(nav.userAgent) ||
+            /iPhone.*OS [8-12]_/.test(nav.userAgent)
+        );
+    }
+
+    calculatePerformanceScore() {
+        let score = 100;
+        
+        if (this.isLowEnd) score -= 30;
+        if (this.isMobile) score -= 10;
+        if (!this.supportsIntersectionObserver) score -= 20;
+        if (this.prefersReducedMotion) score -= 5;
+        
+        return Math.max(score, 20);
     }
 }
 
 /**
- * Simple audio system for gaming effects
+ * Enhanced audio system with spatial effects
  */
 class AudioSystem {
     constructor(enabled = true) {
@@ -30,49 +55,147 @@ class AudioSystem {
         this.context = null;
         this.sounds = new Map();
         this.volume = 0.3;
+        this.initialized = false;
     }
 
     async init() {
-        if (!this.enabled) return;
+        if (!this.enabled || this.initialized) return;
         
         try {
             this.context = new (window.AudioContext || window.webkitAudioContext)();
-            this.createSounds();
-            console.log('🎵 Audio system ready');
+            
+            // Resume context if suspended
+            if (this.context.state === 'suspended') {
+                await this.context.resume();
+            }
+            
+            this.createEnhancedSounds();
+            this.initialized = true;
+            console.log('🎵 Enhanced Audio System ready');
         } catch (error) {
             this.enabled = false;
             console.warn('Audio disabled:', error.message);
         }
     }
 
-    createSounds() {
-        this.sounds.set('expand', { freq: 800, duration: 0.15 });
-        this.sounds.set('collapse', { freq: 400, duration: 0.1 });
-        this.sounds.set('click', { freq: 1000, duration: 0.08 });
-        this.sounds.set('hover', { freq: 600, duration: 0.05 });
+    createEnhancedSounds() {
+        // Enhanced sound definitions with multiple frequencies
+        this.sounds.set('expand', { 
+            frequencies: [800, 1000], 
+            duration: 0.2, 
+            type: 'sine',
+            envelope: 'smooth'
+        });
+        
+        this.sounds.set('collapse', { 
+            frequencies: [600, 400], 
+            duration: 0.15, 
+            type: 'sine',
+            envelope: 'fade'
+        });
+        
+        this.sounds.set('click', { 
+            frequencies: [1000, 1200, 800], 
+            duration: 0.1, 
+            type: 'square',
+            envelope: 'punch'
+        });
+        
+        this.sounds.set('hover', { 
+            frequencies: [600], 
+            duration: 0.05, 
+            type: 'triangle',
+            envelope: 'instant'
+        });
+        
+        this.sounds.set('scroll', { 
+            frequencies: [400, 500], 
+            duration: 0.08, 
+            type: 'sawtooth',
+            envelope: 'soft'
+        });
     }
 
-    play(soundName) {
-        if (!this.enabled || !this.context) return;
+    play(soundName, options = {}) {
+        if (!this.enabled || !this.initialized || !this.context) return;
         
         const sound = this.sounds.get(soundName);
         if (!sound) return;
 
-        const oscillator = this.context.createOscillator();
-        const gain = this.context.createGain();
+        try {
+            // Create multiple oscillators for richer sound
+            sound.frequencies.forEach((freq, index) => {
+                setTimeout(() => {
+                    this.createTone(freq, sound.duration, sound.type, sound.envelope, options);
+                }, index * 20);
+            });
+        } catch (error) {
+            console.warn(`Failed to play sound '${soundName}':`, error);
+        }
+    }
+
+    createTone(frequency, duration, type, envelope, options = {}) {
+        const ctx = this.context;
+        const startTime = ctx.currentTime;
+        const volume = (options.volume || 1) * this.volume;
+
+        // Create oscillator
+        const oscillator = ctx.createOscillator();
+        oscillator.frequency.value = frequency;
+        oscillator.type = type;
+
+        // Create gain with envelope
+        const gain = ctx.createGain();
+        this.applyEnvelope(gain, volume, duration, startTime, envelope);
+
+        // Create filter for warmth
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = frequency * 2;
+        filter.Q.value = 1;
+
+        // Connect audio graph
+        oscillator.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        // Start and stop
+        oscillator.start(startTime);
+        oscillator.stop(startTime + duration);
+    }
+
+    applyEnvelope(gainNode, volume, duration, startTime, envelope) {
+        const gain = gainNode.gain;
         
-        oscillator.frequency.value = sound.freq;
-        oscillator.type = 'sine';
-        
-        gain.gain.setValueAtTime(0, this.context.currentTime);
-        gain.gain.linearRampToValueAtTime(this.volume, this.context.currentTime + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.001, this.context.currentTime + sound.duration);
-        
-        oscillator.connect(gain);
-        gain.connect(this.context.destination);
-        
-        oscillator.start();
-        oscillator.stop(this.context.currentTime + sound.duration);
+        switch (envelope) {
+            case 'smooth':
+                gain.setValueAtTime(0, startTime);
+                gain.linearRampToValueAtTime(volume, startTime + 0.02);
+                gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+                break;
+                
+            case 'punch':
+                gain.setValueAtTime(0, startTime);
+                gain.linearRampToValueAtTime(volume * 1.3, startTime + 0.01);
+                gain.exponentialRampToValueAtTime(volume * 0.7, startTime + 0.03);
+                gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+                break;
+                
+            case 'fade':
+                gain.setValueAtTime(volume, startTime);
+                gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+                break;
+                
+            case 'soft':
+                gain.setValueAtTime(0, startTime);
+                gain.linearRampToValueAtTime(volume * 0.8, startTime + duration * 0.3);
+                gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+                break;
+                
+            default:
+                gain.setValueAtTime(volume, startTime);
+                gain.setValueAtTime(0, startTime + duration);
+        }
     }
 
     destroy() {
@@ -80,121 +203,140 @@ class AudioSystem {
             this.context.close();
             this.context = null;
         }
+        this.initialized = false;
     }
 }
 
 /**
- * Main Progressive Scroll Accordion - Simplified
+ * Enhanced Progressive Scroll Accordion with smooth scrolling
  */
 class ProgressiveScrollAccordion {
     constructor(options = {}) {
-        // Device detection
+        // Enhanced device detection
         this.device = new DeviceDetector();
         
-        // Configuration
+        // Adaptive configuration based on device performance
         this.config = {
             sectionSelector: '.progressive-section',
-            threshold: this.device.isMobile ? 0.3 : 0.5,
-            rootMargin: '-20% 0px -20% 0px',
-            transitionDuration: this.device.isLowEnd ? 300 : 600,
-            enableSounds: !this.device.prefersReducedMotion && !this.device.isLowEnd,
+            threshold: this.device.performanceScore > 70 ? [0.2, 0.5, 0.8] : [0.5],
+            rootMargin: this.device.isMobile ? '-15% 0px -15% 0px' : '-20% 0px -20% 0px',
+            transitionDuration: this.device.performanceScore > 70 ? 800 : 400,
+            enableSounds: !this.device.prefersReducedMotion && this.device.performanceScore > 50,
             enableNavigation: true,
             enableKeyboard: !this.device.isMobile,
+            enableSmoothScrolling: this.device.performanceScore > 60,
+            debounceDelay: this.device.performanceScore > 70 ? 100 : 200,
             ...options
         };
 
-        // State
+        // Enhanced state management
         this.state = {
             sections: [],
             activeIndex: 0,
+            previousIndex: -1,
             isTransitioning: false,
-            isInitialized: false
+            isInitialized: false,
+            visibilityMap: new Map(),
+            scrollDirection: 'down',
+            lastScrollPosition: 0,
+            transitionQueue: []
         };
 
         // Systems
         this.audio = new AudioSystem(this.config.enableSounds);
         this.observer = null;
         this.navigation = null;
+        this.scrollTimeout = null;
 
-        // Event handlers
+        // Enhanced event handlers with better performance
         this.boundHandlers = {
             keydown: this.handleKeydown.bind(this),
-            resize: this.debounce(this.handleResize.bind(this), 300)
+            resize: this.debounce(this.handleResize.bind(this), 300),
+            scroll: this.throttle(this.handleScroll.bind(this), 16), // 60fps
+            visibilityChange: this.handleVisibilityChange.bind(this)
         };
 
         this.init();
     }
 
     /**
-     * Initialize accordion system
+     * Enhanced initialization with error recovery
      */
     async init() {
         try {
-            console.log('🎮 Initializing Progressive Accordion...');
+            console.log('🎮 Initializing Enhanced Progressive Accordion...');
+            console.log(`📊 Performance Score: ${this.device.performanceScore}/100`);
             
-            // Apply performance mode
-            if (this.device.isLowEnd) {
+            // Apply performance optimizations
+            if (this.device.performanceScore < 50) {
                 document.body.classList.add('performance-mode');
+                console.log('⚡ Performance mode enabled');
             }
 
-            // Initialize audio
+            // Initialize audio system
             await this.audio.init();
             
-            // Setup sections
-            this.setupSections();
+            // Setup sections with enhanced detection
+            await this.setupSections();
             
-            // Create intersection observer
-            this.createObserver();
+            // Create enhanced intersection observer
+            this.createEnhancedObserver();
             
-            // Setup navigation
-            this.setupNavigation();
+            // Setup enhanced navigation
+            this.setupEnhancedNavigation();
             
-            // Bind events
-            this.bindEvents();
+            // Bind enhanced events
+            this.bindEnhancedEvents();
             
-            // Set initial state
-            this.setInitialState();
+            // Set smart initial state
+            this.setSmartInitialState();
             
             this.state.isInitialized = true;
-            console.log('✅ Accordion initialized successfully');
+            console.log('✅ Enhanced Accordion initialized successfully');
             
-            // Dispatch ready event
-            window.dispatchEvent(new CustomEvent('accordion:ready', {
-                detail: { sections: this.state.sections.length }
-            }));
+            // Dispatch enhanced ready event
+            this.dispatchEvent('accordion:ready', {
+                sections: this.state.sections.length,
+                performanceScore: this.device.performanceScore,
+                config: this.config
+            });
 
         } catch (error) {
-            console.error('❌ Accordion initialization failed:', error);
+            console.error('❌ Enhanced Accordion initialization failed:', error);
             this.fallbackToStatic();
         }
     }
 
     /**
-     * Setup sections with basic structure
+     * Enhanced section setup with better content detection
      */
-    setupSections() {
-        const elements = document.querySelectorAll(this.config.sectionSelector);
+    async setupSections() {
+        // Auto-detect sections if none found
+        let elements = document.querySelectorAll(this.config.sectionSelector);
         
         if (elements.length === 0) {
-            // Auto-detect sections
             const autoSections = document.querySelectorAll('.about-section, .features-section, .contact-section');
             autoSections.forEach(el => el.classList.add('progressive-section'));
+            elements = autoSections;
         }
 
-        const sectionElements = document.querySelectorAll(this.config.sectionSelector);
-        
-        this.state.sections = Array.from(sectionElements).map((element, index) => {
+        if (elements.length === 0) {
+            throw new Error('No sections found for accordion');
+        }
+
+        this.state.sections = Array.from(elements).map((element, index) => {
             const id = element.id || `section-${index}`;
             element.id = id;
             
-            // Setup header
-            const header = this.setupSectionHeader(element, index);
-            
-            // Setup content
-            const content = this.setupSectionContent(element);
+            // Enhanced section setup
+            const header = this.setupEnhancedHeader(element, index);
+            const content = this.setupEnhancedContent(element);
             
             // Setup accessibility
-            this.setupAccessibility(element, header, content, index);
+            this.setupEnhancedAccessibility(element, header, content, index);
+            
+            // Calculate natural height for smooth animations
+            const naturalHeight = this.calculateNaturalHeight(element);
 
             return {
                 element,
@@ -202,17 +344,19 @@ class ProgressiveScrollAccordion {
                 content,
                 index,
                 id,
-                isExpanded: false
+                isExpanded: false,
+                naturalHeight,
+                lastVisibilityRatio: 0
             };
         });
 
-        console.log(`📄 Setup ${this.state.sections.length} sections`);
+        console.log(`📄 Enhanced setup complete: ${this.state.sections.length} sections`);
     }
 
     /**
-     * Setup section header
+     * Enhanced header setup with better interaction
      */
-    setupSectionHeader(element, index) {
+    setupEnhancedHeader(element, index) {
         let header = element.querySelector('.section-header');
         
         if (!header) {
@@ -223,18 +367,29 @@ class ProgressiveScrollAccordion {
                 h2.parentNode.insertBefore(header, h2);
                 header.appendChild(h2);
                 
-                // Add progress bar
+                // Enhanced progress bar
                 const progress = document.createElement('div');
                 progress.className = 'section-progress';
+                progress.setAttribute('aria-hidden', 'true');
                 header.appendChild(progress);
             }
         }
 
-        // Add click handler
         if (header) {
+            // Enhanced click handler with feedback
             header.addEventListener('click', (e) => {
                 e.preventDefault();
+                if (this.config.enableSounds) {
+                    this.audio.play('click');
+                }
                 this.navigateToSection(index);
+            });
+
+            // Enhanced hover effects
+            header.addEventListener('mouseenter', () => {
+                if (this.config.enableSounds && !this.state.isTransitioning) {
+                    this.audio.play('hover', { volume: 0.3 });
+                }
             });
         }
 
@@ -242,9 +397,9 @@ class ProgressiveScrollAccordion {
     }
 
     /**
-     * Setup section content
+     * Enhanced content setup with better wrapping
      */
-    setupSectionContent(element) {
+    setupEnhancedContent(element) {
         let content = element.querySelector('.section-content');
         
         if (!content) {
@@ -264,9 +419,32 @@ class ProgressiveScrollAccordion {
     }
 
     /**
-     * Setup accessibility
+     * Calculate natural height for smooth animations
      */
-    setupAccessibility(element, header, content, index) {
+    calculateNaturalHeight(element) {
+        const currentDisplay = element.style.display;
+        const currentHeight = element.style.height;
+        const currentVisibility = element.style.visibility;
+        
+        // Temporarily make element visible and auto-height
+        element.style.visibility = 'hidden';
+        element.style.display = 'block';
+        element.style.height = 'auto';
+        
+        const height = element.offsetHeight;
+        
+        // Restore original styles
+        element.style.display = currentDisplay;
+        element.style.height = currentHeight;
+        element.style.visibility = currentVisibility;
+        
+        return height;
+    }
+
+    /**
+     * Enhanced accessibility setup
+     */
+    setupEnhancedAccessibility(element, header, content, index) {
         if (!header || !content) return;
 
         element.setAttribute('role', 'region');
@@ -275,24 +453,30 @@ class ProgressiveScrollAccordion {
         header.setAttribute('role', 'button');
         header.setAttribute('aria-expanded', 'false');
         header.setAttribute('tabindex', '0');
+        header.setAttribute('aria-controls', `${element.id}-content`);
         
+        content.id = `${element.id}-content`;
         content.setAttribute('aria-hidden', 'true');
         
-        // Keyboard support
+        // Enhanced keyboard support
         header.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
+                if (this.config.enableSounds) {
+                    this.audio.play('click');
+                }
                 this.navigateToSection(index);
             }
         });
     }
 
     /**
-     * Create intersection observer
+     * Enhanced intersection observer with better performance
      */
-    createObserver() {
-        if (!('IntersectionObserver' in window)) {
-            console.warn('IntersectionObserver not supported');
+    createEnhancedObserver() {
+        if (!this.device.supportsIntersectionObserver) {
+            console.warn('IntersectionObserver not supported, using scroll fallback');
+            this.setupScrollFallback();
             return;
         }
 
@@ -303,25 +487,7 @@ class ProgressiveScrollAccordion {
         };
 
         this.observer = new IntersectionObserver((entries) => {
-            if (this.state.isTransitioning) return;
-
-            // Find best candidate
-            const visibleEntries = entries.filter(entry => entry.isIntersecting);
-            
-            if (visibleEntries.length === 0) return;
-
-            // Get section with highest intersection ratio
-            const best = visibleEntries.reduce((prev, current) => 
-                current.intersectionRatio > prev.intersectionRatio ? current : prev
-            );
-
-            const sectionIndex = this.state.sections.findIndex(
-                section => section.element === best.target
-            );
-
-            if (sectionIndex !== -1 && sectionIndex !== this.state.activeIndex) {
-                this.transitionToSection(sectionIndex);
-            }
+            this.handleEnhancedIntersection(entries);
         }, options);
 
         // Observe all sections
@@ -329,50 +495,168 @@ class ProgressiveScrollAccordion {
             this.observer.observe(section.element);
         });
 
-        console.log('👁️ Intersection Observer created');
+        console.log('👁️ Enhanced Intersection Observer created');
     }
 
     /**
-     * Transition to section
+     * Enhanced intersection handling with smarter logic
      */
-    async transitionToSection(targetIndex) {
+    handleEnhancedIntersection(entries) {
         if (this.state.isTransitioning) return;
 
-        this.state.isTransitioning = true;
-        const previousIndex = this.state.activeIndex;
+        // Update visibility map with enhanced data
+        entries.forEach(entry => {
+            const sectionIndex = this.state.sections.findIndex(
+                section => section.element === entry.target
+            );
 
-        try {
-            // Play sound
-            if (this.config.enableSounds) {
-                this.audio.play('expand');
+            if (sectionIndex !== -1) {
+                this.state.visibilityMap.set(sectionIndex, {
+                    isIntersecting: entry.isIntersecting,
+                    intersectionRatio: entry.intersectionRatio,
+                    boundingRect: entry.boundingClientRect,
+                    timestamp: performance.now()
+                });
+
+                // Update last visibility ratio
+                this.state.sections[sectionIndex].lastVisibilityRatio = entry.intersectionRatio;
             }
+        });
 
-            // Collapse previous
-            if (previousIndex !== -1) {
-                await this.collapseSection(previousIndex);
-            }
-
-            // Expand target
-            await this.expandSection(targetIndex);
-
-            // Update state
-            this.state.activeIndex = targetIndex;
-
-            // Update navigation
-            this.updateNavigation(targetIndex);
-
-            // Dispatch event
-            window.dispatchEvent(new CustomEvent('section:changed', {
-                detail: { previousIndex, currentIndex: targetIndex }
-            }));
-
-        } finally {
-            this.state.isTransitioning = false;
+        // Enhanced candidate selection
+        const candidate = this.findEnhancedCandidate();
+        
+        if (candidate !== null && candidate !== this.state.activeIndex) {
+            // Debounce rapid changes
+            clearTimeout(this.scrollTimeout);
+            this.scrollTimeout = setTimeout(() => {
+                this.transitionToSection(candidate);
+            }, this.config.debounceDelay);
         }
     }
 
     /**
-     * Expand section
+     * Enhanced candidate selection with intelligent scoring
+     */
+    findEnhancedCandidate() {
+        const visibleSections = Array.from(this.state.visibilityMap.entries())
+            .filter(([index, data]) => data.isIntersecting)
+            .map(([index, data]) => ({
+                index,
+                score: this.calculateSectionScore(index, data)
+            }))
+            .sort((a, b) => b.score - a.score);
+
+        return visibleSections.length > 0 ? visibleSections[0].index : null;
+    }
+
+    /**
+     * Calculate section visibility score for better selection
+     */
+    calculateSectionScore(index, visibilityData) {
+        let score = visibilityData.intersectionRatio * 100;
+        
+        // Bonus for center position
+        const rect = visibilityData.boundingRect;
+        const viewportCenter = window.innerHeight / 2;
+        const elementCenter = rect.top + (rect.height / 2);
+        const distanceFromCenter = Math.abs(viewportCenter - elementCenter);
+        const centerBonus = Math.max(0, 50 - (distanceFromCenter / 10));
+        
+        score += centerBonus;
+        
+        // Scroll direction bonus
+        if (this.state.scrollDirection === 'down' && index > this.state.activeIndex) {
+            score += 10;
+        } else if (this.state.scrollDirection === 'up' && index < this.state.activeIndex) {
+            score += 10;
+        }
+        
+        return score;
+    }
+
+    /**
+     * Enhanced scroll handling for direction detection
+     */
+    handleScroll() {
+        const currentPosition = window.pageYOffset;
+        
+        if (currentPosition > this.state.lastScrollPosition) {
+            this.state.scrollDirection = 'down';
+        } else if (currentPosition < this.state.lastScrollPosition) {
+            this.state.scrollDirection = 'up';
+        }
+        
+        this.state.lastScrollPosition = currentPosition;
+        
+        // Play subtle scroll sound
+        if (this.config.enableSounds && Math.abs(currentPosition - this.state.lastScrollPosition) > 50) {
+            this.audio.play('scroll', { volume: 0.1 });
+        }
+    }
+
+    /**
+     * Enhanced section transition with better performance
+     */
+    async transitionToSection(targetIndex) {
+        if (this.state.isTransitioning || targetIndex === this.state.activeIndex) return;
+
+        // Add to transition queue if busy
+        if (this.state.isTransitioning) {
+            this.state.transitionQueue.push(targetIndex);
+            return;
+        }
+
+        this.state.isTransitioning = true;
+        this.state.previousIndex = this.state.activeIndex;
+
+        try {
+            // Play enhanced transition sound
+            if (this.config.enableSounds) {
+                this.audio.play('expand', { volume: 0.4 });
+            }
+
+            // Enhanced parallel transitions for better performance
+            const promises = [];
+
+            // Collapse previous section
+            if (this.state.previousIndex !== -1) {
+                promises.push(this.collapseSection(this.state.previousIndex));
+            }
+
+            // Expand target section
+            promises.push(this.expandSection(targetIndex));
+
+            // Wait for all transitions
+            await Promise.all(promises);
+
+            // Update state
+            this.state.activeIndex = targetIndex;
+
+            // Update navigation with animation
+            this.updateEnhancedNavigation(targetIndex);
+
+            // Dispatch enhanced event
+            this.dispatchEvent('section:changed', {
+                previousIndex: this.state.previousIndex,
+                currentIndex: targetIndex,
+                section: this.state.sections[targetIndex],
+                timestamp: performance.now()
+            });
+
+        } finally {
+            this.state.isTransitioning = false;
+            
+            // Process queued transitions
+            if (this.state.transitionQueue.length > 0) {
+                const next = this.state.transitionQueue.shift();
+                setTimeout(() => this.transitionToSection(next), 100);
+            }
+        }
+    }
+
+    /**
+     * Enhanced section expansion with smooth animations
      */
     async expandSection(index) {
         const section = this.state.sections[index];
@@ -380,7 +664,7 @@ class ProgressiveScrollAccordion {
 
         const { element, header, content } = section;
 
-        // Update classes
+        // Update classes with enhanced timing
         element.classList.remove('collapsed');
         element.classList.add('expanded');
 
@@ -388,19 +672,26 @@ class ProgressiveScrollAccordion {
         if (header) header.setAttribute('aria-expanded', 'true');
         if (content) content.setAttribute('aria-hidden', 'false');
 
-        // Wait for transition
-        await this.waitForTransition(element);
+        // Enhanced height animation
+        if (this.config.enableSmoothScrolling) {
+            element.style.height = `${section.naturalHeight}px`;
+        }
+
+        // Wait for transition with fallback
+        await this.waitForEnhancedTransition(element);
 
         section.isExpanded = true;
 
-        // Dispatch event
-        window.dispatchEvent(new CustomEvent('section:expanded', {
-            detail: { section, index }
-        }));
+        // Dispatch expanded event
+        this.dispatchEvent('section:expanded', { 
+            section, 
+            index,
+            timestamp: performance.now()
+        });
     }
 
     /**
-     * Collapse section
+     * Enhanced section collapse with smooth animations
      */
     async collapseSection(index) {
         const section = this.state.sections[index];
@@ -408,9 +699,9 @@ class ProgressiveScrollAccordion {
 
         const { element, header, content } = section;
 
-        // Play sound
+        // Play enhanced collapse sound
         if (this.config.enableSounds) {
-            this.audio.play('collapse');
+            this.audio.play('collapse', { volume: 0.3 });
         }
 
         // Update classes
@@ -422,55 +713,75 @@ class ProgressiveScrollAccordion {
         if (content) content.setAttribute('aria-hidden', 'true');
 
         // Wait for transition
-        await this.waitForTransition(element);
+        await this.waitForEnhancedTransition(element);
 
         section.isExpanded = false;
 
-        // Dispatch event
-        window.dispatchEvent(new CustomEvent('section:collapsed', {
-            detail: { section, index }
-        }));
-    }
-
-    /**
-     * Wait for CSS transition
-     */
-    waitForTransition(element) {
-        return new Promise(resolve => {
-            const timeout = setTimeout(resolve, this.config.transitionDuration);
-            
-            const onTransitionEnd = () => {
-                clearTimeout(timeout);
-                element.removeEventListener('transitionend', onTransitionEnd);
-                resolve();
-            };
-            
-            element.addEventListener('transitionend', onTransitionEnd, { once: true });
+        // Dispatch collapsed event
+        this.dispatchEvent('section:collapsed', { 
+            section, 
+            index,
+            timestamp: performance.now()
         });
     }
 
     /**
-     * Setup navigation dots
+     * Enhanced transition waiting with better timing
      */
-    setupNavigation() {
+    waitForEnhancedTransition(element) {
+        return new Promise(resolve => {
+            const timeout = setTimeout(resolve, this.config.transitionDuration + 100);
+            
+            const onTransitionEnd = (event) => {
+                if (event.target === element) {
+                    clearTimeout(timeout);
+                    element.removeEventListener('transitionend', onTransitionEnd);
+                    resolve();
+                }
+            };
+            
+            element.addEventListener('transitionend', onTransitionEnd);
+        });
+    }
+
+    /**
+     * Enhanced navigation setup with better styling
+     */
+    setupEnhancedNavigation() {
         if (!this.config.enableNavigation || this.state.sections.length === 0) return;
 
-        // Remove existing
+        // Remove existing navigation
         const existing = document.querySelector('.scroll-navigation');
         if (existing) existing.remove();
 
-        // Create navigation
+        // Create enhanced navigation
         const nav = document.createElement('nav');
         nav.className = 'scroll-navigation';
         nav.setAttribute('aria-label', 'Section Navigation');
+        nav.setAttribute('role', 'navigation');
 
+        // Create enhanced dots
         this.state.sections.forEach((section, index) => {
             const dot = document.createElement('button');
             dot.className = 'nav-dot';
             dot.type = 'button';
-            dot.setAttribute('aria-label', `Go to section ${index + 1}`);
+            dot.setAttribute('aria-label', `Go to section ${index + 1}: ${section.id}`);
+            dot.setAttribute('data-section-index', index);
             
-            dot.addEventListener('click', () => this.navigateToSection(index));
+            // Enhanced click handler
+            dot.addEventListener('click', () => {
+                if (this.config.enableSounds) {
+                    this.audio.play('click', { volume: 0.5 });
+                }
+                this.navigateToSection(index);
+            });
+            
+            // Enhanced hover effects
+            dot.addEventListener('mouseenter', () => {
+                if (this.config.enableSounds) {
+                    this.audio.play('hover', { volume: 0.2 });
+                }
+            });
             
             nav.appendChild(dot);
         });
@@ -478,70 +789,78 @@ class ProgressiveScrollAccordion {
         document.body.appendChild(nav);
         this.navigation = nav;
 
-        console.log('🧭 Navigation created');
+        console.log('🧭 Enhanced Navigation created');
     }
 
     /**
-     * Update navigation state
+     * Enhanced navigation update with smooth transitions
      */
-    updateNavigation(activeIndex) {
+    updateEnhancedNavigation(activeIndex) {
         if (!this.navigation) return;
 
         const dots = this.navigation.querySelectorAll('.nav-dot');
         dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === activeIndex);
+            const isActive = index === activeIndex;
+            
+            // Smooth class transitions
+            if (isActive) {
+                dot.classList.add('active');
+                dot.setAttribute('aria-current', 'true');
+            } else {
+                dot.classList.remove('active');
+                dot.setAttribute('aria-current', 'false');
+            }
         });
     }
 
     /**
-     * Navigate to section
+     * Enhanced navigation to section with smooth scrolling
      */
     navigateToSection(index) {
         const section = this.state.sections[index];
         if (!section) return;
 
-        // Play sound
-        if (this.config.enableSounds) {
-            this.audio.play('click');
+        // Enhanced smooth scroll with better easing
+        if (this.config.enableSmoothScrolling) {
+            section.element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'nearest'
+            });
+        } else {
+            // Fallback for low-performance devices
+            section.element.scrollIntoView({
+                behavior: 'auto',
+                block: 'center'
+            });
         }
-
-        // Smooth scroll
-        section.element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-        });
     }
 
     /**
-     * Bind events
+     * Enhanced event binding with better performance
      */
-    bindEvents() {
+    bindEnhancedEvents() {
         if (this.config.enableKeyboard) {
             document.addEventListener('keydown', this.boundHandlers.keydown);
         }
         
         window.addEventListener('resize', this.boundHandlers.resize);
+        window.addEventListener('scroll', this.boundHandlers.scroll, { passive: true });
         
-        // Visibility change
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden && this.audio) {
-                this.audio.context?.suspend();
-            } else if (this.audio) {
-                this.audio.context?.resume();
-            }
-        });
-
-        console.log('📱 Events bound');
+        // Enhanced visibility handling
+        document.addEventListener('visibilitychange', this.boundHandlers.visibilityChange);
+        
+        console.log('📱 Enhanced events bound');
     }
 
     /**
-     * Handle keyboard navigation
+     * Enhanced keyboard navigation with more shortcuts
      */
     handleKeydown(event) {
-        // Skip if typing in input
+        // Skip if typing in input fields
         if (event.target.matches('input, textarea, [contenteditable]')) return;
 
-        const { key } = event;
+        const { key, ctrlKey, shiftKey } = event;
         let handled = false;
 
         switch (key) {
@@ -579,153 +898,4 @@ class ProgressiveScrollAccordion {
                 break;
                 
             case 'End':
-                event.preventDefault();
-                this.navigateToSection(this.state.sections.length - 1);
-                handled = true;
-                break;
-        }
-
-        if (handled && this.config.enableSounds) {
-            this.audio.play('click');
-        }
-    }
-
-    /**
-     * Navigate to previous section
-     */
-    navigateToPrevious() {
-        const prevIndex = Math.max(0, this.state.activeIndex - 1);
-        if (prevIndex !== this.state.activeIndex) {
-            this.navigateToSection(prevIndex);
-        }
-    }
-
-    /**
-     * Navigate to next section
-     */
-    navigateToNext() {
-        const nextIndex = Math.min(this.state.sections.length - 1, this.state.activeIndex + 1);
-        if (nextIndex !== this.state.activeIndex) {
-            this.navigateToSection(nextIndex);
-        }
-    }
-
-    /**
-     * Handle window resize
-     */
-    handleResize() {
-        // Update mobile detection
-        const wasMobile = this.device.isMobile;
-        this.device.isMobile = window.innerWidth <= 768;
-        
-        if (wasMobile !== this.device.isMobile) {
-            // Recreate observer with new settings
-            this.observer?.disconnect();
-            this.config.threshold = this.device.isMobile ? 0.3 : 0.5;
-            this.createObserver();
-        }
-    }
-
-    /**
-     * Set initial state
-     */
-    setInitialState() {
-        if (this.state.sections.length === 0) return;
-
-        // Expand first section by default
-        this.expandSection(0);
-        this.updateNavigation(0);
-
-        // Collapse others
-        this.state.sections.slice(1).forEach(section => {
-            section.element.classList.add('collapsed');
-        });
-    }
-
-    /**
-     * Fallback to static sections
-     */
-    fallbackToStatic() {
-        console.warn('⚠️ Falling back to static sections');
-        
-        this.state.sections.forEach(section => {
-            section.element.classList.remove('progressive-section', 'collapsed');
-            section.element.classList.add('static-section');
-        });
-    }
-
-    /**
-     * Utility: Debounce function
-     */
-    debounce(func, delay) {
-        let timeoutId;
-        return (...args) => {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => func.apply(this, args), delay);
-        };
-    }
-
-    /**
-     * Destroy accordion
-     */
-    destroy() {
-        // Disconnect observer
-        if (this.observer) {
-            this.observer.disconnect();
-            this.observer = null;
-        }
-
-        // Remove events
-        document.removeEventListener('keydown', this.boundHandlers.keydown);
-        window.removeEventListener('resize', this.boundHandlers.resize);
-
-        // Remove navigation
-        if (this.navigation) {
-            this.navigation.remove();
-            this.navigation = null;
-        }
-
-        // Destroy audio
-        this.audio?.destroy();
-
-        // Reset sections
-        this.state.sections.forEach(section => {
-            section.element.classList.remove(
-                'progressive-section', 'expanded', 'collapsed'
-            );
-        });
-
-        console.log('🗑️ Accordion destroyed');
-    }
-}
-
-// Auto-initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    // Configuration for GGenius MLBB site
-    const config = {
-        sectionSelector: '.about-section, .features-section, .contact-section',
-        enableSounds: true,
-        enableNavigation: true,
-        enableKeyboard: true
-    };
-
-    // Create global instance
-    window.progressiveAccordion = new ProgressiveScrollAccordion(config);
-
-    // Add event listeners for external integrations
-    window.addEventListener('section:changed', (event) => {
-        console.log(`🎯 Section changed: ${event.detail.previousIndex} → ${event.detail.currentIndex}`);
-        
-        // Analytics tracking (if available)
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'section_view', {
-                section_index: event.detail.currentIndex
-            });
-        }
-    });
-});
-
-// Export for module usage
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = ProgressiveScrollAccordion;
-}
+                event
