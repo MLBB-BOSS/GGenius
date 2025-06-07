@@ -3,35 +3,71 @@
      xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
 
-  <!-- ============== EXACT GGENIUS LOGO DEFINITIONS ============== -->
+  <!-- ============== GGENIUS MAZE LOGO DEFINITIONS ============== -->
   <defs>
-    <!-- Exact Purple-Pink Gradient -->
+    <!-- Primary Brand Gradient -->
     <linearGradient id="ggenius-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="0%" stop-color="#8B5CF6">
+        <animate attributeName="stop-color" 
+                 values="#8B5CF6;#A855F7;#8B5CF6" 
+                 dur="6s" 
+                 repeatCount="indefinite"/>
+      </stop>
       <stop offset="50%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#EC4899">
+        <animate attributeName="stop-color" 
+                 values="#EC4899;#F97316;#EC4899" 
+                 dur="6s" 
+                 repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+
+    <!-- Maze Intelligence Gradient -->
+    <linearGradient id="maze-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="25%" stop-color="#A855F7"/>
+      <stop offset="50%" stop-color="#EC4899"/>
+      <stop offset="75%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#EF4444"/>
+    </linearGradient>
+
+    <!-- Brain-Controller Fusion Gradient -->
+    <linearGradient id="fusion-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="30%" stop-color="#8B5CF6"/>
+      <stop offset="60%" stop-color="#A855F7"/>
       <stop offset="100%" stop-color="#EC4899"/>
     </linearGradient>
 
-    <!-- Brain Gradient (same as frame) -->
-    <linearGradient id="brain-exact" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8B5CF6"/>
-      <stop offset="50%" stop-color="#A855F7"/>
-      <stop offset="100%" stop-color="#EC4899"/>
-    </linearGradient>
+    <!-- Animated Glow Effect -->
+    <filter id="intelligence-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
 
-    <!-- Controller Elements -->
-    <linearGradient id="controller-exact" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8B5CF6"/>
-      <stop offset="50%" stop-color="#A855F7"/>
-      <stop offset="100%" stop-color="#EC4899"/>
-    </linearGradient>
+    <!-- Maze Path Glow -->
+    <filter id="maze-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Subtle Shadow -->
+    <filter id="subtle-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
   </defs>
 
-  <!-- ============== BLACK BACKGROUND ============== -->
+  <!-- ============== BLACK PREMIUM BACKGROUND ============== -->
   <rect width="800" height="400" fill="#000000"/>
 
-  <!-- ============== EXACT HEXAGON FRAME ============== -->
-  <g id="hexagon-exact" transform="translate(100, 200)">
+  <!-- ============== INTELLIGENT HEXAGON FRAME ============== -->
+  <g id="hexagon-frame" transform="translate(100, 200)" filter="url(#intelligence-glow)">
     <!-- Main Hexagon Shape -->
     <path d="
       M100,0
@@ -55,129 +91,219 @@
       stroke-width="8"
       stroke-linecap="round"
       stroke-linejoin="round"/>
+    
+    <!-- Inner Hexagon for Depth -->
+    <path d="
+      M100,15
+      L145,15
+      C155,15 162,22 162,32
+      L185,78
+      C188,85 188,92 185,99
+      L162,145
+      C162,155 155,162 145,162
+      L100,162
+      L55,162
+      C45,162 38,155 38,145
+      L15,99
+      C12,92 12,85 15,78
+      L38,32
+      C38,22 45,15 55,15
+      L100,15
+      Z"
+      fill="none" 
+      stroke="url(#ggenius-gradient)" 
+      stroke-width="2"
+      opacity="0.6"/>
   </g>
 
-  <!-- ============== EXACT BRAIN DESIGN ============== -->
-  <g id="brain-exact" transform="translate(100, 200)">
-    <!-- Left Brain Hemisphere -->
-    <path d="
-      M70,50
-      C65,45 65,40 70,35
-      C75,30 85,30 90,35
-      C95,40 100,45 100,50
-      C100,55 95,60 90,65
-      C85,70 75,70 70,65
-      C65,60 65,55 70,50
-      Z"
-      fill="none" 
-      stroke="url(#brain-exact)" 
-      stroke-width="4"
-      stroke-linecap="round"/>
+  <!-- ============== COMPLEX INTELLIGENCE MAZE ============== -->
+  <g id="intelligence-maze" transform="translate(100, 200)" filter="url(#maze-glow)">
     
-    <!-- Right Brain Hemisphere -->
-    <path d="
-      M130,50
-      C135,45 135,40 130,35
-      C125,30 115,30 110,35
-      C105,40 100,45 100,50
-      C100,55 105,60 110,65
-      C115,70 125,70 130,65
-      C135,60 135,55 130,50
-      Z"
-      fill="none" 
-      stroke="url(#brain-exact)" 
-      stroke-width="4"
-      stroke-linecap="round"/>
+    <!-- Maze Outer Boundary -->
+    <rect x="30" y="30" width="140" height="120" 
+          fill="none" 
+          stroke="url(#maze-gradient)" 
+          stroke-width="3"
+          rx="5"/>
     
-    <!-- Central Brain Connection -->
-    <line x1="100" y1="35" x2="100" y2="65" 
-          stroke="url(#brain-exact)" 
-          stroke-width="3" 
-          stroke-linecap="round"/>
-    
-    <!-- Brain Details - Left -->
-    <path d="M75,45 Q80,40 85,45 Q90,50 85,55" 
-          fill="none" stroke="url(#brain-exact)" stroke-width="2.5" stroke-linecap="round"/>
-    <path d="M80,55 Q85,60 90,55" 
-          fill="none" stroke="url(#brain-exact)" stroke-width="2.5" stroke-linecap="round"/>
-    
-    <!-- Brain Details - Right -->
-    <path d="M125,45 Q120,40 115,45 Q110,50 115,55" 
-          fill="none" stroke="url(#brain-exact)" stroke-width="2.5" stroke-linecap="round"/>
-    <path d="M120,55 Q115,60 110,55" 
-          fill="none" stroke="url(#brain-exact)" stroke-width="2.5" stroke-linecap="round"/>
-  </g>
-
-  <!-- ============== EXACT CONTROLLER DESIGN ============== -->
-  <g id="controller-exact" transform="translate(100, 200)">
-    <!-- Controller Body -->
-    <path d="
-      M50,100
-      C45,95 45,90 50,85
-      L70,85
-      C75,85 80,90 85,95
-      L90,100
-      C95,105 105,105 110,100
-      L115,95
-      C120,90 125,85 130,85
-      L150,85
-      C155,90 155,95 150,100
-      L150,120
-      C155,125 155,135 150,140
-      L130,140
-      C125,140 120,135 115,130
-      L110,125
-      C105,120 95,120 90,125
-      L85,130
-      C80,135 75,140 70,140
-      L50,140
-      C45,135 45,125 50,120
-      L50,100
-      Z"
-      fill="none" 
-      stroke="url(#controller-exact)" 
-      stroke-width="4"
-      stroke-linecap="round"/>
-
-    <!-- D-Pad (Left Side) - Cross -->
-    <g id="dpad-cross">
-      <!-- Horizontal Line -->
-      <line x1="65" y1="112" x2="85" y2="112" 
-            stroke="url(#controller-exact)" 
-            stroke-width="4" 
-            stroke-linecap="round"/>
-      <!-- Vertical Line -->
-      <line x1="75" y1="102" x2="75" y2="122" 
-            stroke="url(#controller-exact)" 
-            stroke-width="4" 
-            stroke-linecap="round"/>
+    <!-- Complex Maze Paths - Level 1 (Outer) -->
+    <g id="maze-outer" stroke="url(#maze-gradient)" stroke-width="3" fill="none" stroke-linecap="round">
+      <!-- Top Section -->
+      <path d="M40,30 L40,50 L60,50 L60,70 L80,70 L80,50 L100,50 L100,30"/>
+      <path d="M110,30 L110,60 L130,60 L130,40 L150,40 L150,30"/>
+      <path d="M160,30 L160,50 L170,50"/>
+      
+      <!-- Middle Section - Brain Pattern -->
+      <path d="M30,80 L50,80 L50,100 L70,100"/>
+      <path d="M80,80 L80,100 L100,100 L100,90 L120,90 L120,100"/>
+      <path d="M130,80 L130,110 L150,110 L150,90 L170,90"/>
+      
+      <!-- Central Intelligence Core -->
+      <circle cx="100" cy="90" r="8" 
+              stroke="url(#fusion-gradient)" 
+              stroke-width="2" 
+              fill="none">
+        <animate attributeName="r" values="8;12;8" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- Bottom Section -->
+      <path d="M30,120 L50,120 L50,140 L70,140 L70,120 L90,120"/>
+      <path d="M110,120 L110,140 L130,140 L130,120 L150,120 L150,150"/>
+      <path d="M160,120 L170,120 L170,150"/>
+      
+      <!-- Gaming Controller Elements Integrated -->
+      <!-- Left Controller Section -->
+      <g id="left-controller">
+        <rect x="40" y="110" width="20" height="15" rx="3" 
+              stroke="url(#fusion-gradient)" stroke-width="2" fill="none"/>
+        <!-- D-Pad -->
+        <line x1="45" y1="117" x2="55" y2="117" 
+              stroke="url(#fusion-gradient)" stroke-width="2"/>
+        <line x1="50" y1="112" x2="50" y2="122" 
+              stroke="url(#fusion-gradient)" stroke-width="2"/>
+      </g>
+      
+      <!-- Right Controller Section -->
+      <g id="right-controller">
+        <rect x="140" y="110" width="20" height="15" rx="3" 
+              stroke="url(#fusion-gradient)" stroke-width="2" fill="none"/>
+        <!-- Action Buttons -->
+        <circle cx="145" cy="115" r="1.5" fill="url(#fusion-gradient)"/>
+        <circle cx="152" cy="117" r="1.5" fill="url(#fusion-gradient)"/>
+        <circle cx="155" cy="120" r="1.5" fill="url(#fusion-gradient)"/>
+      </g>
     </g>
-
-    <!-- Action Buttons (Right Side) - Three Dots -->
-    <g id="action-dots">
-      <circle cx="125" cy="105" r="3" fill="url(#controller-exact)"/>
-      <circle cx="135" cy="112" r="3" fill="url(#controller-exact)"/>
-      <circle cx="125" cy="119" r="3" fill="url(#controller-exact)"/>
+    
+    <!-- Complex Maze Paths - Level 2 (Inner Intelligence) -->
+    <g id="maze-inner" stroke="url(#maze-gradient)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.8">
+      <!-- Neural Network Patterns -->
+      <path d="M70,60 Q80,50 90,60 Q100,70 110,60">
+        <animate attributeName="d" 
+                 values="M70,60 Q80,50 90,60 Q100,70 110,60;M70,60 Q80,70 90,60 Q100,50 110,60;M70,60 Q80,50 90,60 Q100,70 110,60" 
+                 dur="4s" 
+                 repeatCount="indefinite"/>
+      </path>
+      
+      <path d="M60,90 Q70,80 80,90 Q90,100 100,90 Q110,80 120,90 Q130,100 140,90"/>
+      
+      <!-- Strategic Thinking Paths -->
+      <path d="M45,75 L55,75 L55,85 L65,85"/>
+      <path d="M135,75 L145,75 L145,85 L155,85"/>
+      
+      <!-- Decision Points -->
+      <circle cx="75" cy="75" r="2" fill="url(#maze-gradient)">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="125" cy="75" r="2" fill="url(#maze-gradient)">
+        <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    
+    <!-- Maze Solution Path (Animated) -->
+    <g id="solution-path" stroke="#00FF88" stroke-width="1.5" fill="none" opacity="0.7">
+      <path d="M30,80 L50,80 L50,100 L70,100 L80,100 L100,100 L120,100 L130,100 L130,110 L150,110 L170,110">
+        <animate attributeName="stroke-dasharray" values="0,1000;200,1000;0,1000" dur="8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.7;1;0.7" dur="4s" repeatCount="indefinite"/>
+      </path>
+    </g>
+    
+    <!-- Intelligence Nodes -->
+    <g id="intelligence-nodes">
+      <!-- Strategic Points -->
+      <circle cx="50" cy="80" r="3" fill="#00FF88" opacity="0.8">
+        <animate attributeName="opacity" values="0.8;1;0.8" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="100" cy="100" r="4" fill="#FF6B6B" opacity="0.8">
+        <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="150" cy="110" r="3" fill="#4ECDC4" opacity="0.8">
+        <animate attributeName="opacity" values="0.8;1;0.8" dur="2.2s" repeatCount="indefinite"/>
+      </circle>
     </g>
   </g>
 
-  <!-- ============== EXACT GGENIUS TEXT ============== -->
-  <g id="ggenius-text" transform="translate(350, 200)">
+  <!-- ============== PREMIUM GGENIUS TEXT ============== -->
+  <g id="ggenius-text" transform="translate(350, 200)" filter="url(#subtle-shadow)">
     <text x="0" y="20" 
           font-family="Arial, sans-serif" 
           font-size="72" 
           font-weight="bold" 
           fill="#FFFFFF"
           text-anchor="start">GGenius</text>
+    
+    <!-- Subtle Text Enhancement -->
+    <text x="0" y="20" 
+          font-family="Arial, sans-serif" 
+          font-size="72" 
+          font-weight="bold" 
+          fill="url(#ggenius-gradient)"
+          text-anchor="start"
+          opacity="0.3">GGenius</text>
   </g>
 
-  <!-- ============== SUBTLE ENHANCEMENT ============== -->
-  <g id="subtle-glow" opacity="0.6">
-    <!-- Soft glow around hexagon -->
-    <circle cx="200" cy="200" r="120" 
+  <!-- ============== INTELLIGENCE INDICATORS ============== -->
+  <g id="intelligence-indicators" opacity="0.6">
+    <!-- Strategic Thinking Pulse -->
+    <circle cx="200" cy="200" r="140" 
             fill="none" 
             stroke="url(#ggenius-gradient)" 
-            stroke-width="1" 
-            opacity="0.3"/>
+            stroke-width="0.5" 
+            opacity="0.4">
+      <animate attributeName="r" values="140;150;140" dur="5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0.7;0.4" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Gaming Excellence Points -->
+    <g id="excellence-points">
+      <circle cx="120" cy="120" r="2" fill="#00FF88">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="280" cy="150" r="1.5" fill="#FF6B6B">
+        <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="180" cy="280" r="2" fill="#4ECDC4">
+        <animate attributeName="opacity" values="0.6;1;0.6" dur="3.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="80" cy="250" r="1.5" fill="#A855F7">
+        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.8s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+
+  <!-- ============== PREMIUM BRAND ACCENTS ============== -->
+  <g id="brand-accents" opacity="0.8">
+    <!-- Corner Intelligence Indicators -->
+    <rect x="50" y="50" width="30" height="2" rx="1" fill="url(#ggenius-gradient)"/>
+    <rect x="50" y="50" width="2" height="30" rx="1" fill="url(#ggenius-gradient)"/>
+    
+    <rect x="720" y="50" width="30" height="2" rx="1" fill="url(#ggenius-gradient)"/>
+    <rect x="748" y="50" width="2" height="30" rx="1" fill="url(#ggenius-gradient)"/>
+    
+    <rect x="50" y="348" width="30" height="2" rx="1" fill="url(#ggenius-gradient)"/>
+    <rect x="50" y="320" width="2" height="30" rx="1" fill="url(#ggenius-gradient)"/>
+    
+    <rect x="720" y="348" width="30" height="2" rx="1" fill="url(#ggenius-gradient)"/>
+    <rect x="748" y="320" width="2" height="30" rx="1" fill="url(#ggenius-gradient)"/>
+    
+    <!-- Strategic Info Panel -->
+    <g id="info-panel" opacity="0.7">
+      <rect x="600" y="80" width="150" height="60" rx="8" 
+            fill="rgba(0,0,0,0.4)" 
+            stroke="url(#ggenius-gradient)" 
+            stroke-width="1"/>
+      <text x="615" y="105" fill="#8B5CF6" font-family="Arial" font-size="12" font-weight="bold">
+        INTELLIGENCE LEVEL
+      </text>
+      <text x="615" y="125" fill="#FFFFFF" font-family="Arial" font-size="10">
+        Maze Complexity: GENIUS
+      </text>
+      
+      <!-- Intelligence Progress Bar -->
+      <rect x="615" y="130" width="120" height="4" rx="2" fill="rgba(255,255,255,0.2)"/>
+      <rect x="615" y="130" width="95" height="4" rx="2" fill="url(#ggenius-gradient)">
+        <animate attributeName="width" values="95;120;95" dur="4s" repeatCount="indefinite"/>
+      </rect>
+    </g>
   </g>
 </svg>
