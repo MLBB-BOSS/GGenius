@@ -1,601 +1,320 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="1024" height="1024" viewBox="0 0 1024 1024"
      xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     class="mlbb-ultra-controller">
+     xmlns:xlink="http://www.w3.org/1999/xlink">
 
-  <!-- ============== ULTRA PROFESSIONAL DEFINITIONS ============== -->
+  <!-- ============== REALISTIC DEFINITIONS ============== -->
   <defs>
-    <!-- Revolutionary MLBB Color System -->
-    <radialGradient id="mlbb-ultra-gold" cx="0.2" cy="0.15" r="1.4">
-      <stop offset="0%" stop-color="#FEF3C7"/>
-      <stop offset="15%" stop-color="#FCD34D"/>
-      <stop offset="35%" stop-color="#F59E0B"/>
-      <stop offset="60%" stop-color="#D97706"/>
-      <stop offset="85%" stop-color="#92400E"/>
-      <stop offset="100%" stop-color="#451A03"/>
-    </radialGradient>
-
-    <radialGradient id="mlbb-ultra-blue" cx="0.2" cy="0.15" r="1.4">
-      <stop offset="0%" stop-color="#DBEAFE"/>
-      <stop offset="15%" stop-color="#93C5FD"/>
-      <stop offset="35%" stop-color="#3B82F6"/>
-      <stop offset="60%" stop-color="#1D4ED8"/>
-      <stop offset="85%" stop-color="#1E3A8A"/>
-      <stop offset="100%" stop-color="#1E2A78"/>
-    </radialGradient>
-
-    <!-- Ultra-Realistic Background -->
-    <radialGradient id="ultra-background" cx="0.5" cy="0.3" r="1.2">
-      <stop offset="0%" stop-color="#0F172A"/>
-      <stop offset="25%" stop-color="#1E293B"/>
-      <stop offset="50%" stop-color="#334155"/>
-      <stop offset="75%" stop-color="#1E293B"/>
-      <stop offset="100%" stop-color="#020617"/>
-    </radialGradient>
-
-    <!-- Revolutionary Controller Body -->
-    <radialGradient id="ultra-controller-body" cx="0.15" cy="0.1" r="1.5">
-      <stop offset="0%" stop-color="#94A3B8"/>
-      <stop offset="10%" stop-color="#64748B"/>
-      <stop offset="25%" stop-color="#475569"/>
-      <stop offset="45%" stop-color="#334155"/>
-      <stop offset="70%" stop-color="#1E293B"/>
-      <stop offset="90%" stop-color="#0F172A"/>
-      <stop offset="100%" stop-color="#020617"/>
-    </radialGradient>
-
-    <!-- Cinema-Quality Lighting -->
-    <linearGradient id="cinema-lighting" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.85)"/>
-      <stop offset="15%" stop-color="rgba(252,211,77,0.6)"/>
-      <stop offset="35%" stop-color="rgba(255,255,255,0.3)"/>
-      <stop offset="60%" stop-color="rgba(255,255,255,0.1)"/>
-      <stop offset="85%" stop-color="rgba(0,0,0,0.2)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0.4)"/>
+    <!-- Subtle Gray Background -->
+    <linearGradient id="subtle-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8F9FA"/>
+      <stop offset="50%" stop-color="#E9ECEF"/>
+      <stop offset="100%" stop-color="#DEE2E6"/>
     </linearGradient>
 
-    <!-- Revolutionary Shadow System -->
-    <filter id="ultra-professional-shadow" x="-150%" y="-100%" width="400%" height="350%">
-      <!-- Primary Deep Shadow -->
-      <feDropShadow dx="0" dy="45" stdDeviation="65" flood-color="#000000" flood-opacity="0.6"/>
-      <!-- Secondary Color Shadow -->
-      <feDropShadow dx="0" dy="25" stdDeviation="35" flood-color="#1E3A8A" flood-opacity="0.4"/>
-      <!-- Tertiary Gold Accent -->
-      <feDropShadow dx="0" dy="15" stdDeviation="20" flood-color="#F59E0B" flood-opacity="0.2"/>
-      <!-- Fine Detail Shadow -->
-      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5"/>
-      <!-- Surface Contact Shadow -->
-      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000000" flood-opacity="0.7"/>
-    </filter>
-
-    <!-- Ultra Button Glow System -->
-    <filter id="ultra-button-glow" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
-      <feColorMatrix type="matrix" values="1 0 0 0 0.95  0 1 0 0 0.8  0 0 1 0 0  0 0 0 1 0" result="goldGlow"/>
-      <feMerge>
-        <feMergeNode in="goldGlow"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <!-- Revolutionary Stick Texture -->
-    <radialGradient id="ultra-stick-texture" cx="0.3" cy="0.2" r="1.1">
-      <stop offset="0%" stop-color="#71717A"/>
-      <stop offset="20%" stop-color="#52525B"/>
-      <stop offset="40%" stop-color="#3F3F46"/>
-      <stop offset="65%" stop-color="#27272A"/>
-      <stop offset="85%" stop-color="#18181B"/>
-      <stop offset="100%" stop-color="#09090B"/>
+    <!-- Controller Realistic Body Gradient -->
+    <radialGradient id="realistic-body" cx="0.3" cy="0.25" r="1.1">
+      <stop offset="0%" stop-color="#4A5568"/>
+      <stop offset="30%" stop-color="#2D3748"/>
+      <stop offset="60%" stop-color="#1A202C"/>
+      <stop offset="100%" stop-color="#0F1419"/>
     </radialGradient>
 
-    <!-- Professional Rubber Pattern -->
-    <pattern id="ultra-rubber-pattern" patternUnits="userSpaceOnUse" width="6" height="6">
-      <rect width="6" height="6" fill="#18181B"/>
-      <circle cx="3" cy="3" r="1.2" fill="#3F3F46" opacity="0.8"/>
-      <circle cx="3" cy="3" r="0.6" fill="#52525B" opacity="0.6"/>
-      <circle cx="3" cy="3" r="0.2" fill="#71717A" opacity="0.4"/>
-    </pattern>
-
-    <!-- Ultra Display Screen -->
-    <linearGradient id="ultra-display" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#000000"/>
-      <stop offset="15%" stop-color="#0F172A"/>
-      <stop offset="30%" stop-color="#1E293B"/>
-      <stop offset="50%" stop-color="#000000"/>
-      <stop offset="70%" stop-color="#1E293B"/>
-      <stop offset="85%" stop-color="#0F172A"/>
-      <stop offset="100%" stop-color="#000000"/>
+    <!-- Natural Lighting -->
+    <linearGradient id="natural-lighting" x1="0" y1="0" x2="0.6" y2="0.8">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
+      <stop offset="25%" stop-color="rgba(255,255,255,0.2)"/>
+      <stop offset="60%" stop-color="rgba(255,255,255,0.05)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.1)"/>
     </linearGradient>
 
-    <!-- Dynamic Floor Shadow -->
-    <radialGradient id="ultra-floor-shadow" cx="0.5" cy="0.5" r="1">
-      <stop offset="0%" stop-color="rgba(0,0,0,0.5)"/>
-      <stop offset="20%" stop-color="rgba(30,58,138,0.3)"/>
-      <stop offset="40%" stop-color="rgba(0,0,0,0.25)"/>
-      <stop offset="65%" stop-color="rgba(245,158,11,0.1)"/>
-      <stop offset="85%" stop-color="rgba(0,0,0,0.05)"/>
+    <!-- Realistic D-Pad Material -->
+    <radialGradient id="dpad-material" cx="0.5" cy="0.3" r="0.8">
+      <stop offset="0%" stop-color="#6B46C1"/>
+      <stop offset="50%" stop-color="#553C9A"/>
+      <stop offset="100%" stop-color="#44337A"/>
+    </radialGradient>
+
+    <!-- Button Material -->
+    <radialGradient id="button-material" cx="0.5" cy="0.3" r="0.8">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="50%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </radialGradient>
+
+    <!-- Realistic Floor Shadow -->
+    <radialGradient id="floor-shadow" cx="0.5" cy="0.5" r="0.8">
+      <stop offset="0%" stop-color="rgba(0,0,0,0.3)"/>
+      <stop offset="40%" stop-color="rgba(0,0,0,0.15)"/>
+      <stop offset="70%" stop-color="rgba(0,0,0,0.05)"/>
       <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
     </radialGradient>
 
-    <!-- MLBB Professional Logo -->
-    <symbol id="mlbb-ultra-logo" viewBox="0 0 30 30">
-      <defs>
-        <radialGradient id="logo-gold" cx="0.3" cy="0.2" r="0.9">
-          <stop offset="0%" stop-color="#FCD34D"/>
-          <stop offset="50%" stop-color="#F59E0B"/>
-          <stop offset="100%" stop-color="#D97706"/>
-        </radialGradient>
-      </defs>
-      <!-- Main Star -->
-      <polygon points="15,3 18.5,11 27.5,11 21,17 24,25 15,20 6,25 9,17 2.5,11 11.5,11" 
-               fill="url(#logo-gold)" stroke="#92400E" stroke-width="1"/>
-      <!-- Inner Circle -->
-      <circle cx="15" cy="15" r="6" fill="none" stroke="#1E3A8A" stroke-width="1.5"/>
-      <!-- Center Dot -->
-      <circle cx="15" cy="15" r="1.5" fill="#DBEAFE"/>
-    </symbol>
+    <!-- Enhanced Realistic Shadow Filter -->
+    <filter id="realistic-shadow" x="-50%" y="-30%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="29" stdDeviation="40" flood-color="#000000" flood-opacity="0.4"/>
+      <feDropShadow dx="0" dy="14" stdDeviation="23" flood-color="#000000" flood-opacity="0.2"/>
+      <feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
 
-    <!-- Ultra Metal Texture -->
-    <linearGradient id="ultra-metal" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#E5E7EB"/>
-      <stop offset="25%" stop-color="#9CA3AF"/>
-      <stop offset="50%" stop-color="#6B7280"/>
-      <stop offset="75%" stop-color="#374151"/>
-      <stop offset="100%" stop-color="#1F2937"/>
+    <!-- Button Depth -->
+    <filter id="button-depth" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.6"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+
+    <!-- Enhanced Stick Shadow -->
+    <filter id="stick-shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.5"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+
+    <!-- Realistic Stick Texture -->
+    <radialGradient id="stick-texture" cx="0.5" cy="0.3" r="0.9">
+      <stop offset="0%" stop-color="#4A5568"/>
+      <stop offset="40%" stop-color="#2D3748"/>
+      <stop offset="80%" stop-color="#1A202C"/>
+      <stop offset="100%" stop-color="#0F1419"/>
+    </radialGradient>
+
+    <!-- Enhanced Stick Rubber Pattern -->
+    <pattern id="rubber-pattern" patternUnits="userSpaceOnUse" width="3.5" height="3.5">
+      <rect width="3.5" height="3.5" fill="#1A202C"/>
+      <circle cx="1.75" cy="1.75" r="0.7" fill="#2D3748" opacity="0.8"/>
+    </pattern>
+
+    <!-- Metal Trigger Material -->
+    <linearGradient id="metal-trigger" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#718096"/>
+      <stop offset="30%" stop-color="#4A5568"/>
+      <stop offset="70%" stop-color="#2D3748"/>
+      <stop offset="100%" stop-color="#1A202C"/>
     </linearGradient>
 
-    <!-- Professional Highlight -->
-    <linearGradient id="ultra-highlight" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.6)"/>
-      <stop offset="30%" stop-color="rgba(252,211,77,0.4)"/>
-      <stop offset="70%" stop-color="rgba(255,255,255,0.1)"/>
+    <!-- Screen Material -->
+    <linearGradient id="screen-material" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000"/>
+      <stop offset="50%" stop-color="#0F1419"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </linearGradient>
+
+    <!-- Plastic Highlight -->
+    <linearGradient id="plastic-highlight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
+      <stop offset="30%" stop-color="rgba(255,255,255,0.1)"/>
       <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
     </linearGradient>
   </defs>
 
-  <!-- ============== ULTRA PROFESSIONAL BACKGROUND ============== -->
-  <rect width="1024" height="1024" fill="url(#ultra-background)"/>
-  
-  <!-- Enhanced Grid Pattern -->
-  <defs>
-    <pattern id="ultra-grid" patternUnits="userSpaceOnUse" width="50" height="50">
-      <rect width="50" height="50" fill="none"/>
-      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(71,85,105,0.1)" stroke-width="1"/>
-    </pattern>
-  </defs>
-  <rect width="1024" height="1024" fill="url(#ultra-grid)" opacity="0.3"/>
+  <!-- ============== SUBTLE BACKGROUND ============== -->
+  <rect width="1024" height="1024" fill="url(#subtle-bg)"/>
 
-  <!-- Ultra Floor Shadow -->
-  <ellipse cx="512" cy="820" rx="450" ry="120" fill="url(#ultra-floor-shadow)"/>
+  <!-- Enhanced Floor Shadow (15% larger and repositioned) -->
+  <ellipse cx="512" cy="770" rx="368" ry="92" fill="url(#floor-shadow)" opacity="0.6"/>
 
-  <!-- ============== MLBB ULTRA PROFESSIONAL CONTROLLER ============== -->
-  <g id="mlbb-ultra-controller" filter="url(#ultra-professional-shadow)">
+  <!-- ============== ENHANCED REALISTIC CONTROLLER (15% larger) ============== -->
+  <g id="realistic-controller" filter="url(#realistic-shadow)">
     
-    <!-- Ultra Controller Body -->
-    <g id="ultra-controller-body">
-      <!-- Main Professional Body -->
+    <!-- Main Controller Body (15% larger - original multiplied by 1.15) -->
+    <g id="controller-body">
+      <!-- Primary Body Shape (recalculated coordinates for 15% increase) -->
       <path d="
-        M 180,480
-        C 150,380 280,280 440,260
-        C 530,235 590,230 740,260
-        C 900,280 1030,380 1000,500
-        C 975,580 925,630 860,690
-        C 815,725 765,735 710,680
-        C 670,650 655,605 660,570
-        C 665,525 650,480 590,480
-        C 530,480 515,525 520,570
-        C 525,605 510,650 470,680
-        C 415,735 365,725 320,690
-        C 255,630 205,580 180,480
+        M203,508
+        C180,425.75 291,333.75 425.75,321
+        C505.5,298 555.8,292.25 683,321
+        C818.75,333.75 897.75,425.75 874.75,523.75
+        C857.5,587 819.5,623 766.75,669
+        C727.5,698.75 683.25,707.25 637,660.5
+        C602.5,634.5 591,598.25 594.45,571.25
+        C597.9,531 585.75,508 555.8,508
+        C525.85,508 513.7,531 517.15,571.25
+        C520.6,598.25 509.1,634.5 474.6,660.5
+        C428.35,707.25 384.1,698.75 344.85,669
+        C292.1,623 254.1,587 203,508
         Z"
-        fill="url(#ultra-controller-body)" 
-        stroke="url(#mlbb-ultra-gold)" 
-        stroke-width="4"/>
+        fill="url(#realistic-body)" 
+        stroke="#000000" 
+        stroke-width="2.3"/>
 
-      <!-- Cinema Quality Lighting -->
+      <!-- Natural Surface Lighting (15% larger) -->
       <path d="
-        M 180,480
-        C 150,380 280,280 440,260
-        C 530,235 590,230 740,260
-        C 900,280 1030,380 1000,500
-        C 975,580 925,630 860,690
-        C 815,725 765,735 710,680
-        C 670,650 655,605 660,570
-        C 665,525 650,480 590,480
-        C 530,480 515,525 520,570
-        C 525,605 510,650 470,680
-        C 415,735 365,725 320,690
-        C 255,630 205,580 180,480
+        M203,508
+        C180,425.75 291,333.75 425.75,321
+        C505.5,298 555.8,292.25 683,321
+        C818.75,333.75 897.75,425.75 874.75,523.75
+        C857.5,587 819.5,623 766.75,669
+        C727.5,698.75 683.25,707.25 637,660.5
+        C602.5,634.5 591,598.25 594.45,571.25
+        C597.9,531 585.75,508 555.8,508
+        C525.85,508 513.7,531 517.15,571.25
+        C520.6,598.25 509.1,634.5 474.6,660.5
+        C428.35,707.25 384.1,698.75 344.85,669
+        C292.1,623 254.1,587 203,508
         Z"
-        fill="url(#cinema-lighting)" 
+        fill="url(#natural-lighting)" 
         opacity="0.7"/>
-
-      <!-- Professional Edge Highlights -->
-      <path d="
-        M 440,260
-        C 530,235 590,230 740,260
-        C 830,275 900,320 950,380"
-        fill="none" 
-        stroke="url(#ultra-highlight)" 
-        stroke-width="3" 
-        opacity="0.8"/>
     </g>
 
-    <!-- Ultra Professional Display -->
-    <g id="ultra-pro-display">
-      <!-- Display Frame -->
-      <rect x="320" y="320" width="380" height="110" rx="25" 
-            fill="url(#ultra-metal)" stroke="url(#mlbb-ultra-gold)" stroke-width="4"/>
+    <!-- Enhanced Realistic Center Touchpad (15% larger) -->
+    <g id="center-touchpad">
+      <rect x="345.8" y="356.5" width="322" height="80.5" rx="18.4" 
+            fill="url(#screen-material)" stroke="#2D3748" stroke-width="2.3"/>
+      <rect x="351.55" y="363.25" width="310.5" height="69" rx="13.8" 
+            fill="#0F1419" stroke="#1A202C" stroke-width="1.15"/>
       
-      <!-- Screen -->
-      <rect x="335" y="335" width="350" height="80" rx="18" 
-            fill="url(#ultra-display)" stroke="rgba(59,130,246,0.5)" stroke-width="2"/>
-      
-      <!-- MLBB Professional Interface -->
-      <g id="mlbb-interface">
-        <use href="#mlbb-ultra-logo" x="345" y="345" width="20" height="20"/>
-        <text x="375" y="360" fill="url(#mlbb-ultra-gold)" 
-              font-family="Arial Black" font-size="16" font-weight="bold">MOBILE LEGENDS</text>
-        <text x="375" y="380" fill="#60A5FA" 
-              font-family="Arial" font-size="12" font-weight="600">ULTRA PROFESSIONAL CONTROLLER</text>
-        <text x="375" y="395" fill="#34D399" 
-              font-family="Arial" font-size="10">TOURNAMENT EDITION • STATUS: ACTIVE</text>
-        <text x="375" y="408" fill="#94A3B8" 
-              font-family="Arial" font-size="8">ESPORTS CERTIFIED • LOW LATENCY MODE</text>
-        
-        <!-- Status Indicators -->
-        <circle cx="650" cy="350" r="6" fill="#34D399" opacity="0.9"/>
-        <circle cx="665" cy="350" r="6" fill="#F59E0B" opacity="0.9"/>
-        <circle cx="680" cy="350" r="6" fill="#3B82F6" opacity="0.9"/>
-        
-        <!-- Performance Bar -->
-        <rect x="580" y="370" width="100" height="8" rx="4" fill="#1F2937"/>
-        <rect x="582" y="372" width="85" height="4" rx="2" fill="url(#mlbb-ultra-gold)"/>
-        <text x="585" y="390" fill="#6B7280" font-family="Arial" font-size="7">PERFORMANCE</text>
-        
-        <!-- Connection Strength -->
-        <rect x="580" y="395" width="100" height="8" rx="4" fill="#1F2937"/>
-        <rect x="582" y="397" width="95" height="4" rx="2" fill="#34D399"/>
-        <text x="585" y="410" fill="#6B7280" font-family="Arial" font-size="7">CONNECTION</text>
-      </g>
+      <!-- Subtle Screen Reflection (15% larger) -->
+      <rect x="361.75" y="375.75" width="292.1" height="46" rx="9.2" fill="url(#plastic-highlight)" opacity="0.2"/>
     </g>
 
-    <!-- Ultra Professional Analog Sticks -->
-    <g id="ultra-pro-sticks">
-      <!-- Left Stick Complex -->
-      <g class="ultra-stick-left">
-        <!-- Base Ring -->
-        <circle cx="400" cy="580" r="55" fill="#0F172A" stroke="url(#mlbb-ultra-gold)" stroke-width="4"/>
-        <circle cx="400" cy="580" r="48" fill="url(#ultra-stick-texture)"/>
+    <!-- Ultra-Enhanced Realistic Analog Sticks (15% larger) -->
+    <g id="realistic-sticks">
+      <!-- Left Stick Assembly (15% larger) -->
+      <g filter="url(#stick-shadow)">
+        <!-- Stick Base -->
+        <circle cx="420.8" cy="555.25" r="43.7" fill="#1A202C" stroke="#0F1419" stroke-width="2.3"/>
+        <circle cx="420.8" cy="555.25" r="39.1" fill="url(#stick-texture)"/>
         
-        <!-- Precision Housing -->
-        <circle cx="400" cy="572" r="32" fill="url(#ultra-metal)" stroke="#1E3A8A" stroke-width="2"/>
-        <circle cx="400" cy="568" r="26" fill="#52525B"/>
+        <!-- Stick Shaft -->
+        <circle cx="420.8" cy="549.5" r="23" fill="url(#metal-trigger)" stroke="#2D3748" stroke-width="1.15"/>
+        <circle cx="420.8" cy="547.2" r="18.4" fill="#4A5568"/>
         
-        <!-- Ultra Rubber Grip -->
-        <circle cx="400" cy="565" r="20" fill="url(#ultra-rubber-pattern)"/>
-        <circle cx="400" cy="562" r="14" fill="#3F3F46"/>
+        <!-- Rubber Grip -->
+        <circle cx="420.8" cy="544.9" r="13.8" fill="url(#rubber-pattern)"/>
+        <circle cx="420.8" cy="542.6" r="9.2" fill="#2D3748"/>
         
-        <!-- Precision Center -->
-        <circle cx="400" cy="560" r="8" fill="#18181B"/>
-        <use href="#mlbb-ultra-logo" x="390" y="550" width="12" height="12"/>
-        
-        <!-- Performance Ring -->
-        <circle cx="400" cy="580" r="60" fill="none" stroke="url(#mlbb-ultra-gold)" stroke-width="2" opacity="0.4"/>
+        <!-- Center Indent -->
+        <circle cx="420.8" cy="542.6" r="4.6" fill="#1A202C" opacity="0.8"/>
       </g>
 
-      <!-- Right Stick Complex -->
-      <g class="ultra-stick-right">
-        <!-- Base Ring -->
-        <circle cx="720" cy="580" r="55" fill="#0F172A" stroke="url(#mlbb-ultra-gold)" stroke-width="4"/>
-        <circle cx="720" cy="580" r="48" fill="url(#ultra-stick-texture)"/>
+      <!-- Right Stick Assembly (15% larger) -->
+      <g filter="url(#stick-shadow)">
+        <!-- Stick Base -->
+        <circle cx="686.8" cy="555.25" r="43.7" fill="#1A202C" stroke="#0F1419" stroke-width="2.3"/>
+        <circle cx="686.8" cy="555.25" r="39.1" fill="url(#stick-texture)"/>
         
-        <!-- Precision Housing -->
-        <circle cx="720" cy="572" r="32" fill="url(#ultra-metal)" stroke="#1E3A8A" stroke-width="2"/>
-        <circle cx="720" cy="568" r="26" fill="#52525B"/>
+        <!-- Stick Shaft -->
+        <circle cx="686.8" cy="549.5" r="23" fill="url(#metal-trigger)" stroke="#2D3748" stroke-width="1.15"/>
+        <circle cx="686.8" cy="547.2" r="18.4" fill="#4A5568"/>
         
-        <!-- Ultra Rubber Grip -->
-        <circle cx="720" cy="565" r="20" fill="url(#ultra-rubber-pattern)"/>
-        <circle cx="720" cy="562" r="14" fill="#3F3F46"/>
+        <!-- Rubber Grip -->
+        <circle cx="686.8" cy="544.9" r="13.8" fill="url(#rubber-pattern)"/>
+        <circle cx="686.8" cy="542.6" r="9.2" fill="#2D3748"/>
         
-        <!-- Precision Center -->
-        <circle cx="720" cy="560" r="8" fill="#18181B"/>
-        <use href="#mlbb-ultra-logo" x="710" y="550" width="12" height="12"/>
-        
-        <!-- Performance Ring -->
-        <circle cx="720" cy="580" r="60" fill="none" stroke="url(#mlbb-ultra-gold)" stroke-width="2" opacity="0.4"/>
+        <!-- Center Indent -->
+        <circle cx="686.8" cy="542.6" r="4.6" fill="#1A202C" opacity="0.8"/>
       </g>
     </g>
 
-    <!-- Ultra Professional Shoulder System -->
-    <g id="ultra-shoulder-system">
-      <!-- Left Shoulder Complex -->
-      <rect x="250" y="280" width="180" height="30" rx="15" 
-            fill="url(#ultra-metal)" stroke="url(#mlbb-ultra-gold)" stroke-width="3"/>
-      <rect x="260" y="290" width="160" height="10" rx="5" fill="#52525B"/>
-      <text x="340" y="308" text-anchor="middle" fill="url(#mlbb-ultra-gold)" 
-            font-family="Arial Black" font-size="12" font-weight="bold">L1 • L2</text>
-      
-      <!-- Left Trigger Indicators -->
-      <circle cx="280" cy="275" r="8" fill="url(#mlbb-ultra-blue)" opacity="0.8"/>
-      <circle cx="400" cy="275" r="8" fill="url(#mlbb-ultra-blue)" opacity="0.8"/>
+    <!-- Enhanced Realistic Shoulder Triggers (15% larger) -->
+    <g id="shoulder-triggers">
+      <!-- Left Shoulder -->
+      <rect x="276.5" y="313.75" width="149.5" height="23" rx="11.5" fill="url(#metal-trigger)" stroke="#1A202C" stroke-width="1.15"/>
+      <rect x="282.25" y="317.2" width="138" height="16.1" rx="8.05" fill="#4A5568"/>
+      <text x="351.25" y="331" text-anchor="middle" fill="#A0AEC0" font-family="Arial" font-size="10.35">L1  L2</text>
 
-      <!-- Right Shoulder Complex -->
-      <rect x="590" y="280" width="180" height="30" rx="15" 
-            fill="url(#ultra-metal)" stroke="url(#mlbb-ultra-gold)" stroke-width="3"/>
-      <rect x="600" y="290" width="160" height="10" rx="5" fill="#52525B"/>
-      <text x="680" y="308" text-anchor="middle" fill="url(#mlbb-ultra-gold)" 
-            font-family="Arial Black" font-size="12" font-weight="bold">R1 • R2</text>
-      
-      <!-- Right Trigger Indicators -->
-      <circle cx="620" cy="275" r="8" fill="url(#mlbb-ultra-blue)" opacity="0.8"/>
-      <circle cx="740" cy="275" r="8" fill="url(#mlbb-ultra-blue)" opacity="0.8"/>
+      <!-- Right Shoulder -->
+      <rect x="598.6" y="313.75" width="149.5" height="23" rx="11.5" fill="url(#metal-trigger)" stroke="#1A202C" stroke-width="1.15"/>
+      <rect x="604.35" y="317.2" width="138" height="16.1" rx="8.05" fill="#4A5568"/>
+      <text x="673.35" y="331" text-anchor="middle" fill="#A0AEC0" font-family="Arial" font-size="10.35">R1  R2</text>
     </g>
 
-    <!-- =========== REVOLUTIONARY MLBB BUTTON SYSTEM =========== -->
-    <g id="ultra-button-system">
+    <!-- =========== ENHANCED REALISTIC BUTTON LAYOUT (15% larger) =========== -->
+    <g id="realistic-buttons">
       
-      <!-- Ultra Professional D-Pad -->
-      <g id="ultra-pro-dpad" filter="url(#ultra-button-glow)">
-        <!-- Vertical Component -->
-        <rect x="320" y="450" width="50" height="140" rx="12" 
-              fill="url(#mlbb-ultra-gold)" stroke="#92400E" stroke-width="4"/>
-        <rect x="330" y="460" width="30" height="120" rx="8" 
-              fill="url(#ultra-highlight)" opacity="0.5"/>
+      <!-- D-Pad (Minimal Design, 15% larger) -->
+      <g id="realistic-dpad" filter="url(#button-depth)">
+        <!-- Vertical Bar -->
+        <rect x="336.25" y="473.25" width="39.1" height="115" rx="6.9" 
+              fill="url(#dpad-material)" stroke="#44337A" stroke-width="2.3"/>
+        <rect x="342" y="479" width="27.6" height="103.5" rx="4.6" 
+              fill="url(#plastic-highlight)" opacity="0.3"/>
         
-        <!-- Horizontal Component -->
-        <rect x="290" y="480" width="140" height="50" rx="12" 
-              fill="url(#mlbb-ultra-gold)" stroke="#92400E" stroke-width="4"/>
-        <rect x="300" y="490" width="120" height="30" rx="8" 
-              fill="url(#ultra-highlight)" opacity="0.5"/>
+        <!-- Horizontal Bar -->
+        <rect x="308.5" y="502" width="115" height="39.1" rx="6.9" 
+              fill="url(#dpad-material)" stroke="#44337A" stroke-width="2.3"/>
+        <rect x="314.25" y="507.75" width="103.5" height="27.6" rx="4.6" 
+              fill="url(#plastic-highlight)" opacity="0.3"/>
         
-        <!-- Professional Direction Symbols -->
-        <polygon points="345,470 365,478 345,495" fill="#1E3A8A" opacity="0.9"/>
-        <polygon points="345,570 365,555 345,540" fill="#1E3A8A" opacity="0.9"/>
-        <polygon points="315,495 330,510 315,525" fill="#1E3A8A" opacity="0.9"/>
-        <polygon points="415,495 430,510 415,525" fill="#1E3A8A" opacity="0.9"/>
-        
-        <!-- Center Logo -->
-        <use href="#mlbb-ultra-logo" x="335" y="495" width="15" height="15"/>
+        <!-- Simple Direction Arrows (15% larger) -->
+        <polygon points="355.8,490.5 371,494.7 355.8,508.9" fill="rgba(255,255,255,0.8)"/>
+        <polygon points="355.8,555.25 371,546.05 355.8,536.85" fill="rgba(255,255,255,0.8)"/>
+        <polygon points="325.75,513.8 336.95,525 325.75,536.2" fill="rgba(255,255,255,0.8)"/>
+        <polygon points="406.25,513.8 417.45,525 406.25,536.2" fill="rgba(255,255,255,0.8)"/>
       </g>
 
-      <!-- Ultra Action Button Complex -->
-      <g id="ultra-action-complex">
-        <!-- Ultimate Y Button -->
-        <g class="ultimate-button" filter="url(#ultra-button-glow)">
-          <circle cx="780" cy="450" r="28" fill="url(#mlbb-ultra-gold)" stroke="#92400E" stroke-width="4"/>
-          <circle cx="780" cy="450" r="22" fill="url(#ultra-highlight)" opacity="0.6"/>
-          <text x="780" y="460" text-anchor="middle" fill="#1E3A8A" 
-                font-family="Arial Black" font-size="20" font-weight="bold">Y</text>
-          <use href="#mlbb-ultra-logo" x="770" y="470" width="10" height="10"/>
-          
-          <!-- Ultimate Glow Ring -->
-          <circle cx="780" cy="450" r="35" fill="none" stroke="#FCD34D" stroke-width="2" opacity="0.6"/>
-        </g>
+      <!-- Action Buttons (Clean Design, 15% larger) -->
+      <g id="action-buttons" filter="url(#button-depth)">
+        <!-- Y Button -->
+        <circle cx="757.3" cy="470.25" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
+        <circle cx="757.3" cy="470.25" r="16.1" fill="url(#plastic-highlight)" opacity="0.3"/>
+        <text x="757.3" y="477.15" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
+              font-family="Arial" font-size="16.1" font-weight="bold">Y</text>
 
-        <!-- Skill X Button -->
-        <g class="skill-button" filter="url(#ultra-button-glow)">
-          <circle cx="710" cy="550" r="28" fill="url(#mlbb-ultra-blue)" stroke="#1E3A8A" stroke-width="4"/>
-          <circle cx="710" cy="550" r="22" fill="url(#ultra-highlight)" opacity="0.6"/>
-          <text x="710" y="560" text-anchor="middle" fill="#FCD34D" 
-                font-family="Arial Black" font-size="20" font-weight="bold">X</text>
-          
-          <!-- Skill Indicator -->
-          <circle cx="710" cy="575" r="4" fill="#93C5FD"/>
-        </g>
+        <!-- X Button -->
+        <circle cx="697.5" cy="530.05" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
+        <circle cx="697.5" cy="530.05" r="16.1" fill="url(#plastic-highlight)" opacity="0.3"/>
+        <text x="697.5" y="536.95" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
+              font-family="Arial" font-size="16.1" font-weight="bold">X</text>
 
-        <!-- Attack A Button -->
-        <g class="attack-button" filter="url(#ultra-button-glow)">
-          <circle cx="780" cy="630" r="28" fill="url(#mlbb-ultra-gold)" stroke="#92400E" stroke-width="4"/>
-          <circle cx="780" cy="630" r="22" fill="url(#ultra-highlight)" opacity="0.6"/>
-          <text x="780" y="640" text-anchor="middle" fill="#1E3A8A" 
-                font-family="Arial Black" font-size="20" font-weight="bold">A</text>
-          
-          <!-- Attack Flash Effect -->
-          <circle cx="780" cy="630" r="32" fill="none" stroke="#F59E0B" stroke-width="3" opacity="0.8"/>
-        </g>
+        <!-- A Button -->
+        <circle cx="757.3" cy="589.85" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
+        <circle cx="757.3" cy="589.85" r="16.1" fill="url(#plastic-highlight)" opacity="0.3"/>
+        <text x="757.3" y="596.75" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
+              font-family="Arial" font-size="16.1" font-weight="bold">A</text>
 
-        <!-- Battle B Button -->
-        <g class="battle-button" filter="url(#ultra-button-glow)">
-          <circle cx="850" cy="550" r="28" fill="url(#mlbb-ultra-blue)" stroke="#1E3A8A" stroke-width="4"/>
-          <circle cx="850" cy="550" r="22" fill="url(#ultra-highlight)" opacity="0.6"/>
-          <text x="850" y="560" text-anchor="middle" fill="#FCD34D" 
-                font-family="Arial Black" font-size="20" font-weight="bold">B</text>
-        </g>
+        <!-- B Button -->
+        <circle cx="817.1" cy="530.05" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
+        <circle cx="817.1" cy="530.05" r="16.1" fill="url(#plastic-highlight)" opacity="0.3"/>
+        <text x="817.1" y="536.95" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
+              font-family="Arial" font-size="16.1" font-weight="bold">B</text>
       </g>
 
-      <!-- Ultra System Controls -->
-      <g id="ultra-system-controls">
-        <!-- Professional Menu Button -->
-        <rect x="490" y="480" width="35" height="25" rx="6" 
-              fill="url(#ultra-metal)" stroke="url(#mlbb-ultra-gold)" stroke-width="2"/>
-        <line x1="500" y1="488" x2="515" y2="488" stroke="#FCD34D" stroke-width="2"/>
-        <line x1="500" y1="493" x2="515" y2="493" stroke="#FCD34D" stroke-width="2"/>
-        <line x1="500" y1="498" x2="515" y2="498" stroke="#FCD34D" stroke-width="2"/>
-        <text x="507" y="515" text-anchor="middle" fill="#6B7280" font-family="Arial" font-size="7">MENU</text>
+      <!-- System Controls (15% larger) -->
+      <g id="system-controls" filter="url(#button-depth)">
+        <!-- Menu Button -->
+        <rect x="510.75" y="496.25" width="25.3" height="18.4" rx="3.45" fill="#2D3748" stroke="#1A202C" stroke-width="1.15"/>
+        <line x1="517.5" y1="502" x2="529.2" y2="502" stroke="#A0AEC0" stroke-width="1.15"/>
+        <line x1="517.5" y1="505.45" x2="529.2" y2="505.45" stroke="#A0AEC0" stroke-width="1.15"/>
+        <line x1="517.5" y1="508.9" x2="529.2" y2="508.9" stroke="#A0AEC0" stroke-width="1.15"/>
 
-        <!-- Professional Options Button -->
-        <rect x="555" y="480" width="35" height="25" rx="6" 
-              fill="url(#ultra-metal)" stroke="url(#mlbb-ultra-gold)" stroke-width="2"/>
-        <circle cx="565" cy="488" r="2.5" fill="#FCD34D"/>
-        <circle cx="580" cy="488" r="2.5" fill="#FCD34D"/>
-        <circle cx="565" cy="498" r="2.5" fill="#FCD34D"/>
-        <circle cx="580" cy="498" r="2.5" fill="#FCD34D"/>
-        <text x="572" y="515" text-anchor="middle" fill="#6B7280" font-family="Arial" font-size="7">OPTIONS</text>
+        <!-- Options Button -->
+        <rect x="567.55" y="496.25" width="25.3" height="18.4" rx="3.45" fill="#2D3748" stroke="#1A202C" stroke-width="1.15"/>
+        <circle cx="575.6" cy="502" r="1.725" fill="#A0AEC0"/>
+        <circle cx="584.8" cy="502" r="1.725" fill="#A0AEC0"/>
+        <circle cx="575.6" cy="508.9" r="1.725" fill="#A0AEC0"/>
+        <circle cx="584.8" cy="508.9" r="1.725" fill="#A0AEC0"/>
       </g>
     </g>
 
-    <!-- Ultra Professional Connectivity -->
-    <g id="ultra-connectivity">
-      <rect x="480" y="720" width="100" height="18" rx="9" 
-            fill="url(#ultra-metal)" stroke="url(#mlbb-ultra-gold)" stroke-width="3"/>
-      <rect x="490" y="726" width="20" height="6" rx="3" fill="#34D399"/>
-      <text x="530" y="750" text-anchor="middle" fill="url(#mlbb-ultra-gold)" 
-            font-family="Arial Black" font-size="14" font-weight="bold">MLBB ULTRA PRO</text>
-      
-      <!-- Ultra Signal Strength -->
-      <g id="ultra-signal">
-        <rect x="520" y="732" width="3" height="3" fill="#34D399"/>
-        <rect x="525" y="729" width="3" height="6" fill="#34D399"/>
-        <rect x="530" y="726" width="3" height="9" fill="#34D399"/>
-        <rect x="535" y="723" width="3" height="12" fill="#34D399"/>
-        <rect x="540" y="720" width="3" height="15" fill="#34D399"/>
-      </g>
-      
-      <!-- Ultra Performance Indicator -->
-      <circle cx="555" cy="729" r="5" fill="#F59E0B">
-        <animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite"/>
-      </circle>
+    <!-- Enhanced Connectivity Status (15% larger) -->
+    <g id="connectivity-status">
+      <rect x="527.75" y="680.25" width="62.1" height="9.2" rx="4.6" fill="#1A202C" stroke="#2D3748" stroke-width="1.15"/>
+      <rect x="534.5" y="682.55" width="13.8" height="4.6" rx="2.3" fill="#10B981" opacity="0.8"/>
+      <text x="555.8" y="703.75" text-anchor="middle" fill="#718096" 
+            font-family="Arial" font-size="11.5">WIRELESS</text>
     </g>
   </g>
 
-  <!-- ============== ULTRA PROFESSIONAL BRANDING ============== -->
-  <g id="ultra-professional-branding">
-    <!-- Corner Enhancement System -->
-    <g opacity="0.9">
-      <!-- Top Left -->
-      <rect x="30" y="30" width="120" height="4" rx="2" fill="url(#mlbb-ultra-gold)"/>
-      <rect x="30" y="30" width="4" height="120" rx="2" fill="url(#mlbb-ultra-gold)"/>
-      <use href="#mlbb-ultra-logo" x="40" y="45" width="18" height="18"/>
-      
-      <!-- Top Right -->
-      <rect x="870" y="30" width="120" height="4" rx="2" fill="url(#mlbb-ultra-gold)"/>
-      <rect x="986" y="30" width="4" height="120" rx="2" fill="url(#mlbb-ultra-gold)"/>
-      <use href="#mlbb-ultra-logo" x="960" y="45" width="18" height="18"/>
-      
-      <!-- Bottom Left -->
-      <rect x="30" y="986" width="120" height="4" rx="2" fill="url(#mlbb-ultra-gold)"/>
-      <rect x="30" y="870" width="4" height="120" rx="2" fill="url(#mlbb-ultra-gold)"/>
-      <use href="#mlbb-ultra-logo" x="40" y="945" width="18" height="18"/>
-      
-      <!-- Bottom Right -->
-      <rect x="870" y="986" width="120" height="4" rx="2" fill="url(#mlbb-ultra-gold)"/>
-      <rect x="986" y="870" width="4" height="120" rx="2" fill="url(#mlbb-ultra-gold)"/>
-      <use href="#mlbb-ultra-logo" x="960" y="945" width="18" height="18"/>
+  <!-- ============== MINIMAL BRANDING ============== -->
+  <g id="minimal-branding" opacity="0.6">
+    <!-- Subtle Corner Elements -->
+    <rect x="50" y="50" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.4"/>
+    <rect x="50" y="50" width="2" height="80" rx="1" fill="#9CA3AF" opacity="0.4"/>
+    
+    <rect x="894" y="50" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.4"/>
+    <rect x="972" y="50" width="2" height="80" rx="1" fill="#9CA3AF" opacity="0.4"/>
+    
+    <rect x="50" y="972" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.4"/>
+    <rect x="50" y="894" width="2" height="80" rx="1" fill="#9CA3AF" opacity="0.4"/>
+    
+    <rect x="894" y="972" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.4"/>
+    <rect x="972" y="894" width="2" height="80" rx="1" fill="#9CA3AF" opacity="0.4"/>
+
+    <!-- Enhanced Performance Info -->
+    <g id="minimal-info" opacity="0.5">
+      <rect x="80" y="80" width="140" height="60" rx="8" fill="rgba(255,255,255,0.1)" stroke="rgba(156,163,175,0.3)" stroke-width="1"/>
+      <text x="95" y="105" fill="#6B7280" font-family="Arial" font-size="12" font-weight="bold">MLBB CONTROLLER</text>
+      <text x="95" y="125" fill="#9CA3AF" font-family="Arial" font-size="10">Professional Edition</text>
     </g>
-
-    <!-- Ultra Information Panel -->
-    <g id="ultra-info-panel">
-      <rect x="50" y="50" width="280" height="160" rx="20" 
-            fill="rgba(15,23,42,0.95)" stroke="url(#mlbb-ultra-gold)" stroke-width="3"/>
-      
-      <!-- Main MLBB Branding -->
-      <use href="#mlbb-ultra-logo" x="70" y="70" width="30" height="30"/>
-      <text x="110" y="90" fill="url(#mlbb-ultra-gold)" font-family="Arial Black" font-size="18" font-weight="bold">MOBILE LEGENDS</text>
-      <text x="70" y="115" fill="#60A5FA" font-family="Arial" font-size="14" font-weight="600">Ultra Professional Gaming Controller</text>
-      <text x="70" y="135" fill="#34D399" font-family="Arial" font-size="12">Tournament Championship Edition</text>
-      <text x="70" y="150" fill="#94A3B8" font-family="Arial" font-size="10">Esports World Championship Certified</text>
-      <text x="70" y="165" fill="#F59E0B" font-family="Arial" font-size="10">Ultra Low Latency • AI Enhanced</text>
-      <text x="70" y="180" fill="#64748B" font-family="Arial" font-size="9">v4.0 Ultra Pro • MLBB-BOSS Edition</text>
-      <text x="70" y="195" fill="#6B7280" font-family="Arial" font-size="8">Build: 2025.06.07.ultra</text>
-      
-      <!-- Ultra Performance Metrics -->
-      <g id="ultra-performance">
-        <!-- Response Time -->
-        <rect x="200" y="120" width="100" height="10" rx="5" fill="#1F2937" stroke="#374151" stroke-width="1"/>
-        <rect x="202" y="122" width="90" height="6" rx="3" fill="#34D399"/>
-        <text x="205" y="145" fill="#6B7280" font-family="Arial" font-size="8">RESPONSE: 0.1ms</text>
-        
-        <!-- Precision -->
-        <rect x="200" y="150" width="100" height="10" rx="5" fill="#1F2937" stroke="#374151" stroke-width="1"/>
-        <rect x="202" y="152" width="95" height="6" rx="3" fill="url(#mlbb-ultra-gold)"/>
-        <text x="205" y="175" fill="#6B7280" font-family="Arial" font-size="8">PRECISION: 99.9%</text>
-        
-        <!-- Connection -->
-        <rect x="200" y="180" width="100" height="10" rx="5" fill="#1F2937" stroke="#374151" stroke-width="1"/>
-        <rect x="202" y="182" width="85" height="6" rx="3" fill="#60A5FA"/>
-        <text x="205" y="205" fill="#6B7280" font-family="Arial" font-size="8">CONNECTION: ULTRA</text>
-      </g>
-    </g>
-
-    <!-- Ultra Championship Badge -->
-    <g id="ultra-championship-badge">
-      <circle cx="900" cy="900" r="80" fill="rgba(15,23,42,0.98)" stroke="url(#mlbb-ultra-gold)" stroke-width="4"/>
-      <use href="#mlbb-ultra-logo" x="885" y="870" width="30" height="30"/>
-      <text x="900" y="920" text-anchor="middle" fill="url(#mlbb-ultra-gold)" 
-            font-family="Arial Black" font-size="12" font-weight="bold">WORLD</text>
-      <text x="900" y="935" text-anchor="middle" fill="#60A5FA" 
-            font-family="Arial Black" font-size="12" font-weight="bold">CHAMPIONSHIP</text>
-      <text x="900" y="950" text-anchor="middle" fill="#34D399" 
-            font-family="Arial" font-size="10">CERTIFIED</text>
-      <text x="900" y="965" text-anchor="middle" fill="#94A3B8" 
-            font-family="Arial" font-size="8">ULTRA EDITION</text>
-      
-      <!-- Championship Ring -->
-      <circle cx="900" cy="900" r="90" fill="none" stroke="url(#mlbb-ultra-gold)" stroke-width="2" opacity="0.6"/>
-      <circle cx="900" cy="900" r="100" fill="none" stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
-    </g>
-
-    <!-- Ultra Version Indicator -->
-    <g id="ultra-version">
-      <rect x="700" y="50" width="120" height="40" rx="8" 
-            fill="rgba(15,23,42,0.9)" stroke="url(#mlbb-ultra-gold)" stroke-width="2"/>
-      <text x="760" y="70" text-anchor="middle" fill="url(#mlbb-ultra-gold)" 
-            font-family="Arial Black" font-size="12">ULTRA v4.0</text>
-      <text x="760" y="85" text-anchor="middle" fill="#60A5FA" 
-            font-family="Arial" font-size="8">MLBB-BOSS</text>
-    </g>
-  </g>
-
-  <!-- ============== ULTRA PROFESSIONAL ANIMATIONS ============== -->
-  <style>
-    <![CDATA[
-    .mlbb-ultra-controller {
-      animation: controller-breathe 4s ease-in-out infinite;
-    }
-    
-    @keyframes controller-breathe {
-      0%, 100% { filter: brightness(1) saturate(1); }
-      50% { filter: brightness(1.05) saturate(1.1); }
-    }
-    
-    .ultra-stick-left, .ultra-stick-right {
-      transition: transform 0.3s ease, filter 0.3s ease;
-    }
-    
-    .ultra-stick-left:hover, .ultra-stick-right:hover {
-      transform: scale(1.08);
-      filter: brightness(1.2) saturate(1.3);
-    }
-    
-    .ultimate-button, .skill-button, .attack-button, .battle-button {
-      transition: all 0.2s ease;
-    }
-    
-    .ultimate-button:hover, .attack-button:hover {
-      filter: brightness(1.3) saturate(1.4);
-      transform: scale(1.05);
-    }
-    
-    .skill-button:hover, .battle-button:hover {
-      filter: brightness(1.2) saturate(1.3);
-      transform: scale(1.05);
-    }
-    
-    .ultra-pro-dpad {
-      transition: all 0.3s ease;
-    }
-    
-    .ultra-pro-dpad:hover {
-      filter: brightness(1.15) saturate(1.2);
-      transform: scale(1.02);
-    }
-    ]]>
-  </style>
-
-  <!-- Dynamic Lighting Effects -->
-  <g id="dynamic-lighting">
-    <!-- Ambient Light Sweep -->
-    <defs>
-      <linearGradient id="light-sweep" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="rgba(252,211,77,0)" />
-        <stop offset="50%" stop-color="rgba(252,211,77,0.3)" />
-        <stop offset="100%" stop-color="rgba(252,211,77,0)" />
-        <animateTransform attributeName="gradientTransform" type="translate" 
-                          values="-100 0;1100 0;-100 0" dur="8s" repeatCount="indefinite"/>
-      </linearGradient>
-    </defs>
-    <rect width="1024" height="1024" fill="url(#light-sweep)" opacity="0.4"/>
   </g>
 </svg>
