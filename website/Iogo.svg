@@ -3,140 +3,107 @@
      xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
 
-  <!-- ============== ENHANCED ANIMATED DEFINITIONS ============== -->
+  <!-- ============== REALISTIC GAMING DEFINITIONS ============== -->
   <defs>
-    <!-- Dynamic Animated Background -->
-    <radialGradient id="animated-bg" cx="0.5" cy="0.4" r="1.2">
-      <stop offset="0%" stop-color="#1A1B23">
+    <!-- Gaming Environment Background -->
+    <radialGradient id="gaming-bg" cx="0.5" cy="0.4" r="1.2">
+      <stop offset="0%" stop-color="#0A0A0F">
         <animate attributeName="stop-color" 
-                 values="#1A1B23;#2D1B69;#1A1B23" 
-                 dur="8s" 
+                 values="#0A0A0F;#1A1A2E;#0A0A0F" 
+                 dur="12s" 
                  repeatCount="indefinite"/>
       </stop>
-      <stop offset="30%" stop-color="#2D3748">
-        <animate attributeName="stop-color" 
-                 values="#2D3748;#4A5568;#2D3748" 
-                 dur="6s" 
-                 repeatCount="indefinite"/>
-      </stop>
-      <stop offset="70%" stop-color="#0F1419">
-        <animate attributeName="stop-color" 
-                 values="#0F1419;#1A202C;#0F1419" 
-                 dur="10s" 
-                 repeatCount="indefinite"/>
-      </stop>
+      <stop offset="40%" stop-color="#16213E"/>
+      <stop offset="80%" stop-color="#0F3460"/>
       <stop offset="100%" stop-color="#000000"/>
     </radialGradient>
 
-    <!-- Floating Particles Pattern -->
-    <pattern id="particles" patternUnits="userSpaceOnUse" width="100" height="100">
-      <circle cx="10" cy="20" r="1" fill="rgba(107, 70, 193, 0.3)">
-        <animate attributeName="cy" values="20;80;20" dur="4s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="4s" repeatCount="indefinite"/>
+    <!-- Subtle Gaming Particles -->
+    <pattern id="gaming-particles" patternUnits="userSpaceOnUse" width="120" height="120">
+      <circle cx="20" cy="30" r="0.8" fill="rgba(0, 233, 255, 0.2)">
+        <animate attributeName="cy" values="30;100;30" dur="8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.2;0.6;0.2" dur="8s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="30" cy="60" r="0.8" fill="rgba(14, 165, 233, 0.4)">
-        <animate attributeName="cy" values="60;10;60" dur="3s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3s" repeatCount="indefinite"/>
+      <circle cx="60" cy="80" r="0.6" fill="rgba(255, 0, 150, 0.3)">
+        <animate attributeName="cy" values="80;20;80" dur="6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.3;0.7;0.3" dur="6s" repeatCount="indefinite"/>
       </circle>
-      <circle cx="70" cy="30" r="1.2" fill="rgba(16, 185, 129, 0.2)">
-        <animate attributeName="cy" values="30;90;30" dur="5s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.2;0.7;0.2" dur="5s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="90" cy="80" r="0.6" fill="rgba(139, 92, 246, 0.5)">
-        <animate attributeName="cy" values="80;20;80" dur="3.5s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.5;1;0.5" dur="3.5s" repeatCount="indefinite"/>
+      <circle cx="100" cy="50" r="1" fill="rgba(0, 255, 100, 0.15)">
+        <animate attributeName="cy" values="50;110;50" dur="10s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.15;0.5;0.15" dur="10s" repeatCount="indefinite"/>
       </circle>
     </pattern>
 
-    <!-- Pulsing Energy Grid -->
-    <pattern id="energy-grid" patternUnits="userSpaceOnUse" width="50" height="50">
-      <path d="M0,25 L50,25 M25,0 L25,50" stroke="rgba(107, 70, 193, 0.1)" stroke-width="0.5">
-        <animate attributeName="stroke-opacity" values="0.1;0.6;0.1" dur="2s" repeatCount="indefinite"/>
-      </path>
-    </pattern>
-
-    <!-- Controller Realistic Body Gradient with Animation -->
-    <radialGradient id="realistic-body" cx="0.3" cy="0.25" r="1.1">
-      <stop offset="0%" stop-color="#4A5568">
-        <animate attributeName="stop-color" 
-                 values="#4A5568;#5A6578;#4A5568" 
-                 dur="4s" 
-                 repeatCount="indefinite"/>
-      </stop>
+    <!-- Controller Body Gradient -->
+    <radialGradient id="controller-body" cx="0.3" cy="0.25" r="1.1">
+      <stop offset="0%" stop-color="#4A5568"/>
       <stop offset="30%" stop-color="#2D3748"/>
       <stop offset="60%" stop-color="#1A202C"/>
       <stop offset="100%" stop-color="#0F1419"/>
     </radialGradient>
 
-    <!-- Dynamic Natural Lighting -->
-    <linearGradient id="natural-lighting" x1="0" y1="0" x2="0.6" y2="0.8">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.4)">
-        <animate attributeName="stop-opacity" values="0.4;0.7;0.4" dur="3s" repeatCount="indefinite"/>
-      </stop>
-      <stop offset="25%" stop-color="rgba(255,255,255,0.2)"/>
-      <stop offset="60%" stop-color="rgba(255,255,255,0.05)"/>
+    <!-- Natural Lighting -->
+    <linearGradient id="surface-lighting" x1="0" y1="0" x2="0.6" y2="0.8">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
+      <stop offset="25%" stop-color="rgba(255,255,255,0.15)"/>
+      <stop offset="60%" stop-color="rgba(255,255,255,0.03)"/>
       <stop offset="100%" stop-color="rgba(0,0,0,0.1)"/>
     </linearGradient>
 
-    <!-- Animated D-Pad Material -->
+    <!-- D-Pad Material -->
     <radialGradient id="dpad-material" cx="0.5" cy="0.3" r="0.8">
-      <stop offset="0%" stop-color="#6B46C1">
-        <animate attributeName="stop-color" 
-                 values="#6B46C1;#8B5CF6;#6B46C1" 
-                 dur="2s" 
-                 repeatCount="indefinite"/>
-      </stop>
+      <stop offset="0%" stop-color="#6B46C1"/>
       <stop offset="50%" stop-color="#553C9A"/>
       <stop offset="100%" stop-color="#44337A"/>
     </radialGradient>
 
-    <!-- Animated Button Material -->
+    <!-- Button Material -->
     <radialGradient id="button-material" cx="0.5" cy="0.3" r="0.8">
-      <stop offset="0%" stop-color="#0EA5E9">
-        <animate attributeName="stop-color" 
-                 values="#0EA5E9;#38BDF8;#0EA5E9" 
-                 dur="1.5s" 
-                 repeatCount="indefinite"/>
-      </stop>
+      <stop offset="0%" stop-color="#0EA5E9"/>
       <stop offset="50%" stop-color="#0284C7"/>
       <stop offset="100%" stop-color="#0369A1"/>
     </radialGradient>
 
-    <!-- Floating Energy Orbs -->
-    <radialGradient id="energy-orb" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0%" stop-color="rgba(107, 70, 193, 0.8)"/>
-      <stop offset="70%" stop-color="rgba(107, 70, 193, 0.3)"/>
-      <stop offset="100%" stop-color="rgba(107, 70, 193, 0)"/>
+    <!-- Pressed Button Effect -->
+    <radialGradient id="button-pressed" cx="0.5" cy="0.7" r="0.6">
+      <stop offset="0%" stop-color="#0369A1"/>
+      <stop offset="50%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
     </radialGradient>
 
-    <!-- Enhanced Shadow Filters -->
-    <filter id="realistic-shadow" x="-50%" y="-30%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="29" stdDeviation="40" flood-color="#000000" flood-opacity="0.4"/>
-      <feDropShadow dx="0" dy="14" stdDeviation="23" flood-color="#000000" flood-opacity="0.2"/>
-      <feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#000000" flood-opacity="0.1"/>
-    </filter>
-
-    <filter id="button-depth" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.6"/>
-      <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#000000" flood-opacity="0.3"/>
-    </filter>
-
-    <filter id="stick-shadow" x="-40%" y="-40%" width="180%" height="180%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.5"/>
-      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
-    </filter>
-
-    <!-- Glow Effect -->
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-      <feMerge> 
+    <!-- Neon Glow Effect -->
+    <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
         <feMergeNode in="coloredBlur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
 
-    <!-- Other gradients and patterns -->
-    <radialGradient id="realistic-floor-shadow" cx="0.5" cy="0.5" r="0.8">
+    <!-- Button Press Shadow */
+    <filter id="button-press" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000000" flood-opacity="0.8"/>
+    </filter>
+
+    <!-- Normal Button Shadow */
+    <filter id="button-normal" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.6"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+
+    <!-- Stick Shadow -->
+    <filter id="stick-shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+
+    <!-- Controller Shadow -->
+    <filter id="controller-shadow" x="-50%" y="-30%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="25" stdDeviation="35" flood-color="#000000" flood-opacity="0.4"/>
+      <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+
+    <!-- Other Materials -->
+    <radialGradient id="floor-shadow" cx="0.5" cy="0.5" r="0.8">
       <stop offset="0%" stop-color="rgba(0,0,0,0.3)"/>
       <stop offset="40%" stop-color="rgba(0,0,0,0.15)"/>
       <stop offset="70%" stop-color="rgba(0,0,0,0.05)"/>
@@ -169,80 +136,22 @@
     </linearGradient>
 
     <linearGradient id="plastic-highlight" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
-      <stop offset="30%" stop-color="rgba(255,255,255,0.1)"/>
+      <stop offset="0%" stop-color="rgba(255,255,255,0.2)"/>
+      <stop offset="30%" stop-color="rgba(255,255,255,0.08)"/>
       <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
     </linearGradient>
   </defs>
 
-  <!-- ============== DYNAMIC ANIMATED BACKGROUND ============== -->
-  <rect width="1024" height="1024" fill="url(#animated-bg)"/>
-  
-  <!-- Floating Particles Layer -->
-  <rect width="1024" height="1024" fill="url(#particles)" opacity="0.6"/>
-  
-  <!-- Energy Grid Layer -->
-  <rect width="1024" height="1024" fill="url(#energy-grid)" opacity="0.3"/>
+  <!-- ============== GAMING ENVIRONMENT BACKGROUND ============== -->
+  <rect width="1024" height="1024" fill="url(#gaming-bg)"/>
+  <rect width="1024" height="1024" fill="url(#gaming-particles)" opacity="0.4"/>
 
-  <!-- Floating Energy Orbs -->
-  <g id="floating-orbs" opacity="0.4">
-    <circle cx="150" cy="200" r="8" fill="url(#energy-orb)">
-      <animateTransform attributeName="transform" 
-                        type="translate" 
-                        values="0,0; 30,-20; 0,0" 
-                        dur="6s" 
-                        repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="6s" repeatCount="indefinite"/>
-    </circle>
-    
-    <circle cx="850" cy="300" r="6" fill="url(#energy-orb)">
-      <animateTransform attributeName="transform" 
-                        type="translate" 
-                        values="0,0; -25,15; 0,0" 
-                        dur="4s" 
-                        repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.3;0.7;0.3" dur="4s" repeatCount="indefinite"/>
-    </circle>
-    
-    <circle cx="100" cy="700" r="10" fill="url(#energy-orb)">
-      <animateTransform attributeName="transform" 
-                        type="translate" 
-                        values="0,0; 40,-30; 0,0" 
-                        dur="8s" 
-                        repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.2;0.9;0.2" dur="8s" repeatCount="indefinite"/>
-    </circle>
-    
-    <circle cx="900" cy="800" r="7" fill="url(#energy-orb)">
-      <animateTransform attributeName="transform" 
-                        type="translate" 
-                        values="0,0; -35,25; 0,0" 
-                        dur="5s" 
-                        repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.5;1;0.5" dur="5s" repeatCount="indefinite"/>
-    </circle>
-  </g>
+  <!-- Enhanced Floor Shadow -->
+  <ellipse cx="512" cy="770" rx="350" ry="85" fill="url(#floor-shadow)" opacity="0.7"/>
 
-  <!-- Enhanced Floor Shadow with Animation -->
-  <ellipse cx="512" cy="770" rx="368" ry="92" fill="url(#realistic-floor-shadow)" opacity="0.6">
-    <animate attributeName="opacity" values="0.6;0.8;0.6" dur="4s" repeatCount="indefinite"/>
-    <animateTransform attributeName="transform" 
-                      type="scale" 
-                      values="1;1.05;1" 
-                      dur="4s" 
-                      repeatCount="indefinite"/>
-  </ellipse>
-
-  <!-- ============== ENHANCED ANIMATED CONTROLLER ============== -->
-  <g id="realistic-controller" filter="url(#realistic-shadow)">
+  <!-- ============== REALISTIC GAMING CONTROLLER ============== -->
+  <g id="gaming-controller" filter="url(#controller-shadow)">
     
-    <!-- Animated Hover Effect -->
-    <animateTransform attributeName="transform" 
-                      type="translate" 
-                      values="0,0; 0,-3; 0,0" 
-                      dur="6s" 
-                      repeatCount="indefinite"/>
-
     <!-- Main Controller Body -->
     <g id="controller-body">
       <path d="
@@ -259,7 +168,7 @@
         C428.35,707.25 384.1,698.75 344.85,669
         C292.1,623 254.1,587 203,508
         Z"
-        fill="url(#realistic-body)" 
+        fill="url(#controller-body)" 
         stroke="#000000" 
         stroke-width="2.3"/>
 
@@ -277,36 +186,28 @@
         C428.35,707.25 384.1,698.75 344.85,669
         C292.1,623 254.1,587 203,508
         Z"
-        fill="url(#natural-lighting)" 
-        opacity="0.7"/>
+        fill="url(#surface-lighting)" 
+        opacity="0.6"/>
     </g>
 
-    <!-- Enhanced Center Touchpad with Animation -->
-    <g id="center-touchpad">
+    <!-- Center Display -->
+    <g id="center-display">
       <rect x="345.8" y="356.5" width="322" height="80.5" rx="18.4" 
             fill="url(#screen-material)" stroke="#2D3748" stroke-width="2.3"/>
       <rect x="351.55" y="363.25" width="310.5" height="69" rx="13.8" 
             fill="#0F1419" stroke="#1A202C" stroke-width="1.15"/>
-      
-      <!-- Animated Screen Content -->
-      <rect x="361.75" y="375.75" width="292.1" height="46" rx="9.2" fill="url(#plastic-highlight)" opacity="0.2"/>
-      
-      <!-- Scanning Line Animation -->
-      <line x1="361.75" y1="398" x2="653.85" y2="398" stroke="rgba(107, 70, 193, 0.6)" stroke-width="1">
-        <animate attributeName="y1" values="375.75;421.75;375.75" dur="2s" repeatCount="indefinite"/>
-        <animate attributeName="y2" values="375.75;421.75;375.75" dur="2s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0;0.8;0" dur="2s" repeatCount="indefinite"/>
-      </line>
+      <rect x="361.75" y="375.75" width="292.1" height="46" rx="9.2" fill="url(#plastic-highlight)" opacity="0.15"/>
     </g>
 
-    <!-- Animated Analog Sticks -->
-    <g id="realistic-sticks">
-      <!-- Left Stick with Rotation Animation -->
+    <!-- REALISTIC ANALOG STICKS WITH GAMING MOVEMENT -->
+    <g id="analog-sticks">
+      <!-- Left Stick - Racing Game Movement -->
       <g filter="url(#stick-shadow)">
+        <!-- Stick movement animation for racing game -->
         <animateTransform attributeName="transform" 
-                          type="rotate" 
-                          values="0 420.8 555.25; 360 420.8 555.25" 
-                          dur="20s" 
+                          type="translate" 
+                          values="0,0; 8,-3; -5,2; 12,-4; -8,1; 0,0; 6,-2; -10,3; 15,-5; 0,0" 
+                          dur="8s" 
                           repeatCount="indefinite"/>
         
         <circle cx="420.8" cy="555.25" r="43.7" fill="#1A202C" stroke="#0F1419" stroke-width="2.3"/>
@@ -318,12 +219,13 @@
         <circle cx="420.8" cy="542.6" r="4.6" fill="#1A202C" opacity="0.8"/>
       </g>
 
-      <!-- Right Stick with Opposite Rotation -->
+      <!-- Right Stick - Camera/Look Movement -->
       <g filter="url(#stick-shadow)">
+        <!-- Stick movement for camera control -->
         <animateTransform attributeName="transform" 
-                          type="rotate" 
-                          values="360 686.8 555.25; 0 686.8 555.25" 
-                          dur="25s" 
+                          type="translate" 
+                          values="0,0; -4,6; 3,-8; -7,4; 5,-6; 0,0; -6,8; 4,-5; -3,7; 0,0" 
+                          dur="6s" 
                           repeatCount="indefinite"/>
         
         <circle cx="686.8" cy="555.25" r="43.7" fill="#1A202C" stroke="#0F1419" stroke-width="2.3"/>
@@ -347,102 +249,233 @@
       <text x="673.35" y="331" text-anchor="middle" fill="#A0AEC0" font-family="Arial" font-size="10.35">R1  R2</text>
     </g>
 
-    <!-- Animated Button Layout -->
-    <g id="realistic-buttons">
+    <!-- REALISTIC BUTTON INTERACTIONS -->
+    <g id="button-layout">
       
-      <!-- Pulsing D-Pad -->
-      <g id="realistic-dpad" filter="url(#button-depth)">
-        <animateTransform attributeName="transform" 
-                          type="scale" 
-                          values="1;1.05;1" 
-                          dur="3s" 
-                          repeatCount="indefinite"/>
-        
+      <!-- D-PAD WITH REALISTIC PRESSES -->
+      <g id="d-pad">
+        <!-- Vertical Bar -->
         <rect x="298.25" y="416.65" width="39.1" height="115" rx="6.9" 
               fill="url(#dpad-material)" stroke="#44337A" stroke-width="2.3"/>
         <rect x="304" y="422.4" width="27.6" height="103.5" rx="4.6" 
-              fill="url(#plastic-highlight)" opacity="0.3"/>
+              fill="url(#plastic-highlight)" opacity="0.2"/>
         
+        <!-- Horizontal Bar -->
         <rect x="260.3" y="454.6" width="115" height="39.1" rx="6.9" 
               fill="url(#dpad-material)" stroke="#44337A" stroke-width="2.3"/>
         <rect x="266.05" y="460.35" width="103.5" height="27.6" rx="4.6" 
-              fill="url(#plastic-highlight)" opacity="0.3"/>
+              fill="url(#plastic-highlight)" opacity="0.2"/>
         
-        <!-- Animated Direction Arrows -->
-        <polygon points="317.8,433.9 333,438.1 317.8,452.3" fill="rgba(255,255,255,0.8)">
-          <animate attributeName="fill-opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
-        </polygon>
-        <polygon points="317.8,498.65 333,489.45 317.8,480.25" fill="rgba(255,255,255,0.8)">
-          <animate attributeName="fill-opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" begin="0.5s"/>
-        </polygon>
-        <polygon points="287.75,457.2 298.95,468.4 287.75,479.6" fill="rgba(255,255,255,0.8)">
-          <animate attributeName="fill-opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" begin="1s"/>
-        </polygon>
-        <polygon points="368.25,457.2 379.45,468.4 368.25,479.6" fill="rgba(255,255,255,0.8)">
-          <animate attributeName="fill-opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" begin="1.5s"/>
-        </polygon>
+        <!-- Direction Buttons with Press Animation -->
+        <!-- UP -->
+        <g id="dpad-up">
+          <animateTransform attributeName="transform" 
+                            type="translate" 
+                            values="0,0; 0,2; 0,0" 
+                            dur="0.3s" 
+                            begin="2s;6s;10s;14s"/>
+          <polygon points="317.8,433.9 333,438.1 317.8,452.3" fill="rgba(255,255,255,0.7)">
+            <animate attributeName="fill" 
+                     values="rgba(255,255,255,0.7); rgba(107,70,193,1); rgba(255,255,255,0.7)" 
+                     dur="0.3s" 
+                     begin="2s;6s;10s;14s"/>
+          </polygon>
+          <!-- Neon glow on press -->
+          <circle cx="317.8" cy="443.1" r="12" fill="none" stroke="rgba(107,70,193,0)" stroke-width="1" filter="url(#neon-glow)">
+            <animate attributeName="stroke" 
+                     values="rgba(107,70,193,0); rgba(107,70,193,0.8); rgba(107,70,193,0)" 
+                     dur="0.3s" 
+                     begin="2s;6s;10s;14s"/>
+          </circle>
+        </g>
+        
+        <!-- DOWN -->
+        <g id="dpad-down">
+          <animateTransform attributeName="transform" 
+                            type="translate" 
+                            values="0,0; 0,2; 0,0" 
+                            dur="0.3s" 
+                            begin="4s;8s;12s;16s"/>
+          <polygon points="317.8,498.65 333,489.45 317.8,480.25" fill="rgba(255,255,255,0.7)">
+            <animate attributeName="fill" 
+                     values="rgba(255,255,255,0.7); rgba(107,70,193,1); rgba(255,255,255,0.7)" 
+                     dur="0.3s" 
+                     begin="4s;8s;12s;16s"/>
+          </polygon>
+          <circle cx="317.8" cy="489.45" r="12" fill="none" stroke="rgba(107,70,193,0)" stroke-width="1" filter="url(#neon-glow)">
+            <animate attributeName="stroke" 
+                     values="rgba(107,70,193,0); rgba(107,70,193,0.8); rgba(107,70,193,0)" 
+                     dur="0.3s" 
+                     begin="4s;8s;12s;16s"/>
+          </circle>
+        </g>
+        
+        <!-- LEFT -->
+        <g id="dpad-left">
+          <animateTransform attributeName="transform" 
+                            type="translate" 
+                            values="0,0; 2,0; 0,0" 
+                            dur="0.3s" 
+                            begin="1s;5s;9s;13s"/>
+          <polygon points="287.75,457.2 298.95,468.4 287.75,479.6" fill="rgba(255,255,255,0.7)">
+            <animate attributeName="fill" 
+                     values="rgba(255,255,255,0.7); rgba(107,70,193,1); rgba(255,255,255,0.7)" 
+                     dur="0.3s" 
+                     begin="1s;5s;9s;13s"/>
+          </polygon>
+          <circle cx="293.35" cy="468.4" r="12" fill="none" stroke="rgba(107,70,193,0)" stroke-width="1" filter="url(#neon-glow)">
+            <animate attributeName="stroke" 
+                     values="rgba(107,70,193,0); rgba(107,70,193,0.8); rgba(107,70,193,0)" 
+                     dur="0.3s" 
+                     begin="1s;5s;9s;13s"/>
+          </circle>
+        </g>
+        
+        <!-- RIGHT -->
+        <g id="dpad-right">
+          <animateTransform attributeName="transform" 
+                            type="translate" 
+                            values="0,0; -2,0; 0,0" 
+                            dur="0.3s" 
+                            begin="3s;7s;11s;15s"/>
+          <polygon points="368.25,457.2 379.45,468.4 368.25,479.6" fill="rgba(255,255,255,0.7)">
+            <animate attributeName="fill" 
+                     values="rgba(255,255,255,0.7); rgba(107,70,193,1); rgba(255,255,255,0.7)" 
+                     dur="0.3s" 
+                     begin="3s;7s;11s;15s"/>
+          </polygon>
+          <circle cx="373.85" cy="468.4" r="12" fill="none" stroke="rgba(107,70,193,0)" stroke-width="1" filter="url(#neon-glow)">
+            <animate attributeName="stroke" 
+                     values="rgba(107,70,193,0); rgba(107,70,193,0.8); rgba(107,70,193,0)" 
+                     dur="0.3s" 
+                     begin="3s;7s;11s;15s"/>
+          </circle>
+        </g>
       </g>
 
-      <!-- Glowing Action Buttons -->
-      <g id="action-buttons" filter="url(#glow)">
+      <!-- ACTION BUTTONS WITH REALISTIC PRESS FEEDBACK -->
+      <g id="action-buttons">
+        
         <!-- Y Button -->
-        <g>
+        <g id="button-y">
           <animateTransform attributeName="transform" 
-                            type="scale" 
-                            values="1;1.1;1" 
-                            dur="4s" 
-                            repeatCount="indefinite"/>
-          <circle cx="757.3" cy="470.25" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
-          <circle cx="757.3" cy="470.25" r="16.1" fill="url(#plastic-highlight)" opacity="0.3"/>
+                            type="translate" 
+                            values="0,0; 0,3; 0,0" 
+                            dur="0.2s" 
+                            begin="1.5s;4.5s;7.5s;10.5s;13.5s"/>
+          <circle cx="757.3" cy="470.25" r="20.7" stroke="#0369A1" stroke-width="2.3">
+            <animate attributeName="fill" 
+                     values="url(#button-material); url(#button-pressed); url(#button-material)" 
+                     dur="0.2s" 
+                     begin="1.5s;4.5s;7.5s;10.5s;13.5s"/>
+            <animate attributeName="filter" 
+                     values="url(#button-normal); url(#button-press); url(#button-normal)" 
+                     dur="0.2s" 
+                     begin="1.5s;4.5s;7.5s;10.5s;13.5s"/>
+          </circle>
+          <circle cx="757.3" cy="470.25" r="16.1" fill="url(#plastic-highlight)" opacity="0.2"/>
           <text x="757.3" y="477.15" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
                 font-family="Arial" font-size="16.1" font-weight="bold">Y</text>
+          
+          <!-- Neon glow on press -->
+          <circle cx="757.3" cy="470.25" r="25" fill="none" stroke="rgba(14,165,233,0)" stroke-width="1.5" filter="url(#neon-glow)">
+            <animate attributeName="stroke" 
+                     values="rgba(14,165,233,0); rgba(14,165,233,0.9); rgba(14,165,233,0)" 
+                     dur="0.2s" 
+                     begin="1.5s;4.5s;7.5s;10.5s;13.5s"/>
+          </circle>
         </g>
 
         <!-- X Button -->
-        <g>
+        <g id="button-x">
           <animateTransform attributeName="transform" 
-                            type="scale" 
-                            values="1;1.1;1" 
-                            dur="4s" 
-                            repeatCount="indefinite" 
-                            begin="1s"/>
-          <circle cx="697.5" cy="530.05" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
-          <circle cx="697.5" cy="530.05" r="16.1" fill="url(#plastic-highlight)" opacity="0.3"/>
+                            type="translate" 
+                            values="0,0; 0,3; 0,0" 
+                            dur="0.2s" 
+                            begin="2.8s;5.8s;8.8s;11.8s;14.8s"/>
+          <circle cx="697.5" cy="530.05" r="20.7" stroke="#0369A1" stroke-width="2.3">
+            <animate attributeName="fill" 
+                     values="url(#button-material); url(#button-pressed); url(#button-material)" 
+                     dur="0.2s" 
+                     begin="2.8s;5.8s;8.8s;11.8s;14.8s"/>
+            <animate attributeName="filter" 
+                     values="url(#button-normal); url(#button-press); url(#button-normal)" 
+                     dur="0.2s" 
+                     begin="2.8s;5.8s;8.8s;11.8s;14.8s"/>
+          </circle>
+          <circle cx="697.5" cy="530.05" r="16.1" fill="url(#plastic-highlight)" opacity="0.2"/>
           <text x="697.5" y="536.95" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
                 font-family="Arial" font-size="16.1" font-weight="bold">X</text>
+          
+          <circle cx="697.5" cy="530.05" r="25" fill="none" stroke="rgba(14,165,233,0)" stroke-width="1.5" filter="url(#neon-glow)">
+            <animate attributeName="stroke" 
+                     values="rgba(14,165,233,0); rgba(14,165,233,0.9); rgba(14,165,233,0)" 
+                     dur="0.2s" 
+                     begin="2.8s;5.8s;8.8s;11.8s;14.8s"/>
+          </circle>
         </g>
 
         <!-- A Button -->
-        <g>
+        <g id="button-a">
           <animateTransform attributeName="transform" 
-                            type="scale" 
-                            values="1;1.1;1" 
-                            dur="4s" 
-                            repeatCount="indefinite" 
-                            begin="2s"/>
-          <circle cx="757.3" cy="589.85" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
-          <circle cx="757.3" cy="589.85" r="16.1" fill="url(#plastic-highlight)" opacity="0.3"/>
+                            type="translate" 
+                            values="0,0; 0,3; 0,0" 
+                            dur="0.2s" 
+                            begin="0.5s;3.5s;6.5s;9.5s;12.5s;15.5s"/>
+          <circle cx="757.3" cy="589.85" r="20.7" stroke="#0369A1" stroke-width="2.3">
+            <animate attributeName="fill" 
+                     values="url(#button-material); url(#button-pressed); url(#button-material)" 
+                     dur="0.2s" 
+                     begin="0.5s;3.5s;6.5s;9.5s;12.5s;15.5s"/>
+            <animate attributeName="filter" 
+                     values="url(#button-normal); url(#button-press); url(#button-normal)" 
+                     dur="0.2s" 
+                     begin="0.5s;3.5s;6.5s;9.5s;12.5s;15.5s"/>
+          </circle>
+          <circle cx="757.3" cy="589.85" r="16.1" fill="url(#plastic-highlight)" opacity="0.2"/>
           <text x="757.3" y="596.75" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
                 font-family="Arial" font-size="16.1" font-weight="bold">A</text>
+          
+          <circle cx="757.3" cy="589.85" r="25" fill="none" stroke="rgba(14,165,233,0)" stroke-width="1.5" filter="url(#neon-glow)">
+            <animate attributeName="stroke" 
+                     values="rgba(14,165,233,0); rgba(14,165,233,0.9); rgba(14,165,233,0)" 
+                     dur="0.2s" 
+                     begin="0.5s;3.5s;6.5s;9.5s;12.5s;15.5s"/>
+          </circle>
         </g>
 
         <!-- B Button -->
-        <g>
+        <g id="button-b">
           <animateTransform attributeName="transform" 
-                            type="scale" 
-                            values="1;1.1;1" 
-                            dur="4s" 
-                            repeatCount="indefinite" 
-                            begin="3s"/>
-          <circle cx="817.1" cy="530.05" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
-          <circle cx="817.1" cy="530.05" r="16.1" fill="url(#plastic-highlight)" opacity="0.3"/>
+                            type="translate" 
+                            values="0,0; 0,3; 0,0" 
+                            dur="0.2s" 
+                            begin="3.2s;6.2s;9.2s;12.2s;15.2s"/>
+          <circle cx="817.1" cy="530.05" r="20.7" stroke="#0369A1" stroke-width="2.3">
+            <animate attributeName="fill" 
+                     values="url(#button-material); url(#button-pressed); url(#button-material)" 
+                     dur="0.2s" 
+                     begin="3.2s;6.2s;9.2s;12.2s;15.2s"/>
+            <animate attributeName="filter" 
+                     values="url(#button-normal); url(#button-press); url(#button-normal)" 
+                     dur="0.2s" 
+                     begin="3.2s;6.2s;9.2s;12.2s;15.2s"/>
+          </circle>
+          <circle cx="817.1" cy="530.05" r="16.1" fill="url(#plastic-highlight)" opacity="0.2"/>
           <text x="817.1" y="536.95" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
                 font-family="Arial" font-size="16.1" font-weight="bold">B</text>
+          
+          <circle cx="817.1" cy="530.05" r="25" fill="none" stroke="rgba(14,165,233,0)" stroke-width="1.5" filter="url(#neon-glow)">
+            <animate attributeName="stroke" 
+                     values="rgba(14,165,233,0); rgba(14,165,233,0.9); rgba(14,165,233,0)" 
+                     dur="0.2s" 
+                     begin="3.2s;6.2s;9.2s;12.2s;15.2s"/>
+          </circle>
         </g>
       </g>
 
       <!-- System Controls -->
-      <g id="system-controls" filter="url(#button-depth)">
+      <g id="system-controls">
         <rect x="510.75" y="496.25" width="25.3" height="18.4" rx="3.45" fill="#2D3748" stroke="#1A202C" stroke-width="1.15"/>
         <line x1="517.5" y1="502" x2="529.2" y2="502" stroke="#A0AEC0" stroke-width="1.15"/>
         <line x1="517.5" y1="505.45" x2="529.2" y2="505.45" stroke="#A0AEC0" stroke-width="1.15"/>
@@ -456,60 +489,39 @@
       </g>
     </g>
 
-    <!-- Animated Connectivity Status -->
+    <!-- Status Indicator -->
     <g id="connectivity-status">
       <rect x="527.75" y="680.25" width="62.1" height="9.2" rx="4.6" fill="#1A202C" stroke="#2D3748" stroke-width="1.15"/>
       <rect x="534.5" y="682.55" width="13.8" height="4.6" rx="2.3" fill="#10B981" opacity="0.8">
-        <animate attributeName="opacity" values="0.8;1;0.8" dur="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
       </rect>
       <text x="555.8" y="703.75" text-anchor="middle" fill="#718096" 
-            font-family="Arial" font-size="11.5">WIRELESS
-        <animate attributeName="fill" values="#718096;#10B981;#718096" dur="3s" repeatCount="indefinite"/>
-      </text>
+            font-family="Arial" font-size="11.5">ACTIVE</text>
     </g>
   </g>
 
-  <!-- ============== ENHANCED BRANDING WITH ANIMATION ============== -->
-  <g id="minimal-branding" opacity="0.6">
-    <!-- Animated Corner Elements -->
-    <rect x="50" y="50" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.4">
-      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="5s" repeatCount="indefinite"/>
-    </rect>
-    <rect x="50" y="50" width="2" height="80" rx="1" fill="#9CA3AF" opacity="0.4">
-      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="5s" repeatCount="indefinite"/>
-    </rect>
+  <!-- ============== CORNER BRANDING ============== -->
+  <g id="corner-branding" opacity="0.5">
+    <rect x="50" y="50" width="60" height="1.5" rx="0.75" fill="#6B46C1"/>
+    <rect x="50" y="50" width="1.5" height="60" rx="0.75" fill="#6B46C1"/>
     
-    <!-- Repeat for other corners with different timing -->
-    <rect x="894" y="50" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.4">
-      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="5s" repeatCount="indefinite" begin="1.25s"/>
-    </rect>
-    <rect x="972" y="50" width="2" height="80" rx="1" fill="#9CA3AF" opacity="0.4">
-      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="5s" repeatCount="indefinite" begin="1.25s"/>
-    </rect>
+    <rect x="914" y="50" width="60" height="1.5" rx="0.75" fill="#0EA5E9"/>
+    <rect x="972.5" y="50" width="1.5" height="60" rx="0.75" fill="#0EA5E9"/>
     
-    <rect x="50" y="972" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.4">
-      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="5s" repeatCount="indefinite" begin="2.5s"/>
-    </rect>
-    <rect x="50" y="894" width="2" height="80" rx="1" fill="#9CA3AF" opacity="0.4">
-      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="5s" repeatCount="indefinite" begin="2.5s"/>
-    </rect>
+    <rect x="50" y="972.5" width="60" height="1.5" rx="0.75" fill="#10B981"/>
+    <rect x="50" y="914" width="1.5" height="60" rx="0.75" fill="#10B981"/>
     
-    <rect x="894" y="972" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.4">
-      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="5s" repeatCount="indefinite" begin="3.75s"/>
-    </rect>
-    <rect x="972" y="894" width="2" height="80" rx="1" fill="#9CA3AF" opacity="0.4">
-      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="5s" repeatCount="indefinite" begin="3.75s"/>
-    </rect>
+    <rect x="914" y="972.5" width="60" height="1.5" rx="0.75" fill="#F59E0B"/>
+    <rect x="972.5" y="914" width="1.5" height="60" rx="0.75" fill="#F59E0B"/>
 
-    <!-- Enhanced Performance Info with Glow -->
-    <g id="minimal-info" opacity="0.5" filter="url(#glow)">
-      <rect x="80" y="80" width="140" height="60" rx="8" fill="rgba(255,255,255,0.1)" stroke="rgba(156,163,175,0.3)" stroke-width="1">
-        <animate attributeName="stroke" values="rgba(156,163,175,0.3);rgba(107,70,193,0.6);rgba(156,163,175,0.3)" dur="4s" repeatCount="indefinite"/>
-      </rect>
-      <text x="95" y="105" fill="#6B7280" font-family="Arial" font-size="12" font-weight="bold">MLBB CONTROLLER
-        <animate attributeName="fill" values="#6B7280;#8B5CF6;#6B7280" dur="4s" repeatCount="indefinite"/>
-      </text>
-      <text x="95" y="125" fill="#9CA3AF" font-family="Arial" font-size="10">Professional Edition</text>
+    <!-- Gaming Info -->
+    <g id="gaming-info" opacity="0.7">
+      <rect x="80" y="80" width="150" height="65" rx="8" fill="rgba(0,0,0,0.3)" stroke="rgba(107,70,193,0.4)" stroke-width="1"/>
+      <text x="95" y="105" fill="#8B5CF6" font-family="Arial" font-size="12" font-weight="bold">MLBB PRO CONTROLLER</text>
+      <text x="95" y="125" fill="#A0AEC0" font-family="Arial" font-size="10">Gaming Mode Active</text>
+      <circle cx="210" cy="115" r="3" fill="#10B981">
+        <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite"/>
+      </circle>
     </g>
   </g>
 </svg>
