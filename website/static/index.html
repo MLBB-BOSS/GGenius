@@ -155,8 +155,8 @@
                 </button>
                 
                 <ul id="main-menu-list" class="nav-menu" role="menubar" hidden>
-                    <li role="none"><a href="#features" class="nav-link active" role="menuitem" aria-current="page" itemprop="url">AI Можливості</a></li>
-                    <li role="none"><a href="#about" class="nav-link" role="menuitem" itemprop="url">Про проєкт</a></li>
+                    <li role="none"><a href="#about-project" class="nav-link active" role="menuitem" aria-current="page" itemprop="url">Про проєкт</a></li>
+                    <li role="none"><a href="#features" class="nav-link" role="menuitem" itemprop="url">AI Можливості</a></li>
                     <li role="none"><a href="#roadmap" class="nav-link" role="menuitem" itemprop="url">Roadmap</a></li>
                     <li role="none"><a href="#contact" class="nav-link" role="menuitem" itemprop="url">Контакти</a></li>
                 </ul>
@@ -167,37 +167,144 @@
     <div class="scroll-progress" id="scrollProgress" aria-hidden="true" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Прогрес прокрутки сторінки"></div>
 
     <main id="main-content" role="main" itemprop="mainContentOfPage">
-        <!-- Hero Quick Actions - компактна версія з красивим дизайном -->
-        <section id="home" class="hero-compact-section section-padding" aria-labelledby="hero-compact-title" itemscope itemtype="https://schema.org/WebPageElement">
+        <!-- Project Introduction Card - Велика презентаційна картка -->
+        <section id="about-project" class="project-intro-hero" aria-labelledby="project-intro-title" itemscope itemtype="https://schema.org/AboutPage">
             <div class="container">
-                <div class="hero-compact-content">
-                    <div class="hero-actions-primary" role="group" aria-label="Основні дії користувача">
-                        <a href="#features" 
-                           class="cta-button hero-cta" 
-                           role="button"
-                           aria-describedby="features-desc-tooltip"
-                           data-analytics="hero-cta-features">
-                            <span>Дізнатися про AI</span>
-                            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M7 17l9.2-9.2M17 17V7H7"/>
-                            </svg>
-                        </a>
-                        <button class="cta-button cta-yellow" 
-                                type="button"
-                                aria-describedby="demo-desc-tooltip"
-                                data-analytics="hero-cta-demo"
-                                onclick="openDemoModal()">
-                            <span>Спробувати Demo</span>
-                             <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <polygon points="5,3 19,12 5,21"/>
-                            </svg>
-                        </button>
-                        <span id="features-desc-tooltip" role="tooltip" class="visually-hidden">
-                            Дізнайтеся більше про AI можливості GGenius для аналітики MLBB.
-                        </span>
-                        <span id="demo-desc-tooltip" role="tooltip" class="visually-hidden">
-                            Спробуйте демонстраційну версію AI аналітики прямо зараз.
-                        </span>
+                <div class="project-intro-card" data-aos="fade-up">
+                    <!-- Status Badge -->
+                    <div class="project-status-badge">
+                        <span class="status-icon">🚀</span>
+                        <span class="status-text">REVOLUTIONARY PROJECT</span>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="project-intro-content">
+                        <div class="project-brand">
+                            <h1 id="project-intro-title" class="project-title" itemprop="name">
+                                Про GGenius
+                            </h1>
+                            <div class="project-subtitle">
+                                <span class="gradient-text">AI Revolution</span> в Mobile Legends: Bang Bang
+                            </div>
+                        </div>
+
+                        <div class="project-description" itemprop="description">
+                            <p class="intro-paragraph">
+                                <strong>GGenius</strong> — це не просто платформа, це <em>революція</em> в світі 
+                                кіберспорту Mobile Legends: Bang Bang. Ми об'єднуємо найсучасніші технології 
+                                штучного інтелекту з глибоким розумінням геймінгу.
+                            </p>
+                            
+                            <p class="mission-paragraph">
+                                Наша <strong>місія</strong> — демократизувати професійний кіберспорт, надаючи 
+                                кожному гравцю доступ до інструментів світового рівня. Ми віримо, що кожен 
+                                має право на професійне зростання в улюбленій грі.
+                            </p>
+                        </div>
+
+                        <!-- Project Goals -->
+                        <div class="project-goals">
+                            <h3 class="goals-title">🎯 Наші цілі:</h3>
+                            <div class="goals-grid">
+                                <div class="goal-item">
+                                    <div class="goal-icon">🧠</div>
+                                    <div class="goal-content">
+                                        <h4>AI-Аналітика</h4>
+                                        <p>Глибокий аналіз матчів та стратегій</p>
+                                    </div>
+                                </div>
+                                <div class="goal-item">
+                                    <div class="goal-icon">🏆</div>
+                                    <div class="goal-content">
+                                        <h4>Турнірна система</h4>
+                                        <p>Автоматизовані змагання для всіх рівнів</p>
+                                    </div>
+                                </div>
+                                <div class="goal-item">
+                                    <div class="goal-icon">👥</div>
+                                    <div class="goal-content">
+                                        <h4>Об'єднання спільноти</h4>
+                                        <p>Єдина платформа для всіх гравців MLBB</p>
+                                    </div>
+                                </div>
+                                <div class="goal-item">
+                                    <div class="goal-icon">💪</div>
+                                    <div class="goal-content">
+                                        <h4>Здоровий lifestyle</h4>
+                                        <p>Пропаганда збалансованого геймінгу</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vision Statement -->
+                        <div class="project-vision">
+                            <h3 class="vision-title">🌟 Наше бачення</h3>
+                            <div class="vision-content">
+                                <p>
+                                    Ми прагнемо створити <strong>майбутнє</strong>, де кожен гравець Mobile Legends: Bang Bang 
+                                    може досягти свого максимального потенціалу завдяки персоналізованому AI-наставнику, 
+                                    справедливим турнірам та підтримці здорової спільноти.
+                                </p>
+                                <div class="vision-stats">
+                                    <div class="stat">
+                                        <span class="stat-number">2025</span>
+                                        <span class="stat-label">Рік запуску</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-number">∞</span>
+                                        <span class="stat-label">Потенціал росту</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-number">100%</span>
+                                        <span class="stat-label">Відданість спільноті</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Team Info -->
+                        <div class="project-team">
+                            <div class="team-avatar">
+                                <div class="avatar-placeholder">
+                                    <span class="avatar-text">MB</span>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h4>Команда MLBB-BOSS</h4>
+                                <p>
+                                    Досвідчені розробники з пристрастю до кіберспорту та штучного інтелекту. 
+                                    Наша експертиза охоплює машинне навчання, веб-розробку та професійний геймінг.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Call to Action -->
+                        <div class="project-cta">
+                            <a href="#features" class="cta-button primary-cta" data-scroll-target="#features">
+                                <span>Дізнатися більше про AI</span>
+                                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                                </svg>
+                            </a>
+                            <button class="cta-button secondary-cta" onclick="scrollToSection('#contact')">
+                                <span>Приєднатися до спільноти</span>
+                                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Decorative Elements -->
+                    <div class="project-decorations" aria-hidden="true">
+                        <div class="decoration-orb orb-1"></div>
+                        <div class="decoration-orb orb-2"></div>
+                        <div class="decoration-line line-1"></div>
+                        <div class="decoration-line line-2"></div>
                     </div>
                 </div>
             </div>
@@ -451,41 +558,19 @@
         <section id="about" class="accordion-section enhanced section-padding" aria-labelledby="about-main-title" itemscope itemtype="https://schema.org/AboutPage">
             <div class="container">
                 <div class="accordion-header" id="about-main-title" role="button" tabindex="0" aria-expanded="false" aria-controls="about-content-panel">
-                    <h2 itemprop="name">Про GGenius AI Revolution</h2>
+                    <h2 itemprop="name">Технологічна філософія</h2>
                     <span class="accordion-indicator" aria-hidden="true">+</span>
                 </div>
                 <div id="about-content-panel" class="accordion-content" role="region" aria-labelledby="about-main-title" hidden>
                     <div class="accordion-content-inner" itemprop="text">
-                        <div class="about-intro">
-                            <p class="intro-text">
-                                <strong>GGenius</strong> - це не просто платформа, це <em>революція</em> в світі 
-                                Mobile Legends: Bang Bang кіберспорту, що поєднує найсучасніші технології 
-                                штучного інтелекту з глибоким розумінням геймінгу.
-                            </p>
-                        </div>
-                        <div class="mission-vision" role="region" aria-label="Місія та бачення GGenius">
-                            <div class="mission-item">
-                                <h3>🎯 Наша Місія</h3>
-                                <p>
-                                    Демократизувати професійний кіберспорт, надаючи кожному гравцю доступ 
-                                    до інструментів світового рівня на базі штучного інтелекту.
-                                </p>
-                            </div>
-                            <div class="vision-item">
-                                <h3>🚀 Наше Бачення</h3>
-                                <p>
-                                    Майбутнє, де кожен гравець може досягти свого максимального потенціалу 
-                                    завдяки персоналізованому AI-наставнику та глобальній екосистемі кіберспорту.
-                                </p>
-                            </div>
-                        </div>
                         <div class="tech-philosophy" role="region" aria-label="Технологічна філософія GGenius">
-                            <h3>🧠 Технологічна Філософія</h3>
+                            <h3>🧠 Наші принципи розробки</h3>
                             <ul class="philosophy-list">
                                 <li><strong>AI-First:</strong> Штучний інтелект в основі кожної функції</li>
                                 <li><strong>Human-Centered:</strong> Технології на службі людини</li>
                                 <li><strong>Open Innovation:</strong> Відкрита екосистема для розвитку</li>
                                 <li><strong>Ethical AI:</strong> Відповідальне використання ШІ</li>
+                                <li><strong>Community-Driven:</strong> Розвиток разом із спільнотою</li>
                             </ul>
                         </div>
                         <div class="enhanced-project-stats" role="region" aria-label="Статистика проєкту GGenius">
@@ -505,14 +590,6 @@
                                 <span class="stat-number" data-target="95">95%</span>
                                 <span class="stat-label">Точність Прогнозів</span>
                             </div>
-                        </div>
-                        <div class="team-info" role="region" aria-label="Інформація про команду GGenius">
-                            <h3>👨‍💻 Команда</h3>
-                            <p>
-                                Проєкт розробляється <strong>MLBB-BOSS</strong> - досвідченим розробником з 
-                                пристрастю до кіберспорту та штучного інтелекту. Наша команда об'єднує 
-                                експертизу в галузі машинного навчання, веб-розробки та професійного геймінгу.
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -665,57 +742,11 @@
     <!-- Footer (зберігаємо оригінальний дизайн) -->
     <footer id="site-footer" class="site-footer-main section-padding" role="contentinfo" itemscope itemtype="https://schema.org/WPFooter">
         <div class="container footer-content">
-            <a href="#home" class="footer-logo-link" aria-label="GGenius AI - на головну">
+            <a href="#about-project" class="footer-logo-link" aria-label="GGenius AI - про проєкт">
                 <span class="footer-logo-text">GGenius</span>
             </a>
             <nav class="footer-nav" aria-label="Додаткова навігація у підвалі">
                 <ul class="footer-links-list">
                     <li><a href="#privacy-policy" class="footer-nav-link">Політика Приватності</a></li>
                     <li><a href="#terms-of-service" class="footer-nav-link">Умови Використання</a></li>
-                    <li><a href="https://github.com/MLBB-BOSS/GGenius/issues" class="footer-nav-link" target="_blank" rel="noopener noreferrer">Підтримка</a></li>
-                    <li><a href="#faq" class="footer-nav-link">FAQ</a></li>
-                </ul>
-            </nav>
-            <div class="footer-social-links" aria-label="Посилання на соціальні мережі GGenius">
-                <a href="https://discord.gg/ggenius" class="social-link" aria-label="GGenius Discord сервер" target="_blank" rel="noopener noreferrer" data-tooltip="Discord">
-                    <span class="icon-placeholder-discord" aria-hidden="true">👾</span>
-                </a>
-                <a href="https://t.me/GGeniusCommunityUA" class="social-link" aria-label="GGenius Telegram канал" target="_blank" rel="noopener noreferrer" data-tooltip="Telegram">
-                     <span class="icon-placeholder-telegram" aria-hidden="true">✈️</span>
-                </a>
-                <a href="https://github.com/MLBB-BOSS/GGenius" class="social-link" aria-label="GGenius GitHub" target="_blank" rel="noopener noreferrer" data-tooltip="GitHub">
-                    <span class="icon-placeholder-github" aria-hidden="true">💻</span>
-                </a>
-            </div>
-            <div class="footer-copyright">
-                <p>&copy; <span id="currentYear">2025</span> GGenius AI. Розроблено з ❤️ <a href="https://github.com/MLBB-BOSS" target="_blank" rel="noopener noreferrer">MLBB-BOSS</a>.</p>
-                <p>Усі права захищено. GGenius є незалежним проєктом і не пов'язаний з Moonton.</p>
-            </div>
-             <button id="themeToggleButton" class="theme-toggle-button" type="button" aria-label="Перемкнути тему оформлення">
-                ☀️/🌙
-            </button>
-        </div>
-    </footer>
-    
-    <script src="/static/js/enhancements.js" defer></script>
-    
-    <script>
-        // Enhanced functions for demo and interactions
-        function openDemoModal() {
-            console.log('Відкриття AI Demo...');
-            // Add demo modal logic here
-            showNotification('🚀 AI Demo буде доступне невдовзі!', 'info');
-        }
-        
-        function copyEmail(button) {
-            const email = button.dataset.email;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(email).then(() => {
-                    const originalHTML = button.innerHTML;
-                    button.innerHTML = button.innerHTML.replace('Email Contact', 'Скопійовано!');
-                    button.classList.add('copied');
-                    setTimeout(() => {
-                        button.innerHTML = originalHTML;
-                        button.classList.remove('copied');
-                    }, 2000);
-                    showNotification('📧 Email адресу скопійов
+                    <li><a href="https://github.com/MLBB-BOSS/GGenius/issues" class="footer-nav-link" target="_blank" rel="noopener noreferrer">
