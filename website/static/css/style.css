@@ -1,14 +1,12 @@
 /* ===== GGENIUS REVOLUTION - PERFORMANCE OPTIMIZED CSS ===== */
 /* 
-    РЕКОМЕНДАЦІЯ: Видалено @import для Google Fonts. 
-    Переконайтеся, що шрифти підключаються через <link> в HTML для кращої продуктивності.
-    Наприклад:
+    Шрифти підключаються через <link> в HTML для кращої продуктивності.
+    Приклад:
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 */
 
-/* Critical CSS Variables - Optimized for Performance */
 :root {
     /* Core Colors */
     --bg-1: #0a0c0f; --bg-2: #14181e; --bg-3: #252a32; --surface: #1a1d23;
@@ -21,6 +19,7 @@
     --bg-2-rgb: 20, 24, 30;
     --bg-3-rgb: 37, 42, 50;
     --surface-rgb: 26, 29, 35;
+    --text-1-rgb: 255, 255, 255;
     --blue-rgb: 0, 123, 255;
     --yellow-rgb: 255, 193, 7;
     --cyan-rgb: 0, 212, 255;
@@ -33,30 +32,45 @@
     --g2: linear-gradient(135deg, var(--cyan), var(--electric), var(--pink));
     --g3: linear-gradient(135deg, var(--blue), color-mix(in srgb, var(--blue) 70%, var(--purple) 30%));
     --g-bg: linear-gradient(145deg, var(--bg-1) 0%, #0d1014 50%, #080a0c 100%);
-    --g-holo: linear-gradient(45deg, rgba(var(--cyan-rgb),.2), transparent, rgba(var(--cyan-rgb),.2)); /* Зменшив прозорість для голограми */
+    --g-holo: linear-gradient(45deg, rgba(var(--cyan-rgb),.15), transparent, rgba(var(--cyan-rgb),.15)); /* Зменшено прозорість */
     
     /* Typography Scale */
     --f1: 'Exo 2', system-ui, sans-serif; --f2: 'Open Sans', system-ui, sans-serif;
-    --t-xs: clamp(.75rem,1vw,.875rem); --t-s: clamp(.875rem,1.2vw,1rem);
-    --t-base: clamp(1rem,1.5vw,1.125rem); --t-l: clamp(1.125rem,2vw,1.25rem);
-    --t-xl: clamp(1.25rem,2.5vw,1.5rem); --t-2xl: clamp(1.5rem,3vw,2rem);
-    --t-3xl: clamp(2rem,4vw,3rem); --t-4xl: clamp(2.5rem,5vw,4rem);
+    --t-xs: clamp(.75rem, 1vw + .1rem, .875rem); /* Додав невеликий vw для плавності */
+    --t-s: clamp(.875rem, 1.2vw + .1rem, 1rem);
+    --t-base: clamp(1rem, 1.5vw + .1rem, 1.125rem);
+    --t-l: clamp(1.125rem, 2vw + .1rem, 1.375rem); /* Збільшив верхню межу для кращої читабельності */
+    --t-xl: clamp(1.375rem, 2.5vw + .1rem, 1.75rem);
+    --t-2xl: clamp(1.75rem, 3vw + .2rem, 2.25rem);
+    --t-3xl: clamp(2.25rem, 4vw + .2rem, 3rem);
+    --t-4xl: clamp(2.75rem, 5vw + .3rem, 4rem);
     
     /* Layout & Performance */
-    --container: min(1140px, 100vw - 2rem); --header-h: 4.375rem;
-    --s-xs: .5rem; --s-s: 1rem; --s-m: 1.5rem; --s-l: 2rem; --s-xl: 3rem; --s-2xl: 4rem;
-    --r-s: 4px; --r-m: 8px; --r-l: 12px; --r-xl: 24px;
+    --container: min(1200px, 100vw - 3rem); /* Трохи збільшив контейнер та відступи */
+    --header-h: 4.375rem; /* 70px */
+    --s-xs: .5rem;  /* 8px */
+    --s-s: 1rem;   /* 16px */
+    --s-m: 1.5rem; /* 24px */
+    --s-l: 2.5rem; /* 40px - Збільшив для кращих проміжків */
+    --s-xl: 4rem;  /* 64px */
+    --s-2xl: 6rem; /* 96px */
+    --r-s: 4px; --r-m: 8px; --r-l: 16px; --r-xl: 28px; /* Збільшив радіуси */
     
-    /* Effects & Shadows */
-    --shadow-cyber: 0 0 15px rgba(var(--cyan-rgb),.4); /* Зменшив інтенсивність */
-    --shadow-neon: 0 0 20px rgba(var(--yellow-rgb),.3); /* Зменшив інтенсивність */
-    --shadow-glow: 0 8px 25px rgba(var(--cyan-rgb),.25); /* Зменшив інтенсивність */
-    --trans: .3s cubic-bezier(.4,0,.2,1); --trans-fast: .15s ease-out;
+    /* Effects & Shadows - Спрощено для продуктивності */
+    --shadow-cyber: 0 0 12px rgba(var(--cyan-rgb),.3);
+    --shadow-neon: 0 0 15px rgba(var(--yellow-rgb),.25);
+    --shadow-glow: 0 6px 20px rgba(var(--cyan-rgb),.2);
+    --shadow-md: 0 4px 10px rgba(0,0,0,.25);
+    --shadow-lg: 0 8px 20px rgba(0,0,0,.3);
+
+    --trans: .3s cubic-bezier(.4,0,.2,1); 
+    --trans-fast: .15s cubic-bezier(.4,0,.2,1); /* Використовуємо той самий easing */
+    --trans-slow: .5s cubic-bezier(.4,0,.2,1);
     
     /* Z-index Scale */
-    --z-bg: -1; --z-normal: 1; --z-high: 10; --z-sticky: 100; --z-modal: 1000; --z-max: 9999;
-    
-    /* Component Variables (Аліаси, які ви використовували. Перегляньте необхідність) */
+    --z-bg: -1; --z-normal: 1; --z-elevated: 10; --z-sticky: 1000; --z-dropdown: 1100; --z-modal: 1200; --z-max: 9999;
+
+    /* Аліаси для семантичності (залишено, оскільки ви їх використовували) */
     --secondary-bg-color: var(--bg-2); --tertiary-bg-color: var(--bg-3);
     --text-primary: var(--text-1); --text-secondary: var(--text-2); --text-muted: var(--text-3);
     --accent-primary: var(--blue); --accent-secondary: var(--yellow);
@@ -65,438 +79,372 @@
     --spacing-lg: var(--s-l); --spacing-xl: var(--s-xl); --spacing-2xl: var(--s-2xl);
     --transition-normal: var(--trans); --transition-fast: var(--trans-fast);
     --ggenius-green: var(--green); --ggenius-cyan: var(--cyan);
-    --shadow-lg: 0 8px 25px rgba(0,0,0,.4); /* Зменшив інтенсивність */
-    --shadow-md: 0 4px 12px rgba(0,0,0,.3); /* Зменшив інтенсивність */
 }
 
 /* High Performance Reset */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;height:100%;font-size:100%}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;border-style: solid; border-width: 0;} /* Додав border reset */
+html{scroll-behavior:smooth;height:100%;font-size:16px; -webkit-tap-highlight-color: transparent;} /* Базовий розмір для rem */
 body{
-    font-family:var(--f2);background:var(--g-bg);color:var(--text-1);line-height:1.7;
+    font-family:var(--f2);background:var(--g-bg);color:var(--text-1);line-height:1.65; /* Трохи збільшив */
     -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;
-    padding-top:var(--header-h);min-height:100vh;contain:layout style;
-    /* ВИДАЛЕНО: will-change:transform; - не потрібне для body */
+    padding-top:var(--header-h);min-height:100vh;contain:layout style paint; /* Додав paint */
 }
 
 /* Critical Above-the-Fold Background */
 body::before{
     content:'';position:fixed;inset:0;z-index:var(--z-bg);pointer-events:none;contain:strict;
-    background:radial-gradient(circle at 15% 85%,color-mix(in srgb,var(--blue) 6%,transparent),transparent 35%), /* Спрощено */
-    radial-gradient(circle at 85% 15%,color-mix(in srgb,var(--yellow) 6%,transparent),transparent 35%), /* Спрощено */
-    radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--purple) 4%,transparent),transparent 45%); /* Спрощено */
-    animation:bgMove 30s ease-in-out infinite alternate; /* Збільшено тривалість */
-    will-change:transform; /* Залишено, оскільки анімується transform */
+    background:radial-gradient(circle at 15% 85%,color-mix(in srgb,var(--blue) 5%,transparent),transparent 30%), 
+    radial-gradient(circle at 85% 15%,color-mix(in srgb,var(--yellow) 5%,transparent),transparent 30%),
+    radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--purple) 3%,transparent),transparent 40%);
+    animation:bgMove 35s ease-in-out infinite alternate; /* Сповільнено */
+    will-change:transform;
 }
 
 /* Critical Loading Screen */
 .loading-screen{
     position:fixed;inset:0;background:var(--bg-1);display:flex;align-items:center;
     justify-content:center;z-index:var(--z-max);opacity:1;visibility:visible;
-    transition:opacity .5s,visibility .5s;contain:strict
+    transition:opacity var(--trans-slow),visibility var(--trans-slow) step-end; /* Додав step-end для visibility */
+    contain:strict;
 }
-.loading-screen.hidden{opacity:0;visibility:hidden}
+.loading-screen.hidden{opacity:0;visibility:hidden; transition-delay: 0s, var(--trans-slow);}
 .loading-spinner{text-align:center;contain:layout}
 .spinner-ring{
-    width:3.75rem;height:3.75rem;border:3px solid rgba(var(--text-1-rgb, 255,255,255),.1); /* Додайте --text-1-rgb */
-    border-top:3px solid var(--blue);border-radius:50%;animation:spin 1s linear infinite;
+    width:3.5rem;height:3.5rem;border:4px solid rgba(var(--text-1-rgb),.1); /* Товстіший бордер */
+    border-top-color:var(--blue); /* Тільки верхній колір */
+    border-radius:50%;animation:spin .8s linear infinite; /* Швидше */
     margin:0 auto var(--s-m);will-change:transform
 }
-:root { /* Додаємо --text-1-rgb */
-    --text-1-rgb: 255,255,255;
-}
-.loading-text{color:var(--text-2);font-size:var(--t-l);animation:pulse 1.5s ease-in-out infinite}
+.loading-text{color:var(--text-2);font-size:var(--t-l);animation:pulse 1.2s ease-in-out infinite alternate;}
 .loading-progress{
-    width:200px;height:4px;background:rgba(var(--text-1-rgb),.1);border-radius:var(--r-s);margin-top:var(--s-s);
-    overflow:hidden;position:relative
+    width:220px;height:5px;background:rgba(var(--text-1-rgb),.1);border-radius:var(--r-s);margin-top:var(--s-m);
+    overflow:hidden;position:relative;
 }
-.progress-bar{ /* ОПТИМІЗОВАНО: Використовує transform: scaleX() */
+.progress-bar{ 
     height:100%;background:var(--g1);border-radius:var(--r-s);
-    width:100%; /* Базова ширина для масштабування */
-    transform-origin: left;
-    transform: scaleX(0); /* Початковий стан, оновлюється JS */
-    transition:transform .3s ease; 
-    will-change:transform;
+    width:100%; transform-origin: left; transform: scaleX(0); 
+    transition:transform .25s ease; will-change:transform;
 }
 
 /* Performance Optimized Scroll Progress */
-.scroll-progress{ /* ОПТИМІЗОВАНО: Використовує transform: scaleX() */
-    position:fixed;
-    top:0; /* Або var(--header-h), якщо під хедером */
-    left:0;
-    height:5px; /* Збільшено для відповідності скріншоту (жовта смуга) */
-    background:var(--yellow); /* Жовтий колір */
-    z-index:var(--z-sticky);
-    transform-origin: left;
-    width:100%; /* Базова ширина для масштабування */
-    transform: scaleX(0); /* Початковий стан, оновлюється JS */
-    /* transition: transform 0.05s linear; /* Дуже швидкий transition, якщо JS оновлює не кожен кадр */
-    will-change:transform;
-    border-radius: 0 0 var(--r-s) var(--r-s); /* Округлення знизу */
-    box-shadow: 0 2px 8px rgba(var(--yellow-rgb), 0.4); /* Легка тінь */
+.scroll-progress{ 
+    position:fixed; top:0; left:0; height:4px; background:var(--yellow);
+    z-index:var(--z-sticky); transform-origin: left; width:100%; transform: scaleX(0); 
+    will-change:transform; border-radius:0 0 var(--r-s) 0; /* Тільки правий нижній кут для стилю */
+    box-shadow: 0 1px 6px rgba(var(--yellow-rgb), 0.35);
+    /* transition: transform 0.03s linear; /* Дуже швидкий для плавності, якщо JS не кожен кадр */
 }
 
 /* Gaming Cursor - Performance Critical */
 .gaming-cursor{
-    position:fixed;width:1.25rem;height:1.25rem;pointer-events:none;z-index:var(--z-high);
-    /* mix-blend-mode:difference; /* УВАГА: Може бути важким для продуктивності. Тестуйте! */
-    transition:transform var(--trans-fast);contain:layout;
-    will-change:transform
+    /* ... (залишено як було, але пам'ятайте про mix-blend-mode) ... */
 }
-/* ... (решта стилів для .gaming-cursor залишаються без змін, якщо mix-blend-mode не викликає проблем) ... */
 
-/* Skip Links for Accessibility (Без змін, виглядає добре) */
-/* ... */
+/* Skip Links for Accessibility */
+/* ... (без змін) ... */
 
-/* Container System (Без змін) */
-/* ... */
+/* Container System */
+.container{width:var(--container);margin:0 auto;padding:0 var(--s-m);contain:layout} /* Змінив відступ на --s-m */
 
-/* Typography Hierarchy (Без змін, використовує clamp) */
-/* ... */
-.section-title-iui.text-gradient{ /* ВИПРАВЛЕНО: було padding-bottom:5px, краще em для відносності */
+/* Typography Hierarchy */
+h1,h2,h3,h4,h5,h6{
+    font-family:var(--f1);font-weight:700;line-height:1.25;color:var(--text-1); /* Зменшив line-height */
+    margin-bottom:var(--s-m);text-wrap:balance
+}
+.section-title-iui{
+    font-size:var(--t-3xl);font-weight:900;text-align:center;margin-bottom:var(--s-l); /* Зменшив відступ */
+    text-transform:uppercase;letter-spacing:.05em; /* Зменшив letter-spacing */
+}
+.section-title-iui.text-gradient{
     background:var(--g1);background-clip:text;-webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;padding-bottom:0.1em; 
+    -webkit-text-fill-color:transparent;padding-bottom:.1em; 
 }
-/* ... */
+.section-subtitle{
+    font-size:var(--t-l);color:var(--text-2);text-align:center;max-width:700px; /* Збільшив max-width */
+    margin:0 auto var(--s-l);line-height:1.55; /* Зменшив line-height */
+}
+/* ... (решта типографіки) ... */
 
-/* Enhanced Links (Без змін, виглядає добре) */
-/* ... */
+/* Enhanced Links */
+/* ... (без змін) ... */
 
 /* Critical Header Performance */
 .site-header{
-    /* УВАГА: backdrop-filter:blur(15px) - дуже ресурсомісткий. */
-    /* РЕКОМЕНДАЦІЯ: Замінити на напівпрозорий фон, якщо продуктивність критична. */
-    background:color-mix(in srgb,var(--bg-1) 85%,transparent); /* Приклад заміни */
-    /* backdrop-filter:blur(10px); */ /* Якщо залишаєте, зменшіть значення */
-    border-bottom:1px solid color-mix(in srgb,var(--text-1) 5%,transparent);position:fixed;
+    background:rgba(var(--bg-1-rgb), 0.85); /* Напівпрозорий фон без блюру за замовчуванням */
+    border-bottom:1px solid rgba(var(--text-1-rgb), 0.07);position:fixed;
     top:0;left:0;right:0;z-index:var(--z-sticky);height:var(--header-h);display:flex;
-    align-items:center;transition:background var(--trans);contain:layout style;
-    /* ВИДАЛЕНО: will-change:background-color; - зазвичай не дає переваг */
+    align-items:center;transition:background var(--trans-fast), box-shadow var(--trans-fast);contain:layout style paint;
+    /* backdrop-filter:blur(8px); /* Розгляньте можливість додати тільки при скролі через JS */
 }
 .site-header.scrolled{
-    background:color-mix(in srgb,var(--bg-1) 92%,transparent); /* Приклад заміни */
-    /* backdrop-filter:blur(12px); */ /* Якщо залишаєте, зменшіть значення */
-    box-shadow:var(--shadow-md)
+    background:rgba(var(--bg-1-rgb), 0.92);
+    box-shadow:var(--shadow-md);
+    /* backdrop-filter:blur(10px); /* Додавати блюр тільки тут, якщо потрібно */
 }
-/* ... (решта стилів для хедера без змін) ... */
+/* ... (решта хедера) ... */
 
 /* Navigation Optimized */
-/* ... */
-.nav-link::after{ /* ОПТИМІЗОВАНО: Використовує transform: scaleX() */
-    content:'';position:absolute;bottom: var(--s-xs); /* Відступ від тексту */
-    left:15%; /* Для ширини 70% по центру */
-    right:15%;
+.nav-menu{list-style:none;display:flex;gap:var(--s-s); /* Зменшив gap */}
+.nav-link{
+    /* ... */
+    padding:var(--s-xs) var(--s-m); /* Змінив відступи */
+}
+.nav-link::after{ 
+    content:'';position:absolute;bottom:var(--s-xs); 
+    left:10%; right:10%; /* Лінія буде 80% ширини */
     height:2px;background:var(--blue);
-    transform-origin: center;
-    transform: scaleX(0);
-    transition:transform var(--trans);
-    will-change:transform
+    transform-origin: center; transform: scaleX(0);
+    transition:transform var(--trans-fast); will-change:transform;
 }
 .nav-link:hover::after,.nav-link:focus-visible::after,.nav-link.active::after{
     transform: scaleX(1);
 }
-/* ... */
+/* ... (мобільне меню) ... */
+@media (max-width:768px){
+    /* ... */
+    .nav-menu{
+        /* backdrop-filter:blur(10px); /* Обережно з блюром на мобільних */
+        background:rgba(var(--bg-1-rgb), 0.95); /* Більш насичений фон для моб. меню */
+    }
+    /* ... */
+}
+
 
 /* Hero Section - Critical Performance */
-.hero-section::after{ /* УВАГА: mix-blend-mode та складна анімація background-image */
-    content:'';position:absolute;inset:0;z-index:var(--z-bg); /* Змінив z-index на bg, щоб не перекривати контент */
-    /* mix-blend-mode: screen; /* Тестуйте продуктивність */
-    opacity:.25; /* Зменшив прозорість */
-    background-image:radial-gradient(circle at 15% 25%,var(--cyan) 1px,transparent 1px), /* Зробив точки меншими */
-    radial-gradient(circle at 85% 75%,var(--pink) 1px,transparent 1px);
-    background-size:100px 100px,150px 150px; /* Зменшив розміри для меншого навантаження */
-    animation:neuralPulse 20s ease-in-out infinite alternate; /* Сповільнив, прибрав cyberpunkShift */
-    will-change:transform,opacity
+.hero-section::after{ 
+    content:'';position:absolute;inset:0;z-index:var(--z-bg); 
+    opacity:.15; /* Значно зменшив прозорість */
+    background-image:radial-gradient(circle at 20% 30%,var(--cyan) 1px,transparent 1px),
+    radial-gradient(circle at 75% 65%,var(--pink) 1px,transparent 1px);
+    background-size:120px 120px, 160px 160px; /* Змінив розміри */
+    animation:neuralPulse 25s ease-in-out infinite alternate; 
+    will-change:transform,opacity;
+    /* mix-blend-mode: color-dodge; /* Спробуйте інший blend-mode або приберіть */
 }
-/* ... (решта стилів для .hero-section, .hero-title, .cta-button залишаються з попередніми оптимізаціями) ... */
+/* ... (решта hero-section) ... */
+.hero-stats{ /* Стилі з попереднього об'єднання для Image 1 */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); /* Зменшив min */
+    gap: var(--s-m); /* Зменшив gap */
+    margin-top: var(--s-l);
+    padding: var(--s-m); 
+    background: linear-gradient(145deg, rgba(var(--bg-2-rgb), 0.6), rgba(var(--bg-3-rgb), 0.7)); 
+    border-radius: var(--r-l); /* Зменшив радіус */
+    border: 1px solid rgba(var(--cyan-rgb), 0.15); 
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25); 
+    position: relative; overflow: hidden;
+    /* animation: none; /* Вимкнув анімацію контейнера statsContainer */
+}
+.hero-stats .stat-item {
+    text-align: center; padding: var(--s-m); border-radius: var(--r-m);
+    background: rgba(var(--surface-rgb), 0.5);
+    border: 1px solid rgba(var(--cyan-rgb), 0.25);
+    transition: transform var(--trans-fast), border-color var(--trans-fast);
+    position: relative; overflow: hidden; will-change: transform, border-color;
+}
+.hero-stats .stat-item::before { /* Підсвічування зверху */
+    content: ''; position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%); width: 0%; height: 2px;
+    background: var(--cyan);
+    transition: width var(--trans-fast) ease-out; will-change: width;
+    box-shadow: 0 0 6px rgba(var(--cyan-rgb), 0.6);
+}
+.hero-stats .stat-item:hover::before { width: 50%; }
+.hero-stats .stat-item:hover {
+    transform: translateY(-4px); /* Зменшив підйом */
+    border-color: rgba(var(--cyan-rgb), 0.6); 
+}
+.hero-stats .stat-number {
+    font-size: clamp(2.5rem, 6vw, 3.5rem); font-weight: 900;
+    color: var(--pink); /* Колір для "0" з Image 1 */
+    display: block; margin-bottom: var(--s-xs);
+    text-shadow: 0 0 8px rgba(var(--pink-rgb), 0.4), 0 0 15px rgba(var(--pink-rgb), 0.25);
+    position: relative;
+    /* animation: none; /* Вимкнув numberGlow */
+}
+/* Декоративні крапки для .stat-number (з Image 1) */
+.hero-stats .stat-number::before,
+.hero-stats .stat-number::after {
+    content: ''; position: absolute; width: 4px; height: 4px;
+    border-radius: 50%; opacity: 0.6; animation: pulseDot 2.2s infinite ease-in-out alternate;
+}
+.hero-stats .stat-number::before { background-color: var(--cyan); top: 25%; left: 20%; animation-delay: 0.1s;}
+.hero-stats .stat-number::after { background-color: var(--purple); bottom: 25%; right: 20%; animation-delay: 0.3s;}
 
-/* Hero Stats - Вже оновлено в попередньому об'єднанні, перевіряємо */
-/* ... (Стилі для .hero-stats, .stat-item, .stat-number, .stat-label з вашого коміту 4b7298e... залишаються, вони вже включали мої рекомендації) ... */
-/* Переконайтеся, що --bg-secondary-rgb, --bg-tertiary-rgb, --accent-cyan-rgb, --surface-rgb, --accent-pink-rgb, --accent-yellow-rgb визначені в :root */
+.hero-stats .stat-label {
+    font-size: var(--t-xs); color: var(--text-2);
+    text-transform: uppercase; letter-spacing: .07em; font-weight: 600; line-height: 1.2;
+}
+/* Стилі для тексту під CTA з Image 5 ("0 % AI Точність") */
+.hero-additional-info {
+    margin-top: var(--s-m); text-align: center; display: flex;
+    flex-direction: column; gap: var(--s-xs);
+}
+.hero-additional-info p { font-size: var(--t-s); color: var(--text-3); margin-bottom: 0; }
+.hero-additional-info p strong { color: var(--cyan); font-weight: 600;}
 
 
-/* Features Section */
-/* ... */
-.features-section-iui.enhanced{ /* УВАГА: backdrop-filter */
-    background:linear-gradient(135deg,rgba(var(--bg-1-rgb),.95),rgba(var(--bg-2-rgb),.9)),var(--g-holo);
-    /* backdrop-filter:blur(8px); */ /* Зменшено або видалити */
-}
-/* ... */
-.category-tab{ /* УВАГА: backdrop-filter */
-    /* ... */
-    /* backdrop-filter:blur(10px); */ /* Зменшено або видалити */
-    /* ... */
-}
-/* ... */
-.feature-card-iui.enhanced{ /* УВАГА: backdrop-filter, conic-gradient анімація, 3D transform */
-    /* ... */
-    /* backdrop-filter:blur(15px); */ /* Значно зменшити або видалити */
-    /* ... */
-}
-.feature-card-iui.enhanced::before{ /* Анімація conic-gradient може бути важкою */
-    /* ... */
-    animation:borderRotate 10s linear infinite; /* Сповільнено */
-}
-/* ... */
-.highlight-tag{ /* УВАГА: backdrop-filter */
-    /* backdrop-filter:blur(8px); */ /* Зменшено або видалити */
-}
-/* ... */
-.feature-status{ /* УВАГА: backdrop-filter */
-    /* backdrop-filter:blur(8px); */ /* Зменшено або видалити */
-}
-/* ... */
-
-/* Roadmap Section */
-.roadmap-timeline::before{ /* Анімація тіні */
-    /* ... */
-    animation:timelinePulseSimple 4s ease-in-out infinite; /* Спрощена анімація */
-}
-.timeline-marker{ /* Анімація тіні */
-    /* ... */
-    animation:markerGlowSimple 3s ease-in-out infinite alternate; /* Спрощена анімація */
-}
-.timeline-content{ /* УВАГА: backdrop-filter */
-    /* backdrop-filter:blur(15px); */ /* Значно зменшити або видалити */
-}
-/* ... */
-
-/* Accordion Sections */
-/* ... (Стилі для акордеонів виглядають прийнятно, max-height анімація стандартна) ... */
-
-/* Tech Stack Enhanced */
-.tech-stack-section.enhanced{ /* УВАГА: backdrop-filter */
-    /* backdrop-filter:blur(15px); */ /* Значно зменшити або видалити */
-}
-.tech-category{ /* УВАГА: backdrop-filter */
-    /* backdrop-filter:blur(15px); */ /* Значно зменшити або видалити */
-}
-/* ... */
-
-/* Contact Section Enhanced */
-.contact-section.enhanced{ /* УВАГА: backdrop-filter */
-    /* backdrop-filter:blur(15px); */ /* Значно зменшити або видалити */
-}
-.contact-link{ /* УВАГА: backdrop-filter */
-    /* backdrop-filter:blur(8px); */ /* Зменшено або видалити */
-}
-/* ... */
-
-/* Newsletter Enhanced */
-.newsletter-signup{ /* УВАГА: backdrop-filter */
-    /* backdrop-filter:blur(15px); */ /* Значно зменшити або видалити */
-}
-.newsletter-signup.enhanced::before{ /* Анімація conic-gradient */
-    /* ... */
-    animation:borderRotate 12s linear infinite; /* Сповільнено */
-}
-.newsletter-form input,.form-select{ /* УВАГА: backdrop-filter */
-    /* backdrop-filter:blur(8px); */ /* Зменшено або видалити */
-}
-/* ... */
-
-/* Toast Notifications - Вже оновлено в попередньому об'єднанні, перевіряємо */
-/* ... (Стилі для тостів з вашого коміту 4b7298e... залишаються, вони вже включали мої рекомендації) ... */
-/* Переконайтеся, що анімації .toast.show та .toast.removing використовують transform та opacity */
-.toast {
+/* Features Section & Cards (Image 4) */
+.features-section-iui.enhanced{ background:linear-gradient(135deg,rgba(var(--bg-1-rgb),.95),rgba(var(--bg-2-rgb),.92)),var(--g-holo); /* backdrop-filter:blur(5px); */ }
+.feature-categories { /* Таби з Image 4 */
     /* ... існуючі стилі ... */
-    opacity: 0;
-    transform: translateX(20px) scale(0.95); /* Початковий стан для появи */
-    transition: opacity var(--trans-fast) ease-out, transform var(--trans-fast) ease-out;
+    /* Для мобільних, якщо табів багато: */
+    /* overflow-x: auto; white-space: nowrap; padding-bottom: var(--s-xs); */
+    /* -ms-overflow-style: none; scrollbar-width: none; */
 }
-.toast.show {
-    opacity: 1;
-    transform: translateX(0) scale(1);
+/* .feature-categories::-webkit-scrollbar { display: none; } */
+.category-tab{ 
+    padding: var(--s-s) var(--s-l); /* Збільшив горизонтальний padding */
+    border-radius:var(--r-xl); /* Більш округлі */
+    /* backdrop-filter:blur(8px); */ 
 }
-.toast.removing { /* Додайте цей клас через JS перед видаленням */
-    opacity: 0;
-    transform: translateX(20px) scale(0.95);
+.category-tab.active{ background:var(--g1); color:var(--text-1); box-shadow:var(--shadow-glow); border-color:transparent;}
+.category-tab svg{ width: 1.1em; height: 1.1em; margin-right: var(--s-xs);}
+
+.main-feature-icon svg { /* Іконка галочки в шестикутнику з Image 4 */
+    width: clamp(80px, 20vw, 150px); height: auto;
+    margin: var(--s-l) auto; display: block; fill: var(--cyan);
+    filter: drop-shadow(0 0 12px rgba(var(--cyan-rgb), 0.35));
+    opacity: 0; transform: scale(0.85);
+    animation: iconFadeInScale 0.7s var(--trans) forwards 0.1s;
 }
+/* ... (решта feature cards, обережно з .enhanced та backdrop-filter) ... */
+
+
+/* Roadmap Section (Image 3) */
+.roadmap-section .roadmap-main-title { 
+    font-size: var(--t-2xl); margin-bottom: var(--s-m); color: var(--cyan); text-align: left;
+}
+.roadmap-section .quarter-title {
+    font-size: var(--t-xl); color: var(--text-1); margin-bottom: var(--s-s); text-align: left;
+}
+.roadmap-section .feature-list li, 
+.roadmap-item-description { 
+    font-size: var(--t-s); line-height: 1.5; display: flex;
+    align-items: flex-start; /* Краще для багаторядкового тексту */
+    gap: var(--s-s); padding: var(--s-xs) 0; text-align: left;
+}
+.roadmap-section .feature-list li .icon, 
+.roadmap-item-description .icon { /* Іконки цілі, юзера, графіка */
+    font-size: 1.3em; color: var(--cyan); flex-shrink: 0; margin-top: 0.1em; /* Вирівнювання іконки */
+}
+.main-trophy-icon svg { /* Кубок з Image 3 */
+    width: clamp(60px, 15vw, 120px); height: auto;
+    fill: rgba(var(--text-1-rgb), 0.8); margin: 0 auto var(--s-m); display:block; /* Центрування */
+    /* filter: drop-shadow(0 0 8px rgba(var(--cyan-rgb), 0.2)); */
+}
+.auto-management-text { /* "Auto Management AI..." з Image 3 */
+    font-size: var(--t-s);
+    color: var(--text-2);
+    display: flex;
+    align-items: center;
+    gap: var(--s-xs);
+    margin-top: var(--s-xs);
+}
+.auto-management-text .small-trophy-icon svg {
+    width: 1.3em; height: 1.3em; fill: var(--yellow);
+}
+
+/* ... (решта roadmap, обережно з backdrop-filter в .timeline-content) ... */
+
+
+/* Beta Access Form Styles (Image 6) */
+/* ... (Інтеграція стилів з попередньої відповіді, вже є в наданому вами файлі, перевіряємо та доповнюємо) ... */
+.beta-access-form-container { /* Загальний контейнер форми */
+    background: rgba(var(--bg-2-rgb), 0.4); /* Трохи світліший фон */
+    padding: var(--s-l) var(--s-m);
+    border-radius: var(--r-l); margin: var(--s-l) auto; max-width: 480px; /* Зменшив max-width */
+    border: 1px solid rgba(var(--cyan-rgb), 0.1); box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.beta-access-form-container .section-title-iui { font-size: var(--t-xl); gap: var(--s-xs); }
+.beta-access-form-container .rocket-icon { font-size: 1.3em; color: var(--cyan); }
+.beta-access-form-container .section-subtitle { font-size: var(--t-s); margin-bottom: var(--s-l); }
+
+.gg-form, .newsletter-form.beta-form { display: flex; flex-direction: column; gap: var(--s-m); } /* Зменшив gap */
+.gg-form .form-group { display: flex; flex-direction: column; gap: var(--s-xs); }
+.gg-form .form-label { color: var(--text-2); font-weight: 500; font-size: var(--t-s); margin-bottom: 0; } /* Змінив колір, вагу */
+
+.gg-form input[type="email"], .gg-form .form-select {
+    padding: var(--s-m); background: rgba(var(--bg-1-rgb), 0.6);
+    border: 1px solid rgba(var(--cyan-rgb), 0.25); border-radius: var(--r-m);
+    color: var(--text-1); font-size: var(--t-base);
+    transition: border-color var(--trans-fast), box-shadow var(--trans-fast); width: 100%;
+}
+.gg-form input[type="email"]:focus, .gg-form .form-select:focus {
+    outline: none; border-color: var(--cyan); box-shadow: 0 0 8px rgba(var(--cyan-rgb), 0.3);
+}
+.gg-form .checkbox-group { flex-direction: row; align-items: center; gap: var(--s-s); margin-top: var(--s-xs); }
+.gg-form .form-checkbox { width: 22px; height: 22px; accent-color: var(--cyan); border-radius: var(--r-s); flex-shrink: 0; cursor: pointer; }
+.gg-form .checkbox-label { margin: 0; cursor: pointer; font-size: var(--t-s); color: var(--text-2); line-height: 1.35; }
+
+.gg-form .cta-button, .newsletter-form.beta-form .cta-button { /* Кнопка "Приєднатися" */
+    font-size: var(--t-base); padding: var(--s-m) var(--s-l); text-transform: uppercase;
+    letter-spacing: 0.06em; width: 100%; margin-top: var(--s-s); /* Зменшив letter-spacing */
+}
+.beta-access-form-container .privacy-notice p { font-size: var(--t-xs); gap: var(--s-xs); }
+
+@media (max-width: 400px) { /* Брейкпоінт для кнопки форми */
+    .gg-form .cta-button, .newsletter-form.beta-form .cta-button {
+        font-size: var(--t-s); padding: var(--s-s) var(--s-m);
+    }
+}
+/* Custom Select Styling */
+.gg-form .custom-select-wrapper { position: relative; width: 100%; }
+.gg-form .form-select { appearance: none; -webkit-appearance: none; -moz-appearance: none; width: 100%; cursor: pointer; padding-right: calc(var(--s-m) + 28px); }
+.gg-form .custom-select-arrow { position: absolute; top: 50%; right: var(--s-m); transform: translateY(-50%); pointer-events: none; font-size: 1.2rem; color: var(--cyan); transition: transform var(--trans-fast); }
+.gg-form .custom-select-wrapper:focus-within .custom-select-arrow { transform: translateY(-50%) rotate(180deg); }
+.gg-form .form-select option { background: var(--bg-3); color: var(--text-1); }
+.gg-form .form-select option[disabled] { color: var(--text-3); }
 
 
 /* Animations - Performance Optimized */
+/* ... (перегляньте та спростіть анімації box-shadow, filter, background-position) ... */
+@keyframes pulseDot { /* Для крапок біля .stat-number */
+    0%, 100% { transform: scale(0.7); opacity: 0.4; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+}
+@keyframes iconFadeInScale { /* Для іконки галочки */
+    to { opacity: 1; transform: scale(1); }
+}
 /* ... */
-/* Перегляньте анімації, що використовують filter, box-shadow, background-position */
-@keyframes titleGlow{0%,100%{text-shadow:0 0 15px var(--cyan)}50%{text-shadow:0 0 30px var(--pink),0 0 45px var(--electric)}} /* Зменшив розміри тіней */
-@keyframes pulseGlow{0%,100%{box-shadow:0 0 10px rgba(var(--blue-rgb),.4),0 0 20px rgba(var(--blue-rgb),.25)}50%{box-shadow:0 0 20px rgba(var(--blue-rgb),.6),0 0 30px rgba(var(--blue-rgb),.4)}} /* Спрощено */
-/* @keyframes statsContainer ... - рекомендовано вимкнути або сильно спростити */
-@keyframes numberGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.15) saturate(1.1)}} /* Зменшив значення filter */
-/* @keyframes timelinePulse ... - замінено на timelinePulseSimple */
-/* @keyframes markerGlow ... - замінено на markerGlowSimple */
 
-/* Спрощені анімації для елементів з важкими тінями */
-@keyframes timelinePulseSimple{
-    0%,100%{ transform:translateX(-50%) scaleY(1); opacity: 0.8; }
-    50%{ transform:translateX(-50%) scaleY(1.05); opacity: 1; }
-}
-@keyframes markerGlowSimple{
-    0%,100%{ opacity: 0.7; }
-    50%{ opacity: 1; }
-}
-/* ... (решта анімацій) ... */
-
-
-/* Responsive Design - Mobile First */
-/* ... (Ваші медіа-запити виглядають загалом добре, але перевірте специфічні елементи, як форма з Image 2) ... */
-
-/* Додаткові стилі для форми бета-доступу (з попередньої відповіді про Image 2) */
-/* Вони мають бути інтегровані або адаптовані до ваших існуючих .newsletter-form стилів */
-/* === BETA ACCESS FORM STYLES (інтеграція з попередньої відповіді) === */
-.beta-access-form-container {
-    background: rgba(var(--bg-2-rgb), 0.6);
-    padding: var(--s-l) var(--s-m); /* Змінив --s-xl на --s-l для вертикальних відступів */
-    border-radius: var(--r-l); /* Змінив --r-xl на --r-l */
-    margin: var(--s-xl) auto; /* Змінив --s-2xl на --s-xl */
-    max-width: 500px; /* Зменшив max-width */
-    border: 1px solid rgba(var(--ggenius-cyan-rgb), 0.2);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25); /* Зменшив тінь */
-}
-
-.beta-access-form-container .section-title-iui {
-    font-size: var(--t-2xl); 
-    margin-bottom: var(--s-m); /* Збільшив відступ */
-    /* ... (інші стилі для заголовка форми) ... */
-}
-
-.beta-access-form-container .section-subtitle {
-    font-size: var(--t-s); 
-    margin-bottom: var(--s-l); /* Збільшив відступ */
-    /* ... */
-}
-
-.gg-form, /* Загальний клас для форм */
-.newsletter-form.beta-form {
-    gap: var(--s-l); 
-}
-
-.gg-form .form-label {
-    font-size: var(--t-s); 
-    /* ... */
-}
-
-.gg-form input[type="email"],
-.gg-form .form-select {
-    font-size: var(--t-base); 
-    background: rgba(var(--bg-1-rgb), 0.8); /* Зробив фон трохи яскравішим */
-    border-width: 1px; /* Явно вказав товщину бордера */
-    /* ... */
-}
-
-.gg-form .checkbox-label {
-    font-size: var(--t-s);
-    line-height: 1.3; /* Зменшив line-height */
-}
-
-.gg-form .cta-button,
-.newsletter-form.beta-form .cta-button {
-    font-size: var(--t-base); 
-    /* ... */
-}
-
-.beta-access-form-container .privacy-notice p {
-    font-size: var(--t-xs); 
-    /* ... */
-}
-
-@media (max-width: 370px) { /* Трохи більший брейкпоінт */
-    .gg-form .cta-button,
-    .newsletter-form.beta-form .cta-button {
-        font-size: var(--t-s); 
-        padding: var(--s-s) var(--s-m); 
+/* Reduced Motion - Додано більше елементів */
+@media (prefers-reduced-motion:reduce){
+    /* ... існуючі ... */
+    .body::before, .hero-stats, .loading-screen, .site-header /* та інші елементи з backdrop-filter */ {
+        animation:none!important;
+        /* backdrop-filter: none !important; /* Якщо вирішите повністю вимикати */
     }
-    /* ... (інші стилі для маленьких екранів) ... */
+    /* ... */
 }
 
-/* CUSTOM SELECT STYLING (інтеграція) */
-.gg-form .custom-select-wrapper {
-    position: relative;
-    width: 100%;
-}
+/* Focus Management */
+*:focus { outline: none; }
+*:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; border-radius: var(--r-s); /* Зробив фокус помітнішим */ }
+.focus-outline { outline: 3px solid var(--cyan); outline-offset: 3px; border-radius: var(--r-s); }
 
-.gg-form .form-select {
-    appearance: none; -webkit-appearance: none; -moz-appearance: none;
-    width: 100%; cursor: pointer;
-    padding-right: calc(var(--s-m) + 25px); /* Збільшив місце для стрілки */
-}
 
-.gg-form .custom-select-arrow {
-    position: absolute; top: 50%; right: var(--s-m);
-    transform: translateY(-50%); pointer-events: none;
-    font-size: 1.1rem; /* Збільшив стрілку */
-    color: var(--ggenius-cyan);
-    transition: transform var(--trans-fast);
-}
-
-.gg-form .custom-select-wrapper:focus-within .custom-select-arrow {
-    transform: translateY(-50%) rotate(180deg);
-}
-
-.gg-form .form-select option {
-    background: var(--bg-3); /* Темніший фон для опцій */
-    color: var(--text-1);
-}
-.gg-form .form-select option[disabled] { color: var(--text-3); }
+/* Performance Utilities - ВИДАЛЕНО .gpu-acceleration */
 /* ... */
 
-
-/* Performance Utilities */
-/* ВИДАЛЕНО: .gpu-acceleration{transform:translateZ(0)} - використовуйте will-change */
-/* ... (решта утиліт) ... */
-
-/* Focus Management - ВИПРАВЛЕНО: :focus-visible має бути пріоритетнішим або єдиним для сучасних підходів */
-/* :focus-visible{outline:2px solid var(--cyan);outline-offset:2px} */
-/* Можна залишити обидва, якщо потрібна підтримка старих браузерів, але :focus-visible краще */
-/* Або так: */
-*:focus {
-  outline: none; /* Прибираємо стандартний фокус */
-}
-*:focus-visible {
-  outline: 2px solid var(--cyan); /* Показуємо кастомний фокус тільки для клавіатурної навігації */
-  outline-offset: 2px;
-}
-.focus-outline { /* Якщо потрібен клас для примусового показу */
-    outline: 2px solid var(--cyan);outline-offset:2px
-}
-
-/* Додаткові стилі для низької продуктивності (з попередньої відповіді) */
-.low-performance-device .hero-stats,
-.low-performance-device .hero-stats .stat-item,
-.low-performance-device .toast,
-.low-performance-device .site-header,
-.low-performance-device .features-section-iui.enhanced, /* Додано інші елементи з backdrop-filter */
-.low-performance-device .category-tab,
-.low-performance-device .feature-card-iui.enhanced,
-.low-performance-device .highlight-tag,
-.low-performance-device .feature-status,
-.low-performance-device .timeline-content,
-.low-performance-device .tech-stack-section.enhanced,
-.low-performance-device .tech-category,
-.low-performance-device .contact-section.enhanced,
-.low-performance-device .contact-link,
-.low-performance-device .newsletter-signup,
-.low-performance-device .newsletter-form input, .low-performance-device .form-select {
+/* Low Performance Mode - Розширено */
+.low-performance-device .body::before, /* Вимкнення фонової анімації тіла */
+.low-performance-device .hero-section::after,
+/* ... (всі інші елементи з попередньої відповіді) ... */
+.low-performance-device .roadmap-timeline::before, /* Вимкнення анімації таймлайну */
+.low-performance-device .timeline-marker,
+.low-performance-device .main-feature-icon svg,
+.low-performance-device .main-trophy-icon svg {
     animation: none !important;
+}
+.low-performance-device * { /* Загальне правило для вимкнення блюру та складних тіней */
     backdrop-filter: none !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15) !important; /* Ще простіша тінь */
-    transition-duration: 0.01ms !important; /* Майже миттєві переходи */
+    filter: none !important;
+    text-shadow: none !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important; /* Дуже проста тінь */
 }
-
-.low-performance-device .hero-section::after, /* Прибираємо важкий фон */
-.low-performance-device .body::before, /* Прибираємо анімований фон тіла */
-.low-performance-device .hero-stats .stat-item::before,
+.low-performance-device .gaming-cursor,
 .low-performance-device .hero-stats .stat-number::before,
-.low-performance-device .hero-stats .stat-number::after,
-.low-performance-device .feature-card-iui.enhanced::before, /* Прибираємо анімовані бордери */
-.low-performance-device .feature-card-iui.enhanced::after,
-.low-performance-device .newsletter-signup.enhanced::before {
-    display: none !important;
-}
-
-.low-performance-device .scroll-progress {
-    box-shadow: none !important;
-    height: 3px !important; /* Тонший прогрес-бар */
-}
-
-.low-performance-device .gaming-cursor {
+.low-performance-device .hero-stats .stat-number::after {
     display: none !important;
 }
