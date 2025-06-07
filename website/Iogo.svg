@@ -3,302 +3,460 @@
      xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
 
-  <!-- ============== ADVANCED DEFINITIONS ============== -->
+  <!-- ============== ULTRA-ADVANCED 3D DEFINITIONS ============== -->
   <defs>
-    <!-- Premium Background Gradient -->
-    <radialGradient id="bg-premium" cx="0.5" cy="0.4" r="0.8">
-      <stop offset="0%" stop-color="#1A1D29"/>
-      <stop offset="40%" stop-color="#0F1419"/>
+    <!-- Cosmic 3D Background -->
+    <radialGradient id="cosmic-3d-bg" cx="0.5" cy="0.3" r="1.5">
+      <stop offset="0%" stop-color="#2D1B69"/>
+      <stop offset="20%" stop-color="#1A0F3A"/>
+      <stop offset="40%" stop-color="#0D0820"/>
+      <stop offset="60%" stop-color="#050312"/>
+      <stop offset="80%" stop-color="#020108"/>
       <stop offset="100%" stop-color="#000000"/>
     </radialGradient>
 
-    <!-- Gaming Controller Body Gradient -->
-    <radialGradient id="controller-body" cx="0.35" cy="0.25" r="1.2">
-      <stop offset="0%" stop-color="#4A4D58"/>
-      <stop offset="35%" stop-color="#2C3038"/>
-      <stop offset="70%" stop-color="#1E2026"/>
-      <stop offset="100%" stop-color="#0D0E12"/>
-    </radialGradient>
-
-    <!-- Metallic Highlight -->
-    <linearGradient id="metallic-shine" x1="0" y1="0" x2="0.7" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
-      <stop offset="15%" stop-color="rgba(255,255,255,0.2)"/>
-      <stop offset="40%" stop-color="rgba(255,255,255,0.05)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0.1)"/>
+    <!-- Depth Field Background -->
+    <linearGradient id="depth-field" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(45, 27, 105, 0.6)"/>
+      <stop offset="30%" stop-color="rgba(26, 15, 58, 0.4)"/>
+      <stop offset="70%" stop-color="rgba(5, 3, 18, 0.2)"/>
+      <stop offset="100%" stop-color="rgba(0, 0, 0, 0.8)"/>
     </linearGradient>
 
-    <!-- MLBB Purple Glow -->
-    <radialGradient id="mlbb-purple" cx="0.5" cy="0.5" r="0.8">
-      <stop offset="0%" stop-color="#B026FF"/>
-      <stop offset="50%" stop-color="#8E1AE6"/>
-      <stop offset="100%" stop-color="#6B0FB8"/>
+    <!-- Ultra-Premium Controller 3D Body -->
+    <linearGradient id="controller-3d-body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6B7280"/>
+      <stop offset="15%" stop-color="#4B5563"/>
+      <stop offset="35%" stop-color="#374151"/>
+      <stop offset="55%" stop-color="#1F2937"/>
+      <stop offset="75%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+
+    <!-- 3D Surface Lighting -->
+    <linearGradient id="surface-lighting" x1="0" y1="0" x2="0.8" y2="0.8">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.6)"/>
+      <stop offset="20%" stop-color="rgba(255,255,255,0.35)"/>
+      <stop offset="50%" stop-color="rgba(255,255,255,0.15)"/>
+      <stop offset="80%" stop-color="rgba(255,255,255,0.05)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.2)"/>
+    </linearGradient>
+
+    <!-- MLBB Holographic Purple -->
+    <radialGradient id="mlbb-holographic" cx="0.5" cy="0.5" r="1.0">
+      <stop offset="0%" stop-color="#E946FF"/>
+      <stop offset="25%" stop-color="#C026FF"/>
+      <stop offset="50%" stop-color="#A020F0"/>
+      <stop offset="75%" stop-color="#7B1FA2"/>
+      <stop offset="100%" stop-color="#4A148C"/>
     </radialGradient>
 
-    <!-- Cyan Gaming Accent -->
-    <radialGradient id="cyan-gaming" cx="0.5" cy="0.5" r="0.7">
-      <stop offset="0%" stop-color="#00F5FF"/>
-      <stop offset="60%" stop-color="#00CDD9"/>
-      <stop offset="100%" stop-color="#0099A6"/>
+    <!-- Cyber Cyan Hologram -->
+    <radialGradient id="cyber-cyan" cx="0.5" cy="0.5" r="0.9">
+      <stop offset="0%" stop-color="#64FFDA"/>
+      <stop offset="30%" stop-color="#1DE9B6"/>
+      <stop offset="60%" stop-color="#00BCD4"/>
+      <stop offset="90%" stop-color="#006064"/>
     </radialGradient>
 
-    <!-- Advanced Glow Effects -->
-    <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+    <!-- Ultra Neon Glow System -->
+    <filter id="ultra-neon-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feGaussianBlur stdDeviation="15" result="wideBlur"/>
+      <feGaussianBlur stdDeviation="25" result="ultraWideBlur"/>
       <feOffset dx="0" dy="0" result="offsetBlur"/>
-      <feFlood flood-color="#FFFFFF" flood-opacity="0.3"/>
+      <feFlood flood-color="#FFFFFF" flood-opacity="0.4"/>
       <feComposite in2="offsetBlur" operator="in"/>
       <feMerge>
+        <feMergeNode in="ultraWideBlur"/>
+        <feMergeNode in="wideBlur"/>
         <feMergeNode in="coloredBlur"/>
         <feMergeNode in="coloredBlur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
 
-    <!-- Premium Shadow -->
-    <filter id="premium-shadow" x="-30%" y="-20%" width="160%" height="180%">
-      <feDropShadow dx="0" dy="20" stdDeviation="25" flood-color="#000000" flood-opacity="0.6"/>
-      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.3"/>
+    <!-- 3D Depth Shadow System -->
+    <filter id="depth-shadow-3d" x="-50%" y="-30%" width="200%" height="250%">
+      <feDropShadow dx="0" dy="35" stdDeviation="40" flood-color="#000000" flood-opacity="0.8"/>
+      <feDropShadow dx="0" dy="20" stdDeviation="25" flood-color="#1A0F3A" flood-opacity="0.6"/>
+      <feDropShadow dx="0" dy="10" stdDeviation="15" flood-color="#2D1B69" flood-opacity="0.4"/>
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#4A148C" flood-opacity="0.3"/>
     </filter>
 
-    <!-- Button Depth Effect -->
-    <filter id="button-depth" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#000000" flood-opacity="0.8"/>
-      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#FFFFFF" flood-opacity="0.2"/>
+    <!-- Professional Button 3D -->
+    <filter id="button-3d-pro" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#000000" flood-opacity="0.9"/>
+      <feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#1A0F3A" flood-opacity="0.6"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#FFFFFF" flood-opacity="0.3"/>
     </filter>
 
-    <!-- Stick Texture Pattern -->
-    <pattern id="stick-texture" patternUnits="userSpaceOnUse" width="4" height="4">
-      <rect width="4" height="4" fill="#1A1C22"/>
-      <circle cx="2" cy="2" r="0.8" fill="#2A2C32" opacity="0.6"/>
+    <!-- Advanced Texture Patterns -->
+    <pattern id="carbon-fiber" patternUnits="userSpaceOnUse" width="6" height="6">
+      <rect width="6" height="6" fill="#111827"/>
+      <circle cx="3" cy="3" r="1.2" fill="#1F2937" opacity="0.8"/>
+      <circle cx="1" cy="1" r="0.8" fill="#374151" opacity="0.4"/>
+      <circle cx="5" cy="5" r="0.8" fill="#374151" opacity="0.4"/>
     </pattern>
 
-    <!-- Gaming LED Strip -->
-    <linearGradient id="led-strip" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#FF0080"/>
-      <stop offset="25%" stop-color="#8000FF"/>
-      <stop offset="50%" stop-color="#0080FF"/>
-      <stop offset="75%" stop-color="#00FF80"/>
-      <stop offset="100%" stop-color="#FF8000"/>
+    <!-- Holographic RGB Strip -->
+    <linearGradient id="rgb-hologram" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF0080">
+        <animate attributeName="stop-color" values="#FF0080;#8000FF;#0080FF;#00FF80;#FF8000;#FF0080" dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="25%" stop-color="#8000FF">
+        <animate attributeName="stop-color" values="#8000FF;#0080FF;#00FF80;#FF8000;#FF0080;#8000FF" dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" stop-color="#0080FF">
+        <animate attributeName="stop-color" values="#0080FF;#00FF80;#FF8000;#FF0080;#8000FF;#0080FF" dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="75%" stop-color="#00FF80">
+        <animate attributeName="stop-color" values="#00FF80;#FF8000;#FF0080;#8000FF;#0080FF;#00FF80" dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#FF8000">
+        <animate attributeName="stop-color" values="#FF8000;#FF0080;#8000FF;#0080FF;#00FF80;#FF8000" dur="3s" repeatCount="indefinite"/>
+      </stop>
     </linearGradient>
 
-    <!-- Performance Cooling Vents -->
-    <pattern id="cooling-vents" patternUnits="userSpaceOnUse" width="8" height="3">
-      <rect width="8" height="3" fill="#151719"/>
-      <rect x="1" y="1" width="6" height="1" rx="0.5" fill="#2A2D33"/>
+    <!-- Plasma Energy Field -->
+    <radialGradient id="plasma-field" cx="0.5" cy="0.5" r="0.8">
+      <stop offset="0%" stop-color="rgba(233, 70, 255, 0.4)"/>
+      <stop offset="30%" stop-color="rgba(160, 32, 240, 0.3)"/>
+      <stop offset="60%" stop-color="rgba(74, 20, 140, 0.2)"/>
+      <stop offset="100%" stop-color="rgba(0, 0, 0, 0.1)"/>
+    </radialGradient>
+
+    <!-- 3D Geometric Grid -->
+    <pattern id="cyber-grid" patternUnits="userSpaceOnUse" width="40" height="40">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(100, 255, 218, 0.1)" stroke-width="1"/>
+      <circle cx="0" cy="0" r="2" fill="rgba(100, 255, 218, 0.2)"/>
+      <circle cx="40" cy="0" r="2" fill="rgba(100, 255, 218, 0.2)"/>
+      <circle cx="0" cy="40" r="2" fill="rgba(100, 255, 218, 0.2)"/>
+      <circle cx="40" cy="40" r="2" fill="rgba(100, 255, 218, 0.2)"/>
     </pattern>
+
+    <!-- Advanced Ventilation System -->
+    <pattern id="pro-cooling" patternUnits="userSpaceOnUse" width="12" height="4">
+      <rect width="12" height="4" fill="#0F1419"/>
+      <rect x="2" y="1" width="8" height="2" rx="1" fill="#1F2937"/>
+      <rect x="3" y="1.5" width="6" height="1" rx="0.5" fill="#374151"/>
+    </pattern>
+
+    <!-- Quantum Particle System -->
+    <filter id="quantum-glow" x="-200%" y="-200%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="20" result="quantumBlur"/>
+      <feColorMatrix in="quantumBlur" values="1 0 1 0 0  0 1 1 0 0  1 0 1 0 0  0 0 0 1 0"/>
+      <feMerge>
+        <feMergeNode in="quantumBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
 
-  <!-- ============== PREMIUM BACKGROUND ============== -->
-  <rect width="1024" height="1024" fill="url(#bg-premium)"/>
+  <!-- ============== COSMIC 3D ENVIRONMENT ============== -->
+  <rect width="1024" height="1024" fill="url(#cosmic-3d-bg)"/>
   
-  <!-- Gaming Environment Particles -->
-  <g opacity="0.3">
-    <circle cx="150" cy="200" r="2" fill="#00F5FF" opacity="0.6">
-      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="3s" repeatCount="indefinite"/>
+  <!-- Deep Space Grid System -->
+  <rect width="1024" height="1024" fill="url(#cyber-grid)" opacity="0.3"/>
+  
+  <!-- Depth Field Layers -->
+  <ellipse cx="512" cy="200" rx="400" ry="100" fill="url(#depth-field)" opacity="0.4"/>
+  <ellipse cx="512" cy="300" rx="350" ry="80" fill="url(#depth-field)" opacity="0.3"/>
+  <ellipse cx="512" cy="400" rx="300" ry="60" fill="url(#depth-field)" opacity="0.2"/>
+  
+  <!-- Quantum Particle Field -->
+  <g id="quantum-particles" opacity="0.6">
+    <circle cx="120" cy="150" r="3" fill="#E946FF" filter="url(#quantum-glow)">
+      <animate attributeName="cy" values="150;120;150" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="4s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="850" cy="300" r="1.5" fill="#B026FF" opacity="0.8">
-      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
+    <circle cx="900" cy="250" r="2" fill="#64FFDA" filter="url(#quantum-glow)">
+      <animate attributeName="cx" values="900;920;900" dur="5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="5s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="200" cy="750" r="1" fill="#00FF80" opacity="0.5">
-      <animate attributeName="opacity" values="0.5;0.1;0.5" dur="4s" repeatCount="indefinite"/>
+    <circle cx="200" cy="800" r="4" fill="#00FF80" filter="url(#quantum-glow)">
+      <animate attributeName="r" values="4;7;4" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0.1;0.5" dur="3s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="800" cy="800" r="2.5" fill="#FF8000" opacity="0.4">
+    <circle cx="850" cy="750" r="3.5" fill="#FF8000" filter="url(#quantum-glow)">
+      <animate attributeName="cy" values="750;730;750" dur="3.5s" repeatCount="indefinite"/>
       <animate attributeName="opacity" values="0.4;0.1;0.4" dur="3.5s" repeatCount="indefinite"/>
     </circle>
+    <circle cx="400" cy="100" r="2.5" fill="#FF0080" filter="url(#quantum-glow)">
+      <animate attributeName="cx" values="400;380;400" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0.2;0.7" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="600" cy="900" r="3" fill="#8000FF" filter="url(#quantum-glow)">
+      <animate attributeName="r" values="3;6;3" dur="4.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;0.15;0.6" dur="4.5s" repeatCount="indefinite"/>
+    </circle>
   </g>
 
-  <!-- ============== ESPORTS CONTROLLER ============== -->
-  <g id="esports-controller" filter="url(#premium-shadow)">
+  <!-- Plasma Energy Waves -->
+  <g id="plasma-waves" opacity="0.4">
+    <ellipse cx="512" cy="512" rx="300" ry="150" fill="none" stroke="url(#rgb-hologram)" stroke-width="2">
+      <animate attributeName="rx" values="300;350;300" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="ry" values="150;200;150" dur="8s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="512" cy="512" rx="250" ry="125" fill="none" stroke="url(#plasma-field)" stroke-width="3">
+      <animate attributeName="rx" values="250;300;250" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="ry" values="125;175;125" dur="6s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+
+  <!-- ============== ULTRA-PREMIUM 3D CONTROLLER ============== -->
+  <g id="ultra-controller" filter="url(#depth-shadow-3d)">
     
-    <!-- Main Controller Body -->
-    <g id="controller-chassis">
-      <!-- Primary Body Shape -->
+    <!-- Advanced Controller Chassis -->
+    <g id="premium-chassis">
+      <!-- Main 3D Body -->
       <path d="
-        M220,520
-        C195,440 285,355 395,330
-        C460,315 512,310 629,330
-        C739,355 829,440 804,525
-        C786,585 745,625 695,665
-        C658,690 620,700 580,675
-        C545,652 535,620 538,580
-        C541,545 518,525 512,525
-        C506,525 483,545 486,580
-        C489,620 479,652 444,675
-        C404,700 366,690 329,665
-        C279,625 238,585 220,520
+        M210,510
+        C180,425 275,340 385,310
+        C455,290 512,285 639,310
+        C749,340 844,425 814,515
+        C794,580 748,625 693,670
+        C651,700 608,712 563,682
+        C523,654 511,618 515,575
+        C519,535 493,510 512,510
+        C531,510 505,535 509,575
+        C513,618 501,654 461,682
+        C416,712 373,700 331,670
+        C276,625 230,580 210,510
         Z"
-        fill="url(#controller-body)" 
+        fill="url(#controller-3d-body)" 
         stroke="#000000" 
-        stroke-width="3"/>
+        stroke-width="4"/>
 
-      <!-- Metallic Shine Overlay -->
+      <!-- Surface Lighting Effect -->
       <path d="
-        M220,520
-        C195,440 285,355 395,330
-        C460,315 512,310 629,330
-        C739,355 829,440 804,525
-        C786,585 745,625 695,665
-        C658,690 620,700 580,675
-        C545,652 535,620 538,580
-        C541,545 518,525 512,525
-        C506,525 483,545 486,580
-        C489,620 479,652 444,675
-        C404,700 366,690 329,665
-        C279,625 238,585 220,520
+        M210,510
+        C180,425 275,340 385,310
+        C455,290 512,285 639,310
+        C749,340 844,425 814,515
+        C794,580 748,625 693,670
+        C651,700 608,712 563,682
+        C523,654 511,618 515,575
+        C519,535 493,510 512,510
+        C531,510 505,535 509,575
+        C513,618 501,654 461,682
+        C416,712 373,700 331,670
+        C276,625 230,580 210,510
         Z"
-        fill="url(#metallic-shine)" 
-        opacity="0.8"/>
+        fill="url(#surface-lighting)" 
+        opacity="0.9"/>
 
-      <!-- Gaming LED Strip -->
-      <rect x="280" y="310" width="464" height="4" rx="2" fill="url(#led-strip)" opacity="0.9">
-        <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2s" repeatCount="indefinite"/>
-      </rect>
+      <!-- Holographic RGB Strip -->
+      <rect x="270" y="295" width="484" height="8" rx="4" fill="url(#rgb-hologram)" opacity="1.0"/>
+      <rect x="274" y="297" width="476" height="4" rx="2" fill="rgba(255,255,255,0.4)" opacity="0.6"/>
 
-      <!-- Cooling Vents -->
-      <rect x="360" y="320" width="304" height="15" fill="url(#cooling-vents)" opacity="0.6"/>
+      <!-- Professional Cooling System -->
+      <rect x="350" y="310" width="324" height="20" fill="url(#pro-cooling)" opacity="0.8"/>
+      <rect x="355" y="312" width="314" height="16" fill="url(#carbon-fiber)" opacity="0.6"/>
     </g>
 
-    <!-- Premium Touchpad/Display -->
-    <g id="central-display">
-      <rect x="372" y="365" width="280" height="75" rx="18" 
-            fill="#000000" stroke="#333333" stroke-width="2"/>
-      <rect x="377" y="370" width="270" height="65" rx="15" 
-            fill="#0A0B0F" stroke="#1A1D29" stroke-width="1"/>
+    <!-- Ultra-Premium Display System -->
+    <g id="holographic-display">
+      <!-- Main Display Frame -->
+      <rect x="362" y="355" width="300" height="85" rx="22" 
+            fill="#000000" stroke="#333333" stroke-width="3"/>
+      <rect x="367" y="360" width="290" height="75" rx="18" 
+            fill="#0A0B0F" stroke="#1A1D29" stroke-width="2"/>
       
-      <!-- MLBB Logo Area -->
-      <rect x="385" y="380" width="254" height="45" rx="10" fill="#1A1D29" opacity="0.8"/>
-      <text x="512" y="405" text-anchor="middle" fill="#B026FF" 
-            font-family="Arial, sans-serif" font-size="16" font-weight="bold">MLBB ESPORTS</text>
-    </g>
-
-    <!-- Professional Analog Sticks -->
-    <g id="precision-sticks">
-      <!-- Left Stick -->
-      <circle cx="392" cy="530" r="38" fill="#1A1C22" stroke="#333333" stroke-width="2"/>
-      <circle cx="392" cy="530" r="32" fill="url(#stick-texture)" filter="url(#button-depth)"/>
-      <circle cx="392" cy="525" r="18" fill="#2A2D33" stroke="#404040" stroke-width="1"/>
-      <circle cx="392" cy="522" r="8" fill="#3A3D43"/>
-
-      <!-- Right Stick -->
-      <circle cx="632" cy="530" r="38" fill="#1A1C22" stroke="#333333" stroke-width="2"/>
-      <circle cx="632" cy="530" r="32" fill="url(#stick-texture)" filter="url(#button-depth)"/>
-      <circle cx="632" cy="525" r="18" fill="#2A2D33" stroke="#404040" stroke-width="1"/>
-      <circle cx="632" cy="522" r="8" fill="#3A3D43"/>
-    </g>
-
-    <!-- Shoulder Buttons/Triggers -->
-    <g id="shoulder-controls">
-      <!-- Left Shoulder -->
-      <rect x="280" y="320" width="140" height="22" rx="11" fill="#1A1C22" stroke="#333333" stroke-width="1"/>
-      <rect x="285" y="323" width="130" height="16" rx="8" fill="#2A2D33"/>
-      <text x="350" y="335" text-anchor="middle" fill="#888888" font-family="Arial" font-size="10">L1  L2</text>
-
-      <!-- Right Shoulder -->
-      <rect x="604" y="320" width="140" height="22" rx="11" fill="#1A1C22" stroke="#333333" stroke-width="1"/>
-      <rect x="609" y="323" width="130" height="16" rx="8" fill="#2A2D33"/>
-      <text x="674" y="335" text-anchor="middle" fill="#888888" font-family="Arial" font-size="10">R1  R2</text>
-    </g>
-
-    <!-- =========== PREMIUM BUTTON LAYOUT =========== -->
-    <g id="button-matrix">
+      <!-- Holographic Screen -->
+      <rect x="375" y="370" width="274" height="55" rx="12" fill="url(#plasma-field)" opacity="0.9"/>
       
-      <!-- MLBB D-Pad with Purple Glow -->
-      <g id="mlbb-dpad" filter="url(#neon-glow)">
-        <!-- Vertical Bar -->
-        <rect x="315" y="450" width="36" height="105" rx="8" 
-              fill="url(#mlbb-purple)" stroke="#8E1AE6" stroke-width="2"/>
-        <!-- Horizontal Bar -->
-        <rect x="285" y="480" width="105" height="36" rx="8" 
-              fill="url(#mlbb-purple)" stroke="#8E1AE6" stroke-width="2"/>
+      <!-- MLBB Esports Branding -->
+      <rect x="385" y="380" width="254" height="35" rx="8" fill="rgba(26, 29, 41, 0.9)"/>
+      <text x="512" y="400" text-anchor="middle" fill="url(#mlbb-holographic)" 
+            font-family="Arial Black, sans-serif" font-size="18" font-weight="900">MLBB ESPORTS</text>
+      <text x="512" y="415" text-anchor="middle" fill="url(#cyber-cyan)" 
+            font-family="Arial, sans-serif" font-size="10" font-weight="bold">QUANTUM EDITION</text>
+    </g>
+
+    <!-- Ultra-Precision Analog Sticks -->
+    <g id="quantum-sticks">
+      <!-- Left Quantum Stick -->
+      <circle cx="382" cy="525" r="42" fill="#0F1419" stroke="#333333" stroke-width="3"/>
+      <circle cx="382" cy="525" r="36" fill="url(#carbon-fiber)" filter="url(#button-3d-pro)"/>
+      <circle cx="382" cy="520" r="22" fill="#1F2937" stroke="#4B5563" stroke-width="2"/>
+      <circle cx="382" cy="517" r="12" fill="#374151"/>
+      <circle cx="382" cy="515" r="6" fill="url(#mlbb-holographic)" opacity="0.8">
+        <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Right Quantum Stick -->
+      <circle cx="642" cy="525" r="42" fill="#0F1419" stroke="#333333" stroke-width="3"/>
+      <circle cx="642" cy="525" r="36" fill="url(#carbon-fiber)" filter="url(#button-3d-pro)"/>
+      <circle cx="642" cy="520" r="22" fill="#1F2937" stroke="#4B5563" stroke-width="2"/>
+      <circle cx="642" cy="517" r="12" fill="#374151"/>
+      <circle cx="642" cy="515" r="6" fill="url(#cyber-cyan)" opacity="0.8">
+        <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <!-- Professional Trigger System -->
+    <g id="trigger-system">
+      <!-- Left Trigger Complex -->
+      <rect x="270" y="310" width="150" height="28" rx="14" fill="#0F1419" stroke="#333333" stroke-width="2"/>
+      <rect x="275" y="315" width="140" height="18" rx="9" fill="#1F2937"/>
+      <rect x="280" y="318" width="130" height="12" rx="6" fill="#374151"/>
+      <text x="345" y="330" text-anchor="middle" fill="#64FFDA" font-family="Arial" font-size="11" font-weight="bold">L1  L2</text>
+
+      <!-- Right Trigger Complex -->
+      <rect x="604" y="310" width="150" height="28" rx="14" fill="#0F1419" stroke="#333333" stroke-width="2"/>
+      <rect x="609" y="315" width="140" height="18" rx="9" fill="#1F2937"/>
+      <rect x="614" y="318" width="130" height="12" rx="6" fill="#374151"/>
+      <text x="679" y="330" text-anchor="middle" fill="#E946FF" font-family="Arial" font-size="11" font-weight="bold">R1  R2</text>
+    </g>
+
+    <!-- =========== QUANTUM BUTTON MATRIX =========== -->
+    <g id="quantum-buttons">
+      
+      <!-- MLBB Holographic D-Pad -->
+      <g id="holographic-dpad" filter="url(#ultra-neon-glow)">
+        <!-- Vertical Element -->
+        <rect x="308" y="440" width="42" height="120" rx="12" 
+              fill="url(#mlbb-holographic)" stroke="#E946FF" stroke-width="3"/>
+        <rect x="313" y="445" width="32" height="110" rx="8" 
+              fill="rgba(255,255,255,0.2)"/>
         
-        <!-- Direction Indicators -->
-        <polygon points="333,465 343,475 333,485" fill="#FFFFFF" opacity="0.9"/>
-        <polygon points="333,540 343,530 333,520" fill="#FFFFFF" opacity="0.9"/>
-        <polygon points="300,493 310,503 290,503" fill="#FFFFFF" opacity="0.9"/>
-        <polygon points="375,493 385,503 375,513" fill="#FFFFFF" opacity="0.9"/>
+        <!-- Horizontal Element -->
+        <rect x="275" y="473" width="120" height="42" rx="12" 
+              fill="url(#mlbb-holographic)" stroke="#E946FF" stroke-width="3"/>
+        <rect x="280" y="478" width="110" height="32" rx="8" 
+              fill="rgba(255,255,255,0.2)"/>
+        
+        <!-- Holographic Direction Indicators -->
+        <polygon points="329,455 342,468 329,481" fill="rgba(255,255,255,0.9)"/>
+        <polygon points="329,545 342,532 329,519" fill="rgba(255,255,255,0.9)"/>
+        <polygon points="290,489 303,502 290,515" fill="rgba(255,255,255,0.9)"/>
+        <polygon points="385,489 398,502 385,515" fill="rgba(255,255,255,0.9)"/>
       </g>
 
-      <!-- Action Buttons (ABXY) with Cyan Gaming Theme -->
-      <g id="action-buttons" filter="url(#neon-glow)">
-        <!-- Y Button (Top) -->
-        <circle cx="702" cy="430" r="20" fill="url(#cyan-gaming)" stroke="#00CDD9" stroke-width="2"/>
-        <text x="702" y="437" text-anchor="middle" fill="#FFFFFF" 
-              font-family="Arial, sans-serif" font-size="16" font-weight="bold">Y</text>
+      <!-- Quantum Action Buttons (ABXY) -->
+      <g id="quantum-action-buttons" filter="url(#ultra-neon-glow)">
+        <!-- Y Button (Quantum Top) -->
+        <circle cx="712" cy="420" r="24" fill="url(#cyber-cyan)" stroke="#64FFDA" stroke-width="3"/>
+        <circle cx="712" cy="420" r="18" fill="rgba(255,255,255,0.3)"/>
+        <text x="712" y="428" text-anchor="middle" fill="rgba(255,255,255,0.95)" 
+              font-family="Arial Black, sans-serif" font-size="18" font-weight="900">Y</text>
 
-        <!-- X Button (Left) -->
-        <circle cx="650" cy="482" r="20" fill="url(#cyan-gaming)" stroke="#00CDD9" stroke-width="2"/>
-        <text x="650" y="489" text-anchor="middle" fill="#FFFFFF" 
-              font-family="Arial, sans-serif" font-size="16" font-weight="bold">X</text>
+        <!-- X Button (Quantum Left) -->
+        <circle cx="650" cy="482" r="24" fill="url(#cyber-cyan)" stroke="#64FFDA" stroke-width="3"/>
+        <circle cx="650" cy="482" r="18" fill="rgba(255,255,255,0.3)"/>
+        <text x="650" y="490" text-anchor="middle" fill="rgba(255,255,255,0.95)" 
+              font-family="Arial Black, sans-serif" font-size="18" font-weight="900">X</text>
 
-        <!-- A Button (Bottom) -->
-        <circle cx="702" cy="534" r="20" fill="url(#cyan-gaming)" stroke="#00CDD9" stroke-width="2"/>
-        <text x="702" y="541" text-anchor="middle" fill="#FFFFFF" 
-              font-family="Arial, sans-serif" font-size="16" font-weight="bold">A</text>
+        <!-- A Button (Quantum Bottom) -->
+        <circle cx="712" cy="544" r="24" fill="url(#cyber-cyan)" stroke="#64FFDA" stroke-width="3"/>
+        <circle cx="712" cy="544" r="18" fill="rgba(255,255,255,0.3)"/>
+        <text x="712" y="552" text-anchor="middle" fill="rgba(255,255,255,0.95)" 
+              font-family="Arial Black, sans-serif" font-size="18" font-weight="900">A</text>
 
-        <!-- B Button (Right) -->
-        <circle cx="754" cy="482" r="20" fill="url(#cyan-gaming)" stroke="#00CDD9" stroke-width="2"/>
-        <text x="754" y="489" text-anchor="middle" fill="#FFFFFF" 
-              font-family="Arial, sans-serif" font-size="16" font-weight="bold">B</text>
+        <!-- B Button (Quantum Right) -->
+        <circle cx="774" cy="482" r="24" fill="url(#cyber-cyan)" stroke="#64FFDA" stroke-width="3"/>
+        <circle cx="774" cy="482" r="18" fill="rgba(255,255,255,0.3)"/>
+        <text x="774" y="490" text-anchor="middle" fill="rgba(255,255,255,0.95)" 
+              font-family="Arial Black, sans-serif" font-size="18" font-weight="900">B</text>
       </g>
 
-      <!-- Menu/System Buttons -->
-      <g id="system-controls">
-        <!-- Menu Button -->
-        <rect x="460" y="470" width="24" height="18" rx="4" fill="#2A2D33" stroke="#404040" stroke-width="1"/>
-        <line x1="466" y1="476" x2="478" y2="476" stroke="#888888" stroke-width="1"/>
-        <line x1="466" y1="479" x2="478" y2="479" stroke="#888888" stroke-width="1"/>
-        <line x1="466" y1="482" x2="478" y2="482" stroke="#888888" stroke-width="1"/>
+      <!-- Advanced System Controls -->
+      <g id="advanced-controls">
+        <!-- Quantum Menu -->
+        <rect x="450" y="465" width="32" height="24" rx="6" fill="#1F2937" stroke="#4B5563" stroke-width="2"/>
+        <rect x="453" y="468" width="26" height="18" rx="3" fill="#374151"/>
+        <line x1="458" y1="474" x2="476" y2="474" stroke="#64FFDA" stroke-width="2"/>
+        <line x1="458" y1="478" x2="476" y2="478" stroke="#64FFDA" stroke-width="2"/>
+        <line x1="458" y1="482" x2="476" y2="482" stroke="#64FFDA" stroke-width="2"/>
 
-        <!-- Options Button -->
-        <rect x="540" y="470" width="24" height="18" rx="4" fill="#2A2D33" stroke="#404040" stroke-width="1"/>
-        <circle cx="549" cy="476" r="2" fill="#888888"/>
-        <circle cx="555" cy="476" r="2" fill="#888888"/>
-        <circle cx="549" cy="482" r="2" fill="#888888"/>
-        <circle cx="555" cy="482" r="2" fill="#888888"/>
+        <!-- Quantum Options -->
+        <rect x="542" y="465" width="32" height="24" rx="6" fill="#1F2937" stroke="#4B5563" stroke-width="2"/>
+        <rect x="545" y="468" width="26" height="18" rx="3" fill="#374151"/>
+        <circle cx="552" cy="474" r="2.5" fill="#E946FF"/>
+        <circle cx="563" cy="474" r="2.5" fill="#E946FF"/>
+        <circle cx="552" cy="482" r="2.5" fill="#E946FF"/>
+        <circle cx="563" cy="482" r="2.5" fill="#E946FF"/>
       </g>
     </g>
 
-    <!-- Professional Cable/Wireless Indicator -->
-    <g id="connectivity">
-      <rect x="480" y="640" width="64" height="8" rx="4" fill="#1A1C22"/>
-      <rect x="484" y="642" width="16" height="4" rx="2" fill="#00FF00" opacity="0.8">
+    <!-- Quantum Connectivity Hub -->
+    <g id="quantum-connectivity">
+      <rect x="470" y="630" width="84" height="12" rx="6" fill="#0F1419" stroke="#333333" stroke-width="2"/>
+      <rect x="475" y="633" width="74" height="6" rx="3" fill="#1F2937"/>
+      
+      <!-- Multi-Status Indicators -->
+      <rect x="480" y="634" width="18" height="4" rx="2" fill="#00FF00" opacity="0.9">
+        <animate attributeName="opacity" values="0.9;0.4;0.9" dur="1.2s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="503" y="634" width="18" height="4" rx="2" fill="#00F5FF" opacity="0.8">
         <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.5s" repeatCount="indefinite"/>
       </rect>
-      <text x="512" y="665" text-anchor="middle" fill="#888888" 
-            font-family="Arial" font-size="10">PRO WIRELESS</text>
+      <rect x="526" y="634" width="18" height="4" rx="2" fill="#E946FF" opacity="0.7">
+        <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.8s" repeatCount="indefinite"/>
+      </rect>
+      
+      <text x="512" y="660" text-anchor="middle" fill="#64FFDA" 
+            font-family="Arial" font-size="12" font-weight="bold">QUANTUM WIRELESS</text>
     </g>
   </g>
 
-  <!-- ============== ESPORTS BRANDING ============== -->
-  <g id="esports-elements" opacity="0.8">
-    <!-- Corner Gaming Accents -->
-    <polygon points="50,50 150,50 50,150" fill="url(#mlbb-purple)" opacity="0.3"/>
-    <polygon points="974,50 874,50 974,150" fill="url(#cyan-gaming)" opacity="0.3"/>
-    <polygon points="50,974 150,974 50,874" fill="url(#cyan-gaming)" opacity="0.3"/>
-    <polygon points="974,974 874,974 974,874" fill="url(#mlbb-purple)" opacity="0.3"/>
+  <!-- ============== ESPORTS QUANTUM BRANDING ============== -->
+  <g id="quantum-branding" opacity="0.9">
+    <!-- Corner Quantum Accents -->
+    <polygon points="40,40 180,40 40,180" fill="url(#mlbb-holographic)" opacity="0.4" filter="url(#ultra-neon-glow)"/>
+    <polygon points="984,40 844,40 984,180" fill="url(#cyber-cyan)" opacity="0.4" filter="url(#ultra-neon-glow)"/>
+    <polygon points="40,984 180,984 40,844" fill="url(#cyber-cyan)" opacity="0.4" filter="url(#ultra-neon-glow)"/>
+    <polygon points="984,984 844,984 984,844" fill="url(#mlbb-holographic)" opacity="0.4" filter="url(#ultra-neon-glow)"/>
 
-    <!-- Performance Stats Display -->
-    <g id="performance-hud" opacity="0.6">
-      <rect x="80" y="80" width="120" height="60" rx="8" fill="#000000" opacity="0.7"/>
-      <text x="90" y="100" fill="#00FF00" font-family="monospace" font-size="10">LATENCY: 1ms</text>
-      <text x="90" y="115" fill="#00F5FF" font-family="monospace" font-size="10">DPI: 16000</text>
-      <text x="90" y="130" fill="#B026FF" font-family="monospace" font-size="10">RATE: 1000Hz</text>
+    <!-- Advanced Performance HUD -->
+    <g id="quantum-hud" opacity="0.8">
+      <rect x="60" y="60" width="160" height="80" rx="12" fill="rgba(0,0,0,0.8)" stroke="url(#cyber-cyan)" stroke-width="2"/>
+      <rect x="65" y="65" width="150" height="70" rx="8" fill="rgba(15, 20, 25, 0.9)"/>
+      
+      <text x="75" y="85" fill="#00FF00" font-family="monospace" font-size="12" font-weight="bold">LATENCY: 0.1ms</text>
+      <text x="75" y="105" fill="#64FFDA" font-family="monospace" font-size="12" font-weight="bold">DPI: 25600</text>
+      <text x="75" y="125" fill="#E946FF" font-family="monospace" font-size="12" font-weight="bold">RATE: 8000Hz</text>
+      
+      <!-- Performance Bars -->
+      <rect x="160" y="80" width="40" height="4" rx="2" fill="#1F2937"/>
+      <rect x="160" y="80" width="38" height="4" rx="2" fill="#00FF00"/>
+      
+      <rect x="160" y="100" width="40" height="4" rx="2" fill="#1F2937"/>
+      <rect x="160" y="100" width="35" height="4" rx="2" fill="#64FFDA"/>
+      
+      <rect x="160" y="120" width="40" height="4" rx="2" fill="#1F2937"/>
+      <rect x="160" y="120" width="40" height="4" rx="2" fill="#E946FF"/>
     </g>
   </g>
 
-  <!-- ============== DYNAMIC ANIMATIONS ============== -->
-  <g id="dynamic-effects">
-    <!-- Breathing LED Effect -->
-    <circle cx="512" cy="300" r="4" fill="#00F5FF" opacity="0.8">
-      <animate attributeName="r" values="4;8;4" dur="3s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="3s" repeatCount="indefinite"/>
+  <!-- ============== QUANTUM DYNAMIC EFFECTS ============== -->
+  <g id="quantum-dynamics">
+    <!-- Central Quantum Core -->
+    <circle cx="512" cy="280" r="8" fill="url(#mlbb-holographic)" opacity="0.9" filter="url(#ultra-neon-glow)">
+      <animate attributeName="r" values="8;15;8" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.9;0.4;0.9" dur="4s" repeatCount="indefinite"/>
     </circle>
 
-    <!-- Gaming Pulse Effect -->
-    <circle cx="512" cy="512" r="280" fill="none" stroke="url(#led-strip)" stroke-width="2" opacity="0.2">
-      <animate attributeName="r" values="280;300;280" dur="4s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.2;0.05;0.2" dur="4s" repeatCount="indefinite"/>
+    <!-- Quantum Energy Rings -->
+    <circle cx="512" cy="512" r="320" fill="none" stroke="url(#rgb-hologram)" stroke-width="3" opacity="0.3">
+      <animate attributeName="r" values="320;360;320" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="8s" repeatCount="indefinite"/>
     </circle>
+    
+    <circle cx="512" cy="512" r="280" fill="none" stroke="url(#plasma-field)" stroke-width="4" opacity="0.4">
+      <animate attributeName="r" values="280;320;280" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0.15;0.4" dur="6s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Quantum Data Streams -->
+    <g opacity="0.6">
+      <path d="M100,200 Q300,150 500,200 T900,200" fill="none" stroke="url(#cyber-cyan)" stroke-width="2">
+        <animate attributeName="stroke-dasharray" values="0,1000;20,980;0,1000" dur="5s" repeatCount="indefinite"/>
+      </path>
+      <path d="M100,800 Q300,850 500,800 T900,800" fill="none" stroke="url(#mlbb-holographic)" stroke-width="2">
+        <animate attributeName="stroke-dasharray" values="0,1000;25,975;0,1000" dur="7s" repeatCount="indefinite"/>
+      </path>
+    </g>
   </g>
 </svg>
