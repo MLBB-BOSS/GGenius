@@ -1,5 +1,12 @@
 /* ===== GGENIUS REVOLUTION - PERFORMANCE OPTIMIZED CSS ===== */
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap');
+/* 
+    РЕКОМЕНДАЦІЯ: Видалено @import для Google Fonts. 
+    Переконайтеся, що шрифти підключаються через <link> в HTML для кращої продуктивності.
+    Наприклад:
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+*/
 
 /* Critical CSS Variables - Optimized for Performance */
 :root {
@@ -55,7 +62,9 @@ html{scroll-behavior:smooth;height:100%;font-size:100%}
 body{
     font-family:var(--f2);background:var(--g-bg);color:var(--text-1);line-height:1.7;
     -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;
-    padding-top:var(--header-h);min-height:100vh;contain:layout style;will-change:transform
+    padding-top:var(--header-h);min-height:100vh;contain:layout style;
+    /* РОЗГЛЯНУТИ: will-change: transform; - чи дійсно потрібне для body? Може споживати ресурси. */
+    /* will-change:transform */ 
 }
 
 /* Critical Above-the-Fold Background */
@@ -795,7 +804,8 @@ a:hover,a:focus-visible{
 @keyframes borderRotate{to{transform:rotate(360deg)}}
 @keyframes statusGlow{0%,100%{opacity:.8}50%{opacity:1;filter:brightness(1.2)}}
 @keyframes tabFadeIn{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes timelinePulse{0%,100%{box-shadow:0 0 30px var(--cyan),inset 0 0 10px rgba(255,255,255,.2);transform:translateX(-50%) scaleY(1)}50%{box-shadow:0 0 50px var(--pink),inset 0 0 20px rgba(255,255,255,.4);transform:translateX(-50%) scaleY(1.02)}}
+/* ВИПРАВЛЕНО: Додано повне значення rgba */
+@keyframes timelinePulse{0%,100%{box-shadow:0 0 30px var(--cyan),inset 0 0 10px rgba(255,255,255,.2);transform:translateX(-50%) scaleY(1)}50%{box-shadow:0 0 50px var(--pink),inset 0 0 20px rgba(255,255,255,.3),0 0 70px var(--electric,.3);transform:translateX(-50%) scaleY(1.05)}}
 @keyframes markerGlow{0%,100%{box-shadow:0 0 40px var(--cyan),inset 0 0 20px rgba(255,255,255,.2)}50%{box-shadow:0 0 60px var(--pink),0 0 80px var(--electric),inset 0 0 30px rgba(255,255,255,.4)}}
 @keyframes toastProgress{from{transform:scaleY(1)}to{transform:scaleY(0)}}
 @keyframes svgDrawStroke{to{opacity:1}}
@@ -849,6 +859,10 @@ a:hover,a:focus-visible{
 }
 
 /* Dark Theme Enhancements */
+/* 
+    РОЗГЛЯНУТИ: Якщо <html data-theme="dark"> завжди встановлює темну тему, 
+    цей блок може бути непотрібним або потребувати узгодження.
+*/
 @media (prefers-color-scheme:dark){
     :root{--bg-1:#000;--bg-2:#111;--bg-3:#222}
 }
@@ -868,7 +882,7 @@ a:hover,a:focus-visible{
 /* Performance Utilities */
 .will-change-transform{will-change:transform}
 .will-change-opacity{will-change:opacity}
-.gpu-acceleration{transform:translateZ(0)}
+.gpu-acceleration{transform:translateZ(0)} /* Старий хак, will-change є кращим */
 .contain-layout{contain:layout}
 .contain-paint{contain:paint}
 .contain-strict{contain:strict}
