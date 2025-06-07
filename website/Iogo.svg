@@ -1,586 +1,307 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="1024" height="1024" viewBox="0 0 1024 1024"
+<svg width="512" height="512" viewBox="0 0 512 512"
      xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
 
-  <!-- ============== ENHANCED REALISTIC GAMING DEFINITIONS ============== -->
+  <!-- ============== PREMIUM LOGO DEFINITIONS ============== -->
   <defs>
-    <!-- Gaming Environment Background with MLBB Theme -->
-    <radialGradient id="mlbb-gaming-bg" cx="0.5" cy="0.4" r="1.2">
-      <stop offset="0%" stop-color="#0A0A0F">
+    <!-- Primary Brand Gradient (Hexagon Frame) -->
+    <linearGradient id="hexagon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1">
         <animate attributeName="stop-color" 
-                 values="#0A0A0F;#1A1A2E;#16213E;#0A0A0F" 
-                 dur="15s" 
+                 values="#6366F1;#8B5CF6;#A855F7;#6366F1" 
+                 dur="8s" 
                  repeatCount="indefinite"/>
       </stop>
-      <stop offset="40%" stop-color="#16213E"/>
-      <stop offset="80%" stop-color="#0F3460"/>
-      <stop offset="100%" stop-color="#000000"/>
-    </radialGradient>
+      <stop offset="25%" stop-color="#8B5CF6"/>
+      <stop offset="50%" stop-color="#A855F7"/>
+      <stop offset="75%" stop-color="#EC4899"/>
+      <stop offset="100%" stop-color="#F97316">
+        <animate attributeName="stop-color" 
+                 values="#F97316;#EC4899;#A855F7;#F97316" 
+                 dur="8s" 
+                 repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
 
-    <!-- Enhanced Gaming Particles -->
-    <pattern id="mlbb-particles" patternUnits="userSpaceOnUse" width="120" height="120">
-      <circle cx="20" cy="30" r="0.8" fill="rgba(0, 233, 255, 0.3)">
-        <animate attributeName="cy" values="30;100;30" dur="8s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.3;0.7;0.3" dur="8s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="60" cy="80" r="0.6" fill="rgba(255, 0, 150, 0.4)">
-        <animate attributeName="cy" values="80;20;80" dur="6s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.4;0.8;0.4" dur="6s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="100" cy="50" r="1" fill="rgba(0, 255, 100, 0.2)">
-        <animate attributeName="cy" values="50;110;50" dur="10s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.2;0.6;0.2" dur="10s" repeatCount="indefinite"/>
-      </circle>
-    </pattern>
+    <!-- Brain Intelligence Gradient -->
+    <linearGradient id="brain-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444"/>
+      <stop offset="30%" stop-color="#F97316"/>
+      <stop offset="60%" stop-color="#EC4899"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
 
-    <!-- Controller Body with MLBB Styling -->
-    <radialGradient id="mlbb-controller-body" cx="0.3" cy="0.25" r="1.1">
-      <stop offset="0%" stop-color="#4A5568"/>
-      <stop offset="30%" stop-color="#2D3748"/>
-      <stop offset="60%" stop-color="#1A202C"/>
-      <stop offset="100%" stop-color="#0F1419"/>
-    </radialGradient>
+    <!-- Controller Base Gradient -->
+    <linearGradient id="controller-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
 
-    <!-- Realistic Button Materials -->
-    <radialGradient id="button-unpressed" cx="0.5" cy="0.2" r="0.8">
-      <stop offset="0%" stop-color="#0EA5E9"/>
-      <stop offset="50%" stop-color="#0284C7"/>
-      <stop offset="100%" stop-color="#0369A1"/>
-    </radialGradient>
-
-    <radialGradient id="button-pressed-state" cx="0.5" cy="0.8" r="0.6">
-      <stop offset="0%" stop-color="#0369A1"/>
-      <stop offset="50%" stop-color="#0284C7"/>
-      <stop offset="100%" stop-color="#0EA5E9"/>
-    </radialGradient>
-
-    <!-- Thin Neon Glow like Thread -->
-    <filter id="thin-neon-glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="0.8" result="coloredBlur"/>
+    <!-- Glow Effect for Premium Look -->
+    <filter id="premium-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
       <feMerge>
         <feMergeNode in="coloredBlur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
 
-    <!-- Realistic Button Press Shadow -->
-    <filter id="pressed-shadow" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.9"/>
+    <!-- Inner Shadow for Depth -->
+    <filter id="inner-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.3"/>
     </filter>
 
-    <!-- Normal Button Shadow -->
-    <filter id="normal-shadow" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.6"/>
-      <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#000000" flood-opacity="0.3"/>
-    </filter>
-
-    <!-- Enhanced D-Pad Material -->
-    <radialGradient id="dpad-unpressed" cx="0.5" cy="0.2" r="0.8">
-      <stop offset="0%" stop-color="#6B46C1"/>
-      <stop offset="50%" stop-color="#553C9A"/>
-      <stop offset="100%" stop-color="#44337A"/>
-    </radialGradient>
-
-    <radialGradient id="dpad-pressed-state" cx="0.5" cy="0.8" r="0.6">
-      <stop offset="0%" stop-color="#44337A"/>
-      <stop offset="50%" stop-color="#553C9A"/>
-      <stop offset="100%" stop-color="#6B46C1"/>
-    </radialGradient>
-
-    <!-- Enhanced Lighting -->
-    <linearGradient id="surface-lighting" x1="0" y1="0" x2="0.6" y2="0.8">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
-      <stop offset="25%" stop-color="rgba(255,255,255,0.15)"/>
-      <stop offset="60%" stop-color="rgba(255,255,255,0.03)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0.1)"/>
-    </linearGradient>
-
-    <!-- Other Materials (keeping existing ones) -->
-    <radialGradient id="floor-shadow" cx="0.5" cy="0.5" r="0.8">
-      <stop offset="0%" stop-color="rgba(0,0,0,0.3)"/>
-      <stop offset="40%" stop-color="rgba(0,0,0,0.15)"/>
-      <stop offset="70%" stop-color="rgba(0,0,0,0.05)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
-    </radialGradient>
-
-    <radialGradient id="stick-texture" cx="0.5" cy="0.3" r="0.9">
-      <stop offset="0%" stop-color="#4A5568"/>
-      <stop offset="40%" stop-color="#2D3748"/>
-      <stop offset="80%" stop-color="#1A202C"/>
-      <stop offset="100%" stop-color="#0F1419"/>
-    </radialGradient>
-
-    <pattern id="rubber-pattern" patternUnits="userSpaceOnUse" width="3.5" height="3.5">
-      <rect width="3.5" height="3.5" fill="#1A202C"/>
-      <circle cx="1.75" cy="1.75" r="0.7" fill="#2D3748" opacity="0.8"/>
-    </pattern>
-
-    <linearGradient id="metal-trigger" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#718096"/>
-      <stop offset="30%" stop-color="#4A5568"/>
-      <stop offset="70%" stop-color="#2D3748"/>
-      <stop offset="100%" stop-color="#1A202C"/>
-    </linearGradient>
-
-    <linearGradient id="screen-material" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#000000"/>
-      <stop offset="50%" stop-color="#0F1419"/>
-      <stop offset="100%" stop-color="#000000"/>
-    </linearGradient>
-
-    <linearGradient id="plastic-highlight" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.2)"/>
-      <stop offset="30%" stop-color="rgba(255,255,255,0.08)"/>
-      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-    </linearGradient>
-
-    <filter id="controller-shadow" x="-50%" y="-30%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="25" stdDeviation="35" flood-color="#000000" flood-opacity="0.4"/>
-      <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#000000" flood-opacity="0.2"/>
-    </filter>
-
-    <filter id="stick-shadow" x="-40%" y="-40%" width="180%" height="180%">
-      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    <!-- Subtle Animation Glow -->
+    <filter id="subtle-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
   </defs>
 
-  <!-- ============== MLBB GAMING ENVIRONMENT ============== -->
-  <rect width="1024" height="1024" fill="url(#mlbb-gaming-bg)"/>
-  <rect width="1024" height="1024" fill="url(#mlbb-particles)" opacity="0.5"/>
-
-  <!-- Enhanced Floor Shadow -->
-  <ellipse cx="512" cy="770" rx="350" ry="85" fill="url(#floor-shadow)" opacity="0.7"/>
-
-  <!-- ============== REALISTIC MLBB GAMING CONTROLLER ============== -->
-  <g id="mlbb-gaming-controller" filter="url(#controller-shadow)">
+  <!-- ============== PREMIUM HEXAGON FRAME ============== -->
+  <g id="hexagon-frame" filter="url(#premium-glow)">
+    <!-- Outer Hexagon with Rounded Corners -->
+    <path d="
+      M256,40
+      C275,40 290,50 305,65
+      L395,155
+      C410,170 420,185 420,205
+      L420,307
+      C420,325 410,340 395,355
+      L305,445
+      C290,460 275,470 256,470
+      C235,470 220,460 205,445
+      L115,355
+      C100,340 90,325 90,307
+      L90,205
+      C90,185 100,170 115,155
+      L205,65
+      C220,50 235,40 256,40
+      Z"
+      fill="none" 
+      stroke="url(#hexagon-gradient)" 
+      stroke-width="12"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
     
-    <!-- Main Controller Body -->
-    <g id="controller-body">
-      <path d="
-        M203,508
-        C180,425.75 291,333.75 425.75,321
-        C505.5,298 555.8,292.25 683,321
-        C818.75,333.75 897.75,425.75 874.75,523.75
-        C857.5,587 819.5,623 766.75,669
-        C727.5,698.75 683.25,707.25 637,660.5
-        C602.5,634.5 591,598.25 594.45,571.25
-        C597.9,531 585.75,508 555.8,508
-        C525.85,508 513.7,531 517.15,571.25
-        C520.6,598.25 509.1,634.5 474.6,660.5
-        C428.35,707.25 384.1,698.75 344.85,669
-        C292.1,623 254.1,587 203,508
-        Z"
-        fill="url(#mlbb-controller-body)" 
-        stroke="#000000" 
-        stroke-width="2.3"/>
+    <!-- Inner Hexagon for Depth -->
+    <path d="
+      M256,55
+      C272,55 285,63 298,76
+      L380,158
+      C393,171 401,184 401,200
+      L401,312
+      C401,328 393,341 380,354
+      L298,436
+      C285,449 272,457 256,457
+      C240,457 227,449 214,436
+      L132,354
+      C119,341 111,328 111,312
+      L111,200
+      C111,184 119,171 132,158
+      L214,76
+      C227,63 240,55 256,55
+      Z"
+      fill="none" 
+      stroke="url(#hexagon-gradient)" 
+      stroke-width="4"
+      opacity="0.6"/>
+  </g>
 
-      <path d="
-        M203,508
-        C180,425.75 291,333.75 425.75,321
-        C505.5,298 555.8,292.25 683,321
-        C818.75,333.75 897.75,425.75 874.75,523.75
-        C857.5,587 819.5,623 766.75,669
-        C727.5,698.75 683.25,707.25 637,660.5
-        C602.5,634.5 591,598.25 594.45,571.25
-        C597.9,531 585.75,508 555.8,508
-        C525.85,508 513.7,531 517.15,571.25
-        C520.6,598.25 509.1,634.5 474.6,660.5
-        C428.35,707.25 384.1,698.75 344.85,669
-        C292.1,623 254.1,587 203,508
-        Z"
-        fill="url(#surface-lighting)" 
-        opacity="0.6"/>
+  <!-- ============== INTELLIGENT BRAIN DESIGN ============== -->
+  <g id="brain-intelligence" filter="url(#subtle-glow)">
+    <!-- Left Brain Hemisphere -->
+    <path d="
+      M256,120
+      C240,120 228,125 220,135
+      C215,140 212,145 210,152
+      C208,158 208,165 210,172
+      C212,178 215,183 220,188
+      C225,193 232,197 240,199
+      C245,200 250,200 256,200"
+      fill="none" 
+      stroke="url(#brain-gradient)" 
+      stroke-width="8"
+      stroke-linecap="round"/>
+    
+    <!-- Right Brain Hemisphere -->
+    <path d="
+      M256,120
+      C272,120 284,125 292,135
+      C297,140 300,145 302,152
+      C304,158 304,165 302,172
+      C300,178 297,183 292,188
+      C287,193 280,197 272,199
+      C267,200 262,200 256,200"
+      fill="none" 
+      stroke="url(#brain-gradient)" 
+      stroke-width="8"
+      stroke-linecap="round"/>
+    
+    <!-- Central Connection -->
+    <line x1="256" y1="120" x2="256" y2="200" 
+          stroke="url(#brain-gradient)" 
+          stroke-width="6" 
+          stroke-linecap="round"/>
+    
+    <!-- Neural Networks (Left Side) -->
+    <g id="left-neurons">
+      <path d="M230,140 Q225,145 228,150 Q235,148 232,155" 
+            fill="none" stroke="url(#brain-gradient)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M235,165 Q240,160 235,170 Q230,172 238,175" 
+            fill="none" stroke="url(#brain-gradient)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M225,180 Q220,175 225,185 Q230,187 222,190" 
+            fill="none" stroke="url(#brain-gradient)" stroke-width="3" stroke-linecap="round"/>
     </g>
-
-    <!-- Center MLBB Display -->
-    <g id="mlbb-display">
-      <rect x="345.8" y="356.5" width="322" height="80.5" rx="18.4" 
-            fill="url(#screen-material)" stroke="#2D3748" stroke-width="2.3"/>
-      <rect x="351.55" y="363.25" width="310.5" height="69" rx="13.8" 
-            fill="#0F1419" stroke="#1A202C" stroke-width="1.15"/>
-      <rect x="361.75" y="375.75" width="292.1" height="46" rx="9.2" fill="url(#plastic-highlight)" opacity="0.15"/>
-      
-      <!-- MLBB Logo/Text -->
-      <text x="507" y="390" text-anchor="middle" fill="#6B46C1" 
-            font-family="Arial" font-size="14" font-weight="bold">MLBB</text>
-      <text x="507" y="410" text-anchor="middle" fill="#0EA5E9" 
-            font-family="Arial" font-size="10">PRO CONTROLLER</text>
-    </g>
-
-    <!-- REALISTIC ANALOG STICKS WITH MLBB GAMING PATTERNS -->
-    <g id="analog-sticks">
-      <!-- Left Stick - MLBB Movement Pattern (Hero positioning) -->
-      <g filter="url(#stick-shadow)">
-        <!-- Realistic MLBB hero movement pattern -->
-        <animateTransform attributeName="transform" 
-                          type="translate" 
-                          values="0,0; 6,-2; -3,4; 8,-3; -5,2; 0,0; 4,-1; -7,3; 9,-4; -2,1; 0,0" 
-                          dur="12s" 
-                          repeatCount="indefinite"/>
-        
-        <circle cx="420.8" cy="555.25" r="43.7" fill="#1A202C" stroke="#0F1419" stroke-width="2.3"/>
-        <circle cx="420.8" cy="555.25" r="39.1" fill="url(#stick-texture)"/>
-        <circle cx="420.8" cy="549.5" r="23" fill="url(#metal-trigger)" stroke="#2D3748" stroke-width="1.15"/>
-        <circle cx="420.8" cy="547.2" r="18.4" fill="#4A5568"/>
-        <circle cx="420.8" cy="544.9" r="13.8" fill="url(#rubber-pattern)"/>
-        <circle cx="420.8" cy="542.6" r="9.2" fill="#2D3748"/>
-        <circle cx="420.8" cy="542.6" r="4.6" fill="#1A202C" opacity="0.8"/>
-      </g>
-
-      <!-- Right Stick - MLBB Camera/Skill Targeting -->
-      <g filter="url(#stick-shadow)">
-        <!-- Realistic MLBB camera and skill targeting pattern -->
-        <animateTransform attributeName="transform" 
-                          type="translate" 
-                          values="0,0; -4,5; 2,-6; -6,3; 4,-4; 0,0; -3,7; 5,-2; -4,4; 3,-5; 0,0" 
-                          dur="10s" 
-                          repeatCount="indefinite"/>
-        
-        <circle cx="686.8" cy="555.25" r="43.7" fill="#1A202C" stroke="#0F1419" stroke-width="2.3"/>
-        <circle cx="686.8" cy="555.25" r="39.1" fill="url(#stick-texture)"/>
-        <circle cx="686.8" cy="549.5" r="23" fill="url(#metal-trigger)" stroke="#2D3748" stroke-width="1.15"/>
-        <circle cx="686.8" cy="547.2" r="18.4" fill="#4A5568"/>
-        <circle cx="686.8" cy="544.9" r="13.8" fill="url(#rubber-pattern)"/>
-        <circle cx="686.8" cy="542.6" r="9.2" fill="#2D3748"/>
-        <circle cx="686.8" cy="542.6" r="4.6" fill="#1A202C" opacity="0.8"/>
-      </g>
-    </g>
-
-    <!-- Enhanced Shoulder Triggers -->
-    <g id="shoulder-triggers">
-      <rect x="276.5" y="313.75" width="149.5" height="23" rx="11.5" fill="url(#metal-trigger)" stroke="#1A202C" stroke-width="1.15"/>
-      <rect x="282.25" y="317.2" width="138" height="16.1" rx="8.05" fill="#4A5568"/>
-      <text x="351.25" y="331" text-anchor="middle" fill="#A0AEC0" font-family="Arial" font-size="10.35">L1  L2</text>
-
-      <rect x="598.6" y="313.75" width="149.5" height="23" rx="11.5" fill="url(#metal-trigger)" stroke="#1A202C" stroke-width="1.15"/>
-      <rect x="604.35" y="317.2" width="138" height="16.1" rx="8.05" fill="#4A5568"/>
-      <text x="673.35" y="331" text-anchor="middle" fill="#A0AEC0" font-family="Arial" font-size="10.35">R1  R2</text>
-    </g>
-
-    <!-- REALISTIC BUTTON INTERACTIONS WITH MLBB TIMING -->
-    <g id="button-layout">
-      
-      <!-- D-PAD WITH REALISTIC CLICK MECHANICS -->
-      <g id="d-pad">
-        <!-- Vertical Bar -->
-        <rect x="298.25" y="416.65" width="39.1" height="115" rx="6.9" 
-              fill="url(#dpad-unpressed)" stroke="#44337A" stroke-width="2.3"/>
-        <rect x="304" y="422.4" width="27.6" height="103.5" rx="4.6" 
-              fill="url(#plastic-highlight)" opacity="0.2"/>
-        
-        <!-- Horizontal Bar -->
-        <rect x="260.3" y="454.6" width="115" height="39.1" rx="6.9" 
-              fill="url(#dpad-unpressed)" stroke="#44337A" stroke-width="2.3"/>
-        <rect x="266.05" y="460.35" width="103.5" height="27.6" rx="4.6" 
-              fill="url(#plastic-highlight)" opacity="0.2"/>
-        
-        <!-- Direction Buttons with REALISTIC PRESS MECHANICS -->
-        <!-- UP (Hero Movement) -->
-        <g id="dpad-up">
-          <!-- Realistic button press - slight movement down -->
-          <animateTransform attributeName="transform" 
-                            type="translate" 
-                            values="0,0; 0,1.5; 0,0" 
-                            dur="0.15s" 
-                            begin="2s;7s;12s;17s"/>
-          
-          <polygon points="317.8,433.9 333,438.1 317.8,452.3" fill="rgba(255,255,255,0.7)">
-            <!-- Color change for press -->
-            <animate attributeName="fill" 
-                     values="rgba(255,255,255,0.7); rgba(107,70,193,1); rgba(255,255,255,0.7)" 
-                     dur="0.15s" 
-                     begin="2s;7s;12s;17s"/>
-          </polygon>
-          
-          <!-- Thin neon thread-like glow -->
-          <circle cx="317.8" cy="443.1" r="15" fill="none" 
-                  stroke="rgba(107,70,193,0)" stroke-width="0.5" 
-                  filter="url(#thin-neon-glow)">
-            <animate attributeName="stroke" 
-                     values="rgba(107,70,193,0); rgba(107,70,193,1); rgba(107,70,193,0)" 
-                     dur="0.15s" 
-                     begin="2s;7s;12s;17s"/>
-          </circle>
-        </g>
-        
-        <!-- DOWN -->
-        <g id="dpad-down">
-          <animateTransform attributeName="transform" 
-                            type="translate" 
-                            values="0,0; 0,1.5; 0,0" 
-                            dur="0.15s" 
-                            begin="4s;9s;14s;19s"/>
-          
-          <polygon points="317.8,498.65 333,489.45 317.8,480.25" fill="rgba(255,255,255,0.7)">
-            <animate attributeName="fill" 
-                     values="rgba(255,255,255,0.7); rgba(107,70,193,1); rgba(255,255,255,0.7)" 
-                     dur="0.15s" 
-                     begin="4s;9s;14s;19s"/>
-          </polygon>
-          
-          <circle cx="317.8" cy="489.45" r="15" fill="none" 
-                  stroke="rgba(107,70,193,0)" stroke-width="0.5" 
-                  filter="url(#thin-neon-glow)">
-            <animate attributeName="stroke" 
-                     values="rgba(107,70,193,0); rgba(107,70,193,1); rgba(107,70,193,0)" 
-                     dur="0.15s" 
-                     begin="4s;9s;14s;19s"/>
-          </circle>
-        </g>
-        
-        <!-- LEFT -->
-        <g id="dpad-left">
-          <animateTransform attributeName="transform" 
-                            type="translate" 
-                            values="0,0; 1.5,0; 0,0" 
-                            dur="0.15s" 
-                            begin="1s;6s;11s;16s"/>
-          
-          <polygon points="287.75,457.2 298.95,468.4 287.75,479.6" fill="rgba(255,255,255,0.7)">
-            <animate attributeName="fill" 
-                     values="rgba(255,255,255,0.7); rgba(107,70,193,1); rgba(255,255,255,0.7)" 
-                     dur="0.15s" 
-                     begin="1s;6s;11s;16s"/>
-          </polygon>
-          
-          <circle cx="293.35" cy="468.4" r="15" fill="none" 
-                  stroke="rgba(107,70,193,0)" stroke-width="0.5" 
-                  filter="url(#thin-neon-glow)">
-            <animate attributeName="stroke" 
-                     values="rgba(107,70,193,0); rgba(107,70,193,1); rgba(107,70,193,0)" 
-                     dur="0.15s" 
-                     begin="1s;6s;11s;16s"/>
-          </circle>
-        </g>
-        
-        <!-- RIGHT -->
-        <g id="dpad-right">
-          <animateTransform attributeName="transform" 
-                            type="translate" 
-                            values="0,0; -1.5,0; 0,0" 
-                            dur="0.15s" 
-                            begin="3s;8s;13s;18s"/>
-          
-          <polygon points="368.25,457.2 379.45,468.4 368.25,479.6" fill="rgba(255,255,255,0.7)">
-            <animate attributeName="fill" 
-                     values="rgba(255,255,255,0.7); rgba(107,70,193,1); rgba(255,255,255,0.7)" 
-                     dur="0.15s" 
-                     begin="3s;8s;13s;18s"/>
-          </polygon>
-          
-          <circle cx="373.85" cy="468.4" r="15" fill="none" 
-                  stroke="rgba(107,70,193,0)" stroke-width="0.5" 
-                  filter="url(#thin-neon-glow)">
-            <animate attributeName="stroke" 
-                     values="rgba(107,70,193,0); rgba(107,70,193,1); rgba(107,70,193,0)" 
-                     dur="0.15s" 
-                     begin="3s;8s;13s;18s"/>
-          </circle>
-        </g>
-      </g>
-
-      <!-- ACTION BUTTONS WITH REALISTIC MLBB TIMING -->
-      <g id="action-buttons">
-        
-        <!-- Y Button (Skills) -->
-        <g id="button-y">
-          <!-- Realistic click - button moves down slightly -->
-          <animateTransform attributeName="transform" 
-                            type="translate" 
-                            values="0,0; 0,2; 0,0" 
-                            dur="0.1s" 
-                            begin="1.5s;4.2s;7.8s;11.1s;14.5s"/>
-          
-          <circle cx="757.3" cy="470.25" r="20.7" stroke="#0369A1" stroke-width="2.3">
-            <!-- Realistic material change on press -->
-            <animate attributeName="fill" 
-                     values="url(#button-unpressed); url(#button-pressed-state); url(#button-unpressed)" 
-                     dur="0.1s" 
-                     begin="1.5s;4.2s;7.8s;11.1s;14.5s"/>
-            
-            <!-- Shadow change for depth -->
-            <animate attributeName="filter" 
-                     values="url(#normal-shadow); url(#pressed-shadow); url(#normal-shadow)" 
-                     dur="0.1s" 
-                     begin="1.5s;4.2s;7.8s;11.1s;14.5s"/>
-          </circle>
-          
-          <circle cx="757.3" cy="470.25" r="16.1" fill="url(#plastic-highlight)" opacity="0.2"/>
-          <text x="757.3" y="477.15" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
-                font-family="Arial" font-size="16.1" font-weight="bold">Y</text>
-          
-          <!-- Thin thread-like neon glow -->
-          <circle cx="757.3" cy="470.25" r="25" fill="none" 
-                  stroke="rgba(14,165,233,0)" stroke-width="0.5" 
-                  filter="url(#thin-neon-glow)">
-            <animate attributeName="stroke" 
-                     values="rgba(14,165,233,0); rgba(14,165,233,1); rgba(14,165,233,0)" 
-                     dur="0.1s" 
-                     begin="1.5s;4.2s;7.8s;11.1s;14.5s"/>
-          </circle>
-        </g>
-
-        <!-- X Button (Attack) -->
-        <g id="button-x">
-          <animateTransform attributeName="transform" 
-                            type="translate" 
-                            values="0,0; 0,2; 0,0" 
-                            dur="0.1s" 
-                            begin="0.3s;2.8s;5.1s;8.5s;11.8s;15.2s"/>
-          
-          <circle cx="697.5" cy="530.05" r="20.7" stroke="#0369A1" stroke-width="2.3">
-            <animate attributeName="fill" 
-                     values="url(#button-unpressed); url(#button-pressed-state); url(#button-unpressed)" 
-                     dur="0.1s" 
-                     begin="0.3s;2.8s;5.1s;8.5s;11.8s;15.2s"/>
-            
-            <animate attributeName="filter" 
-                     values="url(#normal-shadow); url(#pressed-shadow); url(#normal-shadow)" 
-                     dur="0.1s" 
-                     begin="0.3s;2.8s;5.1s;8.5s;11.8s;15.2s"/>
-          </circle>
-          
-          <circle cx="697.5" cy="530.05" r="16.1" fill="url(#plastic-highlight)" opacity="0.2"/>
-          <text x="697.5" y="536.95" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
-                font-family="Arial" font-size="16.1" font-weight="bold">X</text>
-          
-          <circle cx="697.5" cy="530.05" r="25" fill="none" 
-                  stroke="rgba(14,165,233,0)" stroke-width="0.5" 
-                  filter="url(#thin-neon-glow)">
-            <animate attributeName="stroke" 
-                     values="rgba(14,165,233,0); rgba(14,165,233,1); rgba(14,165,233,0)" 
-                     dur="0.1s" 
-                     begin="0.3s;2.8s;5.1s;8.5s;11.8s;15.2s"/>
-          </circle>
-        </g>
-
-        <!-- A Button (Confirm/Select) -->
-        <g id="button-a">
-          <animateTransform attributeName="transform" 
-                            type="translate" 
-                            values="0,0; 0,2; 0,0" 
-                            dur="0.1s" 
-                            begin="0.8s;3.3s;6.5s;9.7s;12.9s;16.1s"/>
-          
-          <circle cx="757.3" cy="589.85" r="20.7" stroke="#0369A1" stroke-width="2.3">
-            <animate attributeName="fill" 
-                     values="url(#button-unpressed); url(#button-pressed-state); url(#button-unpressed)" 
-                     dur="0.1s" 
-                     begin="0.8s;3.3s;6.5s;9.7s;12.9s;16.1s"/>
-            
-            <animate attributeName="filter" 
-                     values="url(#normal-shadow); url(#pressed-shadow); url(#normal-shadow)" 
-                     dur="0.1s" 
-                     begin="0.8s;3.3s;6.5s;9.7s;12.9s;16.1s"/>
-          </circle>
-          
-          <circle cx="757.3" cy="589.85" r="16.1" fill="url(#plastic-highlight)" opacity="0.2"/>
-          <text x="757.3" y="596.75" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
-                font-family="Arial" font-size="16.1" font-weight="bold">A</text>
-          
-          <circle cx="757.3" cy="589.85" r="25" fill="none" 
-                  stroke="rgba(14,165,233,0)" stroke-width="0.5" 
-                  filter="url(#thin-neon-glow)">
-            <animate attributeName="stroke" 
-                     values="rgba(14,165,233,0); rgba(14,165,233,1); rgba(14,165,233,0)" 
-                     dur="0.1s" 
-                     begin="0.8s;3.3s;6.5s;9.7s;12.9s;16.1s"/>
-          </circle>
-        </g>
-
-        <!-- B Button (Cancel/Back) -->
-        <g id="button-b">
-          <animateTransform attributeName="transform" 
-                            type="translate" 
-                            values="0,0; 0,2; 0,0" 
-                            dur="0.1s" 
-                            begin="2.1s;5.4s;8.7s;12.0s;15.3s"/>
-          
-          <circle cx="817.1" cy="530.05" r="20.7" stroke="#0369A1" stroke-width="2.3">
-            <animate attributeName="fill" 
-                     values="url(#button-unpressed); url(#button-pressed-state); url(#button-unpressed)" 
-                     dur="0.1s" 
-                     begin="2.1s;5.4s;8.7s;12.0s;15.3s"/>
-            
-            <animate attributeName="filter" 
-                     values="url(#normal-shadow); url(#pressed-shadow); url(#normal-shadow)" 
-                     dur="0.1s" 
-                     begin="2.1s;5.4s;8.7s;12.0s;15.3s"/>
-          </circle>
-          
-          <circle cx="817.1" cy="530.05" r="16.1" fill="url(#plastic-highlight)" opacity="0.2"/>
-          <text x="817.1" y="536.95" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
-                font-family="Arial" font-size="16.1" font-weight="bold">B</text>
-          
-          <circle cx="817.1" cy="530.05" r="25" fill="none" 
-                  stroke="rgba(14,165,233,0)" stroke-width="0.5" 
-                  filter="url(#thin-neon-glow)">
-            <animate attributeName="stroke" 
-                     values="rgba(14,165,233,0); rgba(14,165,233,1); rgba(14,165,233,0)" 
-                     dur="0.1s" 
-                     begin="2.1s;5.4s;8.7s;12.0s;15.3s"/>
-          </circle>
-        </g>
-      </g>
-
-      <!-- Enhanced System Controls -->
-      <g id="system-controls">
-        <rect x="510.75" y="496.25" width="25.3" height="18.4" rx="3.45" fill="#2D3748" stroke="#1A202C" stroke-width="1.15"/>
-        <line x1="517.5" y1="502" x2="529.2" y2="502" stroke="#A0AEC0" stroke-width="1.15"/>
-        <line x1="517.5" y1="505.45" x2="529.2" y2="505.45" stroke="#A0AEC0" stroke-width="1.15"/>
-        <line x1="517.5" y1="508.9" x2="529.2" y2="508.9" stroke="#A0AEC0" stroke-width="1.15"/>
-
-        <rect x="567.55" y="496.25" width="25.3" height="18.4" rx="3.45" fill="#2D3748" stroke="#1A202C" stroke-width="1.15"/>
-        <circle cx="575.6" cy="502" r="1.725" fill="#A0AEC0"/>
-        <circle cx="584.8" cy="502" r="1.725" fill="#A0AEC0"/>
-        <circle cx="575.6" cy="508.9" r="1.725" fill="#A0AEC0"/>
-        <circle cx="584.8" cy="508.9" r="1.725" fill="#A0AEC0"/>
-      </g>
-    </g>
-
-    <!-- Enhanced MLBB Status Indicator -->
-    <g id="mlbb-status">
-      <rect x="527.75" y="680.25" width="62.1" height="9.2" rx="4.6" fill="#1A202C" stroke="#2D3748" stroke-width="1.15"/>
-      <rect x="534.5" y="682.55" width="13.8" height="4.6" rx="2.3" fill="#10B981" opacity="0.8">
-        <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
-      </rect>
-      <text x="555.8" y="703.75" text-anchor="middle" fill="#718096" 
-            font-family="Arial" font-size="11.5">MLBB READY</text>
+    
+    <!-- Neural Networks (Right Side) -->
+    <g id="right-neurons">
+      <path d="M282,140 Q287,145 284,150 Q277,148 280,155" 
+            fill="none" stroke="url(#brain-gradient)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M277,165 Q272,160 277,170 Q282,172 274,175" 
+            fill="none" stroke="url(#brain-gradient)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M287,180 Q292,175 287,185 Q282,187 290,190" 
+            fill="none" stroke="url(#brain-gradient)" stroke-width="3" stroke-linecap="round"/>
     </g>
   </g>
 
-  <!-- ============== ENHANCED MLBB BRANDING ============== -->
-  <g id="mlbb-branding" opacity="0.6">
-    <rect x="50" y="50" width="60" height="1.5" rx="0.75" fill="#6B46C1"/>
-    <rect x="50" y="50" width="1.5" height="60" rx="0.75" fill="#6B46C1"/>
-    
-    <rect x="914" y="50" width="60" height="1.5" rx="0.75" fill="#0EA5E9"/>
-    <rect x="972.5" y="50" width="1.5" height="60" rx="0.75" fill="#0EA5E9"/>
-    
-    <rect x="50" y="972.5" width="60" height="1.5" rx="0.75" fill="#10B981"/>
-    <rect x="50" y="914" width="1.5" height="60" rx="0.75" fill="#10B981"/>
-    
-    <rect x="914" y="972.5" width="60" height="1.5" rx="0.75" fill="#F59E0B"/>
-    <rect x="972.5" y="914" width="1.5" height="60" rx="0.75" fill="#F59E0B"/>
+  <!-- ============== PREMIUM GAMING CONTROLLER ============== -->
+  <g id="gaming-controller" filter="url(#inner-shadow)">
+    <!-- Controller Body Outline -->
+    <path d="
+      M180,240
+      C165,240 155,250 155,265
+      L155,300
+      C155,320 165,335 180,345
+      L200,360
+      C210,368 220,370 230,370
+      L250,370
+      C255,370 260,368 265,365
+      C270,362 275,358 280,355
+      L285,350
+      C287,348 288,346 290,344
+      C292,342 295,340 298,340
+      L332,340
+      C335,340 338,342 340,344
+      C342,346 343,348 345,350
+      L350,355
+      C355,358 360,362 365,365
+      C370,368 375,370 380,370
+      L400,370
+      C410,370 420,368 430,360
+      L450,345
+      C465,335 475,320 475,300
+      L475,265
+      C475,250 465,240 450,240
+      L420,240
+      C405,240 395,245 390,255
+      L385,265
+      C383,268 380,270 377,270
+      L355,270
+      C352,270 349,268 347,265
+      L342,255
+      C337,245 327,240 312,240
+      L180,240
+      Z"
+      fill="none" 
+      stroke="url(#controller-gradient)" 
+      stroke-width="10"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
 
-    <!-- Enhanced MLBB Gaming Info -->
-    <g id="mlbb-info" opacity="0.8">
-      <rect x="80" y="80" width="180" height="75" rx="8" fill="rgba(0,0,0,0.4)" stroke="rgba(107,70,193,0.5)" stroke-width="1.5"/>
-      <text x="95" y="105" fill="#8B5CF6" font-family="Arial" font-size="14" font-weight="bold">MLBB PRO CONTROLLER</text>
-      <text x="95" y="125" fill="#0EA5E9" font-family="Arial" font-size="11">Esports Edition</text>
-      <text x="95" y="140" fill="#A0AEC0" font-family="Arial" font-size="10">Gaming Mode Active</text>
-      
-      <!-- Status LED -->
-      <circle cx="240" cy="115" r="4" fill="#10B981">
-        <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
-      </circle>
-      
-      <!-- Performance indicator -->
-      <rect x="95" y="145" width="120" height="3" rx="1.5" fill="#1A202C"/>
-      <rect x="95" y="145" width="90" height="3" rx="1.5" fill="#10B981">
-        <animate attributeName="width" values="90;120;90" dur="3s" repeatCount="indefinite"/>
-      </rect>
+    <!-- D-Pad (Left Controls) -->
+    <g id="d-pad">
+      <!-- Horizontal Bar -->
+      <rect x="190" y="285" width="35" height="12" rx="6" 
+            fill="url(#controller-gradient)"/>
+      <!-- Vertical Bar -->
+      <rect x="202" y="273" width="12" height="35" rx="6" 
+            fill="url(#controller-gradient)"/>
     </g>
+
+    <!-- Action Buttons (Right Controls) -->
+    <g id="action-buttons">
+      <!-- Button A -->
+      <circle cx="410" cy="280" r="8" fill="url(#controller-gradient)"/>
+      <!-- Button B -->
+      <circle cx="430" cy="295" r="6" fill="url(#controller-gradient)"/>
+      <!-- Button X -->
+      <circle cx="390" cy="295" r="6" fill="url(#controller-gradient)"/>
+      <!-- Button Y -->
+      <circle cx="410" cy="310" r="6" fill="url(#controller-gradient)"/>
+    </g>
+
+    <!-- Analog Sticks -->
+    <g id="analog-sticks">
+      <!-- Left Stick -->
+      <circle cx="230" cy="320" r="12" 
+              fill="none" 
+              stroke="url(#controller-gradient)" 
+              stroke-width="4"/>
+      <circle cx="230" cy="320" r="6" fill="url(#controller-gradient)"/>
+      
+      <!-- Right Stick -->
+      <circle cx="380" cy="340" r="12" 
+              fill="none" 
+              stroke="url(#controller-gradient)" 
+              stroke-width="4"/>
+      <circle cx="380" cy="340" r="6" fill="url(#controller-gradient)"/>
+    </g>
+  </g>
+
+  <!-- ============== PREMIUM ENHANCEMENT EFFECTS ============== -->
+  <g id="enhancement-effects" opacity="0.8">
+    <!-- Subtle Pulse Animation -->
+    <circle cx="256" cy="256" r="180" 
+            fill="none" 
+            stroke="url(#hexagon-gradient)" 
+            stroke-width="1" 
+            opacity="0.3">
+      <animate attributeName="r" values="180;190;180" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Brand Highlight Points -->
+    <g id="brand-highlights">
+      <circle cx="256" cy="80" r="3" fill="#EC4899">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="380" cy="170" r="2" fill="#A855F7">
+        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="380" cy="342" r="2" fill="#6366F1">
+        <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="256" cy="430" r="3" fill="#F97316">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="2.8s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="132" cy="342" r="2" fill="#EF4444">
+        <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3.2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="132" cy="170" r="2" fill="#8B5CF6">
+        <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.7s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+
+  <!-- ============== PREMIUM BRANDING SIGNATURE ============== -->
+  <g id="premium-signature" opacity="0.7">
+    <!-- Corner Accents -->
+    <rect x="50" y="50" width="25" height="2" rx="1" fill="url(#hexagon-gradient)"/>
+    <rect x="50" y="50" width="2" height="25" rx="1" fill="url(#hexagon-gradient)"/>
+    
+    <rect x="437" y="50" width="25" height="2" rx="1" fill="url(#hexagon-gradient)"/>
+    <rect x="460" y="50" width="2" height="25" rx="1" fill="url(#hexagon-gradient)"/>
+    
+    <rect x="50" y="460" width="25" height="2" rx="1" fill="url(#hexagon-gradient)"/>
+    <rect x="50" y="437" width="2" height="25" rx="1" fill="url(#hexagon-gradient)"/>
+    
+    <rect x="437" y="460" width="25" height="2" rx="1" fill="url(#hexagon-gradient)"/>
+    <rect x="460" y="437" width="2" height="25" rx="1" fill="url(#hexagon-gradient)"/>
   </g>
 </svg>
