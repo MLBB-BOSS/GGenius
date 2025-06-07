@@ -3,370 +3,139 @@
      xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
 
-  <!-- ============== ADVANCED GRADIENT DEFINITIONS ============== -->
+  <!-- ГРАДІЄНТИ -->
   <defs>
-    <!-- Primary Brand Gradient with Animation -->
     <linearGradient id="ggenius-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8B5CF6">
-        <animate attributeName="stop-color" 
-                 values="#8B5CF6;#A855F7;#8B5CF6" 
-                 dur="6s" 
-                 repeatCount="indefinite"/>
-      </stop>
+      <stop offset="0%" stop-color="#8B5CF6"/>
       <stop offset="50%" stop-color="#A855F7"/>
-      <stop offset="100%" stop-color="#EC4899">
-        <animate attributeName="stop-color" 
-                 values="#EC4899;#F97316;#EC4899" 
-                 dur="6s" 
-                 repeatCount="indefinite"/>
-      </stop>
+      <stop offset="100%" stop-color="#EC4899"/>
     </linearGradient>
-
-    <!-- Intelligence Maze Gradient -->
-    <linearGradient id="maze-intelligence" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6366F1"/>
-      <stop offset="25%" stop-color="#8B5CF6"/>
-      <stop offset="50%" stop-color="#A855F7"/>
-      <stop offset="75%" stop-color="#EC4899"/>
-      <stop offset="100%" stop-color="#F97316"/>
-    </linearGradient>
-
-    <!-- Text Enhancement Gradient -->
-    <linearGradient id="text-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="50%" stop-color="#F8FAFC"/>
-      <stop offset="100%" stop-color="#E2E8F0"/>
-    </linearGradient>
-
-    <!-- Premium Glow Effect -->
-    <filter id="premium-glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-      <feMerge>
-        <feMergeNode in="coloredBlur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <!-- Maze Path Glow -->
-    <filter id="maze-glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
-      <feMerge>
-        <feMergeNode in="coloredBlur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <!-- Text Shadow for Depth -->
-    <filter id="text-shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.5"/>
-    </filter>
-
-    <!-- Subtle Logo Shadow -->
-    <filter id="logo-shadow" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.3"/>
-    </filter>
   </defs>
 
-  <!-- ============== PREMIUM BLACK BACKGROUND ============== -->
+  <!-- ФОН -->
   <rect width="800" height="400" fill="#000000"/>
 
-  <!-- ============== CENTERED LOGO CONTAINER ============== -->
-  <g id="logo-container" transform="translate(80, 200)" filter="url(#logo-shadow)">
-    
-    <!-- Premium Hexagon Frame -->
-    <g id="hexagon-frame" filter="url(#premium-glow)">
-      <path d="
-        M120,0
-        L180,0
-        C200,0 215,15 215,35
-        L240,85
-        C245,100 245,115 240,130
-        L215,180
-        C215,200 200,215 180,215
-        L120,215
-        L60,215
-        C40,215 25,200 25,180
-        L0,130
-        C-5,115 -5,100 0,85
-        L25,35
-        C25,15 40,0 60,0
-        L120,0
-        Z"
-        fill="none" 
-        stroke="url(#ggenius-gradient)" 
-        stroke-width="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"/>
-      
-      <!-- Inner Hexagon for Depth -->
-      <path d="
-        M120,15
-        L175,15
-        C190,15 200,25 200,40
-        L220,90
-        C224,102 224,112 220,124
-        L200,174
-        C200,190 190,200 175,200
-        L120,200
-        L65,200
-        C50,200 40,190 40,174
-        L20,124
-        C16,112 16,102 20,90
-        L40,40
-        C40,25 50,15 65,15
-        L120,15
-        Z"
-        fill="none" 
-        stroke="url(#ggenius-gradient)" 
-        stroke-width="3"
-        opacity="0.6"/>
-    </g>
-
-    <!-- Advanced Intelligence Maze -->
-    <g id="intelligence-maze" filter="url(#maze-glow)">
-      
-      <!-- Maze Outer Structure -->
-      <rect x="35" y="35" width="170" height="145" 
-            fill="none" 
-            stroke="url(#maze-intelligence)" 
-            stroke-width="4"
-            rx="8"/>
-      
-      <!-- Complex Multi-Level Maze Paths -->
-      <g id="maze-paths" stroke="url(#maze-intelligence)" stroke-width="3" fill="none" stroke-linecap="round">
-        
-        <!-- Level 1: Outer Intelligence Ring -->
-        <path d="M45,35 L45,60 L75,60 L75,90 L105,90 L105,60 L135,60 L135,35"/>
-        <path d="M145,35 L145,70 L175,70 L175,50 L195,50 L195,35"/>
-        
-        <!-- Level 2: Strategic Core -->
-        <path d="M35,100 L65,100 L65,130 L95,130"/>
-        <path d="M105,100 L105,130 L135,130 L135,110 L165,110 L165,130"/>
-        <path d="M175,100 L175,140 L195,140 L195,110 L205,110"/>
-        
-        <!-- Level 3: Neural Networks -->
-        <path d="M35,150 L65,150 L65,180 L95,180 L95,150 L125,150"/>
-        <path d="M135,150 L135,180 L165,180 L165,150 L195,150 L195,180"/>
-        
-        <!-- Central Intelligence Core -->
-        <circle cx="120" cy="107" r="12" 
-                stroke="url(#ggenius-gradient)" 
-                stroke-width="3" 
-                fill="none">
-          <animate attributeName="r" values="12;18;12" dur="4s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.7;1;0.7" dur="4s" repeatCount="indefinite"/>
-        </circle>
-        
-        <!-- Strategic Decision Points -->
-        <g id="decision-nodes">
-          <circle cx="75" cy="90" r="4" fill="url(#maze-intelligence)">
-            <animate attributeName="opacity" values="0.6;1;0.6" dur="2.5s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="165" cy="110" r="4" fill="url(#maze-intelligence)">
-            <animate attributeName="opacity" values="1;0.6;1" dur="3s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="95" cy="150" r="3" fill="url(#maze-intelligence)">
-            <animate attributeName="opacity" values="0.8;1;0.8" dur="2.2s" repeatCount="indefinite"/>
-          </circle>
-        </g>
-        
-        <!-- Neural Pathways -->
-        <g id="neural-paths" opacity="0.7">
-          <path d="M85,70 Q95,60 105,70 Q115,80 125,70" 
-                stroke="url(#maze-intelligence)" stroke-width="2">
-            <animate attributeName="d" 
-                     values="M85,70 Q95,60 105,70 Q115,80 125,70;M85,70 Q95,80 105,70 Q115,60 125,70;M85,70 Q95,60 105,70 Q115,80 125,70" 
-                     dur="5s" 
-                     repeatCount="indefinite"/>
-          </path>
-          
-          <path d="M75,140 Q85,130 95,140 Q105,150 115,140 Q125,130 135,140" 
-                stroke="url(#maze-intelligence)" stroke-width="2"/>
-        </g>
-      </g>
-      
-      <!-- Winning Path Animation -->
-      <g id="solution-path" stroke="#00FF88" stroke-width="2" fill="none" opacity="0.8">
-        <path d="M35,100 L65,100 L65,130 L95,130 L105,130 L135,130 L165,130 L175,130 L175,140 L195,140">
-          <animate attributeName="stroke-dasharray" values="0,1000;300,1000;0,1000" dur="10s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.8;1;0.8" dur="5s" repeatCount="indefinite"/>
-        </path>
-      </g>
-    </g>
-
-    <!-- Enhanced Brain Design -->
-    <g id="brain-intelligence">
-      <!-- Left Hemisphere -->
-      <path d="
-        M85,55 C80,50 80,45 85,40
-        C90,35 100,35 105,40
-        C110,45 115,50 115,55
-        C115,60 110,65 105,70
-        C100,75 90,75 85,70
-        C80,65 80,60 85,55 Z"
-        fill="none" stroke="url(#ggenius-gradient)" stroke-width="5" stroke-linecap="round"/>
-      
-      <!-- Right Hemisphere -->
-      <path d="
-        M155,55 C160,50 160,45 155,40
-        C150,35 140,35 135,40
-        C130,45 125,50 125,55
-        C125,60 130,65 135,70
-        C140,75 150,75 155,70
-        C160,65 160,60 155,55 Z"
-        fill="none" stroke="url(#ggenius-gradient)" stroke-width="5" stroke-linecap="round"/>
-      
-      <!-- Neural Connection -->
-      <line x1="120" y1="40" x2="120" y2="70" 
-            stroke="url(#ggenius-gradient)" 
-            stroke-width="4" 
-            stroke-linecap="round"/>
-      
-      <!-- Brain Details -->
-      <path d="M90,50 Q95,45 100,50 Q105,55 100,60" 
-            fill="none" stroke="url(#ggenius-gradient)" stroke-width="3" stroke-linecap="round"/>
-      <path d="M95,60 Q100,65 105,60" 
-            fill="none" stroke="url(#ggenius-gradient)" stroke-width="3" stroke-linecap="round"/>
-      <path d="M150,50 Q145,45 140,50 Q135,55 140,60" 
-            fill="none" stroke="url(#ggenius-gradient)" stroke-width="3" stroke-linecap="round"/>
-      <path d="M145,60 Q140,65 135,60" 
-            fill="none" stroke="url(#ggenius-gradient)" stroke-width="3" stroke-linecap="round"/>
-    </g>
-
-    <!-- Enhanced Controller Design -->
-    <g id="gaming-controller">
-      <!-- Controller Body -->
-      <path d="
-        M60,120 C55,115 55,110 60,105
-        L85,105 C90,105 95,110 100,115
-        L105,120 C110,125 130,125 135,120
-        L140,115 C145,110 150,105 155,105
-        L180,105 C185,110 185,115 180,120
-        L180,145 C185,150 185,160 180,165
-        L155,165 C150,165 145,160 140,155
-        L135,150 C130,145 110,145 105,150
-        L100,155 C95,160 90,165 85,165
-        L60,165 C55,160 55,150 60,145
-        L60,120 Z"
-        fill="none" stroke="url(#ggenius-gradient)" stroke-width="5" stroke-linecap="round"/>
-
-      <!-- Enhanced D-Pad -->
-      <line x1="78" y1="135" x2="102" y2="135" 
-            stroke="url(#ggenius-gradient)" 
-            stroke-width="5" 
-            stroke-linecap="round"/>
-      <line x1="90" y1="123" x2="90" y2="147" 
-            stroke="url(#ggenius-gradient)" 
-            stroke-width="5" 
-            stroke-linecap="round"/>
-
-      <!-- Enhanced Action Buttons -->
-      <circle cx="150" cy="125" r="4" fill="url(#ggenius-gradient)"/>
-      <circle cx="165" cy="135" r="4" fill="url(#ggenius-gradient)"/>
-      <circle cx="150" cy="145" r="4" fill="url(#ggenius-gradient)"/>
-    </g>
+  <!-- ШЕСТИКУТНИК -->
+  <g transform="translate(100, 200)">
+    <path d="
+      M100,0
+      L150,0
+      C165,0 175,10 175,25
+      L200,75
+      C205,85 205,95 200,105
+      L175,155
+      C175,170 165,180 150,180
+      L100,180
+      L50,180
+      C35,180 25,170 25,155
+      L0,105
+      C-5,95 -5,85 0,75
+      L25,25
+      C25,10 35,0 50,0
+      L100,0
+      Z"
+      fill="none" 
+      stroke="url(#ggenius-gradient)" 
+      stroke-width="8"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
   </g>
 
-  <!-- ============== PERFECTLY ALIGNED TEXT ============== -->
-  <g id="ggenius-text" transform="translate(400, 200)" filter="url(#text-shadow)">
-    <!-- Main Text with Perfect Centering -->
-    <text x="0" y="15"
-          font-family="Arial, Helvetica, sans-serif"
+  <!-- ЛАБІРИНТ -->
+  <g transform="translate(100, 200)">
+    <path d="
+      M100,60
+      L140,60
+      L140,100
+      L120,100
+      L120,80
+      L80,80
+      L80,120
+      L100,120
+      L100,140
+      L60,140
+      L60,100
+      L100,100
+      L100,60
+      Z"
+      fill="none"
+      stroke="url(#ggenius-gradient)"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      opacity="0.5"/>
+  </g>
+
+  <!-- МОЗОК -->
+  <g transform="translate(100, 200)">
+    <!-- Ліва півкуля -->
+    <path d="
+      M70,50 C65,45 65,40 70,35
+      C75,30 85,30 90,35
+      C95,40 100,45 100,50
+      C100,55 95,60 90,65
+      C85,70 75,70 70,65
+      C65,60 65,55 70,50 Z"
+      fill="none" stroke="url(#ggenius-gradient)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Права півкуля -->
+    <path d="
+      M130,50 C135,45 135,40 130,35
+      C125,30 115,30 110,35
+      C105,40 100,45 100,50
+      C100,55 105,60 110,65
+      C115,70 125,70 130,65
+      C135,60 135,55 130,50 Z"
+      fill="none" stroke="url(#ggenius-gradient)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Центр -->
+    <line x1="100" y1="35" x2="100" y2="65" stroke="url(#ggenius-gradient)" stroke-width="3" stroke-linecap="round"/>
+    <!-- Деталі -->
+    <path d="M75,45 Q80,40 85,45 Q90,50 85,55" fill="none" stroke="url(#ggenius-gradient)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M80,55 Q85,60 90,55" fill="none" stroke="url(#ggenius-gradient)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M125,45 Q120,40 115,45 Q110,50 115,55" fill="none" stroke="url(#ggenius-gradient)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M120,55 Q115,60 110,55" fill="none" stroke="url(#ggenius-gradient)" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- ГЕЙМПАД -->
+  <g transform="translate(100, 200)">
+    <path d="
+      M50,100 C45,95 45,90 50,85
+      L70,85 C75,85 80,90 85,95
+      L90,100 C95,105 105,105 110,100
+      L115,95 C120,90 125,85 130,85
+      L150,85 C155,90 155,95 150,100
+      L150,120 C155,125 155,135 150,140
+      L130,140 C125,140 120,135 115,130
+      L110,125 C105,120 95,120 90,125
+      L85,130 C80,135 75,140 70,140
+      L50,140 C45,135 45,125 50,120
+      L50,100 Z"
+      fill="none" stroke="url(#ggenius-gradient)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Хрестик -->
+    <line x1="65" y1="112" x2="85" y2="112" stroke="url(#ggenius-gradient)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="75" y1="102" x2="75" y2="122" stroke="url(#ggenius-gradient)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Кнопки -->
+    <circle cx="125" cy="105" r="3" fill="url(#ggenius-gradient)"/>
+    <circle cx="135" cy="112" r="3" fill="url(#ggenius-gradient)"/>
+    <circle cx="125" cy="119" r="3" fill="url(#ggenius-gradient)"/>
+  </g>
+
+  <!-- ОНОВЛЕНИЙ ТЕКСТ GGenius -->
+  <g transform="translate(340, 215)">
+    <text x="0" y="0"
+          font-family="Montserrat, sans-serif"
           font-size="96"
-          font-weight="900"
-          fill="url(#text-gradient)"
+          font-weight="bold"
+          fill="#FFFFFF"
           text-anchor="start"
           dominant-baseline="middle">GGenius</text>
-    
-    <!-- Text Enhancement Layer -->
-    <text x="0" y="15"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="96"
-          font-weight="900"
-          fill="url(#ggenius-gradient)"
-          text-anchor="start"
-          dominant-baseline="middle"
-          opacity="0.4">GGenius</text>
-    
-    <!-- Subtitle for Context -->
-    <text x="0" y="50"
-          font-family="Arial, Helvetica, sans-serif"
-          font-size="18"
-          font-weight="600"
-          fill="#A0AEC0"
-          text-anchor="start"
-          opacity="0.8">MLBB Intelligence Hub</text>
   </g>
 
-  <!-- ============== PREMIUM ENHANCEMENT EFFECTS ============== -->
-  <g id="enhancement-effects" opacity="0.6">
-    <!-- Strategic Pulse -->
-    <circle cx="200" cy="200" r="180" 
-            fill="none" 
-            stroke="url(#ggenius-gradient)" 
-            stroke-width="1" 
-            opacity="0.4">
-      <animate attributeName="r" values="180;200;180" dur="6s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="6s" repeatCount="indefinite"/>
-    </circle>
-    
-    <!-- Excellence Indicators -->
-    <g id="excellence-points">
-      <circle cx="120" cy="120" r="2" fill="#00FF88">
-        <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="520" cy="150" r="2" fill="#FF6B6B">
-        <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.5s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="280" cy="320" r="2" fill="#4ECDC4">
-        <animate attributeName="opacity" values="0.6;1;0.6" dur="3.5s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="80" cy="280" r="1.5" fill="#A855F7">
-        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.8s" repeatCount="indefinite"/>
-      </circle>
-    </g>
-  </g>
-
-  <!-- ============== PROFESSIONAL BRAND ACCENTS ============== -->
-  <g id="brand-accents" opacity="0.8">
-    <!-- Corner Markers -->
-    <rect x="40" y="40" width="40" height="3" rx="1.5" fill="url(#ggenius-gradient)"/>
-    <rect x="40" y="40" width="3" height="40" rx="1.5" fill="url(#ggenius-gradient)"/>
-    
-    <rect x="717" y="40" width="40" height="3" rx="1.5" fill="url(#ggenius-gradient)"/>
-    <rect x="754" y="40" width="3" height="40" rx="1.5" fill="url(#ggenius-gradient)"/>
-    
-    <rect x="40" y="357" width="40" height="3" rx="1.5" fill="url(#ggenius-gradient)"/>
-    <rect x="40" y="320" width="3" height="40" rx="1.5" fill="url(#ggenius-gradient)"/>
-    
-    <rect x="717" y="357" width="40" height="3" rx="1.5" fill="url(#ggenius-gradient)"/>
-    <rect x="754" y="320" width="3" height="40" rx="1.5" fill="url(#ggenius-gradient)"/>
-  </g>
-
-  <!-- ============== INTELLIGENCE STATUS PANEL ============== -->
-  <g id="status-panel" transform="translate(580, 80)" opacity="0.8">
-    <rect x="0" y="0" width="180" height="80" rx="12" 
-          fill="rgba(0,0,0,0.5)" 
-          stroke="url(#ggenius-gradient)" 
-          stroke-width="2"/>
-    
-    <text x="15" y="25" fill="#8B5CF6" 
-          font-family="Arial, sans-serif" 
-          font-size="14" 
-          font-weight="bold">INTELLIGENCE CORE</text>
-    
-    <text x="15" y="45" fill="#FFFFFF" 
-          font-family="Arial, sans-serif" 
-          font-size="12">Maze Complexity: GENIUS</text>
-    
-    <text x="15" y="60" fill="#A0AEC0" 
-          font-family="Arial, sans-serif" 
-          font-size="11">Strategic Level: MAXIMUM</text>
-    
-    <!-- Intelligence Progress -->
-    <rect x="15" y="65" width="150" height="6" rx="3" fill="rgba(255,255,255,0.2)"/>
-    <rect x="15" y="65" width="125" height="6" rx="3" fill="url(#ggenius-gradient)">
-      <animate attributeName="width" values="125;150;125" dur="5s" repeatCount="indefinite"/>
-    </rect>
+  <!-- ЛЕГКЕ СВІТІННЯ -->
+  <g opacity="0.4">
+    <circle cx="200" cy="200" r="120" fill="none" stroke="url(#ggenius-gradient)" stroke-width="2"/>
   </g>
 </svg>
