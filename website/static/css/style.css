@@ -58,7 +58,7 @@
 }
 
 /* Light Theme Support */
-:root.light {
+:root.light, :root.light-theme-active {
     --bg-1: var(--bg-1-light); --bg-2: var(--bg-2-light); --bg-3: var(--bg-3-light); --surface: var(--surface-light);
     --text-1: var(--text-1-light); --text-2: var(--text-2-light); --text-3: var(--text-3-light);
     --g-bg: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
@@ -108,8 +108,14 @@ body {
     overflow-x: hidden; /* Prevent horizontal scroll */
     padding-top: var(--header-h); /* Space for fixed header */
     min-height: 100vh;
+    display: flex; /* For sticky footer */
+    flex-direction: column; /* For sticky footer */
     contain: layout style; /* Performance: Isolate body layout and style calculations */
 }
+main {
+    flex-grow: 1; /* For sticky footer */
+}
+
 
 /* Critical Above-the-Fold Background - Optimized for Performance */
 body::before {
@@ -359,6 +365,12 @@ a:focus-visible {
     outline: 2px solid var(--yellow);
     outline-offset: 2px;
 }
+.icon { /* Basic icon styling */
+    display: inline-block;
+    vertical-align: middle;
+    width: 1em;
+    height: 1em;
+}
 
 
 /* === CRITICAL HEADER PERFORMANCE === */
@@ -390,7 +402,7 @@ a:focus-visible {
     padding: 0 var(--s-m); 
 }
 
-.header-logo-link {
+.header-logo-link { /* Renamed from header-logo-link-main for consistency */
     text-decoration: none;
     display: inline-block; 
 }
@@ -416,16 +428,18 @@ a:focus-visible {
     border-radius: var(--r-s);
 }
 
-
-.header-logo-subtitle { 
-    position: absolute;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+.visually-hidden { /* Utility class for accessibility */
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0,0,0,0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }
+
 
 /* === NAVIGATION OPTIMIZED === */
 .main-navigation {
@@ -479,11 +493,22 @@ a:focus-visible {
     transform: translateY(-7px) rotate(-45deg); 
 }
 
-.nav-menu {
+.nav-menu { /* Was .nav-menu-panel, then .nav-menu-dashboard, now unified .nav-menu */
     list-style: none;
     display: flex;
     gap: var(--s-m); 
 }
+/* Styles for the mobile panel if it's different from desktop nav-menu */
+.nav-menu-panel {
+    /* This class was in HTML, if it's for a distinct mobile panel, style it here */
+    /* Example: */
+    /* display: none; */
+    /* position: fixed; */
+    /* top: 0; right: 0; bottom: 0; left: 0; */
+    /* background: var(--bg-1); */
+    /* z-index: var(--z-modal); */
+}
+
 
 .nav-link {
     font-family: var(--f2);
@@ -525,7 +550,7 @@ a:focus-visible {
 /* === HERO SECTION - CRITICAL PERFORMANCE === */
 .hero-section {
     min-height: calc(100vh - var(--header-h)); 
-    padding: var(--s-xl) 0;
+    /* padding: var(--s-xl) 0; Handled by .section-padding */
     display: flex;
     align-items: center;
     justify-content: center; 
@@ -617,6 +642,10 @@ a:focus-visible {
     opacity: 0;
     will-change: opacity, transform;
 }
+.hero-actions .cta-button .icon {
+    margin-left: var(--s-xs);
+}
+
 
 /* === CTA BUTTONS - PERFORMANCE OPTIMIZED === */
 .cta-button {
@@ -647,22 +676,22 @@ a:focus-visible {
     outline-offset: 2px;
 }
 
-.cta-button.hero-cta {
+.cta-button.hero-cta { /* Primary hero CTA */
     background: var(--g3);
     color: var(--text-1);
     box-shadow: var(--shadow-glow);
+}
+/* Renamed .hero-cta-secondary to .cta-yellow for consistency if it's the yellow button */
+.cta-button.cta-yellow { 
+    background: linear-gradient(135deg, var(--yellow), #e6b800); 
+    color: var(--bg-1); 
+    box-shadow: 0 0 15px rgba(var(--yellow-rgb), .5);
 }
 
 .cta-button.hero-cta:hover, .cta-button.hero-cta:focus-visible {
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 0 25px rgba(var(--blue-rgb), .7), 0 0 35px rgba(var(--blue-rgb), .5); 
     border-color: var(--blue);
-}
-
-.cta-button.cta-yellow {
-    background: linear-gradient(135deg, var(--yellow), #e6b800); 
-    color: var(--bg-1); 
-    box-shadow: 0 0 15px rgba(var(--yellow-rgb), .5);
 }
 
 .cta-button.cta-yellow:hover, .cta-button.cta-yellow:focus-visible {
@@ -745,7 +774,7 @@ a:focus-visible {
 /* === FEATURES SECTION === */
 .features-section-iui {
     background: rgba(var(--bg-1-rgb), .3); 
-    padding: var(--s-2xl) 0;
+    /* padding: var(--s-2xl) 0; Handled by .section-padding */
     border-top: 1px solid rgba(var(--text-1-rgb), .05);
     border-bottom: 1px solid rgba(var(--text-1-rgb), .05);
     position: relative;
@@ -805,12 +834,13 @@ a:focus-visible {
     transform: translateY(-5px);
 }
 
-.category-tab svg {
-    width: 24px; height: 24px;
+.category-tab svg.icon { /* Ensure icons in tabs are sized correctly */
+    width: 1.2em; 
+    height: 1.2em;
     transition: filter .3s ease;
     filter: drop-shadow(0 0 5px currentColor); 
 }
-.category-tab:hover svg, .category-tab.active svg {
+.category-tab:hover svg.icon, .category-tab.active svg.icon {
     filter: drop-shadow(0 0 10px currentColor) brightness(1.2);
 }
 
@@ -911,7 +941,7 @@ a:focus-visible {
     justify-content: center;
 }
 
-.feature-card-icon svg {
+.feature-card-icon svg.icon { /* Ensure icons in cards are sized correctly */
     width: 100%; height: 100%;
     stroke: var(--blue);
     stroke-width: 1.5;
@@ -919,7 +949,7 @@ a:focus-visible {
     transition: filter var(--trans), transform var(--trans);
 }
 
-.feature-card-iui:hover .feature-card-icon svg {
+.feature-card-iui:hover .feature-card-icon svg.icon {
     filter: drop-shadow(0 0 12px rgba(var(--blue-rgb), .7));
     transform: scale(1.1); 
 }
@@ -1015,134 +1045,107 @@ a:focus-visible {
 }
 
 
-/* === ROADMAP SECTION (TIMELINE STYLE) === */
-.roadmap-section { /* This is the existing timeline roadmap */
+/* === ROADMAP SECTION (TIMELINE STYLE - IF USED ELSEWHERE) === */
+/* This is the existing timeline roadmap, if you want to keep it for other purposes */
+.roadmap-section { 
     padding: var(--s-2xl) 0; 
     background: linear-gradient(180deg, var(--bg-1), rgba(var(--bg-2-rgb), .9) 50%, var(--bg-1));
     position: relative;
     overflow: hidden; 
 }
+/* ... (rest of .roadmap-section styles if needed for a different roadmap) ... */
 
-.roadmap-timeline {
-    position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: var(--s-l) 0; 
+
+/* === NEW ROADMAP SECTION (AS PER SCREENSHOT - .roadmap-section-v2) === */
+.roadmap-section-v2 { /* Styles for the new roadmap based on the screenshot */
+    background: var(--bg-1); 
+    /* padding is handled by .section-padding class */
 }
 
-.roadmap-timeline::before { 
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0; bottom: 0;
-    width: 4px; 
-    background: var(--g2);
-    transform: translateX(-50%);
-    border-radius: 2px;
-    box-shadow: 0 0 15px rgba(var(--cyan-rgb), .5), inset 0 0 5px rgba(var(--text-1-rgb), .1);
+.roadmap-section-v2-subtitle { /* Specific subtitle for this roadmap version */
+    font-size: var(--t-xl); /* Adjusted size */
+    color: var(--text-3); /* Subtler color */
+    margin-top: calc(-1 * var(--s-s)); /* Pull closer to main title */
+    margin-bottom: var(--s-xl); /* Spacing below subtitle */
+    font-weight: 600;
 }
 
-.timeline-item {
-    display: flex;
-    margin-bottom: var(--s-2xl); 
-    position: relative;
-    width: 100%; 
-}
-.timeline-item:last-child { margin-bottom: 0; }
-
-.timeline-item:nth-child(even) { flex-direction: row-reverse; }
-
-.timeline-item:nth-child(even) .timeline-content {
-    margin-left: calc(50% + 40px + var(--s-m)); /* Adjusted for marker size */
-    margin-right: 0;
-    align-items: flex-end; 
-    text-align: right;
-}
-.timeline-item:nth-child(odd) .timeline-content {
-    margin-right: calc(50% + 40px + var(--s-m)); /* Adjusted for marker size */
-    margin-left: 0;
-    align-items: flex-start;
-    text-align: left;
+.roadmap-content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); /* Responsive columns */
+    gap: var(--s-l); /* Gap between cards */
 }
 
-
-.timeline-marker {
-    width: 80px; height: 80px; 
-    border-radius: 50%;
-    background: var(--g2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-1);
-    font-weight: 900;
-    font-size: 1.2rem; 
-    position: absolute;
-    left: 50%;
-    top: 1.5rem; 
-    transform: translateX(-50%);
-    box-shadow: 0 0 30px rgba(var(--cyan-rgb), .7), inset 0 0 15px rgba(var(--text-1-rgb), .2);
-    border: 3px solid var(--bg-1); 
-    z-index: var(--z-high);
-}
-
-.timeline-content {
-    width: calc(50% - 40px - var(--s-m)); /* Adjusted for marker size */
-    background: linear-gradient(135deg, rgba(var(--bg-2-rgb), .95), rgba(var(--bg-3-rgb), .95));
-    padding: var(--s-l); 
+.roadmap-quarter-block {
+    background: rgba(var(--surface-rgb), .7); /* Slightly transparent surface */
+    padding: var(--s-l);
     border-radius: var(--r-l);
-    border: 1px solid rgba(var(--cyan-rgb), .3); 
-    box-shadow: var(--shadow-md), 0 0 40px rgba(var(--cyan-rgb), .1); 
-    transition: transform .3s ease, box-shadow .3s ease;
-    position: relative;
-    overflow: hidden; 
-    display: flex; 
+    border: 1px solid rgba(var(--cyan-rgb), .2); /* Cyan accent border */
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans);
+    display: flex;
     flex-direction: column;
 }
 
-
-.timeline-content::before { 
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(var(--text-1-rgb), .05), transparent);
-    transition: left .6s ease;
+.roadmap-quarter-block:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md), 0 0 25px rgba(var(--cyan-rgb), .25);
+    border-color: rgba(var(--cyan-rgb), .4);
 }
 
-.timeline-content:hover::before { left: 100%; }
-
-.timeline-content:hover {
-    transform: translateY(-10px); 
-    box-shadow: var(--shadow-lg), 0 0 60px rgba(var(--cyan-rgb), .2);
+.roadmap-card-header { /* Wrapper for date and title in card */
+    margin-bottom: var(--s-m);
 }
 
-.timeline-content h3 { 
-    font-size: 1.6rem; 
+.quarter-date {
+    font-size: var(--t-xs);
+    color: var(--text-3);
+    font-weight: 700;
+    margin-bottom: var(--s-xs);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+.quarter-main-title {
+    font-size: var(--t-l); 
+    color: var(--cyan);
+    font-weight: 700;
+    font-family: var(--f1);
     margin-bottom: var(--s-s);
-    background: var(--g1);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 
-.feature-list { 
+.quarter-description {
+    font-size: var(--t-base);
+    color: var(--text-2);
+    margin-bottom: var(--s-m);
+    line-height: 1.6;
+    flex-grow: 1; /* Allow description to take available space */
+}
+
+.quarter-feature-list {
     list-style: none;
     padding: 0;
-    margin-top: var(--s-m);
+    margin-top: auto; /* Push to bottom if card heights vary */
 }
 
-.feature-list li {
-    padding: .5rem 0; 
-    border-bottom: 1px solid rgba(var(--text-1-rgb), .1);
+.quarter-feature-item {
+    display: flex;
+    align-items: flex-start; /* Align icon with first line of text */
+    gap: var(--s-s);
     color: var(--text-2);
-    transition: color .3s ease, padding-left .3s ease;
+    margin-bottom: .6rem; /* Slightly more space */
+    font-size: var(--t-s); /* Slightly smaller for list items */
 }
-.feature-list li:last-child { border-bottom: none; }
 
-.feature-list li:hover {
-    color: var(--cyan);
-    padding-left: .5rem; 
+.quarter-feature-item .feature-icon { 
+    font-size: 1em; /* Match text size */
+    color: var(--blue); 
+    width: 1.2em; 
+    text-align: center;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    margin-top: .15em; /* Align with text baseline */
 }
+
 
 /* === ACCORDION SECTIONS === */
 .accordion-section {
@@ -1225,88 +1228,12 @@ a:focus-visible {
 }
 .accordion-section.enhanced .accordion-content.active .accordion-content-inner { padding-top: var(--s-s); }
 
-/* === NEW ROADMAP SECTION (AS PER SCREENSHOT) === */
-.roadmap-section-v2 { /* Using a new class to avoid conflicts */
-    background: var(--bg-1); /* Or a subtle gradient if preferred */
-    /* padding: var(--s-2xl) 0; Already handled by .section-padding */
-}
-
-.roadmap-section-v2 .section-subtitle { /* For the "2025-2026" text */
-    font-size: var(--t-2xl);
-    color: var(--text-2);
-    margin-top: calc(-1 * var(--s-m)); /* Pull it closer to the main title */
-    margin-bottom: var(--s-2xl);
-    font-weight: 700;
-}
-
-.roadmap-content-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-    gap: var(--s-xl);
-}
-
-.roadmap-quarter-block {
-    background: var(--bg-2);
-    padding: var(--s-l);
-    border-radius: var(--r-l);
-    border: 1px solid rgba(var(--cyan-rgb), .15);
-    box-shadow: var(--shadow-md);
-    transition: transform var(--trans), box-shadow var(--trans);
-}
-
-.roadmap-quarter-block:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg), 0 0 20px rgba(var(--cyan-rgb), .2);
-}
-
-.quarter-date {
-    font-size: var(--t-s);
-    color: var(--text-3);
-    font-weight: 600;
-    margin-bottom: var(--s-xs);
-    text-transform: uppercase;
-}
-
-.quarter-main-title {
-    font-size: var(--t-xl); /* Was h3, now styled directly */
-    color: var(--cyan);
-    font-weight: 700;
-    margin-bottom: var(--s-s);
-}
-
-.quarter-description {
-    font-size: var(--t-base);
-    color: var(--text-2);
-    margin-bottom: var(--s-m);
-    line-height: 1.6;
-}
-
-.quarter-feature-list {
-    list-style: none;
-    padding: 0;
-}
-
-.quarter-feature-item {
-    display: flex;
-    align-items: center;
-    gap: var(--s-s);
-    color: var(--text-2);
-    margin-bottom: var(--s-xs);
-    font-size: var(--t-base);
-}
-
-.quarter-feature-item .feature-icon { /* Placeholder for icons */
-    font-size: 1.2em; /* Make icon slightly larger than text */
-    color: var(--blue); /* Or specific icon color */
-    width: 1.5em; /* Ensure consistent alignment */
-    text-align: center;
-}
 
 /* === SITE FOOTER === */
-.site-footer-main {
+.site-footer-main { /* Renamed from .styled-footer for clarity */
     background: var(--surface);
-    padding: var(--s-2xl) 0 var(--s-l) 0; /* More top padding, less bottom */
-    border-top: 1px solid rgba(var(--text-1-rgb), .1);
+    /* padding: var(--s-2xl) 0 var(--s-l) 0; Handled by .section-padding */
+    border-top: 2px solid var(--blue); /* More prominent top border */
     color: var(--text-3);
     text-align: center;
 }
@@ -1315,7 +1242,12 @@ a:focus-visible {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--s-m);
+    gap: var(--s-l); /* Increased gap for better separation */
+}
+
+.footer-logo-link {
+    display: inline-block;
+    margin-bottom: var(--s-xs);
 }
 
 .footer-logo-text {
@@ -1326,76 +1258,111 @@ a:focus-visible {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: var(--s-xs);
 }
+.footer-logo-link:hover .footer-logo-text,
+.footer-logo-link:focus-visible .footer-logo-text {
+    filter: brightness(1.15);
+}
+.footer-logo-link:focus-visible {
+    outline: 2px dashed var(--yellow);
+    outline-offset: 3px;
+    border-radius: var(--r-s);
+}
+
 
 .footer-nav {
     display: flex;
-    flex-wrap: wrap; /* Allow nav links to wrap */
+    flex-wrap: wrap; 
     justify-content: center;
-    gap: var(--s-m);
-    margin-bottom: var(--s-m);
+    gap: var(--s-s) var(--s-l); /* Row and column gap */
+    margin-bottom: var(--s-xs);
 }
+.footer-links-list { /* Remove ul default styles */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Align items in a row */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--s-s) var(--s-l);
+}
+
 
 .footer-nav-link {
     color: var(--text-2);
     text-decoration: none;
     font-size: var(--t-s);
-    transition: color var(--trans);
+    transition: color var(--trans), text-shadow var(--trans);
 }
 
 .footer-nav-link:hover, .footer-nav-link:focus-visible {
     color: var(--cyan);
     text-decoration: underline;
+    text-shadow: 0 0 5px rgba(var(--cyan-rgb), .5);
 }
 .footer-nav-link:focus-visible {
-    outline: 1px dashed var(--yellow); /* Subtle focus for footer */
+    outline: 1px dashed var(--yellow); 
     outline-offset: 2px;
 }
 
 
 .footer-social-links {
     display: flex;
-    gap: var(--s-l); /* Wider gap for social icons */
+    gap: var(--s-xl); 
     justify-content: center;
-    margin-bottom: var(--s-m);
+    margin-bottom: var(--s-xs);
 }
 
 .footer-social-links .social-link {
     color: var(--text-2);
-    font-size: var(--t-xl); /* Larger social icons */
+    font-size: var(--t-xl); 
     transition: color var(--trans), transform var(--trans);
-    display: inline-block; /* For transform */
+    display: inline-block; 
 }
+/* Placeholder icon styling */
+.social-link .icon-placeholder-discord::before { content: "👾"; }
+.social-link .icon-placeholder-telegram::before { content: "✈️"; }
+.social-link .icon-placeholder-github::before { content: "💻"; }
+
 
 .footer-social-links .social-link:hover,
 .footer-social-links .social-link:focus-visible {
     color: var(--cyan);
-    transform: scale(1.15) translateY(-2px);
+    transform: scale(1.2) translateY(-3px); /* More pronounced hover */
 }
 .footer-social-links .social-link:focus-visible {
-    outline: 1px dashed var(--yellow);
+    outline: 2px solid var(--yellow);
     outline-offset: 3px;
-    border-radius: 50%; /* If icons are circular */
+    border-radius: 50%; 
 }
-
-/* Placeholder for actual icons - replace with SVGs or icon font */
-.social-link .icon-placeholder-facebook::before { content: "FB"; }
-.social-link .icon-placeholder-twitter::before { content: "TW"; }
-.social-link .icon-placeholder-instagram::before { content: "IG"; }
-.social-link .icon-placeholder-discord::before { content: "DS"; }
 
 
 .footer-copyright {
     font-size: var(--t-xs);
     color: var(--text-3);
-    line-height: 1.5;
+    line-height: 1.6; /* Improved readability */
 }
-.footer-copyright a { /* Style links in copyright */
+.footer-copyright p {
+    margin-bottom: var(--s-xs); /* Space between copyright lines */
+    font-size: inherit; /* Ensure p tag inherits font size */
+    color: inherit;
+}
+.footer-copyright p:last-child {
+    margin-bottom: 0;
+}
+
+.footer-copyright a { 
     color: var(--text-2);
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
-.footer-copyright a:hover {
+.footer-copyright a:hover, .footer-copyright a:focus-visible {
     color: var(--cyan);
+    text-decoration-color: var(--cyan);
+}
+.footer-copyright a:focus-visible {
+    outline: 1px dashed var(--yellow);
+    outline-offset: 1px;
 }
 
 
@@ -1440,6 +1407,10 @@ a:focus-visible {
     @keyframes svgPulse {
         from { transform: scale(1); }
         to { transform: scale(1.05); }
+    }
+    @keyframes toastProgress {
+        from { transform: scaleX(1); } /* Changed to scaleX for horizontal progress */
+        to { transform: scaleX(0); }
     }
 }
 
@@ -1549,11 +1520,16 @@ a:focus-visible {
         max-width: calc(100% - 2 * var(--s-s)); 
         width: 100%;
     }
-    .footer-nav {
-        gap: var(--s-s); /* Tighter gap for footer nav on mobile */
+    .footer-links-list { /* Stack footer links on mobile */
+        flex-direction: column;
+        gap: var(--s-xs);
     }
     .footer-social-links {
         gap: var(--s-m);
+    }
+    .site-footer-main {
+        /* padding-top: var(--s-xl); Handled by section-padding */
+        /* padding-bottom: var(--s-m); */
     }
 
 }
@@ -1618,7 +1594,7 @@ a:focus-visible {
     .spinner-ring,
     .loading-text,
     .hero-title,
-    .logo-gamepad { /* Added logo-gamepad to stop its pulse */
+    .logo-gamepad { 
         animation: none !important;
     }
 }
@@ -1681,16 +1657,18 @@ a:focus-visible {
     padding: var(--s-xs) var(--s-s);
     border-radius: var(--r-m);
     cursor: pointer;
-    transition: background-color var(--trans), color var(--trans);
+    transition: background-color var(--trans), color var(--trans), transform var(--trans-fast);
     font-size: var(--t-s);
     position: fixed; 
     bottom: var(--s-m);
     right: var(--s-m);
     z-index: var(--z-modal); 
+    line-height: 1; /* Ensure text is centered */
 }
 .theme-toggle-button:hover, .theme-toggle-button:focus-visible {
     background-color: var(--blue);
     color: var(--bg-1); 
+    transform: scale(1.05);
 }
 .theme-toggle-button:focus-visible { outline-offset: 1px; }
 
@@ -1766,5 +1744,23 @@ a:focus-visible {
 .gamepad-element:hover {
     filter: drop-shadow(0 0 12px currentColor) brightness(1.1);
 }
+.toast::before { /* Toast progress bar */
+    content: '';
+    position: absolute;
+    bottom: 0; /* Progress from bottom */
+    left: 0;
+    height: 4px; /* Thicker progress bar */
+    width: 100%; /* Full width */
+    background: var(--blue); /* Default color, can be overridden by type */
+    transform-origin: left; /* Progress from left to right */
+    animation: toastProgress 3s linear forwards; /* Forwards to keep state at 0% */
+    will-change: transform;
+}
+
+.toast.success::before { background: var(--green); }
+.toast.error::before { background: var(--pink); }
+.toast.warning::before { background: var(--yellow); }
+.toast.info::before { background: var(--blue); }
+
 
 /* End of GGenius Revolution CSS */
