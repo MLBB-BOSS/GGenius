@@ -146,7 +146,7 @@ body::before{
 .container{width:var(--container);margin:0 auto;padding:0 var(--s-s);contain:layout}
 
 /* Typography Hierarchy */
-h1,h2,h3,h4,h5,h6{ /* h1 was used by .hero-title, but general h1 style can remain if used elsewhere */
+h1,h2,h3,h4,h5,h6{ 
     font-family:var(--f1);font-weight:700;line-height:1.3;color:var(--text-1);
     margin-bottom:var(--s-m);text-wrap:balance
 }
@@ -235,8 +235,7 @@ a:hover,a:focus-visible{
 }
 .nav-link:hover::after,.nav-link:focus-visible::after,.nav-link.active::after{width:70%}
 
-/* Hero Section - Styles for .hero-section, .hero-content, .hero-logo-container, .hero-title, .hero-section .subtitle, .scroll-down-indicator, .hero-actions, .cta-button.hero-cta, .cta-button.cta-yellow, .hero-stats and their children are REMOVED as the entire section is gone. */
-/* SVG Logo styles (#ggeniusAnimatedLogo and its children) are REMOVED. */
+/* Hero Section related styles are removed */
 
 /* General .cta-button styles remain as they are used by .newsletter-submit */
 .cta-button{
@@ -248,8 +247,7 @@ a:hover,a:focus-visible{
     white-space:nowrap;contain:layout;will-change:transform,box-shadow
 }
 .cta-button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-/* .cta-button.hero-cta and .cta-button.cta-yellow specific styles are removed */
-.newsletter-submit{position:relative} /* This uses .cta-button */
+.newsletter-submit{position:relative} 
 .button-text{z-index:1;position:relative}
 
 
@@ -373,6 +371,11 @@ a:hover,a:focus-visible{
     font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
     backdrop-filter:blur(10px);animation:statusGlow 3s ease-in-out infinite alternate
 }
+/* Added specificity for enhanced cards to fix overlap */
+.feature-card-iui.enhanced .feature-status {
+    top: 1.5rem; 
+    right: 1.5rem;
+}
 .status-development{
     background:linear-gradient(135deg,rgba(0,255,136,.2),rgba(0,212,255,.2));
     color:var(--green);border:1px solid var(--green);box-shadow:0 0 20px rgba(0,255,136,.3)
@@ -413,7 +416,9 @@ a:hover,a:focus-visible{
 }
 .timeline-content{
     width:45%;background:linear-gradient(135deg,rgba(26,29,35,.95),rgba(37,42,50,.95)),var(--g-holo);
-    padding:3rem;border-radius:25px;border:2px solid rgba(0,255,255,.3);
+    /* Increased top padding to prevent overlap with marker */
+    padding: 4rem 3rem 3rem; 
+    border-radius:25px;border:2px solid rgba(0,255,255,.3);
     backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 80px rgba(0,255,255,.2);
     transition:all .6s;position:relative;overflow:hidden
 }
@@ -506,8 +511,7 @@ a:hover,a:focus-visible{
     border:1px solid rgba(255,193,7,.3);margin-top:var(--s-2xl)
 }
 
-/* Tech Stack Section - Styles for .tech-stack-section, .tech-categories, .tech-category, .category-title (for tech stack), .tech-logos, .tech-item, .tech-description are REMOVED as the entire section is gone. */
-
+/* Tech Stack Section related styles are removed */
 
 /* Contact Section Enhanced */
 .contact-section{padding:var(--s-2xl) 0}
@@ -640,7 +644,6 @@ a:hover,a:focus-visible{
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 @keyframes bgMove{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-/* @keyframes neuralPulse, @keyframes cyberpunkShift, @keyframes heroSlideIn, @keyframes titleGlow, @keyframes pulseGlow, @keyframes statsContainer, @keyframes numberGlow, @keyframes svgDrawStroke, @keyframes svgFadeIn, @keyframes svgDrawStrokeAndFadeIn, @keyframes fadeInScrollIndicator, @keyframes bounceArrow ARE REMOVED as they were for hero elements */
 @keyframes borderRotate{to{transform:rotate(360deg)}}
 @keyframes statusGlow{0%,100%{opacity:.8}50%{opacity:1;filter:brightness(1.2)}}
 @keyframes tabFadeIn{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -658,13 +661,12 @@ a:hover,a:focus-visible{
         border-top:1px solid rgba(255,255,255,.1);backdrop-filter:blur(20px)
     }
     .nav-menu.open{display:flex}
-    /* .hero-title rule removed */
-    .timeline-content{width:90%;margin:0 auto}
+    .timeline-content{width:90%;margin:0 auto; padding: 3rem 2rem 2rem;} /* Adjusted padding for mobile */
     .timeline-marker{width:80px;height:80px;font-size:1.2rem}
     .category-tab{padding:1rem 1.5rem}
     .feature-card-iui.enhanced{padding:2rem}
+    .feature-card-iui.enhanced .feature-status { top: 1rem; right: 1rem; } /* Slightly less offset on mobile for enhanced cards */
     .contact-grid{grid-template-columns:1fr}
-    /* .tech-categories rule for 1fr removed as section is gone */
     .mission-vision{grid-template-columns:1fr}
     .toast-container{
         top:calc(var(--header-h) + var(--s-s));right:var(--s-s);left:var(--s-s);
@@ -674,40 +676,30 @@ a:hover,a:focus-visible{
 }
 
 @media (max-width:480px){
-    /* .hero-actions rule removed */
-    /* .cta-button rule for hero removed */
-    /* .tech-category rule for padding removed */
-    .timeline-content{padding:2rem}
+    .timeline-content{padding: 2.5rem 1.5rem 1.5rem;} /* Further refined padding for very small screens */
     .feature-card-iui.enhanced{padding:1.5rem}
+    .feature-card-iui.enhanced .feature-status { top: 0.75rem; right: 0.75rem; font-size: 0.7rem; padding: 0.4rem 0.8rem;}
     .newsletter-form{padding:var(--s-l)}
     .contact-link{padding:var(--s-m)}
-    /* .hero-section .subtitle rule removed */
-    /* .scroll-down-indicator rule removed */
 }
 
-/* High DPI Displays */
-/* @media (min-resolution:2dppx){
-    .hero-section::after{background-size:240px 240px,360px 360px,160px 160px,120px 120px} Removed
-} */
+/* High DPI Displays - No specific changes related to hero section */
 
 /* Reduced Motion */
 @media (prefers-reduced-motion:reduce){
     *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-    /* .hero-section::after rule removed */
     .gaming-cursor{display:none}
-    /* .scroll-down-indicator animation rule removed */
 }
 
 /* Dark Theme Enhancements */
 @media (prefers-color-scheme:dark){
-    :root{--bg-1:#000;--bg-2:#111;--bg-3:#222} /* This can remain as a general dark theme adjustment */
+    :root{--bg-1:#000;--bg-2:#111;--bg-3:#222} 
 }
 
 /* Print Styles */
 @media print{
-    .site-header,.gaming-cursor,.scroll-progress,.loading-screen,.toast-container /*.scroll-down-indicator removed */ {display:none}
+    .site-header,.gaming-cursor,.scroll-progress,.loading-screen,.toast-container {display:none}
     body{padding-top:0;background:white;color:black}
-    /* .hero-section::after rule removed */
     a{color:blue;text-decoration:underline}
 }
 
@@ -723,4 +715,4 @@ a:hover,a:focus-visible{
 .contain-paint{contain:paint}
 .contain-strict{contain:strict}
 
-/* Styles for .hero-stats and its children are REMOVED as the section is gone */
+/* Styles for .hero-stats and its children are REMOVED */
