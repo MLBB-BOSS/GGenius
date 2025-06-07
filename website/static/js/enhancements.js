@@ -2,7 +2,7 @@
  * GGenius Enhanced Interactive Experience
  * Performance-optimized ES2023+ JavaScript for cyberpunk AI platform
  * @version 2.2.5 // Enhanced with robust audio, UI, and error handling
- * @author MLBB-BOSS
+ * @author GGenius Team
  * @see GGeniusApp
  */
 
@@ -255,7 +255,7 @@ class GGeniusApp {
             const messages = [
                 'Ініціалізація GGenius AI...', 'Завантаження нейронних мереж...',
                 'Підключення до кіберспорт серверів...', 'Активація штучного інтелекту...',
-                'Синхронізація з MLBB API...', 'Готовність до революції!'
+                'Синхронізація з eSports API...', 'Готовність до революції!'
             ];
             let messageIndex = 0;
 
@@ -663,7 +663,7 @@ class GGeniusApp {
     setupTabs() {
         document.querySelectorAll('.tabs-component').forEach(tabsComponent => {
             const tabs = Array.from(tabsComponent.querySelectorAll('[role="tab"]'));
-            const panels = Array.from(tabsComponent.querySelectorAll('[role="tabpanel"]'));
+            const panels = Array.from(tabsComponent.querySelectorAll'[role="tabpanel"]'));
             tabs.forEach((tab, index) => {
                 tab.setAttribute('aria-controls', panels[index].id);
                 this._addEventListener(tab, 'click', () => this.switchTab(tab, tabs, panels), `tabClick-${index}`);
