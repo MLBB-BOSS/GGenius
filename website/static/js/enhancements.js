@@ -1,7 +1,7 @@
 /**
  * GGenius Enhanced Interactive Experience
  * Performance-optimized ES2023+ JavaScript for cyberpunk AI platform
- * @version 2.2.3 // Iteration with focused improvements
+ * @version 2.2.4 // Robust loading screen handling
  * @author MLBB-BOSS
  * @see GGeniusApp
  */
@@ -56,7 +56,7 @@ class GGeniusApp {
      * @returns {string} The current version of the script.
      */
     getVersion() {
-        return "2.2.3"; 
+        return "2.2.4"; 
     }
 
     /**
@@ -371,7 +371,7 @@ class GGeniusApp {
         if (harmony && frequencies.length === 1) { 
             const intervals = [frequencies[0] * (5/4), frequencies[0] * (3/2)]; 
             intervals.forEach(harmonicFreq => {
-                this.synthesizeSound({ ...config, frequency: harmonicFreq, volume: volume * 0.4, harmony: false, sparkle: false, reverb: { ...config.reverb, mix: (config.reverb?.mix || 0.3) * 0.5 } });
+                this.synthesizeSound({ ...config, frequency: harmonicFreq, volume: volume * 0.4, harmony: false, sparkle: false, reverb: { ...config.reverb, mix: (config.reverb?.mix || 0.3) * 0.5 }, d[...]
             });
         }
 
@@ -564,8 +564,16 @@ class GGeniusApp {
      */
     async simulateLoading() {
         return new Promise((resolve) => {
+            // If loadingScreen itself is missing, we can't simulate.
+            if (!this.loadingScreen) {
+                console.warn("Loading screen element not found, skipping simulation.");
+                resolve();
+                return;
+            }
+            // If progressBar or loadingTextElement are missing, hide immediately and resolve.
             if (!this.progressBar || !this.loadingTextElement) {
-                this.hideLoadingScreen(true);
+                console.warn("Loading progress bar or text element not found, hiding loading screen.");
+                this.hideLoadingScreen(true); // hideLoadingScreen already checks if this.loadingScreen exists
                 resolve();
                 return;
             }
@@ -576,18 +584,19 @@ class GGeniusApp {
                 'Підключення до кіберспорт серверів...', 'Активація штучного інтелекту...',
                 'Синхронізація з MLBB API...', 'Готовність до революції!'
             ];
-            let messageIndex = 0;
+            let messageIndex = 0; // Keep track of the current message index
 
             const updateProgress = () => {
                 const increment = Math.random() * 15 + 5;
                 progress = Math.min(progress + increment, 100);
                 
-                if (this.progressBar) {
+                if (this.progressBar) { // Check again just in case
                     this.progressBar.style.transform = `scaleX(${progress / 100})`;
                     this.progressBar.setAttribute('aria-valuenow', String(Math.round(progress)));
                 }
                 
                 const currentMessageIndex = Math.min(Math.floor((progress / 100) * messages.length), messages.length - 1);
+                // Only update text and play sound if the message actually changes
                 if (this.loadingTextElement && messages[currentMessageIndex] && messageIndex !== currentMessageIndex) {
                     messageIndex = currentMessageIndex;
                     this.updateLoadingText(messages[messageIndex]);
@@ -598,7 +607,10 @@ class GGeniusApp {
                     setTimeout(updateProgress, 100 + Math.random() * 150);
                 } else {
                     if (this.progressBar) this.progressBar.style.transform = 'scaleX(1)';
-                    if (this.loadingTextElement) this.updateLoadingText(messages[messages.length - 1]);
+                    // Ensure final message is displayed
+                    if (this.loadingTextElement && messages[messages.length - 1] !== this.loadingTextElement.textContent) {
+                        this.updateLoadingText(messages[messages.length - 1]);
+                    }
                     this.playSound('loading_complete');
                     setTimeout(() => {
                         this.hideLoadingScreen();
@@ -606,6 +618,8 @@ class GGeniusApp {
                     }, 600);
                 }
             };
+            // Initial call
+            if (this.loadingTextElement) this.updateLoadingText(messages[0]);
             updateProgress();
         });
     }
@@ -621,7 +635,7 @@ class GGeniusApp {
         this.loadingScreen.setAttribute('aria-hidden', 'true');
         
         if (!immediate && !this.performance.isLowPerformance) {
-             this.playSound('loading_complete');
+             this.playSound('loading_complete'); // Sound was 'modal_close', changed to 'loading_complete'
         }
         
         setTimeout(() => {
@@ -713,7 +727,7 @@ class GGeniusApp {
 
         const modalContent = `
             <p>Ласкаво просимо до демонстрації GGenius AI!</p>
-            <p>Наразі ця функція знаходиться в розробці. Слідкуйте за оновленнями, щоб першими випробувати революційні можливості GGenius.</p>
+            <p>Наразі ця функція знаходиться в розробці. Слідкуйте за оновленнями, щоб першими випробувати революц[...]
             <div class="modal-feature-preview">
                 <h4>Що очікувати:</h4>
                 <ul>
@@ -759,7 +773,7 @@ class GGeniusApp {
         if (actions.length > 0) {
             actionsHTML = '<div class="modal-actions">';
             actions.forEach((action, index) => {
-                actionsHTML += `<button type="button" class="modal-button ${action.primary ? 'button-primary cta-button primary-cta' : 'button-secondary cta-button secondary-cta'}" data-action-index="${index}">${action.text}</button>`;
+                actionsHTML += `<button type="button" class="modal-button ${action.primary ? 'button-primary cta-button primary-cta' : 'button-secondary cta-button secondary-cta'}" data-action-index="[...]
             });
             actionsHTML += '</div>';
         }
@@ -1085,20 +1099,22 @@ class GGeniusApp {
      * Preloads critical resources.
      */
     preloadResources() {
-        const resources = [
-            // { href: '/static/images/critical-hero.webp', as: 'image', fetchpriority: 'high' },
-            // Add other critical resources if any not covered by HTML preloads.
-        ];
-        resources.forEach(res => {
-            const link = document.createElement('link');
-            link.rel = 'preload'; 
-            if (res.as) link.as = res.as;
-            link.href = res.href;
-            if (res.type) link.type = res.type;
-            if (res.crossOrigin) link.crossOrigin = res.crossOrigin;
-            if (res.fetchpriority) link.setAttribute('fetchpriority', res.fetchpriority);
-            document.head.appendChild(link);
-        });
+        // Most critical resources are usually handled by <link rel="preload"> in HTML.
+        // This method can be used for dynamic preloading if needed.
+        // Example:
+        // const resources = [
+        //     { href: '/static/images/important-icon.svg', as: 'image', type: 'image/svg+xml' },
+        // ];
+        // resources.forEach(res => {
+        //     const link = document.createElement('link');
+        //     link.rel = 'preload'; 
+        //     if (res.as) link.as = res.as;
+        //     link.href = res.href;
+        //     if (res.type) link.type = res.type;
+        //     if (res.crossOrigin) link.crossOrigin = res.crossOrigin;
+        //     if (res.fetchpriority) link.setAttribute('fetchpriority', res.fetchpriority);
+        //     document.head.appendChild(link);
+        // });
     }
 
     /**
@@ -1170,7 +1186,8 @@ class GGeniusApp {
      * @private
      */
     _startAmbientMusicLogic() {
-        if (!this.audioContext || !this.ambientGain || this.ambientOscillators || this.audioContext.state === 'closed') return;
+        if (!this.audioContext || !this.ambientGain || this.audioContext.state === 'closed') return;
+        if (this.ambientOscillators) this.stopAmbientMusic(); // Stop existing before starting new
 
         this.ambientOscillators = [
             this.audioContext.createOscillator(), 
@@ -1216,12 +1233,16 @@ class GGeniusApp {
         if (this.ambientOscillators && this.audioContext && this.audioContext.state !== 'closed') {
             const now = this.audioContext.currentTime;
             this.ambientOscillators.forEach(osc => {
-                try { osc.stop(now); } catch(e) { /* ignore if already stopped */ }
+                try { osc.stop(now); osc.disconnect(); } catch(e) { /* ignore */ }
             });
             this.ambientOscillators = null;
             
             if (this.audioNodes.has('ambientLFO')) {
-                try { this.audioNodes.get('ambientLFO').stop(now); } catch(e) { /* ignore */ }
+                try { 
+                    const lfo = this.audioNodes.get('ambientLFO');
+                    lfo.stop(now); 
+                    lfo.disconnect();
+                } catch(e) { /* ignore */ }
                 this.audioNodes.delete('ambientLFO');
             }
             console.log("🌌 Ambient music stopped.");
@@ -1234,13 +1255,17 @@ class GGeniusApp {
     setupGamingCursor() {
         if (this.performance.isLowPerformance || !window.matchMedia?.('(pointer: fine)').matches || window.innerWidth <= 768) return;
 
-        const cursorEl = document.createElement('div');
-        cursorEl.className = 'gaming-cursor';
-        document.body.appendChild(cursorEl);
+        let cursorEl = document.querySelector('.gaming-cursor');
+        if (!cursorEl) {
+            cursorEl = document.createElement('div');
+            cursorEl.className = 'gaming-cursor';
+            document.body.appendChild(cursorEl);
 
-        const dot = document.createElement('div');
-        dot.className = 'gaming-cursor-dot';
-        cursorEl.appendChild(dot);
+            const dot = document.createElement('div');
+            dot.className = 'gaming-cursor-dot';
+            cursorEl.appendChild(dot);
+        }
+
 
         let mouseX = 0, mouseY = 0;
         let cursorX = 0, cursorY = 0;
@@ -1252,15 +1277,18 @@ class GGeniusApp {
         }, 'gamingCursorMove');
 
         const animateCursor = () => {
+            if (!document.body.contains(cursorEl)) { // Stop if cursor removed
+                this.animations.delete('gamingCursor');
+                return;
+            }
             cursorX += (mouseX - cursorX) * speed;
             cursorY += (mouseY - cursorY) * speed;
             cursorEl.style.transform = `translate3d(${cursorX - cursorEl.offsetWidth / 2}px, ${cursorY - cursorEl.offsetHeight / 2}px, 0)`;
             this.animations.set('gamingCursor', requestAnimationFrame(animateCursor));
         };
-        if (!this.animations.has('gamingCursor')) { // Avoid multiple rAF loops
+        if (!this.animations.has('gamingCursor')) { 
             this.animations.set('gamingCursor', requestAnimationFrame(animateCursor));
         }
-
 
         document.querySelectorAll('a, button, [role="button"], [role="tab"], .feature-card-iui, .mobile-menu-toggle, .category-tab, .contact-link, .accordion-header')
             .forEach(el => {
@@ -1327,7 +1355,7 @@ class GGeniusApp {
         this.animations.forEach((id, key) => {
             if (key.startsWith('counter-') || key === 'gamingCursor' || key === 'fpsMonitor') { 
                 cancelAnimationFrame(id);
-            } else if (key.startsWith('toastTimeout-') || key.startsWith('anim-')) { // Assuming these are timeout IDs
+            } else if (key.startsWith('toastTimeout-') || key.startsWith('anim-')) { 
                 clearTimeout(id);
             }
         });
@@ -1341,24 +1369,38 @@ class GGeniusApp {
      */
     resumeAnimationsAndAudio() {
         console.log('▶️ Page visible. Resuming animations and audio.');
-        // Restart rAF loops. Counters might need re-triggering if they were based on scroll.
-        // For simplicity, gamingCursor will restart its rAF loop if conditions are met.
-        // FPS monitor can also restart.
-        if (this.animations.has('gamingCursor') && !document.querySelector('.gaming-cursor')) { 
-            if (!this.performance.isLowPerformance && window.matchMedia?.('(pointer: fine)').matches && window.innerWidth > 768) {
-                 this.setupGamingCursor(); 
+        
+        // Restart gaming cursor if it was active
+        if (this.animations.has('gamingCursor') || (window.innerWidth > 768 && !this.performance.isLowPerformance && window.matchMedia?.('(pointer: fine)').matches)) {
+            if (!document.querySelector('.gaming-cursor')) { // If it was removed, recreate
+                this.setupGamingCursor();
+            } else if (!this.animations.has('gamingCursor')) { // If rAF was cancelled but element exists
+                 const cursorEl = document.querySelector('.gaming-cursor');
+                 if (cursorEl) {
+                    let mouseX = 0, mouseY = 0; // Re-scope or access stored values if needed
+                    let cursorX = parseFloat(cursorEl.style.left || 0), cursorY = parseFloat(cursorEl.style.top || 0);
+                    const speed = 0.2;
+                    const animateCursor = () => {
+                        if (!document.body.contains(cursorEl)) { this.animations.delete('gamingCursor'); return; }
+                        cursorX += (mouseX - cursorX) * speed;
+                        cursorY += (mouseY - cursorY) * speed;
+                        cursorEl.style.transform = `translate3d(${cursorX - cursorEl.offsetWidth / 2}px, ${cursorY - cursorEl.offsetHeight / 2}px, 0)`;
+                        this.animations.set('gamingCursor', requestAnimationFrame(animateCursor));
+                    };
+                    this.animations.set('gamingCursor', requestAnimationFrame(animateCursor));
+                 }
             }
-        } else if (this.animations.has('gamingCursor') && document.querySelector('.gaming-cursor')) {
-            // If it was just paused, the rAF loop will continue via its own logic or next mousemove
-            // To be certain, can re-initiate the rAF if it was truly paused.
-            // For now, assuming mousemove will pick it up or it's self-looping.
         }
-        if (this.animations.has('fpsMonitor') && (window.location.hostname === 'localhost' || window.location.search.includes('debugFPS'))) {
+        // Restart FPS monitor if conditions met
+        if (this.animations.has('fpsMonitor') || (window.location.hostname === 'localhost' || window.location.search.includes('debugFPS'))) {
             // this.setupFrameRateMonitoring(30000); // Could restart it
         }
 
         if (this.audioContext && this.audioContext.state === 'suspended') {
             this.audioContext.resume().catch(e => console.warn("Error resuming audio context:", e));
+        }
+         if (this.settings.musicEnabled && !this.ambientOscillators) {
+            this.startAmbientMusic();
         }
     }
 
@@ -1378,14 +1420,18 @@ class GGeniusApp {
             fallbackMessage = document.createElement('div');
             fallbackMessage.id = 'fallback-message-container';
             fallbackMessage.style.cssText = `
-                position: fixed; top: 0; left: 0; width: 100%; background: #ff4d4d; color: white;
-                padding: 15px; text-align: center; z-index: 10000; font-family: sans-serif;
+                position: fixed; top: 0; left: 0; width: 100%; background: #cc0000; color: white; /* Darker red */
+                padding: 15px 20px; text-align: center; z-index: 100000; font-family: 'Open Sans', sans-serif;
+                font-size: 16px; line-height: 1.5; box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                border-bottom: 3px solid #990000;
             `;
             document.body.prepend(fallbackMessage);
         }
         fallbackMessage.innerHTML = `
-            <p>Виникла помилка під час завантаження GGenius. Деякі інтерактивні функції можуть бути недоступні.</p>
-            <p>Будь ласка, спробуйте оновити сторінку. Якщо проблема не зникне, зв'яжіться з підтримкою.</p>
+            <p style="margin: 0 0 5px 0; font-weight: bold;">Виникла помилка під час завантаження GGenius.</p>
+            <p style="margin: 0 0 10px 0; font-size: 0.9em;">Деякі інтерактивні функції можуть бути недоступні.</p>
+            <p style="margin: 0; font-size: 0.9em;">Будь ласка, спробуйте <a href="${window.location.href}" style="color: #ffdddd; text-decoration: underline;">оновити сторінку</a>. 
+            Якщо проблема не зникне, зв'яжіться з підтримкою.</p>
         `;
         this.setupBasicNavigationForFallback();
     }
@@ -1506,6 +1552,8 @@ class GGeniusApp {
         document.querySelector('.install-banner-ggenius')?.remove();
         document.querySelectorAll('.context-menu-ggenius').forEach(menu => menu.remove());
         document.getElementById('scrollProgress')?.remove();
+        document.getElementById('fallback-message-container')?.remove();
+
 
         console.log('💀 GGeniusApp instance destroyed.');
     }
@@ -1515,7 +1563,10 @@ class GGeniusApp {
      * @returns {HTMLElement} The scroll progress bar element.
      */
     createScrollProgress() {
-        const progress = document.createElement('div');
+        let progress = document.getElementById('scrollProgress');
+        if (progress) return progress; // Already exists
+
+        progress = document.createElement('div');
         progress.className = 'scroll-progress'; 
         progress.id = 'scrollProgress';
         progress.setAttribute('role', 'progressbar');
@@ -1536,8 +1587,10 @@ class GGeniusApp {
         if (!this.loadingTextElement) return;
         this.loadingTextElement.style.opacity = '0';
         setTimeout(() => {
-            this.loadingTextElement.textContent = text;
-            this.loadingTextElement.style.opacity = '1';
+            if (this.loadingTextElement) { // Check again in case it was removed
+                this.loadingTextElement.textContent = text;
+                this.loadingTextElement.style.opacity = '1';
+            }
         }, 150); 
     }
     
@@ -1551,9 +1604,9 @@ class GGeniusApp {
         this.loadingTextElement = document.getElementById('loadingText'); 
         this.header = document.querySelector('.site-header');
         this.scrollProgress = document.getElementById('scrollProgress') || this.createScrollProgress();
-        this.heroSection = document.querySelector('.project-intro-hero'); // Updated selector
-        this.navMenu = document.querySelector('#main-menu-list.nav-menu'); // More specific selector
-        this.mobileToggle = document.querySelector('#mobileMenuToggle.mobile-menu-toggle'); // More specific
+        this.heroSection = document.querySelector('.project-intro-hero'); 
+        this.navMenu = document.querySelector('#main-menu-list.nav-menu'); 
+        this.mobileToggle = document.querySelector('#mobileMenuToggle.mobile-menu-toggle'); 
         
         if (this.loadingScreen && !this.performance.isLowPerformance) {
             await this.simulateLoading();
@@ -1684,9 +1737,6 @@ class GGeniusApp {
         this.observers.forEach((observer, key) => {
             if (typeof key === 'string' && !key.startsWith('perf-') && key !== 'intersection' && key !== 'logoAnimationObserver') {
                 try {
-                     // A more direct way to check if observer might be stale is if its 'root' is no longer connected.
-                     // However, IntersectionObserver API doesn't directly expose targets for easy DOM check.
-                     // We'll rely on specific keys or be more general.
                     if (key.startsWith('io-') && !document.getElementById(key.substring(3)) && !document.querySelector(`[data-observer-key="${key}"]`)) {
                         observer.disconnect(); this.observers.delete(key);
                         console.log(`🧹 Removed potentially stale observer: ${key}`);
@@ -1766,9 +1816,8 @@ class GGeniusApp {
             this._addEventListener(window, 'scroll', this.handleScroll, 'scrollProgressUpdater');
             this._handleScroll(); 
         }
-        // Parallax setup (requires .hero-floating-elements and .floating-gaming-icon in HTML)
-        if (this.heroSection && this.heroSection.querySelector('.project-decorations')) { // Adjusted to use existing .project-decorations
-            // this.setupParallax(); // Parallax needs specific elements like .floating-gaming-icon, which are not present
+        if (this.heroSection && this.heroSection.querySelector('.project-decorations')) { 
+            // this.setupParallax(); // Parallax logic can be added here if needed
         }
         this.setupIntersectionObserver(); 
     }
@@ -1791,32 +1840,20 @@ class GGeniusApp {
     }
 
     /**
-     * Sets up parallax scrolling effects for elements within the hero section.
-     * Note: Requires specific HTML structure (.hero-floating-elements, .floating-gaming-icon with data-parallax-speed).
+     * Sets up parallax scrolling effects for elements.
+     * (Placeholder: Actual parallax implementation would require specific element selectors and logic)
      */
     setupParallax() {
-        if (!this.heroSection) return;
-        // This selector needs to exist in your HTML if you want parallax.
-        // Example: <div class="hero-floating-elements"><div class="floating-gaming-icon" data-parallax-speed="0.3">...</div></div>
-        const parallaxContainer = this.heroSection.querySelector('.hero-floating-elements'); 
-        if (!parallaxContainer || this.performance.isLowPerformance) return;
-        const parallaxElements = Array.from(parallaxContainer.querySelectorAll('.floating-gaming-icon')); 
-        if (parallaxElements.length === 0) return;
-        let ticking = false;
-        const updateParallax = () => {
-            const heroRect = this.heroSection.getBoundingClientRect();
-            if (heroRect.bottom < 0 || heroRect.top > window.innerHeight) { ticking = false; return; }
-            const scrollY = window.scrollY;
-            parallaxElements.forEach((element) => {
-                let speed = parseFloat(element.dataset.parallaxSpeed);
-                if (isNaN(speed) || speed <=0 || speed > 1) speed = 0.2 + Math.random() * 0.2; 
-                const yPos = -(scrollY * speed * 0.3); 
-                element.style.transform = `translate3d(0, ${yPos.toFixed(2)}px, 0)`;
-            });
-            ticking = false;
-        };
-        const onScrollParallax = () => { if (!ticking) { window.requestAnimationFrame(updateParallax); ticking = true; } };
-        this._addEventListener(window, 'scroll', onScrollParallax, 'parallaxScrollHandler'); updateParallax(); 
+        // Example of how parallax might be set up if elements existed:
+        // const parallaxElements = document.querySelectorAll('[data-parallax-speed]');
+        // if (parallaxElements.length === 0 || this.performance.isLowPerformance) return;
+        // this._addEventListener(window, 'scroll', () => {
+        //     parallaxElements.forEach(el => {
+        //         const speed = parseFloat(el.dataset.parallaxSpeed) || 0.5;
+        //         const yPos = -(window.scrollY * speed * 0.1);
+        //         el.style.transform = `translateY(${yPos}px)`;
+        //     });
+        // }, 'parallaxScrollHandler');
     }
 
     /**
@@ -1832,17 +1869,15 @@ class GGeniusApp {
                     if (sectionId && entry.intersectionRatio > 0.4) {
                         this.updateActiveNavigation(sectionId);
                     }
-                     // Play scroll milestone sound for specific sections
                     if (entry.target.matches('.roadmap-quarter-block, .feature-card-iui, .goal-item')) {
                         this.playSound('scroll_milestone');
                     }
                     if (entry.target.dataset.animateOnce === 'true' || entry.target.classList.contains('animate-once') || entry.target.dataset.aosOnce === 'true') {
                        obs.unobserve(entry.target);
-                       // Construct a unique key for the observer map if el.id is not reliable/unique
                        const observerKey = `io-${entry.target.id || entry.target.dataset.aos || `el-${Math.random().toString(36).substring(2)}`}`;
                        this.observers.delete(observerKey); 
                     }
-                } else if (entry.target.dataset.animateOnce !== 'true' && !entry.target.classList.contains('animate-once') && !this.performance.isLowPerformance && entry.target.dataset.aosOnce !== 'true') {
+                } else if (entry.target.dataset.animateOnce !== 'true' && !entry.target.classList.contains('animate-once') && !this.performance.isLowPerformance && entry.target.dataset.aosOnce !== 'tr[...]
                     entry.target.classList.remove('aos-animate', 'animate-in', entry.target.dataset.aos || entry.target.dataset.animation || 'fadeInUp', 'animated');
                 }
             });
@@ -1852,11 +1887,10 @@ class GGeniusApp {
             section[id], .project-intro-card, .feature-card-iui, .roadmap-quarter-block, .goal-item, .tech-category, 
             .project-vision, .project-team, .newsletter-section, .contact-methods, .contact-stats, .accordion-header,
             [data-aos] 
-        `); // Added .accordion-header and other elements with data-aos
+        `);
         if (elementsToObserve.length > 0) {
             elementsToObserve.forEach((el) => {
                 observer.observe(el);
-                // Construct a unique key for the observer map
                 const observerKey = `io-${el.id || el.dataset.aos || `el-${Math.random().toString(36).substring(2)}`}`;
                 this.observers.set(observerKey, observer); 
             });
@@ -1911,7 +1945,6 @@ class GGeniusApp {
         if (isNaN(initialValue)) initialValue = 0;
 
         const counterKey = `counter-${element.id || Math.random().toString(36).substring(2)}`;
-        // Clear any existing animation for this counter
         if (this.animations.has(counterKey)) cancelAnimationFrame(this.animations.get(counterKey));
 
         const updateCounter = (currentTime) => {
@@ -2073,9 +2106,7 @@ class GGeniusApp {
             case 'End': e.preventDefault(); newIndex = numTabs - 1; break;
             default: return;
         }
-        if (newIndex !== currentIndex) {
-            tabs[newIndex].focus(); 
-        }
+        if (newIndex !== currentIndex) tabs[newIndex].focus(); 
     }
 
     /**
@@ -2112,7 +2143,7 @@ class GGeniusApp {
         }
         
         const transitionEndHandler = () => {
-            modal.removeEventListener('transitionend', transitionEndHandler); // Clean up listener
+            modal.removeEventListener('transitionend', transitionEndHandler); 
             modal.remove();
             this._removeEventListener(`modalCloseBtn-${modalId}`);
             this._removeEventListener(`modalOverlayClick-${modalId}`);
@@ -2130,7 +2161,7 @@ class GGeniusApp {
      */
     scrollToNewsletter() {
         const newsletterForm = document.getElementById('newsletterForm'); 
-        const targetElement = newsletterForm || document.querySelector('.newsletter-section'); // Fallback
+        const targetElement = newsletterForm || document.querySelector('.newsletter-section'); 
         if (targetElement) {
             targetElement.scrollIntoView({ behavior: this.performance.isLowPerformance ? 'auto' : 'smooth', block: 'center' });
             setTimeout(() => {
@@ -2265,7 +2296,7 @@ class GGeniusApp {
      */
     async setupInteractions() {
         this.setupFeatureCardInteractions();
-        const animatedLogoElement = document.querySelector('#ggeniusAnimatedLogo'); // Check if this ID exists in HTML
+        const animatedLogoElement = document.querySelector('#ggeniusAnimatedLogo'); 
         if (animatedLogoElement) {
             this.setupLogoAnimation(animatedLogoElement);
         }
@@ -2446,7 +2477,7 @@ class GGeniusApp {
      * @async
      */
     async setupServiceWorker() {
-        const swPath = '/sw.js'; // Ensure sw.js is at the root for scope '/'
+        const swPath = '/sw.js'; 
         try {
             const registration = await navigator.serviceWorker.register(swPath, { scope: '/' });
             console.log('✅ ServiceWorker registered. Scope:', registration.scope);
@@ -2477,7 +2508,7 @@ class GGeniusApp {
     showUpdateAvailable(registration) {
         const toastId = `updateToast-${Date.now()}`;
         const toast = this.showToast('Доступна нова версія GGenius! Оновити?', 'info', 0); 
-        if (!toast) return; // In case toast creation failed
+        if (!toast) return; 
         toast.id = toastId;
         const toastContent = toast.querySelector('.toast-content');
         if (toastContent) {
@@ -2514,7 +2545,6 @@ class GGeniusApp {
 
     /**
      * Placeholder for triggering entry animations not covered by IntersectionObserver.
-     * Currently, IntersectionObserver handles most entry animations.
      */
     triggerEntryAnimations() {
         // This method is largely handled by IntersectionObserver now.
