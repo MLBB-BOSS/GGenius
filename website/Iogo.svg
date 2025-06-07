@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ggenius-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="50%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Фон -->
+  <rect width="400" height="400" fill="#000000"/>
+
+  <!-- Пропорційний шестикутник -->
+  <polygon 
+    points="200,60 320,130 320,270 200,340 80,270 80,130" 
+    fill="none" 
+    stroke="url(#ggenius-gradient)" 
+    stroke-width="10" 
+    stroke-linejoin="round"/>
+</svg>
+
+<?xml version="1.0" encoding="UTF-8"?>
 <svg width="800" height="200" viewBox="0 0 800 200"
      xmlns="http://www.w3.org/2000/svg">
   <rect width="800" height="200" fill="#000000"/>
