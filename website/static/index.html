@@ -150,7 +150,7 @@
                 <ul id="main-menu-list" class="nav-menu" role="menubar">
                     <li role="none"><a href="#about-project" class="nav-link active" role="menuitem" aria-current="page" itemprop="url">Про проєкт</a></li>
                     <li role="none"><a href="#features" class="nav-link" role="menuitem" itemprop="url">AI Можливості</a></li>
-                    <li role="none"><a href="#our-aims" class="nav-link" role="menuitem" itemprop="url">Наші цілі</a></li> <!-- Посилання на нову секцію -->
+                    <li role="none"><a href="#our-aims" class="nav-link" role="menuitem" itemprop="url">Наші цілі</a></li>
                     <li role="none"><a href="#roadmap" class="nav-link" role="menuitem" itemprop="url">Roadmap</a></li>
                     <li role="none"><a href="#contact" class="nav-link" role="menuitem" itemprop="url">Контакти</a></li>
                 </ul>
@@ -159,7 +159,7 @@
     </header>
 
     <main id="main-content" role="main" itemprop="mainContentOfPage">
-        <!-- Project Introduction Card - Блок "Наші цілі" ВИРІЗАНО звідси -->
+        <!-- Project Introduction Card -->
         <section id="about-project" class="project-intro-hero section-padding" aria-labelledby="project-intro-title" itemscope itemtype="https://schema.org/AboutPage">
             <div class="container">
                 <div class="project-intro-card" data-aos="fade-up"> 
@@ -192,7 +192,7 @@
                             </p>
                         </div>
 
-                        <!-- Блок "Наші цілі" (<div class="project-goals">) БУВ ВИРІЗАНИЙ ЗВІДСИ -->
+                        <!-- Блок "Наші цілі" був переміщений в окрему секцію нижче -->
 
                         <div class="project-vision" data-aos="zoom-in-up">
                             <h3 class="vision-title">🌟 Наше бачення</h3>
@@ -449,12 +449,11 @@
             </div>
         </section> <!-- End of features -->
 
-        <!-- НОВА СЕКЦІЯ ДЛЯ "НАШИХ ЦІЛЕЙ" -->
+        <!-- Our Aims Section -->
         <section id="our-aims" class="section-padding our-aims-section" aria-labelledby="our-aims-main-title">
             <div class="container">
-                 <!-- Блок "Наші цілі" ПЕРЕМІЩЕНО СЮДИ -->
                 <div class="project-goals" data-aos="fade-up">
-                    <h3 id="our-aims-main-title" class="goals-title section-title-iui text-gradient">🎯 Наші цілі</h3> <!-- Додано клас section-title-iui для узгодженості -->
+                    <h2 id="our-aims-main-title" class="goals-title section-title-iui text-gradient">🎯 Наші цілі</h2>
                     <div class="goals-grid">
                         <div class="goal-item" data-aos="fade-right" data-aos-delay="100">
                             <div class="goal-icon">🧠</div>
@@ -571,14 +570,14 @@
             </div>
         </section> <!-- End of roadmap -->
 
-        <!-- About Section with Accordion -->
-        <section id="about" class="accordion-section enhanced section-padding" aria-labelledby="about-main-title" itemscope itemtype="https://schema.org/AboutPage">
+        <!-- About Section with Accordion (Tech Philosophy) -->
+        <section id="about" class="accordion-section enhanced section-padding" aria-labelledby="tech-philosophy-main-title" itemscope itemtype="https://schema.org/AboutPage">
             <div class="container">
-                <div class="accordion-header" id="about-main-title" role="button" tabindex="0" aria-expanded="false" aria-controls="about-content-panel" data-aos="fade-in">
+                <div class="accordion-header" id="tech-philosophy-main-title" role="button" tabindex="0" aria-expanded="false" aria-controls="tech-philosophy-content-panel" data-aos="fade-in">
                     <h2 itemprop="name">Технологічна філософія</h2>
                     <span class="accordion-indicator" aria-hidden="true">+</span>
                 </div>
-                <div id="about-content-panel" class="accordion-content" role="region" aria-labelledby="about-main-title" hidden>
+                <div id="tech-philosophy-content-panel" class="accordion-content" role="region" aria-labelledby="tech-philosophy-main-title" hidden>
                     <div class="accordion-content-inner" itemprop="text">
                         <div class="tech-philosophy" role="region" aria-label="Технологічна філософія GGenius">
                             <h3>🧠 Наші принципи розробки</h3>
@@ -723,7 +722,7 @@
                                                 Хочу отримати ранній доступ до бета-версії
                                             </label>
                                         </div>
-                                        <button type="submit" class="cta-button newsletter-submit" data-loading-text="Підписуємо..." data-success-text="Підписано! ✅" data-error-text="Помилка! ❌">
+                                        <button type="submit" class="cta-button newsletter-submit" data-default-text="Приєднатися до революції" data-loading-text="Підписуємо..." data-success-text="Підписано! ✅" data-error-text="Помилка! ❌">
                                             <span class="button-text">Приєднатися до революції</span>
                                             <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                                 <path d="M22 2L11 13"/><polygon points="22,2 15,22 11,13 2,9"/>
