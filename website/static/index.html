@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="GGenius - революційна AI-платформа для Mobile Legends: Bang Bang кіберспорту. Аналітика матчів, турніри.">
-    <meta name="keywords" content="MLBB, Mobile Legends Bang Bang, кіберспорт, AI аналітика, турніри, eSports, штучний інтелект, тренування, команди">
+    <meta name="keywords" content="MLBB, Mobile Legends Bang Bang, кіберспорт, AI аналітика, турніри, eSports, штучний інтелект, тренування">
     <meta name="author" content="MLBB-BOSS">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     
+    <!-- Безпека -->
     <meta http-equiv="Content-Security-Policy" 
           content="default-src 'self'; 
                    script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
@@ -20,6 +21,7 @@
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     
+    <!-- Open Graph для соціальних мереж -->
     <meta property="og:title" content="GGenius - Революція в MLBB Кіберспорті з AI">
     <meta property="og:description" content="Штучний інтелект зустрічає Mobile Legends: Bang Bang. Професійна аналітика, турніри та тренування.">
     <meta property="og:type" content="website">
@@ -31,6 +33,7 @@
     <meta property="og:image:alt" content="GGenius - AI платформа для MLBB кіберспорту">
     <meta property="og:locale" content="uk_UA">
     
+    <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="GGenius - AI Революція в MLBB">
     <meta name="twitter:description" content="Професійна AI-платформа для Mobile Legends: Bang Bang з аналітикою, турнірами та тренуваннями.">
@@ -38,6 +41,7 @@
     <meta name="twitter:image:alt" content="GGenius AI платформа для MLBB">
     <meta name="twitter:creator" content="@MLBB_BOSS">
     
+    <!-- Тема та підтримка PWA -->
     <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0a0c0f" media="(prefers-color-scheme: dark)">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,29 +51,35 @@
     <meta name="msapplication-TileColor" content="#007bff">
     <meta name="msapplication-TileImage" content="/static/images/mstile-144x144.png">
     
+    <!-- Іконки -->
     <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png" width="32" height="32">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png" width="16" height="16">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png" width="180" height="180">
     <link rel="manifest" href="/static/manifest.json">
     
+    <!-- Попереднє завантаження критичних ресурсів -->
     <link rel="preload" href="/static/css/style.css" as="style" importance="high">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" as="style" crossorigin>
     <link rel="preload" href="/static/js/enhancements.js" as="script">
+    <link rel="preload" href="https://unpkg.com/aos@next/dist/aos.css" as="style">
     
+    <!-- Попереднє підключення -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://api.ggenius.mlbb-boss.com">
     
     <title>GGenius - AI Революція в Mobile Legends: Bang Bang Кіберспорті 🎮🤖</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     
+    <!-- Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": ["WebSite", "SoftwareApplication"],
         "name": "GGenius",
-        "description": "Революційна AI-платформа для Mobile Legends: Bang Bang кіберспорту з аналітикою матчів, турнірами та персоналізованими тренуваннями.",
+        "description": "Революційна AI-платформа для Mobile Legends: Bang Bang кіберспорту з аналітикою матчів, турнірами та персоналізованим тренуванням.",
         "url": "https://ggenius.mlbb-boss.com",
         "applicationCategory": "GameApplication",
         "operatingSystem": "Web",
@@ -87,7 +97,7 @@
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5.0",
-            "ratingCount": "1", 
+            "ratingCount": "1",
             "bestRating": "5",
             "worstRating": "1"
         },
@@ -119,12 +129,14 @@
     </script>
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">
+    <!-- Швидка навігація для доступності -->
     <nav class="skip-links" aria-label="Швидка навігація">
         <a href="#main-content" class="skip-link">Перейти до основного контенту</a>
         <a href="#main-navigation" class="skip-link">Перейти до навігації</a>
         <a href="#site-footer" class="skip-link">Перейти до підвалу</a>
     </nav>
 
+    <!-- Шапка сайту -->
     <header class="site-header" role="banner" itemscope itemtype="https://schema.org/WPHeader">
         <div class="container header-container">
             <a href="#about-project" class="header-logo-link" aria-label="GGenius AI - повернутися на головну сторінку" itemprop="url">
@@ -147,7 +159,6 @@
                 <ul id="main-menu-list" class="nav-menu" role="menubar">
                     <li role="none"><a href="#about-project" class="nav-link active" role="menuitem" aria-current="page" itemprop="url">Про проєкт</a></li>
                     <li role="none"><a href="#features" class="nav-link" role="menuitem" itemprop="url">AI Можливості</a></li>
-                    <li role="none"><a href="#goals" class="nav-link" role="menuitem" itemprop="url">Наші цілі</a></li>
                     <li role="none"><a href="#roadmap" class="nav-link" role="menuitem" itemprop="url">Roadmap</a></li>
                     <li role="none"><a href="#contact" class="nav-link" role="menuitem" itemprop="url">Контакти</a></li>
                 </ul>
@@ -155,8 +166,9 @@
         </div>
     </header>
 
+    <!-- Основний контент -->
     <main id="main-content" role="main" itemprop="mainContentOfPage">
-        <!-- Project Introduction Card - ТІЛЬКИ основна інформація -->
+        <!-- Секція "Про проєкт" (тільки текст "про нас") -->
         <section id="about-project" class="project-intro-hero" aria-labelledby="project-intro-title" itemscope itemtype="https://schema.org/AboutPage">
             <div class="container">
                 <div class="project-intro-card" data-aos="fade-up"> 
@@ -181,52 +193,7 @@
                                 кіберспорту Mobile Legends: Bang Bang. Ми об'єднуємо найсучасніші технології 
                                 штучного інтелекту з глибоким розумінням геймінгу.
                             </p>
-                            
-                            <p class="mission-paragraph">
-                                Наша <strong>місія</strong> — демократизувати професійний кіберспорт, надаючи 
-                                кожному гравцю доступ до інструментів світового рівня. Ми віримо, що кожен 
-                                має право на професійне зростання в улюбленій грі.
-                            </p>
-                        </div>
-
-                        <div class="project-vision">
-                            <h3 class="vision-title">🌟 Наше бачення</h3>
-                            <div class="vision-content">
-                                <p>
-                                    Ми прагнемо створити <strong>майбутнє</strong>, де кожен гравець Mobile Legends: Bang Bang 
-                                    може досягти свого максимального потенціалу завдяки персоналізованому AI-наставнику, 
-                                    справедливим турнірам та підтримці здорової спільноти.
-                                </p>
-                                <div class="vision-stats">
-                                    <div class="stat">
-                                        <span class="stat-number">2025</span>
-                                        <span class="stat-label">Рік запуску</span>
-                                    </div>
-                                    <div class="stat">
-                                        <span class="stat-number">∞</span>
-                                        <span class="stat-label">Потенціал росту</span>
-                                    </div>
-                                    <div class="stat">
-                                        <span class="stat-number">100%</span>
-                                        <span class="stat-label">Відданість спільноті</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="project-team">
-                            <div class="team-avatar">
-                                <div class="avatar-placeholder">
-                                    <span class="avatar-text">MB</span>
-                                </div>
-                            </div>
-                            <div class="team-content">
-                                <h4>Команда MLBB-BOSS</h4>
-                                <p>
-                                    Досвідчені розробники з пристрастю до кіберспорту та штучного інтелекту. 
-                                    Наша експертиза охоплює машинне навчання, веб-розробку та професійний геймінг.
-                                </p>
-                            </div>
+                            <!-- Видалено цілі, залишився лише опис -->
                         </div>
 
                         <div class="project-cta">
@@ -258,10 +225,10 @@
             </div>
         </section>
 
-        <!-- AI Features Section -->
+        <!-- Секція "AI Можливості" -->
         <section id="features" class="features-section-iui section-padding" aria-labelledby="features-main-title" itemscope itemtype="https://schema.org/WebPageElement">
-           <div class="container">
-                <header class="section-header">
+            <div class="container">
+                <header class="section-header" data-aos="fade-up">
                     <h2 id="features-main-title" class="section-title-iui text-gradient" itemprop="name">
                         AI-Powered Можливості
                     </h2>
@@ -269,11 +236,13 @@
                         Революційні інструменти на базі штучного інтелекту для професійного MLBB кіберспорту.
                     </p>
                 </header>
-                <div class="tabs-component">
+                <div class="tabs-component" data-aos="fade-up" data-aos-delay="100">
                     <div class="feature-categories" role="tablist" aria-label="Категорії функцій">
                         <button class="category-tab active" role="tab" aria-selected="true" aria-controls="ai-features-panel" id="tab-ai-trigger" type="button">
                             <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8Z"/><path d="M12 6a.9.9 0 0 0-.9.9V12a.9.9 0 0 0 .9.9h.1a.9.9 0 0 0 .8-.9V6.9A.9.9 0 0 0 12.1 6Z"/>
+                                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8Z"/>
+                                <path d="M12 6a.9.9 0 0 0-.9.9V12a.9.9 0 0 0 .9.9h.1a.9.9 0 0 0 .8-.9V6.9A.9.9 0 0 0 12 6Z"/>
+                                <path d="M12 15a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/>
                             </svg>
                             AI & Аналітика
                         </button>
@@ -300,7 +269,7 @@
                     </div>
                     <div class="tab-panels-container">
                         <div id="ai-features-panel" class="features-grid-iui tab-content active" role="tabpanel" aria-labelledby="tab-ai-trigger">
-                            <article class="feature-card-iui enhanced" data-feature="ai-analytics" itemscope itemtype="https://schema.org/SoftwareApplication">
+                            <article class="feature-card-iui enhanced" data-feature="ai-analytics" itemscope itemtype="https://schema.org/SoftwareApplication" data-aos="fade-up" data-aos-delay="200">
                                 <div class="feature-card-icon">
                                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                        <path d="M12 1v22m5-18h-1.7c-.9 0-1.7.5-2.1 1.2l-3.2 5.8c-.4.7-.4 1.6 0 2.3l3.2 5.8c.4.7 1.1 1.2 2.1 1.2H17m-5 3v-2.5m0-11V3"/>
@@ -318,17 +287,18 @@
                                 </div>
                                 <div class="feature-status status-development">🧠 Deep Learning</div>
                             </article>
-                            <article class="feature-card-iui enhanced" data-feature="ai-coaching" itemscope itemtype="https://schema.org/SoftwareApplication">
+                            <article class="feature-card-iui enhanced" data-feature="ai-coaching" itemscope itemtype="https://schema.org/SoftwareApplication" data-aos="fade-up" data-aos-delay="300">
                                 <div class="feature-card-icon">
                                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                        <path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l9-5-9-5-9 5 9 5z" transform="translate(0 6)"/> <path d="M3 7v10l9 5 9-5V7l-9-5z"/>
+                                        <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                                        <path d="M12 14l9-5-9-5-9 5 9 5z" transform="translate(0 6)"/>
+                                        <path d="M3 7v10l9 5 9-5V7l-9-5z"/>
                                     </svg>
                                 </div>
                                 <h3 class="feature-card-title" itemprop="name">AI-Тренер</h3>
                                 <p class="feature-card-description" itemprop="description">
-                                    Персоналізоване навчання, яке адаптується до твоєї гри.
-                                    AI аналізує твої матчі, виявляє помилки, підказує стратегії, і допомагає прокачувати твої навички.
-                                    Він — твій особистий тренер, завжди поруч, без упереджень і втоми.
+                                    Персоналізоване навчання, яке адаптується до твоєї гри. AI аналізує твої матчі, 
+                                    виявляє помилки, підказує стратегії та допомагає прокачувати навички.
                                 </p>
                                 <div class="feature-highlights">
                                     <span class="highlight-tag">Personalized Training</span>
@@ -337,11 +307,13 @@
                                 </div>
                                 <div class="feature-status status-concept">🎯 Adaptive AI</div>
                             </article>
-                            <article class="feature-card-iui enhanced" data-feature="predictive-analytics" itemscope itemtype="https://schema.org/SoftwareApplication">
+                            <article class="feature-card-iui enhanced" data-feature="predictive-analytics" itemscope itemtype="https://schema.org/SoftwareApplication" data-aos="fade-up" data-aos-delay="400">
                                 <div class="feature-card-icon">
                                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                        <path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
-                                        <circle cx="12" cy="12" r="1"/><circle cx="18" cy="8" r="1"/>
+                                        <path d="M3 3v18h18"/>
+                                        <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                                        <circle cx="12" cy="12" r="1"/>
+                                        <circle cx="18" cy="8" r="1"/>
                                     </svg>
                                 </div>
                                 <h3 class="feature-card-title" itemprop="name">Прогнозна Аналітика</h3>
@@ -358,11 +330,13 @@
                             </article>
                         </div>
                         <div id="social-features-panel" class="features-grid-iui tab-content" role="tabpanel" aria-labelledby="tab-social-trigger" hidden>
-                             <article class="feature-card-iui enhanced" data-feature="team-matching" itemscope itemtype="https://schema.org/SoftwareApplication">
+                             <article class="feature-card-iui enhanced" data-feature="team-matching" itemscope itemtype="https://schema.org/SoftwareApplication" data-aos="fade-up" data-aos-delay="200">
                                 <div class="feature-card-icon">
                                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="9" cy="7" r="4"/>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                                     </svg>
                                 </div>
                                 <h3 class="feature-card-title" itemprop="name">Smart Team Matching</h3>
@@ -377,11 +351,13 @@
                                 </div>
                                 <div class="feature-status status-planning">🤝 Smart Matching</div>
                             </article>
-                            <article class="feature-card-iui enhanced" data-feature="community-hub" itemscope itemtype="https://schema.org/SoftwareApplication">
+                            <article class="feature-card-iui enhanced" data-feature="community-hub" itemscope itemtype="https://schema.org/SoftwareApplication" data-aos="fade-up" data-aos-delay="300">
                                 <div class="feature-card-icon">
                                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-                                       <path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                       <circle cx="9" cy="7" r="4"/>
+                                       <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                       <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                                     </svg>
                                 </div>
                                 <h3 class="feature-card-title" itemprop="name">Спільнота Pro</h3>
@@ -398,11 +374,13 @@
                             </article>
                         </div>
                         <div id="competitive-features-panel" class="features-grid-iui tab-content" role="tabpanel" aria-labelledby="tab-competitive-trigger" hidden>
-                            <article class="feature-card-iui enhanced" data-feature="auto-tournaments" itemscope itemtype="https://schema.org/SoftwareApplication">
+                            <article class="feature-card-iui enhanced" data-feature="auto-tournaments" itemscope itemtype="https://schema.org/SoftwareApplication" data-aos="fade-up" data-aos-delay="200">
                                 <div class="feature-card-icon">
                                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-                                        <path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                                        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                                        <path d="M4 22h16"/>
+                                        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
                                         <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
                                         <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
                                     </svg>
@@ -425,122 +403,52 @@
             </div>
         </section>
 
-        <!-- Project Goals Section - Окрема секція з цілями після AI Features -->
-        <section id="goals" class="project-goals-section section-padding" aria-labelledby="goals-main-title" itemscope itemtype="https://schema.org/WebPageElement">
+        <!-- Секція "Наші цілі" після "AI Можливості" -->
+        <section id="project-goals" class="project-goals-section section-padding" aria-labelledby="goals-title">
             <div class="container">
-                <header class="section-header">
-                    <h2 id="goals-main-title" class="section-title-iui text-gradient" itemprop="name">
-                        🎯 Наші цілі
-                    </h2>
-                    <p class="section-subtitle" itemprop="description">
-                        Стратегічні напрямки розвитку GGenius для революції в мобільному кіберспорті.
-                    </p>
-                </header>
-                
-                <div class="goals-grid-enhanced" role="list" aria-label="Основні цілі проєкту GGenius">
-                    <article class="goal-card-enhanced" role="listitem" data-goal="ai-analytics" itemscope itemtype="https://schema.org/Goal">
-                        <div class="goal-card-icon">
-                            <div class="goal-icon">🧠</div>
+                <h2 id="goals-title" class="section-title-iui text-gradient">Наші цілі</h2>
+                <div class="goals-grid">
+                    <div class="goal-item">
+                        <div class="goal-icon">🧠</div>
+                        <div class="goal-content">
+                            <h4>AI-Аналітика</h4>
+                            <p>Глибокий аналіз матчів та стратегій</p>
                         </div>
-                        <div class="goal-card-content">
-                            <h3 class="goal-card-title" itemprop="name">AI-Аналітика</h3>
-                            <p class="goal-card-description" itemprop="description">
-                                Глибокий аналіз матчів та стратегій з використанням найсучасніших алгоритмів 
-                                машинного навчання для виявлення прихованих патернів у грі.
-                            </p>
-                            <div class="goal-card-features">
-                                <span class="goal-feature-tag">Computer Vision</span>
-                                <span class="goal-feature-tag">Deep Learning</span>
-                                <span class="goal-feature-tag">Real-time Analysis</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="goal-card-enhanced" role="listitem" data-goal="tournaments" itemscope itemtype="https://schema.org/Goal">
-                        <div class="goal-card-icon">
-                            <div class="goal-icon">🏆</div>
-                        </div>
-                        <div class="goal-card-content">
-                            <h3 class="goal-card-title" itemprop="name">Турнірна система</h3>
-                            <p class="goal-card-description" itemprop="description">
-                                Автоматизовані змагання для всіх рівнів гравців з справедливим підбором опонентів, 
-                                професійним суддівством та системою рейтингів.
-                            </p>
-                            <div class="goal-card-features">
-                                <span class="goal-feature-tag">Auto Matchmaking</span>
-                                <span class="goal-feature-tag">Fair Play</span>
-                                <span class="goal-feature-tag">Rating System</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="goal-card-enhanced" role="listitem" data-goal="community" itemscope itemtype="https://schema.org/Goal">
-                        <div class="goal-card-icon">
-                            <div class="goal-icon">👥</div>
-                        </div>
-                        <div class="goal-card-content">
-                            <h3 class="goal-card-title" itemprop="name">Об'єднання спільноти</h3>
-                            <p class="goal-card-description" itemprop="description">
-                                Єдина платформа для всіх гравців MLBB, де професіонали та новачки можуть 
-                                ділитися досвідом, навчатися один у одного та розвиватися разом.
-                            </p>
-                            <div class="goal-card-features">
-                                <span class="goal-feature-tag">Social Network</span>
-                                <span class="goal-feature-tag">Knowledge Sharing</span>
-                                <span class="goal-feature-tag">Mentorship</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="goal-card-enhanced" role="listitem" data-goal="healthy-gaming" itemscope itemtype="https://schema.org/Goal">
-                        <div class="goal-card-icon">
-                            <div class="goal-icon">💪</div>
-                        </div>
-                        <div class="goal-card-content">
-                            <h3 class="goal-card-title" itemprop="name">Здоровий lifestyle</h3>
-                            <p class="goal-card-description" itemprop="description">
-                                Пропаганда збалансованого геймінгу з контролем часу гри, рекомендаціями 
-                                щодо фізичного та ментального здоров'я гравців.
-                            </p>
-                            <div class="goal-card-features">
-                                <span class="goal-feature-tag">Time Management</span>
-                                <span class="goal-feature-tag">Health Monitoring</span>
-                                <span class="goal-feature-tag">Wellness Tips</span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="goals-impact-stats" role="region" aria-label="Очікуваний вплив досягнення цілей">
-                    <div class="impact-stat">
-                        <span class="impact-number">1M+</span>
-                        <span class="impact-label">Активних користувачів</span>
                     </div>
-                    <div class="impact-stat">
-                        <span class="impact-number">50K+</span>
-                        <span class="impact-label">Турнірів щомісяця</span>
+                    <div class="goal-item">
+                        <div class="goal-icon">🏆</div>
+                        <div class="goal-content">
+                            <h4>Турнірна система</h4>
+                            <p>Автоматизовані змагання для всіх рівнів</p>
+                        </div>
                     </div>
-                    <div class="impact-stat">
-                        <span class="impact-number">95%</span>
-                        <span class="impact-label">Точність AI-аналізу</span>
+                    <div class="goal-item">
+                        <div class="goal-icon">👥</div>
+                        <div class="goal-content">
+                            <h4>Об'єднання спільноти</h4>
+                            <p>Єдина платформа для всіх гравців MLBB</p>
+                        </div>
                     </div>
-                    <div class="impact-stat">
-                        <span class="impact-number">24/7</span>
-                        <span class="impact-label">Підтримка спільноти</span>
+                    <div class="goal-item">
+                        <div class="goal-icon">💪</div>
+                        <div class="goal-content">
+                            <h4>Здоровий lifestyle</h4>
+                            <p>Пропаганда збалансованого геймінгу</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Roadmap Section -->
+        <!-- Секція "Roadmap" -->
         <section id="roadmap" class="roadmap-section-v2 section-padding" aria-labelledby="roadmap-main-title">
             <div class="container">
-                <header class="section-header">
+                <header class="section-header" data-aos="fade-up">
                     <h2 id="roadmap-main-title" class="section-title-iui text-gradient">Roadmap</h2>
                     <p class="section-subtitle roadmap-section-v2-subtitle">2025-2026: Наш шлях до інновацій</p>
                 </header>
-                <div class="roadmap-content-grid" role="list" aria-label="План розвитку проєкту GGenius">
-                    <article class="roadmap-quarter-block" role="listitem" data-phase="q1-2025">
+                <div class="roadmap-content-grid" role="list" aria-label="План розвитку проєкту GGenius" data-aos="fade-up" data-aos-delay="100">
+                    <article class="roadmap-quarter-block" role="listitem" data-phase="q1-2025" data-aos="fade-up" data-aos-delay="200">
                         <div class="roadmap-card-header">
                             <span class="quarter-date">Q1 2025</span>
                             <h3 class="quarter-main-title">MVP Launch</h3>
@@ -554,7 +462,7 @@
                             </ul>
                         </div>
                     </article>
-                    <article class="roadmap-quarter-block" role="listitem" data-phase="q2-2025">
+                    <article class="roadmap-quarter-block" role="listitem" data-phase="q2-2025" data-aos="fade-up" data-aos-delay="300">
                         <div class="roadmap-card-header">
                             <span class="quarter-date">Q2 2025</span>
                             <h3 class="quarter-main-title">AI Integration</h3>
@@ -568,7 +476,7 @@
                             </ul>
                         </div>
                     </article>
-                    <article class="roadmap-quarter-block" role="listitem" data-phase="q3-2025">
+                    <article class="roadmap-quarter-block" role="listitem" data-phase="q3-2025" data-aos="fade-up" data-aos-delay="400">
                         <div class="roadmap-card-header">
                              <span class="quarter-date">Q3 2025</span>
                             <h3 class="quarter-main-title">Community & Tournaments</h3>
@@ -582,7 +490,7 @@
                             </ul>
                         </div>
                     </article>
-                    <article class="roadmap-quarter-block" role="listitem" data-phase="q4-2025">
+                    <article class="roadmap-quarter-block" role="listitem" data-phase="q4-2025" data-aos="fade-up" data-aos-delay="500">
                         <div class="roadmap-card-header">
                             <span class="quarter-date">Q4 2025</span>
                             <h3 class="quarter-main-title">Platform Launch & Token</h3>
@@ -596,7 +504,7 @@
                             </ul>
                         </div>
                     </article>
-                     <article class="roadmap-quarter-block" role="listitem" data-phase="q1-2026">
+                     <article class="roadmap-quarter-block" role="listitem" data-phase="q1-2026" data-aos="fade-up" data-aos-delay="600">
                         <div class="roadmap-card-header">
                             <span class="quarter-date">Q1 2026</span>
                             <h3 class="quarter-main-title">Global Expansion</h3>
@@ -614,100 +522,8 @@
             </div>
         </section>
 
-        <!-- About Section with Accordion -->
-        <section id="about" class="accordion-section enhanced section-padding" aria-labelledby="about-main-title" itemscope itemtype="https://schema.org/AboutPage">
-            <div class="container">
-                <div class="accordion-header" id="about-main-title" role="button" tabindex="0" aria-expanded="false" aria-controls="about-content-panel">
-                    <h2 itemprop="name">Технологічна філософія</h2>
-                    <span class="accordion-indicator" aria-hidden="true">+</span>
-                </div>
-                <div id="about-content-panel" class="accordion-content" role="region" aria-labelledby="about-main-title" hidden>
-                    <div class="accordion-content-inner" itemprop="text">
-                        <div class="tech-philosophy" role="region" aria-label="Технологічна філософія GGenius">
-                            <h3>🧠 Наші принципи розробки</h3>
-                            <ul class="philosophy-list">
-                                <li><strong>AI-First:</strong> Штучний інтелект в основі кожної функції</li>
-                                <li><strong>Human-Centered:</strong> Технології на службі людини</li>
-                                <li><strong>Open Innovation:</strong> Відкрита екосистема для розвитку</li>
-                                <li><strong>Ethical AI:</strong> Відповідальне використання ШІ</li>
-                                <li><strong>Community-Driven:</strong> Розвиток разом із спільнотою</li>
-                            </ul>
-                        </div>
-                        <div class="enhanced-project-stats" role="region" aria-label="Статистика проєкту GGenius">
-                            <div class="stat-item" data-aos="count-up">
-                                <span class="stat-number" data-target="2025">2025</span>
-                                <span class="stat-label">Рік Революції</span>
-                            </div>
-                            <div class="stat-item" data-aos="count-up">
-                                <span class="stat-number">∞</span>
-                                <span class="stat-label">Потенціал AI</span>
-                            </div>
-                            <div class="stat-item" data-aos="count-up">
-                                <span class="stat-number" data-target="24">24/7</span>
-                                <span class="stat-label">Підтримка AI</span>
-                            </div>
-                            <div class="stat-item" data-aos="count-up">
-                                <span class="stat-number" data-target="95">95%</span>
-                                <span class="stat-label">Точність Прогнозів</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tech Stack Section -->
-        <section id="tech-stack-section" class="tech-stack-section enhanced section-padding" aria-labelledby="tech-stack-main-title" itemscope itemtype="https://schema.org/WebPageElement">
-            <div class="container">
-                 <header class="section-header">
-                    <h2 id="tech-stack-main-title" class="section-title-iui" itemprop="name">Технологічний AI-Stack</h2>
-                    <p class="section-subtitle" itemprop="description">
-                        Найсучасніші технології для створення революційної AI-платформи GGenius.
-                    </p>
-                </header>
-                <div class="tech-categories" role="list" aria-label="Категорії технологій, що використовуються в GGenius">
-                    <div class="tech-category" role="listitem" data-icon="🧠">
-                        <h3 class="category-title">AI & Machine Learning</h3>
-                        <div class="tech-logos">
-                            <span class="tech-item advanced" data-tech="pytorch" title="PyTorch - Deep Learning Framework"><strong>PyTorch</strong> <span class="tech-description">Neural Networks</span></span>
-                            <span class="tech-item advanced" data-tech="tensorflow" title="TensorFlow - ML Platform"><strong>TensorFlow</strong> <span class="tech-description">Computer Vision</span></span>
-                            <span class="tech-item advanced" data-tech="opencv" title="OpenCV - Computer Vision"><strong>OpenCV</strong> <span class="tech-description">Image Processing</span></span>
-                            <span class="tech-item advanced" data-tech="scikit" title="Scikit-learn - ML Library"><strong>Scikit-learn</strong> <span class="tech-description">Data Science</span></span>
-                        </div>
-                    </div>
-                    <div class="tech-category" role="listitem" data-icon="⚡">
-                        <h3 class="category-title">Backend & Infrastructure</h3>
-                        <div class="tech-logos">
-                            <span class="tech-item advanced" data-tech="python" title="Python 3.11+ - Core Language"><strong>Python 3.11+</strong> <span class="tech-description">Async/Await</span></span>
-                            <span class="tech-item advanced" data-tech="fastapi" title="FastAPI - Modern Web Framework"><strong>FastAPI</strong> <span class="tech-description">High Performance</span></span>
-                            <span class="tech-item advanced" data-tech="postgresql" title="PostgreSQL - Database"><strong>PostgreSQL</strong> <span class="tech-description">ACID Compliance</span></span>
-                            <span class="tech-item advanced" data-tech="redis" title="Redis - In-Memory Database"><strong>Redis</strong> <span class="tech-description">Real-time Cache</span></span>
-                        </div>
-                    </div>
-                    <div class="tech-category" role="listitem" data-icon="🌐">
-                        <h3 class="category-title">Frontend & UX</h3>
-                        <div class="tech-logos">
-                            <span class="tech-item advanced" data-tech="html5" title="HTML5 - Modern Markup"><strong>HTML5</strong> <span class="tech-description">Semantic Web</span></span>
-                            <span class="tech-item advanced" data-tech="css3" title="CSS3 - Advanced Styling"><strong>CSS3</strong> <span class="tech-description">Animations & Grid</span></span>
-                            <span class="tech-item advanced" data-tech="javascript" title="JavaScript ES2023"><strong>JavaScript ES2023</strong> <span class="tech-description">Modern Features</span></span>
-                            <span class="tech-item advanced" data-tech="nextjs" title="Next.js - React Framework"><strong>Next.js</strong> <span class="tech-description">Web Platform (Planned)</span></span>
-                        </div>
-                    </div>
-                    <div class="tech-category" role="listitem" data-icon="☁️">
-                        <h3 class="category-title">Cloud & DevOps</h3>
-                        <div class="tech-logos">
-                            <span class="tech-item advanced" data-tech="docker" title="Docker - Containerization"><strong>Docker</strong> <span class="tech-description">Microservices</span></span>
-                            <span class="tech-item advanced" data-tech="kubernetes" title="Kubernetes - Orchestration"><strong>Kubernetes</strong> <span class="tech-description">Auto-scaling</span></span>
-                            <span class="tech-item advanced" data-tech="aws" title="AWS - Cloud Platform"><strong>AWS</strong> <span class="tech-description">Global Infrastructure</span></span>
-                            <span class="tech-item advanced" data-tech="prometheus" title="Prometheus & Grafana"><strong>Monitoring</strong> <span class="tech-description">Real-time Insights</span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section with Accordion -->
-        <section id="contact" class="accordion-section contact-section enhanced section-padding" aria-labelledby="contact-main-title" itemscope itemtype="https://schema.org/ContactPage">
+        <!-- Секція "Контакти" -->
+        <section id="contact" class="accordion-section contact-section enhanced section-padding" aria-labelledby="contact-main-title" itemscope itemtype="https://schema.org/ContactPage" data-aos="fade-up">
             <div class="container">
                  <div class="accordion-header" id="contact-main-title" role="button" tabindex="0" aria-expanded="false" aria-controls="contact-content-panel">
                     <h2 itemprop="name">Приєднуйтеся до AI Революції</h2>
@@ -721,31 +537,19 @@
                         </p>
                         <div class="contact-grid">
                             <div class="contact-methods" role="list" aria-label="Способи зв'язку з командою GGenius">
-                                <a href="https://github.com/MLBB-BOSS/GGenius" class="contact-link github-link" aria-label="GitHub репозиторій GGenius" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_github_click">
-                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                <a href="https://github.com/MLBB-BOSS/GGenius" class="contact-link github-link" aria-label="GitHub репозиторій GGenius" target="_blank" rel="noopener noreferrer" data-analytics-event="click" data-analytics-category="Contact" data-analytics-action="GitHub" data-analytics-label="GitHub Repo">
+                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.509 11.509 0 0 1 3.003-.404c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                                    </svg>
                                     <span class="link-content"><span class="link-title">GitHub Repository</span><span class="link-description">Відкритий код та розробка</span></span>
                                 </a>
-                                <button class="contact-link email-link" type="button" aria-label="Скопіювати email адресу mlbb.boss.dev@gmail.com" data-email="mlbb.boss.dev@gmail.com" data-analytics-event="contact_email_copy">
-                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                <button class="contact-link email-link" type="button" aria-label="Скопіювати email адресу mlbb.boss.dev@gmail.com" data-email="mlbb.boss.dev@gmail.com" onclick="copyEmail(this)" data-analytics-event="click" data-analytics-category="Contact" data-analytics-action="Email" data-analytics-label="Copy Email">
+                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
                                     <span class="link-content"><span class="link-title">Email Contact</span><span class="link-description">Прямий зв'язок з розробником</span></span>
                                 </button>
-                                <a href="https://t.me/mlbb_boss" class="contact-link telegram-link" aria-label="Telegram канал MLBB-BOSS" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_telegram_click">
-                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm5.001 7.761c-.284.947-.707 1.825-1.269 2.633-.562.807-1.264 1.544-2.1 2.204-.837.66-1.805 1.242-2.9 1.742-1.095.5-2.316.924-3.661 1.269-1.346.345-2.815.61-4.407.795l.265-1.325c1.427-.171 2.729-.419 3.905-.742 1.176-.323 2.227-.723 3.153-1.199.926-.476 1.729-1.03 2.408-1.661.679-.631 1.235-1.339 1.668-2.122.433-.783.744-1.642.933-2.577.189-.935.256-1.947.201-3.036l1.325.265c.055 1.257-.012 2.434-.201 3.531z"/></svg>
-                                    <span class="link-content"><span class="link-title">Telegram</span><span class="link-description">Швидкі оновлення та новини</span></span>
-                                </a>
-                            </div>
-                            <div class="newsletter-section">
-                                <div class="newsletter-signup enhanced">
-                                    <h3 class="newsletter-title">🚀 Beta Access & Новини</h3>
-                                    <p class="newsletter-description">
-                                        Отримайте ранній доступ до GGenius AI та будьте серед перших, 
-                                        хто випробує революційні функції!
-                                    </p>
-                                    <form class="newsletter-form enhanced" id="newsletterForm" aria-label="Підписка на бета-доступ та оновлення" data-analytics-form="newsletter_signup">
-                                        <div class="form-group">
-                                            <label for="newsletter-email" class="visually-hidden">Ваша Email адреса</label>
-                                            <input type="email" id="newsletter-email" name="email" placeholder="your.email@example.com" required aria-describedby="email-error-message" autocomplete="email">
-                                            <div id="email-error-message" class="error-message" role="alert" aria-live="polite"></div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="user-role" class="
+                                <a href="https://t.me/mlbb_boss" class="contact-link telegram-link" aria-label="Telegram канал MLBB-BOSS" target="_blank" rel="noopener noreferrer" data-analytics-event="click" data-analytics-category="Contact" data-analytics-action="Telegram" data-analytics-label="Telegram Channel">
+                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm5.001 7.761c-.284.947-.707 2.383-1.271 4.31-.562 1.927-1.003 3.385-1.484 4.41-.482 1.025-1.048 1.41-1.636 1.41-.588 0-1.39-.64-2.405-1.92-1.015-1.28-1.554-2.05-2.506-3.28-.952-1.23-1.936-2.59-2.84-3.94-.904-1.35-1.304-2.35-1.304-3.35 0-1 .34-1.85.94-2.45.6-.6 1.43-.85 2.39-.85.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81 rx="2.41" ry="2.41" x="2.41" y="0.9">2.41</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span>.9</span
