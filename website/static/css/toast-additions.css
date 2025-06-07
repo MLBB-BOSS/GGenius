@@ -1,0 +1,77 @@
+/* Toast notification styles */
+.toast-container {
+    position: fixed;
+    top: calc(var(--header-height) + var(--spacing-md));
+    right: var(--spacing-md);
+    z-index: var(--z-modal);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    pointer-events: none;
+}
+
+.toast {
+    background: var(--secondary-bg-color);
+    color: var(--text-primary);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-lg);
+    max-width: 300px;
+    transform: translateX(100%);
+    transition: transform var(--transition-normal);
+    pointer-events: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast.success {
+    border-left: 4px solid var(--ggenius-green);
+}
+
+.toast.error {
+    border-left: 4px solid #dc3545;
+}
+
+.toast.warning {
+    border-left: 4px solid var(--accent-secondary);
+}
+
+.toast.info {
+    border-left: 4px solid var(--accent-primary);
+}
+
+.toast::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--accent-primary);
+    animation: toastProgress 3s linear;
+}
+
+@keyframes toastProgress {
+    from { transform: scaleY(1); }
+    to { transform: scaleY(0); }
+}
+
+/* Responsive toast styles */
+@media (max-width: 768px) {
+    .toast-container {
+        top: calc(var(--header-height) + var(--spacing-sm));
+        right: var(--spacing-sm);
+        left: var(--spacing-sm);
+        align-items: center;
+    }
+    
+    .toast {
+        max-width: none;
+        width: 100%;
+    }
+}
