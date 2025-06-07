@@ -187,90 +187,17 @@
 
     <main id="main-content" role="main" itemprop="mainContentOfPage">
         <!-- Enhanced Hero Section with better performance -->
-        <section id="home" class="hero-section" aria-labelledby="hero-title" itemscope itemtype="https://schema.org/WebPageElement">
+        <section id="home" class="hero-section" aria-labelledby="hero-title-placeholder" itemscope itemtype="https://schema.org/WebPageElement">
             <div class="container">
                 <div class="hero-content">
-                    <div class="hero-logo-container" role="img" aria-labelledby="hero-logo-desc">
-                        <div id="hero-logo-desc" class="visually-hidden">
-                            Анімований логотип GGenius: об'єднання штучного інтелекту та геймінгу
-                        </div>
-                        
-                        <!-- Enhanced SVG with better accessibility and performance -->
-                        <svg width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" 
-                             id="ggeniusAnimatedLogo" role="img" aria-labelledby="ggeniusLogoTitle ggeniusLogoDesc"
-                             loading="eager" importance="high">
-                            <title id="ggeniusLogoTitle">GGenius AI Логотип</title>
-                            <desc id="ggeniusLogoDesc">
-                                Інтерактивний логотип GGenius: шестикутна рамка з мозком та геймпадом всередині, 
-                                що символізує поєднання штучного інтелекту та геймінгу
-                            </desc>
-                            
-                            <defs>
-                                <linearGradient id="logoSvgGradient" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="objectBoundingBox">
-                                    <stop offset="0%" class="gradient-stop-1" stop-color="#007bff" />
-                                    <stop offset="100%" class="gradient-stop-2" stop-color="#ffc107" />
-                                </linearGradient>
-                                
-                                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                                    <feMerge> 
-                                        <feMergeNode in="coloredBlur"/>
-                                        <feMergeNode in="SourceGraphic"/>
-                                    </feMerge>
-                                </filter>
-                                
-                                <pattern id="hexPattern" patternUnits="userSpaceOnUse" width="10" height="10">
-                                    <circle cx="5" cy="5" r="1" fill="rgba(255,255,255,0.1)"/>
-                                </pattern>
-                            </defs>
-                        
-                            <!-- Enhanced hexagon with pattern -->
-                            <polygon class="logo-hexagon-frame" 
-                                     points="50,5 93,25 93,75 50,95 7,75 7,25" 
-                                     filter="url(#glow)"
-                                     fill="url(#hexPattern)" 
-                                     role="presentation" />
-                        
-                            <!-- Enhanced gamepad with better details -->
-                            <g class="logo-gamepad" role="img" aria-label="Gaming controller">
-                                <path class="logo-gamepad-base gamepad-element" 
-                                      d="M25,65 Q20,55 30,50 L70,50 Q80,55 75,65 L70,75 Q50,85 30,75 L25,65 Z"
-                                      role="presentation" />
-                                      
-                                <!-- D-pad with better accessibility -->
-                                <g class="logo-d-pad gamepad-element" role="img" aria-label="Directional pad">
-                                    <rect x="30" y="58" width="5" height="10" rx="1" role="presentation"/>
-                                    <rect x="27" y="61" width="10" height="5" rx="1" role="presentation"/>
-                                </g>
-                                
-                                <!-- Action buttons -->
-                                <g class="logo-buttons-group gamepad-element" role="img" aria-label="Action buttons">
-                                    <circle cx="60" cy="58" r="3" role="presentation" />
-                                    <circle cx="68" cy="63" r="3" role="presentation" />
-                                </g>
-                            </g>
-                            
-                            <!-- Enhanced brain representation -->
-                            <g class="logo-brain" role="img" aria-label="Artificial Intelligence brain">
-                                <path class="logo-brain-line brain-left" d="M48,20 Q40,25 45,35 Q40,45 48,50" role="presentation"/>
-                                <path class="logo-brain-line brain-left-secondary" d="M48,25 Q35,30 40,40" role="presentation"/>
-                                <path class="logo-brain-line brain-right" d="M52,20 Q60,25 55,35 Q60,45 52,50" role="presentation"/>
-                                <path class="logo-brain-line brain-right-secondary" d="M52,25 Q65,30 60,40" role="presentation"/>
-                            </g>
-                        </svg>
-                    </div>
+                    <!-- Hero Logo Container and Title Removed -->
                     
-                    <h1 id="hero-title" class="hero-title" itemprop="headline">
-                        <span class="title-main">GGenius</span>
-                        <span class="title-subtitle">AI Revolution</span>
-                    </h1>
-                    
-                    <p class="subtitle" role="text" itemprop="description">
+                    <p id="hero-title-placeholder" class="subtitle" role="text" itemprop="description">
                         Ваш шлях до домінування в Mobile Legends: Bang Bang починається з 
                         <strong>штучного інтелекту</strong>. Професійна аналітика, персональні тренування та турнірна екосист[[...]
                     </p>
                     
-                    <!-- Hero Actions and Stats Removed -->
+                    <!-- Hero Actions and Stats Removed from previous step -->
 
                 </div>
             </div>
@@ -598,42 +525,7 @@
             </div>
         </section>
 
-        <!-- Enhanced Tech Stack Section -->
-        <section class="tech-stack-section enhanced" aria-labelledby="tech-title" itemscope itemtype="https://schema.org/WebPageElement">
-            <div class="container">
-                <h2 id="tech-title" class="section-title-iui" itemprop="name">Технологічний AI-Stack</h2>
-                <p class="section-subtitle" itemprop="description">
-                    Найсучасніші технології для створення революційної AI-платформи
-                </p>
-                
-                <div class="tech-categories" role="list" aria-label="Категорії технологій">
-                    <div class="tech-category" role="listitem">
-                        <h3 class="category-title">🧠 AI & Machine Learning</h3>
-                        <div class="tech-logos">
-                            <span class="tech-item advanced" data-tech="pytorch" title="PyTorch - Deep Learning Framework">
-                                PyTorch
-                                <span class="tech-description">Neural Networks</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="tensorflow" title="TensorFlow - ML Platform">
-                                TensorFlow
-                                <span class="tech-description">Computer Vision</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="opencv" title="OpenCV - Computer Vision">
-                                OpenCV
-                                <span class="tech-description">Image Processing</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="scikit" title="Scikit-learn - ML Library">
-                                Scikit-learn
-                                <span class="tech-description">Data Science</span>
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <!-- Backend & Infrastructure, Frontend & UX, Cloud & DevOps categories removed -->
-                                        
-                </div>
-            </div>
-        </section>
+        <!-- Tech Stack Section Removed -->
 
         <!-- Enhanced Contact Section -->
         <section id="contact" class="accordion-section contact-section enhanced" aria-labelledby="contact-header" itemscope itemtype="https://schema.org/ContactPage">
