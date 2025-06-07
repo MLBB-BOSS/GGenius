@@ -2,9 +2,9 @@
 <html lang="uk" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="GGenius - революційна AI-платформа для Mobile Legends: Bang Bang кіберспорту. Аналітика матчів, турніри, професійний розвиток з штучним інтелектом">
-    <meta name="keywords" content="MLBB, Mobile Legends Bang Bang, кіберспорт, AI аналітика, турніри, eSports, штучний інтелект, тренування, команди, стратегії">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover">
+    <meta name="description" content="GGenius - революційна AI-платформа для Mobile Legends: Bang Bang кіберспорту. Аналітика матчів, турніри, [[...">
+    <meta name="keywords" content="MLBB, Mobile Legends Bang Bang, кіберспорт, AI аналітика, турніри, eSports, штучний інтелект, тренування, кома[[...">
     <meta name="author" content="MLBB-BOSS">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -23,7 +23,7 @@
     
     <!-- Open Graph Enhanced Meta Tags -->
     <meta property="og:title" content="GGenius - Революція в MLBB Кіберспорті з AI">
-    <meta property="og:description" content="Штучний інтелект зустрічає Mobile Legends: Bang Bang. Професійна аналітика, турніри та тренування для домінування в кіберспорті">
+    <meta property="og:description" content="Штучний інтелект зустрічає Mobile Legends: Bang Bang. Професійна аналітика, турніри та тренуван[[...">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="GGenius">
     <meta property="og:url" content="https://ggenius.mlbb-boss.com">
@@ -61,6 +61,7 @@
     <!-- Enhanced Preloading Strategy -->
     <link rel="preload" href="/static/css/style.css" as="style" importance="high">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" as="style" crossorigin>
+    <!-- Preload the script, actual execution will be deferred at the end of body -->
     <link rel="preload" href="/static/js/enhancements.js" as="script">
     
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -80,7 +81,7 @@
         "@context": "https://schema.org",
         "@type": ["WebSite", "SoftwareApplication"],
         "name": "GGenius",
-        "description": "Революційна AI-платформа для Mobile Legends: Bang Bang кіберспорту з аналітикою матчів, турнірами та персональним тренуванням",
+        "description": "Революційна AI-платформа для Mobile Legends: Bang Bang кіберспорту з аналітикою матчів, турнірами та персон[[...",
         "url": "https://ggenius.mlbb-boss.com",
         "applicationCategory": "GameApplication",
         "operatingSystem": "Web",
@@ -150,22 +151,16 @@
         <a href="#contact" class="skip-link">Перейти до контактів</a>
     </nav>
 
-    <!-- Enhanced Site Header with Premium Mega Menu -->
-    <header class="site-header premium-header" role="banner" itemscope itemtype="https://schema.org/WPHeader">
+    <!-- Enhanced Site Header with better semantics -->
+    <header class="site-header" role="banner" itemscope itemtype="https://schema.org/WPHeader">
         <div class="container header-container">
-            <!-- Premium Logo with Enhanced Branding -->
-            <a href="#home" class="header-logo-link premium-logo" aria-label="GGenius AI - повернутися на головну сторінку" itemprop="url">
-                <div class="logo-wrapper">
-                    <span class="header-logo-text" itemprop="name">GGenius</span>
-                    <span class="logo-tagline">AI Revolution</span>
-                </div>
-                <div class="logo-glow" aria-hidden="true"></div>
+            <a href="#home" class="header-logo-link" aria-label="GGenius AI - повернутися на головну сторінку" itemprop="url">
+                <span class="header-logo-text" itemprop="name">GGenius</span>
+                <span class="header-logo-subtitle visually-hidden">AI для MLBB</span>
             </a>
             
-            <!-- Advanced Navigation with Mega Menu -->
-            <nav id="main-navigation" class="main-navigation premium-nav" role="navigation" aria-label="Головна навігація сайту" itemscope itemtype="https://schema.org/SiteNavigationElement">
-                <!-- Mobile Menu Toggle -->
-                <button class="mobile-menu-toggle premium-toggle" 
+            <nav id="main-navigation" class="main-navigation" role="navigation" aria-label="Головна навігація сайту" itemscope itemtype="https://schema.org/SiteNavigationElement">
+                <button class="mobile-menu-toggle" 
                         aria-expanded="false" 
                         aria-controls="main-menu" 
                         aria-label="Відкрити головне меню навігації"
@@ -176,208 +171,14 @@
                     <span class="visually-hidden">Меню</span>
                 </button>
                 
-                <!-- Premium Navigation Menu -->
-                <ul id="main-menu" class="nav-menu premium-menu" role="menubar">
-                    <li class="nav-item" role="none">
-                        <a href="#home" class="nav-link active" role="menuitem" aria-current="page" itemprop="url">
-                            <span class="nav-text">Головна</span>
-                            <span class="nav-indicator" aria-hidden="true"></span>
-                        </a>
-                    </li>
-                    
-                    <!-- AI Features Mega Menu -->
-                    <li class="nav-item has-mega-menu" role="none">
-                        <button class="nav-link mega-trigger" 
-                                role="menuitem" 
-                                aria-expanded="false" 
-                                aria-haspopup="true"
-                                aria-controls="ai-mega-menu">
-                            <span class="nav-text">AI Функції</span>
-                            <svg class="nav-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
-                                <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span class="nav-indicator" aria-hidden="true"></span>
-                        </button>
-                        
-                        <!-- Mega Menu Content -->
-                        <div id="ai-mega-menu" class="mega-menu" role="menu" aria-labelledby="ai-mega-menu">
-                            <div class="mega-menu-content">
-                                <div class="mega-section">
-                                    <h3 class="mega-title">🧠 Neural Analytics</h3>
-                                    <ul class="mega-links">
-                                        <li><a href="#match-analysis" role="menuitem">Аналіз Матчів</a></li>
-                                        <li><a href="#pattern-recognition" role="menuitem">Розпізнавання Патернів</a></li>
-                                        <li><a href="#performance-metrics" role="menuitem">Метрики Ефективності</a></li>
-                                        <li><a href="#strategic-insights" role="menuitem">Стратегічні Інсайти</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mega-section">
-                                    <h3 class="mega-title">🎯 AI Coach</h3>
-                                    <ul class="mega-links">
-                                        <li><a href="#personal-training" role="menuitem">Персональні Тренування</a></li>
-                                        <li><a href="#skill-development" role="menuitem">Розвиток Навичок</a></li>
-                                        <li><a href="#adaptive-learning" role="menuitem">Адаптивне Навчання</a></li>
-                                        <li><a href="#progress-tracking" role="menuitem">Відстеження Прогресу</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mega-section">
-                                    <h3 class="mega-title">📊 Predictive AI</h3>
-                                    <ul class="mega-links">
-                                        <li><a href="#match-prediction" role="menuitem">Прогноз Матчів</a></li>
-                                        <li><a href="#strategy-optimization" role="menuitem">Оптимізація Стратегій</a></li>
-                                        <li><a href="#meta-analysis" role="menuitem">Мета Аналіз</a></li>
-                                        <li><a href="#trend-forecasting" role="menuitem">Прогноз Трендів</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mega-highlight">
-                                    <div class="highlight-content">
-                                        <h4>🚀 Новинка</h4>
-                                        <p>GPT-4 Vision Integration</p>
-                                        <a href="#features" class="highlight-cta">Дізнатися більше</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    
-                    <!-- Community Mega Menu -->
-                    <li class="nav-item has-mega-menu" role="none">
-                        <button class="nav-link mega-trigger" 
-                                role="menuitem" 
-                                aria-expanded="false" 
-                                aria-haspopup="true"
-                                aria-controls="community-mega-menu">
-                            <span class="nav-text">Спільнота</span>
-                            <svg class="nav-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
-                                <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span class="nav-indicator" aria-hidden="true"></span>
-                        </button>
-                        
-                        <div id="community-mega-menu" class="mega-menu" role="menu">
-                            <div class="mega-menu-content">
-                                <div class="mega-section">
-                                    <h3 class="mega-title">👥 Команди</h3>
-                                    <ul class="mega-links">
-                                        <li><a href="#team-builder" role="menuitem">Конструктор Команд</a></li>
-                                        <li><a href="#smart-matching" role="menuitem">Розумний Підбір</a></li>
-                                        <li><a href="#team-analytics" role="menuitem">Аналітика Команд</a></li>
-                                        <li><a href="#synergy-optimization" role="menuitem">Оптимізація Синергії</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mega-section">
-                                    <h3 class="mega-title">🏆 Турніри</h3>
-                                    <ul class="mega-links">
-                                        <li><a href="#tournaments" role="menuitem">Активні Турніри</a></li>
-                                        <li><a href="#tournament-creator" role="menuitem">Створити Турнір</a></li>
-                                        <li><a href="#brackets" role="menuitem">Турнірні Сітки</a></li>
-                                        <li><a href="#prize-pools" role="menuitem">Призові Фонди</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mega-section">
-                                    <h3 class="mega-title">🎓 Навчання</h3>
-                                    <ul class="mega-links">
-                                        <li><a href="#pro-guides" role="menuitem">Гайди від Профі</a></li>
-                                        <li><a href="#video-library" role="menuitem">Відео Бібліотека</a></li>
-                                        <li><a href="#mentorship" role="menuitem">Менторство</a></li>
-                                        <li><a href="#skill-tests" role="menuitem">Тести Навичок</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mega-highlight">
-                                    <div class="highlight-content">
-                                        <h4>🔥 Trending</h4>
-                                        <p>Weekly Pro Tournament</p>
-                                        <a href="#tournaments" class="highlight-cta">Приєднатися</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    
-                    <li class="nav-item" role="none">
-                        <a href="#roadmap" class="nav-link" role="menuitem" itemprop="url">
-                            <span class="nav-text">Roadmap</span>
-                            <span class="nav-indicator" aria-hidden="true"></span>
-                        </a>
-                    </li>
-                    
-                    <li class="nav-item" role="none">
-                        <a href="#about" class="nav-link" role="menuitem" itemprop="url">
-                            <span class="nav-text">Про проєкт</span>
-                            <span class="nav-indicator" aria-hidden="true"></span>
-                        </a>
-                    </li>
-                    
-                    <li class="nav-item" role="none">
-                        <a href="#contact" class="nav-link" role="menuitem" itemprop="url">
-                            <span class="nav-text">Контакти</span>
-                            <span class="nav-indicator" aria-hidden="true"></span>
-                        </a>
-                    </li>
+                <ul id="main-menu" class="nav-menu" role="menubar">
+                    <li role="none"><a href="#home" class="nav-link active" role="menuitem" aria-current="page" itemprop="url">Головна</a></li>
+                    <li role="none"><a href="#about" class="nav-link" role="menuitem" itemprop="url">Про проєкт</a></li>
+                    <li role="none"><a href="#features" class="nav-link" role="menuitem" itemprop="url">AI Можливості</a></li>
+                    <li role="none"><a href="#roadmap" class="nav-link" role="menuitem" itemprop="url">Roadmap</a></li>
+                    <li role="none"><a href="#contact" class="nav-link" role="menuitem" itemprop="url">Контакти</a></li>
                 </ul>
-                
-                <!-- Header Actions -->
-                <div class="header-actions">
-                    <button class="action-btn search-toggle" 
-                            type="button" 
-                            aria-label="Відкрити пошук"
-                            data-action="search-toggle">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <circle cx="11" cy="11" r="8"/>
-                            <path d="21 21l-4.35-4.35"/>
-                        </svg>
-                    </button>
-                    
-                    <button class="action-btn theme-toggle" 
-                            type="button" 
-                            aria-label="Переключити тему"
-                            data-action="theme-toggle">
-                        <svg class="theme-icon light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <circle cx="12" cy="12" r="5"/>
-                            <path d="12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-                        </svg>
-                        <svg class="theme-icon dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                        </svg>
-                    </button>
-                    
-                    <a href="#contact" class="cta-button header-cta">
-                        <span>Beta Access</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M7 17l9.2-9.2M17 17V7H7"/>
-                        </svg>
-                    </a>
-                </div>
             </nav>
-        </div>
-        
-        <!-- Global Search Overlay -->
-        <div class="search-overlay" id="searchOverlay" aria-hidden="true">
-            <div class="search-container">
-                <form class="search-form" role="search" aria-label="Глобальний пошук">
-                    <input type="search" 
-                           class="search-input" 
-                           placeholder="Шукати функції, гайди, турніри..."
-                           aria-label="Пошуковий запит">
-                    <button type="submit" class="search-submit" aria-label="Почати пошук">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <circle cx="11" cy="11" r="8"/>
-                            <path d="21 21l-4.35-4.35"/>
-                        </svg>
-                    </button>
-                </form>
-                <button class="search-close" type="button" aria-label="Закрити пошук">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                        <path d="18 6L6 18M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
         </div>
     </header>
 
@@ -466,7 +267,7 @@
                     
                     <p class="subtitle" role="text" itemprop="description">
                         Ваш шлях до домінування в Mobile Legends: Bang Bang починається з 
-                        <strong>штучного інтелекту</strong>. Професійна аналітика, персональні тренування та турнірна екосистема майбутнього.
+                        <strong>штучного інтелекту</strong>. Професійна аналітика, персональні тренування та турнірна екосист[[...]
                     </p>
                     
                     <div class="hero-actions" role="group" aria-label="Основні дії">
@@ -697,244 +498,66 @@
                             <span class="highlight-tag">AI Referee</span>
                             <span class="highlight-tag">Anti-Cheat</span>
                         </div>
-                        <div class="feature-status status-planning">🏆 Automated System</div>
+                        <div class="feature-status status-development">⏱ Automated</div>
                     </article>
                 </div>
-            </div>
+            </div><!-- .container -->
         </section>
 
-        <!-- New Roadmap Section -->
-        <section id="roadmap" class="roadmap-section" aria-labelledby="roadmap-title">
+        <!-- Example Roadmap Section (optional placeholder) -->
+        <section id="roadmap" class="roadmap-section" aria-labelledby="roadmap-title" itemscope itemtype="https://schema.org/WebPageElement">
             <div class="container">
-                <h2 id="roadmap-title" class="section-title-iui">Roadmap 2025-2026</h2>
-                
-                <div class="roadmap-timeline" role="list" aria-label="План розвитку проєкту">
-                    <div class="timeline-item" role="listitem" data-phase="q1-2025">
-                        <div class="timeline-marker" aria-hidden="true">Q1</div>
-                        <div class="timeline-content">
-                            <h3>MVP Launch</h3>
-                            <p>Базова аналітика матчів, реєстрація користувачів</p>
-                            <ul class="feature-list">
-                                <li>🎯 Match Analytics Engine</li>
-                                <li>👤 User Registration System</li>
-                                <li>📊 Basic Statistics Dashboard</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item" role="listitem" data-phase="q2-2025">
-                        <div class="timeline-marker" aria-hidden="true">Q2</div>
-                        <div class="timeline-content">
-                            <h3>AI Integration</h3>
-                            <p>Запуск нейронної аналітики та AI-тренера</p>
-                            <ul class="feature-list">
-                                <li>🧠 Neural Network Analysis</li>
-                                <li>🤖 AI Personal Trainer</li>
-                                <li>🔍 Computer Vision Integration</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item" role="listitem" data-phase="q3-2025">
-                        <div class="timeline-marker" aria-hidden="true">Q3</div>
-                        <div class="timeline-content">
-                            <h3>Community & Tournaments</h3>
-                            <p>Соціальна платформа та турнірна система</p>
-                            <ul class="feature-list">
-                                <li>👥 Professional Community</li>
-                                <li>🏆 Automated Tournaments</li>
-                                <li>🤝 Smart Team Matching</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item" role="listitem" data-phase="q4-2025">
-                        <div class="timeline-marker" aria-hidden="true">Q4</div>
-                        <div class="timeline-content">
-                            <h3>Global Expansion</h3>
-                            <p>Міжнародна експансія та партнерства</p>
-                            <ul class="feature-list">
-                                <li>🌍 Multi-language Support</li>
-                                <li>🤝 Esports Partnerships</li>
-                                <li>📱 Mobile App Launch</li>
-                            </ul>
-                        </div>
-                    </div>
+                <header class="section-header">
+                    <h2 id="roadmap-title" class="section-title" itemprop="name">Roadmap</h2>
+                    <p class="section-subtitle" itemprop="description">
+                        Ключові етапи розвитку платформи GGenius й майбутні плани для MLBB кіберспорту
+                    </p>
+                </header>
+                <div class="roadmap-content">
+                    <ul class="roadmap-list">
+                        <li>Впровадження бета-версії AI аналітики</li>
+                        <li>Розширення системи автотурнірів зі смарт-підбором</li>
+                        <li>Автоматизація тренувальних сесій із AI-тренером</li>
+                        <li>Повна інтеграція зі стрімінговими платформами</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Enhanced About Section -->
-        <section id="about" class="accordion-section enhanced" aria-labelledby="about-header" itemscope itemtype="https://schema.org/AboutPage">
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section" aria-labelledby="contact-title">
             <div class="container">
-                <div class="accordion-header" id="about-header" role="button" tabindex="0" aria-expanded="false" aria-controls="about-content">
-                    <h2 itemprop="name">Про GGenius AI Revolution</h2>
-                    <span class="accordion-indicator" aria-hidden="true">+</span>
-                </div>
-                <div id="about-content" class="accordion-content" aria-expanded="false" role="region" aria-labelledby="about-header">
-                    <div class="accordion-content-inner" itemprop="text">
-                        <div class="about-intro">
-                            <p class="intro-text">
-                                <strong>GGenius</strong> - це не просто платформа, це <em>революція</em> в світі 
-                                Mobile Legends: Bang Bang кіберспорту, що поєднує найсучасніші технології 
-                                штучного інтелекту з глибоким розумінням геймінгу.
-                            </p>
-                        </div>
-                        
-                        <div class="mission-vision" role="region" aria-label="Місія та бачення">
-                            <div class="mission-item">
-                                <h3>🎯 Наша Місія</h3>
-                                <p>
-                                    Демократизувати професійний кіберспорт, надаючи кожному гравцю доступ 
-                                    до інструментів світового рівня на базі штучного інтелекту.
-                                </p>
-                            </div>
-                            
-                            <div class="vision-item">
-                                <h3>🚀 Наше Бачення</h3>
-                                <p>
-                                    Майбутнє, де кожен гравець може досягти свого максимального потенціалу 
-                                    завдяки персоналізованому AI-наставнику та глобальній екосистемі кіберспорту.
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div class="tech-philosophy" role="region" aria-label="Технологічна філософія">
-                            <h3>🧠 Технологічна Філософія</h3>
-                            <ul class="philosophy-list">
-                                <li><strong>AI-First:</strong> Штучний інтелект в основі кожної функції</li>
-                                <li><strong>Human-Centered:</strong> Технології на службі людини</li>
-                                <li><strong>Open Innovation:</strong> Відкрита екосистема для розвитку</li>
-                                <li><strong>Ethical AI:</strong> Відповідальне використання ШІ</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="enhanced-project-stats" role="region" aria-label="Статистика проєкту">
-                            <div class="stat-item" data-aos="count-up">
-                                <span class="stat-number" data-target="2025">2025</span>
-                                <span class="stat-label">Рік Революції</span>
-                            </div>
-                            <div class="stat-item" data-aos="count-up">
-                                <span class="stat-number" data-target="100">∞</span>
-                                <span class="stat-label">Потенціал AI</span>
-                            </div>
-                            <div class="stat-item" data-aos="count-up">
-                                <span class="stat-number" data-target="24">24</span>
-                                <span class="stat-label">Години Підтримки</span>
-                            </div>
-                            <div class="stat-item" data-aos="count-up">
-                                <span class="stat-number" data-target="95">95</span>
-                                <span class="stat-label">% Точність ШІ</span>
-                            </div>
-                        </div>
-                        
-                        <div class="team-info" role="region" aria-label="Інформація про команду">
-                            <h3>👨‍💻 Команда</h3>
-                            <p>
-                                Проєкт розробляється <strong>MLBB-BOSS</strong> - досвідченим розробником з 
-                                пристрастю до кіберспорту та штучного інтелекту. Наша команда об'єднує 
-                                експертизу в галузі машинного навчання, веб-розробки та професійного геймінгу.
-                            </p>
-                        </div>
-                    </div>
+                <header class="section-header">
+                    <h2 id="contact-title" class="section-title">Контакти</h2>
+                    <p class="section-subtitle">
+                        Зв'яжіться з нами для партнерства або запитів щодо GGenius
+                    </p>
+                </header>
+                <div class="contact-details">
+                    <p>Email: <a href="mailto:support@ggenius.mlbb-boss.com">support@ggenius.mlbb-boss.com</a></p>
+                    <p>Telegram: <a href="https://t.me/MLBB_BOSS">@MLBB_BOSS</a></p>
                 </div>
             </div>
         </section>
+    </main>
 
-        <!-- Enhanced Tech Stack Section -->
-        <section class="tech-stack-section enhanced" aria-labelledby="tech-title" itemscope itemtype="https://schema.org/WebPageElement">
-            <div class="container">
-                <h2 id="tech-title" class="section-title-iui" itemprop="name">Технологічний AI-Stack</h2>
-                <p class="section-subtitle" itemprop="description">
-                    Найсучасніші технології для створення революційної AI-платформи
-                </p>
-                
-                <div class="tech-categories" role="list" aria-label="Категорії технологій">
-                    <div class="tech-category" role="listitem">
-                        <h3 class="category-title">🧠 AI & Machine Learning</h3>
-                        <div class="tech-logos">
-                            <span class="tech-item advanced" data-tech="pytorch" title="PyTorch - Deep Learning Framework">
-                                PyTorch
-                                <span class="tech-description">Neural Networks</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="tensorflow" title="TensorFlow - ML Platform">
-                                TensorFlow
-                                <span class="tech-description">Computer Vision</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="opencv" title="OpenCV - Computer Vision">
-                                OpenCV
-                                <span class="tech-description">Image Processing</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="scikit" title="Scikit-learn - ML Library">
-                                Scikit-learn
-                                <span class="tech-description">Data Science</span>
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="tech-category" role="listitem">
-                        <h3 class="category-title">⚡ Backend & Infrastructure</h3>
-                        <div class="tech-logos">
-                            <span class="tech-item advanced" data-tech="python" title="Python 3.11+ - Core Language">
-                                Python 3.11+
-                                <span class="tech-description">Async/Await</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="fastapi" title="FastAPI - Modern Web Framework">
-                                FastAPI
-                                <span class="tech-description">High Performance</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="postgresql" title="PostgreSQL - Database">
-                                PostgreSQL
-                                <span class="tech-description">ACID Compliance</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="redis" title="Redis - In-Memory Database">
-                                Redis
-                                <span class="tech-description">Real-time Cache</span>
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="tech-category" role="listitem">
-                        <h3 class="category-title">🌐 Frontend & UX</h3>
-                        <div class="tech-logos">
-                            <span class="tech-item advanced" data-tech="html5" title="HTML5 - Modern Markup">
-                                HTML5
-                                <span class="tech-description">Semantic Web</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="css3" title="CSS3 - Advanced Styling">
-                                CSS3
-                                <span class="tech-description">Animations</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="javascript" title="JavaScript ES2023">
-                                JavaScript ES2023
-                                <span class="tech-description">Modern Features</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="webgl" title="WebGL - 3D Graphics">
-                                WebGL
-                                <span class="tech-description">3D Visualization</span>
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="tech-category" role="listitem">
-                        <h3 class="category-title">☁️ Cloud & DevOps</h3>
-                        <div class="tech-logos">
-                            <span class="tech-item advanced" data-tech="docker" title="Docker - Containerization">
-                                Docker
-                                <span class="tech-description">Microservices</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="kubernetes" title="Kubernetes - Orchestration">
-                                Kubernetes
-                                <span class="tech-description">Auto-scaling</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="aws" title="AWS - Cloud Platform">
-                                AWS
-                                <span class="tech-description">Global Infrastructure</span>
-                            </span>
-                            <span class="tech-item advanced" data-tech="monitoring" title="Monitoring & Analytics">
-                                Monitoring
-                                <span class="tech-description">Real-time Insights</span>
-                            </span>
-                        </div>
-                    </div>
-                
+    <!-- Enhanced Footer -->
+    <footer class="site-footer" role="contentinfo" itemscope itemtype="https://schema.org/WPFooter">
+        <div class="container">
+            <p>
+                <strong>GGenius</strong> © 2025 MLBB-BOSS. Усі права захищено.
+            </p>
+            <nav class="footer-nav" aria-label="Footer Navigation">
+                <ul>
+                    <li><a href="#features">AI Можливості</a></li>
+                    <li><a href="#roadmap">Roadmap</a></li>
+                    <li><a href="#contact">Контакти</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Defer Loading of the Main Script for Performance -->
+    <script src="/static/js/enhancements.js" defer></script>
+</body>
+</html>
