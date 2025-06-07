@@ -28,7 +28,7 @@
     /* Optimized Gradients - Reduced complexity */
     --g1: linear-gradient(135deg, var(--cyan), var(--purple));
     --g2: linear-gradient(135deg, var(--cyan) 0%, var(--electric) 50%, var(--pink) 100%);
-    --g3: linear-gradient(135deg, var(--blue) 0%, #4a90e2 100%);
+    --g3: linear-gradient(135deg, var(--blue) 0%, #4a90e2 100%); /* Softer blue gradient */
     --g-bg: linear-gradient(145deg, var(--bg-1) 0%, #0d1014 50%, #080a0c 100%);
     
     /* Typography Scale - Responsive */
@@ -44,11 +44,11 @@
     --s-xs: .5rem; --s-s: 1rem; --s-m: 1.5rem; --s-l: 2rem; --s-xl: 3rem; --s-2xl: 4rem;
     --r-s: 4px; --r-m: 8px; --r-l: 12px; --r-xl: 24px;
     
-    /* Optimized Shadows - Maximum 3 variants */
+    /* Optimized Shadows - Maximum 3 variants for consistency and performance */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, .2);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, .3);
     --shadow-lg: 0 8px 32px rgba(0, 0, 0, .4);
-    --shadow-glow: 0 0 20px rgba(var(--cyan-rgb), .3);
+    --shadow-glow: 0 0 20px rgba(var(--cyan-rgb), .3); /* Subtle glow for accents */
     
     /* Performance Transitions */
     --trans: .3s cubic-bezier(.4, 0, .2, 1); --trans-fast: .15s ease-out;
@@ -62,28 +62,40 @@
     --bg-1: var(--bg-1-light); --bg-2: var(--bg-2-light); --bg-3: var(--bg-3-light); --surface: var(--surface-light);
     --text-1: var(--text-1-light); --text-2: var(--text-2-light); --text-3: var(--text-3-light);
     --g-bg: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+    --shadow-glow: 0 0 20px rgba(var(--blue-rgb), .2); /* Adjusted glow for light theme */
 }
 
-/* Auto theme detection */
+/* Auto theme detection (prefers-color-scheme) */
 @media (prefers-color-scheme: light) {
-    :root:not(.dark) {
+    :root:not(.dark):not(.light-theme-active) { /* .light-theme-active for manual toggle override */
         --bg-1: var(--bg-1-light); --bg-2: var(--bg-2-light); --bg-3: var(--bg-3-light); --surface: var(--surface-light);
         --text-1: var(--text-1-light); --text-2: var(--text-2-light); --text-3: var(--text-3-light);
         --g-bg: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+        --shadow-glow: 0 0 20px rgba(var(--blue-rgb), .2);
     }
 }
+/* Dark theme explicit class for manual toggle */
+:root.dark {
+    /* Revert to default dark theme variables if any were changed by prefers-color-scheme light */
+    --bg-1: #0a0c0f; --bg-2: #14181e; --bg-3: #252a32; --surface: #1a1d23;
+    --text-1: #fff; --text-2: #b0c4de; --text-3: #8899a6;
+    --g-bg: linear-gradient(145deg, var(--bg-1) 0%, #0d1014 50%, #080a0c 100%);
+    --shadow-glow: 0 0 20px rgba(var(--cyan-rgb), .3);
+}
+
 
 /* === HIGH PERFORMANCE RESET === */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; /* Native smooth scrolling */
     height: 100%;
-    font-size: 100%;
+    font-size: 100%; /* Base font size for rem units */
 }
 
 body {
@@ -93,26 +105,26 @@ body {
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-    padding-top: var(--header-h);
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    padding-top: var(--header-h); /* Space for fixed header */
     min-height: 100vh;
-    contain: layout style;
-    /* REMOVED: will-change:transform - було причиною GPU перевантаження */
+    contain: layout style; /* Performance: Isolate body layout and style calculations */
+    /* REMOVED: will-change:transform on body - was a major GPU bottleneck */
 }
 
-/* Critical Above-the-Fold Background - Optimized */
+/* Critical Above-the-Fold Background - Optimized for Performance */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
     z-index: var(--z-bg);
-    pointer-events: none;
-    contain: strict;
+    pointer-events: none; /* Allow clicks to pass through */
+    contain: strict; /* Performance: Isolate this pseudo-element fully */
     background: 
         radial-gradient(circle at 15% 85%, rgba(var(--blue-rgb), .08), transparent 40%),
         radial-gradient(circle at 85% 15%, rgba(var(--yellow-rgb), .08), transparent 40%),
         radial-gradient(circle at 50% 50%, rgba(var(--purple-rgb), .05), transparent 50%);
-    /* OPTIMIZED: Removed heavy animation, static is faster */
+    /* OPTIMIZED: Removed heavy animation from body::before, static is much faster */
 }
 
 /* === CRITICAL LOADING SCREEN === */
@@ -126,35 +138,36 @@ body::before {
     z-index: var(--z-max);
     opacity: 1;
     visibility: visible;
-    transition: opacity .5s, visibility .5s;
+    transition: opacity .5s ease, visibility .5s step-end; /* Step-end for instant removal */
     contain: strict;
 }
 
 .loading-screen.hidden {
     opacity: 0;
     visibility: hidden;
+    transition: opacity .5s ease, visibility 0s .5s; /* Delay visibility removal */
 }
 
 .loading-spinner {
     text-align: center;
-    contain: layout;
+    contain: layout; /* Performance */
 }
 
 .spinner-ring {
     width: 3.75rem;
     height: 3.75rem;
     border: 3px solid rgba(255, 255, 255, .1);
-    border-top: 3px solid var(--blue);
+    border-top-color: var(--blue); /* More specific override */
     border-radius: 50%;
     margin: 0 auto var(--s-m);
     animation: spin 1s linear infinite;
-    will-change: transform;
+    will-change: transform; /* Hint for animation */
 }
 
 .loading-text {
     color: var(--text-2);
     font-size: var(--t-l);
-    animation: pulse 1.5s ease-in-out infinite;
+    animation: pulse 1.5s ease-in-out infinite alternate; /* Smoother pulse */
 }
 
 .loading-progress {
@@ -173,7 +186,7 @@ body::before {
     border-radius: 2px;
     width: 0%;
     transition: width .3s ease;
-    will-change: width;
+    will-change: width; /* Hint for animation */
 }
 
 /* === OPTIMIZED SCROLL PROGRESS === */
@@ -185,9 +198,9 @@ body::before {
     height: 3px;
     background: var(--g1);
     z-index: var(--z-sticky);
-    transition: width .1s;
+    transition: width .1s linear; /* Linear for smoother perceived progress */
     box-shadow: var(--shadow-glow);
-    will-change: width;
+    will-change: width; /* Hint for animation */
 }
 
 /* === GAMING CURSOR - PERFORMANCE CRITICAL === */
@@ -196,8 +209,8 @@ body::before {
     width: 1.25rem;
     height: 1.25rem;
     pointer-events: none;
-    z-index: var(--z-high);
-    mix-blend-mode: difference;
+    z-index: var(--z-high); /* Above most elements, below modals */
+    mix-blend-mode: difference; /* Cool effect, but can be costly. Monitor performance. */
     transition: transform var(--trans-fast);
     contain: layout;
     will-change: transform;
@@ -221,53 +234,58 @@ body::before {
     width: 1.25rem;
     height: 1.25rem;
     border: 1px solid var(--blue);
-    transition: transform var(--trans-fast);
+    transition: transform var(--trans-fast), opacity var(--trans-fast); /* Added opacity transition */
     will-change: transform;
 }
 
 .gaming-cursor.clicked .cursor-ring {
     transform: translate(-50%, -50%) scale(.8);
+    opacity: .7;
 }
 
 /* === ACCESSIBILITY ENHANCEMENTS === */
 .skip-links {
+    list-style: none; /* Remove list bullets */
     position: absolute;
-    top: -200px;
-    left: 0;
+    top: -200px; /* Hide off-screen */
+    left: var(--s-s); /* Consistent spacing */
     z-index: var(--z-max);
     display: flex;
     gap: var(--s-s);
-    transition: top .3s;
+    transition: top .3s ease-out;
 }
 
-.skip-links:focus-within {
+.skip-links:focus-within { /* Show when a link inside is focused */
     top: var(--s-s);
 }
 
 .skip-link {
-    position: relative;
+    display: inline-block; /* Proper spacing and focus */
     background: var(--blue);
-    color: white;
-    padding: var(--s-s);
+    color: var(--bg-1); /* Contrast for readability */
+    padding: var(--s-s) var(--s-m);
     text-decoration: none;
     border-radius: var(--r-s);
     font-weight: 600;
-    transition: all .3s;
+    transition: transform .2s ease-out, background-color .2s ease-out;
     outline: 2px solid transparent;
+    outline-offset: 2px;
 }
 
 .skip-link:focus {
-    outline: 2px solid white;
-    outline-offset: 2px;
+    outline-color: var(--yellow); /* High-contrast focus outline */
     transform: scale(1.05);
+    background-color: var(--yellow); /* Change background on focus */
 }
 
 /* === CONTAINER SYSTEM === */
 .container {
     width: var(--container);
-    margin: 0 auto;
-    padding: 0 var(--s-s);
-    contain: layout;
+    margin-left: auto; /* Center align */
+    margin-right: auto;
+    padding-left: var(--s-s); /* Consistent padding */
+    padding-right: var(--s-s);
+    contain: layout; /* Performance */
 }
 
 /* === TYPOGRAPHY HIERARCHY === */
@@ -277,7 +295,7 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.3;
     color: var(--text-1);
     margin-bottom: var(--s-m);
-    text-wrap: balance;
+    text-wrap: balance; /* Better text wrapping for titles */
 }
 
 h1 { font-size: var(--t-4xl); }
@@ -287,7 +305,7 @@ h4 { font-size: var(--t-xl); }
 h5 { font-size: var(--t-l); }
 h6 { font-size: var(--t-base); }
 
-.section-title-iui {
+.section-title-iui { /* Standardized section title */
     font-size: var(--t-3xl);
     font-weight: 900;
     text-align: center;
@@ -298,22 +316,22 @@ h6 { font-size: var(--t-base); }
 
 .section-title-iui.text-gradient {
     background: var(--g1);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    padding-bottom: 5px;
+    padding-bottom: 5px; /* Small padding for gradient visibility */
 }
 
-.section-subtitle {
+.section-subtitle { /* Standardized section subtitle */
     font-size: var(--t-l);
     color: var(--text-2);
     text-align: center;
-    max-width: 600px;
+    max-width: 700px; /* Increased max-width for better flow */
     margin: 0 auto var(--s-xl);
     line-height: 1.6;
 }
 
-.section-header {
+.section-header { /* Wrapper for title and subtitle */
     margin-bottom: var(--s-2xl);
 }
 
@@ -321,7 +339,7 @@ p {
     margin-bottom: var(--s-m);
     color: var(--text-2);
     font-size: var(--t-base);
-    text-wrap: pretty;
+    text-wrap: pretty; /* Better paragraph wrapping */
 }
 
 /* === ENHANCED LINKS === */
@@ -332,15 +350,23 @@ a {
 }
 
 a:hover, a:focus-visible {
-    color: #4a90e2;
-    /* REMOVED: text-shadow для покращення продуктивності */
+    color: #4a90e2; /* Slightly lighter blue on hover/focus */
+    text-decoration: underline; /* Common usability pattern */
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    /* REMOVED: text-shadow for performance, underline is clearer */
 }
+a:focus-visible {
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
+}
+
 
 /* === CRITICAL HEADER PERFORMANCE === */
 .site-header {
     background: rgba(var(--bg-1-rgb), .9);
-    /* REMOVED: backdrop-filter для значного приросту продуктивності */
-    border-bottom: 1px solid rgba(255, 255, 255, .05);
+    /* REMOVED: backdrop-filter. Use solid/semi-transparent bg for performance. */
+    border-bottom: 1px solid rgba(var(--text-1-rgb), .05); /* Subtle border */
     position: fixed;
     top: 0;
     left: 0;
@@ -349,26 +375,28 @@ a:hover, a:focus-visible {
     height: var(--header-h);
     display: flex;
     align-items: center;
-    transition: background var(--trans);
+    transition: background-color var(--trans); /* Only transition background-color */
     contain: layout style;
-    will-change: background-color;
+    will-change: background-color; /* Hint for animation */
 }
 
 .site-header.scrolled {
-    background: rgba(var(--bg-1-rgb), .95);
+    background: rgba(var(--bg-1-rgb), .95); /* Slightly more opaque on scroll */
     box-shadow: var(--shadow-md);
 }
 
-.header-container {
+.header-container { /* Re-using .container for consistency */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%; /* Take full width of parent */
     height: 100%;
-    padding: 0;
+    padding: 0 var(--s-m); /* Horizontal padding for header items */
 }
 
 .header-logo-link {
     text-decoration: none;
+    display: inline-block; /* For better layout control */
 }
 
 .header-logo-text {
@@ -376,19 +404,33 @@ a:hover, a:focus-visible {
     font-size: var(--t-xl);
     font-weight: 900;
     background: var(--g1);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     transition: filter var(--trans);
 }
 
-.header-logo-link:hover .header-logo-text {
-    filter: brightness(1.2);
+.header-logo-link:hover .header-logo-text,
+.header-logo-link:focus-visible .header-logo-text {
+    filter: brightness(1.2); /* Brighter on hover/focus */
+}
+.header-logo-link:focus-visible {
+    outline: 2px solid var(--yellow);
+    outline-offset: 4px;
+    border-radius: var(--r-s);
 }
 
-.header-logo-subtitle {
+
+.header-logo-subtitle { /* Visually hidden but accessible */
     position: absolute;
-    left: -9999px;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* === NAVIGATION OPTIMIZED === */
@@ -397,46 +439,57 @@ a:hover, a:focus-visible {
 }
 
 .mobile-menu-toggle {
-    display: none;
+    display: none; /* Hidden by default, shown in media query */
     flex-direction: column;
-    background: none;
+    justify-content: space-around; /* Distribute lines evenly */
+    width: 2rem; /* Fixed size */
+    height: 2rem;
+    background: transparent;
     border: none;
     cursor: pointer;
-    padding: var(--s-xs);
-    gap: 4px;
+    padding: 0; /* Remove padding */
+    gap: 4px; /* Consistent gap */
     border-radius: var(--r-s);
-    transition: background var(--trans);
+    transition: background-color var(--trans);
+}
+.mobile-menu-toggle:focus-visible {
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
 }
 
 .mobile-menu-toggle:hover, .mobile-menu-toggle:focus-visible {
-    background: rgba(var(--blue-rgb), .1);
+    background-color: rgba(var(--blue-rgb), .1);
 }
 
 .hamburger-line {
-    width: 1.5625rem;
+    display: block; /* Ensure it's a block for width/height */
+    width: 1.5625rem; /* 25px */
     height: 3px;
     background: var(--text-1);
-    transition: all var(--trans);
+    transition: all var(--trans-fast) ease-in-out; /* Smoother transition */
     border-radius: 2px;
-    will-change: transform;
+    will-change: transform, opacity; /* Hint for animation */
+    margin: 0 auto; /* Center lines if container is wider */
 }
 
+/* Hamburger animation to X */
 .mobile-menu-toggle[aria-expanded="true"] .hamburger-line:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
+    transform: translateY(7px) rotate(45deg); /* Adjusted for 3px height + 4px gap */
 }
 
 .mobile-menu-toggle[aria-expanded="true"] .hamburger-line:nth-child(2) {
     opacity: 0;
+    transform: translateX(-100%); /* Move out of view */
 }
 
 .mobile-menu-toggle[aria-expanded="true"] .hamburger-line:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
+    transform: translateY(-7px) rotate(-45deg); /* Adjusted */
 }
 
 .nav-menu {
     list-style: none;
     display: flex;
-    gap: var(--s-m);
+    gap: var(--s-m); /* Spacing between nav items */
 }
 
 .nav-link {
@@ -450,9 +503,10 @@ a:hover, a:focus-visible {
     border-radius: var(--r-s);
     position: relative;
     transition: color var(--trans);
+    text-decoration: none; /* Ensure no underline by default */
 }
 
-.nav-link::after {
+.nav-link::after { /* Underline effect */
     content: '';
     position: absolute;
     bottom: -2px;
@@ -461,12 +515,16 @@ a:hover, a:focus-visible {
     width: 0;
     height: 2px;
     background: var(--blue);
-    transition: width var(--trans);
+    transition: width var(--trans-fast) ease-out;
     will-change: width;
 }
 
 .nav-link:hover, .nav-link:focus-visible, .nav-link.active {
     color: var(--text-1);
+}
+.nav-link:focus-visible {
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
 }
 
 .nav-link:hover::after, .nav-link:focus-visible::after, .nav-link.active::after {
@@ -475,41 +533,44 @@ a:hover, a:focus-visible {
 
 /* === HERO SECTION - CRITICAL PERFORMANCE === */
 .hero-section {
-    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100vh - var(--header-h)); /* Full viewport height minus header */
     padding: var(--s-xl) 0;
     display: flex;
     align-items: center;
+    justify-content: center; /* Center content horizontally */
     position: relative;
-    contain: layout;
-    overflow: hidden;
+    contain: layout; /* Performance */
+    overflow: hidden; /* Prevent pseudo-elements from overflowing */
 }
 
-/* OPTIMIZED: Simplified hero background pattern */
+/* OPTIMIZED: Simplified hero background pattern, less distracting */
 .hero-section::after {
     content: '';
     position: absolute;
     inset: 0;
-    z-index: 2;
-    opacity: .2;
+    z-index: 0; /* Behind hero-content */
+    opacity: .1; /* Very subtle */
     background-image: 
-        radial-gradient(circle at 25% 25%, rgba(var(--cyan-rgb), .3) 2px, transparent 2px),
-        radial-gradient(circle at 75% 75%, rgba(var(--pink-rgb), .3) 2px, transparent 2px);
-    background-size: 100px 100px, 150px 150px;
+        radial-gradient(circle at 20% 30%, rgba(var(--cyan-rgb), .2) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(var(--pink-rgb), .2) 1px, transparent 1px);
+    background-size: 80px 80px, 120px 120px; /* Smaller, sparser dots */
     /* REMOVED: Heavy animations for performance */
 }
 
 .hero-content {
     width: 100%;
+    max-width: var(--container); /* Constrain width */
     text-align: center;
-    z-index: var(--z-normal);
+    z-index: var(--z-normal); /* Above ::after pseudo-element */
+    padding: 0 var(--s-m); /* Padding for smaller screens */
 }
 
 .hero-logo-container {
     width: 100%;
-    max-width: clamp(9.375rem, 30vw, 13.75rem);
+    max-width: clamp(9.375rem, 30vw, 13.75rem); /* Responsive logo size */
     margin: 0 auto var(--s-m);
     position: relative;
-    animation: heroSlideIn 1s ease-out .2s forwards;
+    animation: heroSlideIn .8s ease-out .2s forwards; /* Slightly faster */
     opacity: 0;
     will-change: opacity, transform;
 }
@@ -520,16 +581,16 @@ a:hover, a:focus-visible {
     font-weight: 900;
     line-height: 1.2;
     text-transform: uppercase;
-    letter-spacing: .15em;
+    letter-spacing: .1em; /* Slightly reduced letter-spacing */
     margin-bottom: var(--s-s);
     background: var(--g2);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: heroSlideIn 1s ease-out .4s forwards;
+    animation: heroSlideIn .8s ease-out .4s forwards, titleGlow 3s ease-in-out infinite alternate;
     opacity: 0;
     position: relative;
-    will-change: opacity, transform;
+    will-change: opacity, transform, text-shadow; /* Added text-shadow hint */
 }
 
 .title-main {
@@ -538,18 +599,21 @@ a:hover, a:focus-visible {
 
 .title-subtitle {
     display: block;
-    font-size: .7em;
+    font-size: .7em; /* Relative to parent */
     letter-spacing: .1em;
     opacity: .8;
     margin-top: .5rem;
+    color: var(--text-2); /* Ensure it's not transparent if hero-title has gradient */
+    -webkit-text-fill-color: currentColor; /* Override gradient for subtitle */
+    background: none; /* Remove gradient from subtitle */
 }
 
-.hero-section .subtitle {
+.hero-section .subtitle { /* Hero specific subtitle */
     font-size: var(--t-l);
     color: var(--text-2);
-    max-width: 43.75rem;
+    max-width: 43.75rem; /* 700px */
     margin: 0 auto var(--s-l);
-    animation: heroSlideIn 1s ease-out .6s forwards;
+    animation: heroSlideIn .8s ease-out .6s forwards;
     opacity: 0;
     line-height: 1.8;
     will-change: opacity, transform;
@@ -560,8 +624,9 @@ a:hover, a:focus-visible {
     display: flex;
     gap: var(--s-m);
     justify-content: center;
-    flex-wrap: wrap;
-    animation: heroSlideIn 1s ease-out .8s forwards;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    margin-top: var(--s-l); /* Added margin for spacing */
+    animation: heroSlideIn .8s ease-out .8s forwards;
     opacity: 0;
     will-change: opacity, transform;
 }
@@ -581,17 +646,17 @@ a:hover, a:focus-visible {
     letter-spacing: .09375em;
     cursor: pointer;
     position: relative;
-    overflow: hidden;
-    transition: all var(--trans);
+    overflow: hidden; /* For potential ripple or shine effects */
+    transition: transform var(--trans-fast), box-shadow var(--trans-fast), background-color var(--trans-fast), border-color var(--trans-fast);
     border: 2px solid transparent;
     text-decoration: none;
-    white-space: nowrap;
-    contain: layout;
-    will-change: transform;
+    white-space: nowrap; /* Prevent text wrapping */
+    contain: layout style paint; /* Maximize containment */
+    will-change: transform; /* Only transform hinted for hover */
 }
 
 .cta-button:focus-visible {
-    outline: 2px solid var(--blue);
+    outline: 2px solid var(--yellow); /* High-contrast focus */
     outline-offset: 2px;
 }
 
@@ -603,32 +668,24 @@ a:hover, a:focus-visible {
 
 .cta-button.hero-cta:hover, .cta-button.hero-cta:focus-visible {
     transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 0 25px rgba(var(--blue-rgb), .7);
+    box-shadow: 0 0 25px rgba(var(--blue-rgb), .7), 0 0 35px rgba(var(--blue-rgb), .5); /* Enhanced glow */
     border-color: var(--blue);
 }
 
 .cta-button.cta-yellow {
-    background: linear-gradient(135deg, var(--yellow), #e6b800);
-    color: var(--bg-1);
+    background: linear-gradient(135deg, var(--yellow), #e6b800); /* Adjusted gradient */
+    color: var(--bg-1); /* Ensure contrast */
     box-shadow: 0 0 15px rgba(var(--yellow-rgb), .5);
 }
 
 .cta-button.cta-yellow:hover, .cta-button.cta-yellow:focus-visible {
     transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 0 25px rgba(var(--yellow-rgb), .7);
+    box-shadow: 0 0 25px rgba(var(--yellow-rgb), .7), 0 0 35px rgba(var(--yellow-rgb), .5);
     border-color: var(--yellow);
 }
 
-.demo-button {
-    position: relative;
-}
-
-.newsletter-submit {
-    position: relative;
-}
-
-.button-text {
-    z-index: 1;
+.button-text { /* If button has icon + text, this wraps text */
+    z-index: 1; /* Above potential pseudo-elements */
     position: relative;
 }
 
@@ -639,29 +696,28 @@ a:hover, a:focus-visible {
     gap: var(--s-l);
     margin-top: var(--s-2xl);
     padding: var(--s-l);
-    /* PERFORMANCE CRITICAL: Replaced backdrop-filter with simple gradient */
     background: linear-gradient(145deg, rgba(var(--bg-2-rgb), .8), rgba(var(--bg-3-rgb), .9));
-    border-radius: 25px;
+    border-radius: var(--r-xl); /* Larger radius for modern look */
     border: 1px solid rgba(var(--cyan-rgb), .2);
     box-shadow: var(--shadow-lg);
     position: relative;
     overflow: hidden;
-    /* REMOVED: Heavy animation for performance */
+    /* REMOVED: Heavy container animation for performance */
 }
 
 .hero-stats .stat-item {
     text-align: center;
     padding: var(--s-l);
-    border-radius: 15px;
+    border-radius: var(--r-l); /* Consistent radius */
     background: rgba(var(--surface-rgb), .6);
     border: 1px solid rgba(var(--cyan-rgb), .3);
-    transition: transform var(--trans), border-color var(--trans);
+    transition: transform var(--trans), border-color var(--trans), box-shadow var(--trans);
     position: relative;
     overflow: hidden;
     will-change: transform, border-color;
 }
 
-/* Optimized hover effect */
+/* Optimized hover effect for stat items */
 .hero-stats .stat-item::before {
     content: '';
     position: absolute;
@@ -671,7 +727,7 @@ a:hover, a:focus-visible {
     width: 0%;
     height: 2px;
     background: var(--cyan);
-    transition: width var(--trans) ease-out;
+    transition: width var(--trans-fast) ease-out;
     will-change: width;
     box-shadow: 0 0 8px rgba(var(--cyan-rgb), .7);
 }
@@ -683,18 +739,19 @@ a:hover, a:focus-visible {
 .hero-stats .stat-item:hover {
     transform: translateY(-6px) scale(1.02);
     border-color: rgba(var(--cyan-rgb), .7);
+    box-shadow: 0 5px 15px rgba(var(--cyan-rgb), .2); /* Subtle shadow on hover */
 }
 
 .hero-stats .stat-number {
     font-size: 3rem;
     font-weight: 900;
     background: var(--g2);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     display: block;
     margin-bottom: .5rem;
-    /* REMOVED: Heavy animation for performance */
+    /* REMOVED: Number glow animation for performance, gradient is enough */
 }
 
 .hero-stats .stat-label {
@@ -707,17 +764,17 @@ a:hover, a:focus-visible {
 
 /* === FEATURES SECTION === */
 .features-section-iui {
-    background: rgba(var(--bg-1-rgb), .3);
+    background: rgba(var(--bg-1-rgb), .3); /* Semi-transparent background */
     padding: var(--s-2xl) 0;
-    border-top: 1px solid rgba(255, 255, 255, .05);
-    border-bottom: 1px solid rgba(255, 255, 255, .05);
+    border-top: 1px solid rgba(var(--text-1-rgb), .05);
+    border-bottom: 1px solid rgba(var(--text-1-rgb), .05);
     position: relative;
     contain: layout;
 }
 
 .features-section-iui.enhanced {
     background: linear-gradient(135deg, rgba(var(--bg-1-rgb), .95), rgba(var(--bg-2-rgb), .9));
-    /* REMOVED: backdrop-filter for performance */
+    /* REMOVED: backdrop-filter for performance, use gradients or solid colors */
 }
 
 /* === FEATURE CATEGORIES === */
@@ -726,7 +783,7 @@ a:hover, a:focus-visible {
     justify-content: center;
     gap: 1rem;
     margin-bottom: var(--s-2xl);
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Allow tabs to wrap */
 }
 
 .category-tab {
@@ -736,32 +793,34 @@ a:hover, a:focus-visible {
     padding: 1.25rem 2rem;
     background: linear-gradient(135deg, rgba(var(--bg-2-rgb), .9), rgba(var(--bg-3-rgb), .9));
     border: 2px solid rgba(var(--cyan-rgb), .2);
-    border-radius: 25px;
+    border-radius: var(--r-xl); /* More rounded tabs */
     color: var(--text-2);
     cursor: pointer;
-    transition: all .4s;
-    /* REMOVED: backdrop-filter for performance */
+    transition: all .3s ease; /* Standardized transition */
     position: relative;
     overflow: hidden;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .05em;
 }
+.category-tab:focus-visible {
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
+}
 
-.category-tab::before {
+.category-tab::before { /* Shine effect on hover */
     content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: var(--g2);
-    opacity: .1;
-    transition: left .6s;
+    background: linear-gradient(90deg, transparent, rgba(var(--text-1-rgb), 0.1), transparent);
+    transition: left .5s ease; /* Slower shine */
 }
 
 .category-tab:hover::before, .category-tab.active::before {
-    left: 0;
+    left: 100%;
 }
 
 .category-tab:hover, .category-tab.active {
@@ -774,14 +833,19 @@ a:hover, a:focus-visible {
 .category-tab svg {
     width: 24px;
     height: 24px;
-    filter: drop-shadow(0 0 10px currentColor);
+    transition: filter .3s ease;
+    filter: drop-shadow(0 0 5px currentColor); /* Softer shadow */
 }
+.category-tab:hover svg, .category-tab.active svg {
+    filter: drop-shadow(0 0 10px currentColor) brightness(1.2);
+}
+
 
 .features-grid-iui {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17.5rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); /* Slightly wider min for cards */
     gap: var(--s-l);
-    container-type: inline-size;
+    container-type: inline-size; /* For @container queries if needed */
 }
 
 /* === FEATURE CARDS - ENHANCED PERFORMANCE === */
@@ -789,76 +853,86 @@ a:hover, a:focus-visible {
     background: var(--bg-2);
     padding: var(--s-l);
     border-radius: var(--r-l);
-    border: 1px solid rgba(255, 255, 255, .08);
+    border: 1px solid rgba(var(--text-1-rgb), .08);
     box-shadow: var(--shadow-md);
     text-align: center;
     transition: transform var(--trans), box-shadow var(--trans);
     position: relative;
     overflow: hidden;
     contain: layout style;
-    will-change: transform;
+    will-change: transform; /* Hint for hover animation */
 }
 
 .feature-card-iui.enhanced {
     background: linear-gradient(135deg, rgba(var(--bg-2-rgb), .95), rgba(var(--bg-3-rgb), .95));
-    border: 2px solid transparent;
-    border-radius: 25px;
+    border: 2px solid transparent; /* Border for animation */
+    border-radius: var(--r-xl);
     padding: 3rem;
-    /* REMOVED: backdrop-filter for performance */
-    transform-style: preserve-3d;
+    transform-style: preserve-3d; /* For 3D hover effect */
 }
 
-.feature-card-iui.enhanced::before {
+.feature-card-iui.enhanced::before { /* Animated border */
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(from 0deg, transparent, var(--cyan), transparent, var(--pink), transparent, var(--electric), transparent);
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: conic-gradient(from 0deg at 50% 50%, transparent 0%, var(--cyan) 20%, var(--pink) 40%, var(--electric) 60%, transparent 100%);
     animation: borderRotate 6s linear infinite;
-    z-index: -1;
+    z-index: -1; /* Behind content */
+    opacity: .7;
+}
+.feature-card-iui.enhanced:hover::before {
+    opacity: 1;
 }
 
-.feature-card-iui.enhanced::after {
+
+.feature-card-iui.enhanced::after { /* Inner background */
     content: '';
     position: absolute;
-    inset: 2px;
-    background: var(--g-bg);
-    border-radius: 23px;
-    z-index: -1;
+    inset: 2px; /* Creates the border effect with ::before */
+    background: var(--g-bg); /* Match body background or specific card bg */
+    border-radius: calc(var(--r-xl) - 2px); /* Slightly smaller radius */
+    z-index: 0; /* Above ::before, below content */
 }
 
-.feature-card-iui::before {
+.feature-card-iui > * { /* Ensure content is above ::after */
+    position: relative;
+    z-index: 1;
+}
+
+
+.feature-card-iui::before { /* Top border accent for non-enhanced cards */
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 3px;
     background: var(--blue);
     box-shadow: var(--shadow-glow);
     opacity: .7;
-    transition: opacity var(--trans);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: opacity var(--trans), transform var(--trans);
+    will-change: opacity, transform;
 }
 
 .feature-card-iui:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-lg), var(--shadow-glow);
 }
-
-.feature-card-iui.enhanced:hover {
-    transform: translateY(-20px) rotateX(15deg) rotateY(10deg) scale(1.05);
-    box-shadow: 0 30px 80px rgba(var(--cyan-rgb), .4), 0 0 100px rgba(var(--pink-rgb), .3);
-}
-
 .feature-card-iui:hover::before {
     opacity: 1;
+    transform: scaleX(1);
 }
 
+
+.feature-card-iui.enhanced:hover {
+    transform: translateY(-15px) rotateX(10deg) rotateY(5deg) scale(1.03); /* Subtler 3D effect */
+    box-shadow: 0 25px 60px rgba(var(--cyan-rgb), .3), 0 0 80px rgba(var(--pink-rgb), .2);
+}
+
+
 .feature-card-icon {
-    width: 3.75rem;
-    height: 3.75rem;
+    width: 3.75rem; height: 3.75rem;
     margin: 0 auto var(--s-m);
     display: flex;
     align-items: center;
@@ -866,16 +940,16 @@ a:hover, a:focus-visible {
 }
 
 .feature-card-icon svg {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     stroke: var(--blue);
     stroke-width: 1.5;
     filter: drop-shadow(0 0 8px rgba(var(--blue-rgb), .5));
-    transition: filter var(--trans);
+    transition: filter var(--trans), transform var(--trans);
 }
 
 .feature-card-iui:hover .feature-card-icon svg {
     filter: drop-shadow(0 0 12px rgba(var(--blue-rgb), .7));
+    transform: scale(1.1); /* Icon zoom on hover */
 }
 
 .feature-card-title {
@@ -894,415 +968,491 @@ a:hover, a:focus-visible {
     text-wrap: pretty;
 }
 
-/* === FEATURE HIGHLIGHTS === */
+/* === FEATURE HIGHLIGHTS & STATUS (Simplified for performance) === */
 .feature-highlights {
     display: flex;
     flex-wrap: wrap;
     gap: .75rem;
     margin: var(--s-m) 0;
+    justify-content: center; /* Center tags if they wrap */
 }
 
 .highlight-tag {
     padding: .5rem 1rem;
-    background: linear-gradient(135deg, rgba(var(--cyan-rgb), .2), rgba(var(--electric-rgb), .2));
+    background: rgba(var(--cyan-rgb), .15); /* Single color, less complex gradient */
     border: 1px solid rgba(var(--cyan-rgb), .4);
-    border-radius: 20px;
+    border-radius: var(--r-xl); /* Consistent rounded corners */
     font-size: .8rem;
     font-weight: 600;
     color: var(--cyan);
     text-transform: uppercase;
     letter-spacing: .05em;
-    /* REMOVED: backdrop-filter for performance */
-    transition: all .3s;
+    transition: all .3s ease;
 }
 
 .highlight-tag:hover {
-    background: var(--g2);
-    color: white;
+    background: var(--cyan);
+    color: var(--bg-1);
     transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(var(--cyan-rgb), .4);
+    box-shadow: 0 5px 15px rgba(var(--cyan-rgb), .3);
 }
 
-/* === FEATURE STATUS === */
 .feature-status {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: .5rem 1rem;
-    border-radius: 20px;
-    font-size: .8rem;
+    top: 1rem; right: 1rem;
+    padding: .4rem .8rem; /* Slightly smaller */
+    border-radius: var(--r-xl);
+    font-size: .75rem; /* Slightly smaller */
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .05em;
     /* REMOVED: backdrop-filter and animation for performance */
+    opacity: .9; /* Slightly transparent */
 }
 
 .status-development {
-    background: linear-gradient(135deg, rgba(var(--green-rgb), .2), rgba(var(--cyan-rgb), .2));
+    background: rgba(var(--green-rgb), .2);
     color: var(--green);
     border: 1px solid var(--green);
-    box-shadow: 0 0 20px rgba(var(--green-rgb), .3);
 }
 
 .status-concept {
-    background: linear-gradient(135deg, rgba(var(--yellow-rgb), .2), rgba(255, 107, 53, .2));
+    background: rgba(var(--yellow-rgb), .2);
     color: var(--yellow);
     border: 1px solid var(--yellow);
-    box-shadow: 0 0 20px rgba(var(--yellow-rgb), .3);
 }
 
 .status-planning {
-    background: linear-gradient(135deg, rgba(var(--purple-rgb), .2), rgba(var(--blue-rgb), .2));
-    color: var(--electric);
-    border: 1px solid var(--electric);
-    box-shadow: 0 0 20px rgba(var(--purple-rgb), .3);
+    background: rgba(var(--purple-rgb), .2);
+    color: var(--purple); /* Changed from electric for consistency */
+    border: 1px solid var(--purple);
 }
 
 /* === TAB CONTENT === */
 .tab-content {
     opacity: 0;
-    transform: translateY(20px);
-    transition: all .6s;
-    display: none;
+    transform: translateY(15px); /* Subtler slide */
+    transition: opacity .5s ease, transform .5s ease;
+    display: none; /* Use display none for inactive tabs */
+    will-change: opacity, transform;
 }
 
 .tab-content.active {
     opacity: 1;
     transform: translateY(0);
-    display: grid;
-    animation: tabFadeIn .6s forwards;
+    display: grid; /* Or flex, block, depending on content */
+    /* animation: tabFadeIn .5s ease forwards; /* Can use animation if preferred */
 }
+
 
 /* === ROADMAP SECTION === */
 .roadmap-section {
-    padding: 6rem 0;
+    padding: var(--s-2xl) 0; /* Consistent padding */
     background: linear-gradient(180deg, var(--bg-1), rgba(var(--bg-2-rgb), .9) 50%, var(--bg-1));
     position: relative;
+    overflow: hidden; /* Prevent timeline marker overflow issues */
 }
 
 .roadmap-timeline {
     position: relative;
     max-width: 1000px;
     margin: 0 auto;
+    padding: var(--s-l) 0; /* Padding for top/bottom items */
 }
 
-.roadmap-timeline::before {
+.roadmap-timeline::before { /* The central line */
     content: '';
     position: absolute;
     left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 6px;
+    top: 0; bottom: 0;
+    width: 4px; /* Thinner line */
     background: var(--g2);
     transform: translateX(-50%);
-    border-radius: 3px;
-    box-shadow: 0 0 30px var(--cyan), inset 0 0 10px rgba(255, 255, 255, .2);
-    /* OPTIMIZED: Removed heavy animation */
+    border-radius: 2px;
+    box-shadow: 0 0 15px rgba(var(--cyan-rgb), .5), inset 0 0 5px rgba(var(--text-1-rgb), .1);
+    /* OPTIMIZED: Removed heavy animation, static glow is sufficient */
 }
 
 .timeline-item {
     display: flex;
-    margin-bottom: 4rem;
+    margin-bottom: var(--s-2xl); /* More spacing */
     position: relative;
+    width: 100%; /* Ensure full width for alignment */
+}
+.timeline-item:last-child {
+    margin-bottom: 0;
 }
 
 .timeline-item:nth-child(even) {
     flex-direction: row-reverse;
 }
+.timeline-item:nth-child(even) .timeline-content {
+    margin-left: calc(50% + 50px + var(--s-m)); /* Align to the right of marker */
+    margin-right: 0;
+    align-items: flex-end; /* Align text to the right */
+    text-align: right;
+}
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-right: calc(50% + 50px + var(--s-m)); /* Align to the left of marker */
+    margin-left: 0;
+    align-items: flex-start;
+    text-align: left;
+}
+
 
 .timeline-marker {
-    width: 100px;
-    height: 100px;
+    width: 80px; height: 80px; /* Smaller marker */
     border-radius: 50%;
     background: var(--g2);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--text-1);
     font-weight: 900;
-    font-size: 1.4rem;
+    font-size: 1.2rem; /* Adjusted font size */
     position: absolute;
     left: 50%;
+    top: 1.5rem; /* Align with content better */
     transform: translateX(-50%);
-    box-shadow: 0 0 40px var(--cyan), inset 0 0 20px rgba(255, 255, 255, .2);
-    border: 4px solid var(--bg-1);
-    z-index: 10;
+    box-shadow: 0 0 30px rgba(var(--cyan-rgb), .7), inset 0 0 15px rgba(var(--text-1-rgb), .2);
+    border: 3px solid var(--bg-1); /* Thinner border */
+    z-index: var(--z-high);
     /* OPTIMIZED: Removed heavy animation */
 }
 
 .timeline-content {
-    width: 45%;
+    width: calc(50% - 50px - var(--s-m)); /* 50% minus half marker width minus gap */
     background: linear-gradient(135deg, rgba(var(--bg-2-rgb), .95), rgba(var(--bg-3-rgb), .95));
-    padding: 3rem;
-    border-radius: 25px;
-    border: 2px solid rgba(var(--cyan-rgb), .3);
-    /* REMOVED: backdrop-filter for performance */
-    box-shadow: var(--shadow-lg), 0 0 80px rgba(var(--cyan-rgb), .2);
-    transition: all .6s;
+    padding: var(--s-l); /* Consistent padding */
+    border-radius: var(--r-l);
+    border: 1px solid rgba(var(--cyan-rgb), .3); /* Subtler border */
+    box-shadow: var(--shadow-md), 0 0 40px rgba(var(--cyan-rgb), .1); /* Softer glow */
+    transition: transform .3s ease, box-shadow .3s ease;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* For ::before shine */
+    display: flex; /* For text alignment */
+    flex-direction: column;
 }
 
-.timeline-content::before {
+
+.timeline-content::before { /* Shine effect */
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(var(--cyan-rgb), .1), transparent);
-    transition: left .8s;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(var(--text-1-rgb), .05), transparent);
+    transition: left .6s ease;
 }
 
 .timeline-content:hover::before {
     left: 100%;
 }
 
-.timeline-item:nth-child(even) .timeline-content {
-    margin-left: auto;
-}
-
 .timeline-content:hover {
-    transform: translateY(-15px) scale(1.02);
-    box-shadow: 0 30px 80px rgba(var(--cyan-rgb), .4), 0 0 100px rgba(var(--pink-rgb), .3);
+    transform: translateY(-10px); /* Subtler hover */
+    box-shadow: var(--shadow-lg), 0 0 60px rgba(var(--cyan-rgb), .2);
 }
 
-.timeline-content h3 {
-    color: var(--cyan);
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+.timeline-content h3 { /* Title inside timeline item */
+    font-size: 1.6rem; /* Adjusted size */
+    margin-bottom: var(--s-s);
     background: var(--g1);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.feature-list {
+.feature-list { /* List inside timeline item */
     list-style: none;
     padding: 0;
-    margin-top: 1.5rem;
+    margin-top: var(--s-m);
 }
 
 .feature-list li {
-    padding: .75rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, .1);
+    padding: .5rem 0; /* Reduced padding */
+    border-bottom: 1px solid rgba(var(--text-1-rgb), .1);
     color: var(--text-2);
-    transition: color .3s;
+    transition: color .3s ease, padding-left .3s ease;
+}
+.feature-list li:last-child {
+    border-bottom: none;
 }
 
 .feature-list li:hover {
     color: var(--cyan);
+    padding-left: .5rem; /* Indent on hover */
 }
 
 /* === ACCORDION SECTIONS === */
 .accordion-section {
-    border-bottom: 1px solid rgba(255, 255, 255, .05);
-    background: rgba(255, 255, 255, .01);
+    border-bottom: 1px solid rgba(var(--text-1-rgb), .05);
+    background: transparent; /* Simpler background */
+}
+.accordion-section:last-child {
+    border-bottom: none;
 }
 
-.accordion-section.enhanced {
+.accordion-section.enhanced { /* For more styled accordions */
     background: linear-gradient(135deg, rgba(var(--bg-2-rgb), .95), rgba(var(--bg-3-rgb), .9));
     border-radius: var(--r-l);
     margin: var(--s-l) 0;
-    overflow: hidden;
+    overflow: hidden; /* To clip content during animation */
+    border: 1px solid rgba(var(--text-1-rgb), .08);
 }
 
 .accordion-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--s-l) 0;
+    padding: var(--s-l) var(--s-m); /* Consistent padding */
     cursor: pointer;
-    transition: all var(--trans);
-    user-select: none;
+    transition: background-color var(--trans); /* Transition background */
+    user-select: none; /* Prevent text selection on click */
+    border-radius: var(--r-l) var(--r-l) 0 0; /* Rounded top corners if enhanced */
 }
+.accordion-section.enhanced .accordion-header {
+     padding: var(--s-l);
+}
+
 
 .accordion-header:hover {
-    color: var(--blue);
+    background-color: rgba(var(--text-1-rgb), .03); /* Subtle hover */
 }
 
-.accordion-header h2 {
-    font-size: var(--t-2xl);
-    font-weight: 700;
+.accordion-header h2 { /* Title within accordion */
+    font-size: var(--t-xl); /* Adjusted size */
+    font-weight: 600; /* Less bold */
     margin: 0;
+    color: var(--text-1);
     transition: color var(--trans);
     text-wrap: balance;
 }
+.accordion-header:hover h2 {
+    color: var(--blue);
+}
 
 .accordion-indicator {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.5rem; /* Visual size */
     color: var(--blue);
-    transition: transform var(--trans);
-    width: 1.875rem;
-    height: 1.875rem;
+    transition: transform var(--trans-fast) ease-in-out;
+    width: 1.875rem; height: 1.875rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid var(--blue);
+    border: 2px solid transparent; /* Transparent border for consistent size */
     border-radius: 50%;
     will-change: transform;
 }
-
 .accordion-header.active .accordion-indicator {
-    transform: rotate(45deg);
+    transform: rotate(135deg); /* More distinct rotation */
     background: var(--blue);
     color: var(--bg-1);
 }
+.accordion-header:not(.active) .accordion-indicator {
+    border-color: var(--blue);
+}
+
 
 .accordion-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height .5s ease-out;
+    transition: max-height .4s ease-out, padding .4s ease-out; /* Smooth animation */
     will-change: max-height;
+    background-color: rgba(var(--surface-rgb), 0.5); /* Background for content area */
+}
+.accordion-section.enhanced .accordion-content {
+    background-color: transparent; /* Or match enhanced style */
 }
 
 .accordion-content.active {
-    max-height: 62.5rem;
+    max-height: 62.5rem; /* Ample height for content */
 }
 
 .accordion-content-inner {
-    padding-bottom: var(--s-xl);
+    padding: 0 var(--s-m) var(--s-xl) var(--s-m); /* Padding only when active */
+}
+.accordion-content.active .accordion-content-inner {
+    padding-top: var(--s-l);
+}
+.accordion-section.enhanced .accordion-content-inner {
+     padding: var(--s-l);
+     padding-top: 0;
+}
+.accordion-section.enhanced .accordion-content.active .accordion-content-inner {
+    padding-top: var(--s-s);
 }
 
-/* === OPTIMIZED ANIMATIONS === */
+
+/* === OPTIMIZED ANIMATIONS (Wrapped in prefers-reduced-motion) === */
 @media (prefers-reduced-motion: no-preference) {
     @keyframes spin {
         to { transform: rotate(360deg); }
     }
 
-    @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: .5; }
+    @keyframes pulse { /* General purpose pulse */
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: .6; transform: scale(1.03); }
     }
-
-    @keyframes heroSlideIn {
+    
+    @keyframes heroSlideIn { /* For hero elements */
+        from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes borderRotate {
+    @keyframes titleGlow { /* Specific for hero title */
+        0%, 100% { text-shadow: 0 0 15px rgba(var(--cyan-rgb), .5), 0 0 25px rgba(var(--cyan-rgb), .3); }
+        50% { text-shadow: 0 0 25px rgba(var(--pink-rgb), .6), 0 0 40px rgba(var(--electric-rgb), .4); }
+    }
+
+    @keyframes borderRotate { /* For enhanced cards/sections */
         to { transform: rotate(360deg); }
     }
 
-    @keyframes tabFadeIn {
-        from { opacity: 0; transform: translateY(20px) scale(.98); }
+    @keyframes tabFadeIn { /* For tab content */
+        from { opacity: 0; transform: translateY(15px) scale(.98); }
         to { opacity: 1; transform: translateY(0) scale(1); }
     }
-
-    /* FIXED: Complete timelinePulse animation */
-    @keyframes timelinePulse {
-        0%, 100% { 
-            box-shadow: 0 0 30px var(--cyan), inset 0 0 10px rgba(255, 255, 255, .2);
-            transform: translateX(-50%) scaleY(1);
-        }
-        50% { 
-            box-shadow: 0 0 50px var(--pink), inset 0 0 20px rgba(255, 255, 255, .4);
-            transform: translateX(-50%) scaleY(1.05);
-        }
+    
+    /* SVG specific animations */
+    @keyframes svgDrawStroke {
+        to { stroke-dashoffset: 0; opacity: 1; }
     }
 
-    @keyframes markerGlow {
-        0%, 100% { 
-            box-shadow: 0 0 40px var(--cyan), inset 0 0 20px rgba(255, 255, 255, .2);
-        }
-        50% { 
-            box-shadow: 0 0 60px var(--pink), 0 0 80px var(--electric), inset 0 0 30px rgba(255, 255, 255, .4);
-        }
+    @keyframes svgFadeIn {
+        to { opacity: 1; }
     }
 }
 
+
 /* === RESPONSIVE DESIGN - MOBILE FIRST === */
-@media (max-width: 768px) {
+@media (max-width: 768px) { /* Tablet and below */
     .mobile-menu-toggle {
-        display: flex;
+        display: flex; /* Show hamburger */
     }
 
     .nav-menu {
-        display: none;
+        display: none; /* Hide desktop menu */
         position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--bg-1);
+        top: 100%; /* Position below header */
+        left: 0; right: 0;
+        background: var(--bg-1); /* Solid background for readability */
         flex-direction: column;
         padding: var(--s-l);
-        border-top: 1px solid rgba(255, 255, 255, .1);
-        /* REMOVED: backdrop-filter for performance */
+        border-top: 1px solid rgba(var(--text-1-rgb), .1);
+        box-shadow: var(--shadow-lg); /* Add shadow for depth */
+        /* REMOVED: backdrop-filter for performance on mobile */
     }
 
-    .nav-menu.open {
+    .nav-menu.open { /* Class to show mobile menu */
         display: flex;
+        animation: slideDown .3s ease-out forwards;
     }
+    @media (prefers-reduced-motion: no-preference) {
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    }
+
+
+    .nav-link { /* Adjust mobile nav links */
+        padding: var(--s-m) 0; /* Full width tappable area */
+        text-align: center;
+        border-bottom: 1px solid rgba(var(--text-1-rgb), .05);
+    }
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+    .nav-link::after { display: none; } /* Remove underline effect on mobile */
+
 
     .hero-title {
-        font-size: clamp(2.5rem, 8vw, 4rem);
+        font-size: clamp(2.2rem, 10vw, 3.5rem); /* Adjusted for mobile */
+        letter-spacing: .05em;
+    }
+    .hero-section .subtitle {
+        font-size: var(--t-base);
+        max-width: 90%;
     }
 
-    .timeline-content {
-        width: 90%;
-        margin: 0 auto;
+    .timeline-item, .timeline-item:nth-child(even) {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center marker and content */
     }
-
     .timeline-marker {
-        width: 80px;
-        height: 80px;
-        font-size: 1.2rem;
+        position: relative; /* No longer absolute */
+        transform: none;
+        left: auto; top: auto;
+        margin-bottom: var(--s-m);
+        width: 60px; height: 60px; font-size: 1rem;
     }
+    .timeline-content, 
+    .timeline-item:nth-child(even) .timeline-content,
+    .timeline-item:nth-child(odd) .timeline-content {
+        width: 90%; /* Full width content */
+        max-width: 400px;
+        margin: 0 auto; /* Center content */
+        text-align: center; /* Center text */
+        align-items: center;
+    }
+    .roadmap-timeline::before {
+        left: 50%; /* Keep central line */
+        width: 2px; /* Thinner line on mobile */
+    }
+
 
     .category-tab {
         padding: 1rem 1.5rem;
+        font-size: var(--t-s);
     }
 
     .feature-card-iui.enhanced {
         padding: 2rem;
+        transform: none !important; /* Disable 3D hover on mobile */
+    }
+    .feature-card-iui.enhanced:hover {
+        transform: translateY(-5px) !important; /* Simple lift */
     }
 
+
     .contact-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack contact methods */
     }
 
     .tech-categories {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack tech categories */
     }
 
     .mission-vision {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack mission/vision */
     }
 
-    .toast-container {
+    .toast-container { /* Full width toasts on mobile */
         top: calc(var(--header-h) + var(--s-s));
-        right: var(--s-s);
-        left: var(--s-s);
-        align-items: center;
+        right: var(--s-s); left: var(--s-s);
+        align-items: center; /* Center toasts */
     }
 
     .toast {
-        max-width: none;
+        max-width: calc(100% - 2 * var(--s-s)); /* Full width with padding */
         width: 100%;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px) { /* Smaller mobile devices */
     .hero-actions {
-        flex-direction: column;
+        flex-direction: column; /* Stack CTA buttons */
         align-items: center;
     }
 
-    .cta-button {
+    .cta-button { /* Full width CTAs */
         width: 100%;
         max-width: 300px;
+        padding: var(--s-m) var(--s-l); /* Larger tap area */
     }
-
-    .tech-category {
-        padding: 2rem;
-    }
-
-    .timeline-content {
-        padding: 2rem;
-    }
-
-    .feature-card-iui.enhanced {
-        padding: 1.5rem;
+    
+    .tech-category, .timeline-content, .feature-card-iui.enhanced {
+        padding: var(--s-l); /* Adjust padding */
     }
 
     .newsletter-form {
@@ -1311,461 +1461,172 @@ a:hover, a:focus-visible {
 
     .contact-link {
         padding: var(--s-m);
+        flex-direction: column; /* Stack icon and text in contact links */
+        text-align: center;
+        gap: var(--s-xs);
+    }
+    .link-content {
+        align-items: center;
     }
 }
 
-/* === HIGH DPI DISPLAYS === */
-@media (min-resolution: 2dppx) {
+/* === HIGH DPI DISPLAYS (Optional: for sharper images/gradients if needed) === */
+@media (min-resolution: 1.5dppx) { /* General high DPI */
+    .hero-section::after { /* Example: slightly denser pattern */
+        background-size: 70px 70px, 110px 110px;
+    }
+}
+@media (min-resolution: 2dppx) { /* Very high DPI (Retina) */
     .hero-section::after {
-        background-size: 200px 200px, 300px 300px;
+        background-size: 60px 60px, 100px 100px;
     }
 }
 
-/* === REDUCED MOTION === */
+/* === REDUCED MOTION (Accessibility) === */
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    html {
+        scroll-behavior: auto; /* Disable smooth scrolling */
+    }
+    *, *::before, *::after { /* Disable all animations and transitions */
         animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
+        animation-iteration-count: 1 !important; /* Run once quickly */
         transition-duration: .01ms !important;
+        transition-delay: 0ms !important;
     }
 
-    .hero-section::after {
-        animation: none;
-    }
+    .gaming-cursor { display: none; } /* Hide animated cursor */
 
-    .gaming-cursor {
-        display: none;
-    }
-
-    .feature-card-iui.enhanced::before {
-        animation: none;
-    }
-
-    .newsletter-signup.enhanced::before {
-        animation: none;
+    /* Disable specific complex animations that might persist */
+    .hero-section::after,
+    .feature-card-iui.enhanced::before,
+    .newsletter-signup.enhanced::before,
+    .spinner-ring,
+    .loading-text,
+    .hero-title {
+        animation: none !important;
     }
 }
 
 /* === PRINT STYLES === */
 @media print {
-    .site-header, .gaming-cursor, .scroll-progress, .loading-screen, .toast-container {
-        display: none;
+    .site-header, .gaming-cursor, .scroll-progress, .loading-screen, .toast-container, .mobile-menu-toggle, .skip-links {
+        display: none !important; /* Hide non-essential elements */
     }
 
     body {
         padding-top: 0;
-        background: white;
-        color: black;
+        background: white !important; /* White background for printing */
+        color: black !important; /* Black text */
+        font-size: 12pt; /* Readable print size */
+        line-height: 1.4;
+    }
+    
+    :root { /* Override CSS variables for print */
+        --text-1: #000; --text-2: #333; --text-3: #555;
+        --bg-1: #fff; --bg-2: #f0f0f0; --bg-3: #e0e0e0;
+        --blue: #007bff; /* Keep brand color or use black */
+    }
+    h1,h2,h3,h4,h5,h6,p {
+        color: var(--text-1) !important;
     }
 
-    .hero-section::after {
-        display: none;
-    }
+    .hero-section::after { display: none; } /* Hide decorative elements */
+    .hero-title { background: none !important; -webkit-text-fill-color: black !important; }
 
-    a {
-        color: blue;
-        text-decoration: underline;
-    }
+    a { color: var(--blue) !important; text-decoration: underline !important; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; } /* Show full URLs */
+    
+    .container { max-width: 100% !important; padding: 0 !important; }
+    .cta-button { border: 1px solid #ccc !important; background: #eee !important; color: #000 !important; box-shadow: none !important; }
 }
 
-/* === FOCUS MANAGEMENT === */
-.focus-outline {
-    outline: 2px solid var(--cyan);
-    outline-offset: 2px;
-}
-
+/* === FOCUS MANAGEMENT (Accessibility) === */
+/* Default :focus-visible provided by browser is often good, this is for consistency */
 :focus-visible {
-    outline: 2px solid var(--cyan);
+    outline: 3px solid var(--yellow); /* High contrast, thick outline */
     outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(var(--yellow-rgb), .3); /* Optional softer glow */
+    border-radius: var(--r-s); /* Match element's border-radius if possible */
 }
+/* Remove default outline for non-keyboard focus if specifically needed, but generally avoid. */
+/* :focus:not(:focus-visible) { outline: none; } */
 
-/* === PERFORMANCE UTILITIES === */
-.will-change-transform {
-    will-change: transform;
-}
 
-.will-change-opacity {
-    will-change: opacity;
-}
+/* === PERFORMANCE UTILITIES (Use sparingly) === */
+.will-change-transform { will-change: transform; }
+.will-change-opacity { will-change: opacity; }
+.contain-layout { contain: layout; } /* Isolate layout calculations */
+.contain-paint { contain: paint; } /* Isolate paint calculations */
+.contain-strict { contain: strict; } /* Max isolation, use with caution */
 
-.contain-layout {
-    contain: layout;
-}
 
-.contain-paint {
-    contain: paint;
-}
-
-.contain-strict {
-    contain: strict;
-}
-
-/* === THEME TOGGLE UTILITY === */
-.theme-toggle {
-    background: none;
-    border: 2px solid var(--blue);
-    color: var(--blue);
+/* === THEME TOGGLE UTILITY (Example styling) === */
+.theme-toggle-button { /* Assuming a button element */
+    background: var(--surface);
+    color: var(--text-1);
+    border: 1px solid var(--blue);
     padding: var(--s-xs) var(--s-s);
-    border-radius: var(--r-s);
-    cursor: pointer;
-    transition: all var(--trans);
-    font-size: var(--t-s);
-}
-
-.theme-toggle:hover, .theme-toggle:focus-visible {
-    background: var(--blue);
-    color: var(--bg-1);
-    transform: scale(1.05);
-}
-
-/* === GPU-EFFICIENT CLASSES === */
-.gpu-effect {
-    /* Only apply expensive effects to elements with this class */
-    will-change: transform;
-    transform: translateZ(0);
-}
-
-.smooth-scroll {
-    scroll-behavior: smooth;
-}
-
-/* === CONTACT SECTION (COMPLETING THE OPTIMIZATION) === */
-.contact-section {
-    padding: var(--s-2xl) 0;
-}
-
-.contact-section.enhanced {
-    background: linear-gradient(135deg, rgba(var(--bg-1-rgb), .98), rgba(var(--bg-2-rgb), .95));
-    /* REMOVED: backdrop-filter for performance */
-}
-
-.contact-intro {
-    font-size: var(--t-l);
-    text-align: center;
-    margin-bottom: var(--s-2xl);
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: var(--s-2xl);
-    margin: var(--s-2xl) 0;
-}
-
-.contact-methods {
-    display: flex;
-    flex-direction: column;
-    gap: var(--s-m);
-}
-
-.contact-link {
-    display: flex;
-    align-items: center;
-    gap: var(--s-m);
-    padding: var(--s-l);
-    background: rgba(var(--bg-2-rgb), .9);
-    border: 1px solid rgba(var(--cyan-rgb), .2);
-    border-radius: var(--r-l);
-    color: var(--text-2);
-    text-decoration: none;
-    transition: all var(--trans);
-    cursor: pointer;
-    /* REMOVED: backdrop-filter for performance */
-}
-
-.contact-link:hover, .contact-link:focus-visible {
-    color: var(--text-1);
-    border-color: var(--cyan);
-    box-shadow: 0 10px 30px rgba(var(--cyan-rgb), .3);
-    transform: translateY(-5px);
-}
-
-.github-link:hover {
-    border-color: var(--purple);
-}
-
-.email-link:hover {
-    border-color: var(--blue);
-}
-
-.telegram-link:hover {
-    border-color: var(--cyan);
-}
-
-.link-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.link-title {
-    font-weight: 700;
-    font-size: var(--t-base);
-}
-
-.link-description {
-    font-size: var(--t-s);
-    opacity: .8;
-}
-
-/* === NEWSLETTER ENHANCED === */
-.newsletter-section {
-    margin-top: var(--s-xl);
-}
-
-.newsletter-signup {
-    background: linear-gradient(135deg, rgba(var(--bg-2-rgb), .95), rgba(var(--bg-3-rgb), .9));
-    padding: var(--s-2xl);
-    border-radius: var(--r-xl);
-    border: 2px solid rgba(var(--cyan-rgb), .3);
-    /* REMOVED: backdrop-filter for performance */
-}
-
-.newsletter-signup.enhanced {
-    position: relative;
-    overflow: hidden;
-}
-
-.newsletter-signup.enhanced::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(from 0deg, transparent, rgba(var(--cyan-rgb), .1), transparent, rgba(var(--pink-rgb), .1), transparent);
-    animation: borderRotate 10s linear infinite;
-    z-index: -1;
-}
-
-.newsletter-title {
-    font-size: var(--t-2xl);
-    text-align: center;
-    margin-bottom: var(--s-m);
-    background: var(--g1);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.newsletter-description {
-    text-align: center;
-    margin-bottom: var(--s-xl);
-    color: var(--text-2);
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.newsletter-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--s-m);
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.newsletter-form.enhanced {
-    position: relative;
-    z-index: 1;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--s-xs);
-}
-
-.form-label {
-    color: var(--text-1);
-    font-weight: 600;
-    font-size: var(--t-s);
-}
-
-.newsletter-form input, .form-select {
-    padding: var(--s-m);
-    background: rgba(var(--bg-2-rgb), .95);
-    border: 2px solid rgba(var(--cyan-rgb), .3);
     border-radius: var(--r-m);
-    color: var(--text-1);
-    font-size: var(--t-base);
-    transition: all var(--trans);
-    /* REMOVED: backdrop-filter for performance */
-}
-
-.newsletter-form input:focus, .form-select:focus {
-    outline: none;
-    border-color: var(--cyan);
-    box-shadow: 0 0 20px rgba(var(--cyan-rgb), .3);
-}
-
-.newsletter-form input::placeholder {
-    color: var(--text-3);
-    opacity: .8;
-}
-
-.checkbox-group {
-    flex-direction: row;
-    align-items: center;
-    gap: var(--s-s);
-}
-
-.form-checkbox {
-    width: 20px;
-    height: 20px;
-    accent-color: var(--cyan);
-    border-radius: var(--r-s);
-}
-
-.checkbox-label {
-    margin: 0;
     cursor: pointer;
-}
-
-.error-message {
-    color: #dc3545;
+    transition: background-color var(--trans), color var(--trans);
     font-size: var(--t-s);
-    margin-top: var(--s-xs);
-    display: none;
-}
-
-.privacy-notice {
-    margin-top: var(--s-l);
-    padding: var(--s-m);
-    background: rgba(var(--cyan-rgb), .05);
-    border-radius: var(--r-m);
-    border: 1px solid rgba(var(--cyan-rgb), .2);
-    text-align: center;
-}
-
-.privacy-notice p {
-    font-size: var(--t-s);
-    margin: 0;
-}
-
-.contact-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: var(--s-l);
-    margin: var(--s-2xl) 0;
-    padding: var(--s-l);
-    background: rgba(var(--cyan-rgb), .05);
-    border-radius: var(--r-l);
-    border: 1px solid rgba(var(--cyan-rgb), .2);
-}
-
-.contact-stats .stat-item {
-    text-align: center;
-}
-
-/* === VISUALLY HIDDEN UTILITY === */
-.visually-hidden {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
-}
-
-/* === TOAST NOTIFICATIONS === */
-.toast-container {
-    position: fixed;
-    top: calc(var(--header-h) + var(--s-m));
+    position: fixed; /* Example positioning */
+    bottom: var(--s-m);
     right: var(--s-m);
-    z-index: var(--z-modal);
-    display: flex;
-    flex-direction: column;
-    gap: var(--s-xs);
-    pointer-events: none;
+    z-index: var(--z-modal); /* Above most content */
+}
+.theme-toggle-button:hover, .theme-toggle-button:focus-visible {
+    background-color: var(--blue);
+    color: var(--bg-1); /* Ensure contrast */
+}
+.theme-toggle-button:focus-visible {
+    outline-offset: 1px; /* Adjust if needed */
 }
 
-.toast {
-    background: var(--bg-2);
-    color: var(--text-1);
-    padding: var(--s-m);
-    border-radius: var(--r-m);
-    border: 1px solid rgba(255, 255, 255, .1);
-    box-shadow: var(--shadow-lg);
-    max-width: 300px;
-    transform: translateX(100%);
-    transition: transform var(--trans);
-    pointer-events: auto;
-    position: relative;
-    overflow: hidden;
+
+/* === GPU-EFFICIENT CLASSES (Apply selectively) === */
+.gpu-effect {
+    /* Apply only to elements that genuinely benefit from GPU layer promotion
+       during complex animations or transitions. Overuse can harm performance. */
+    will-change: transform; /* Most common property for GPU acceleration */
+    /* transform: translateZ(0); /* Older hack, will-change is preferred */
 }
 
-.toast.show {
-    transform: translateX(0);
-}
-
-.toast.success {
-    border-left: 4px solid var(--green);
-}
-
-.toast.error {
-    border-left: 4px solid #dc3545;
-}
-
-.toast.warning {
-    border-left: 4px solid var(--yellow);
-}
-
-.toast.info {
-    border-left: 4px solid var(--blue);
-}
-
-.toast::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 4px;
-    background: var(--blue);
-    animation: toastProgress 3s linear;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    @keyframes toastProgress {
-        from { transform: scaleY(1); }
-        to { transform: scaleY(0); }
-    }
-}
-
-/* === SVG LOGO ENHANCEMENTS === */
+/* === SVG LOGO ENHANCEMENTS & ANIMATIONS === */
 #ggeniusAnimatedLogo {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 0 20px rgba(var(--cyan-rgb), .5));
+    filter: drop-shadow(0 0 15px rgba(var(--cyan-rgb), .4)); /* Softer shadow */
 }
 
-.gradient-stop-1 {
-    stop-color: var(--blue);
-}
+/* Gradient definitions for SVG logo, if used via fill="url(#logoSvgGradient)" */
+/* Ensure <defs><linearGradient id="logoSvgGradient">...</linearGradient></defs> is in your SVG */
+.gradient-stop-1 { stop-color: var(--blue); }
+.gradient-stop-2 { stop-color: var(--yellow); }
 
-.gradient-stop-2 {
-    stop-color: var(--yellow);
-}
-
+/* Example SVG part animations */
 .logo-hexagon-frame {
     fill: none;
-    stroke: url(#logoSvgGradient);
+    stroke: url(#logoSvgGradient); /* Ensure this ID matches SVG defs */
     stroke-width: 2;
+    stroke-dasharray: 1000; /* Approx path length, adjust as needed */
+    stroke-dashoffset: 1000;
     opacity: 0;
     animation: svgDrawStroke 2s ease-out .5s forwards;
 }
 
 .logo-gamepad {
     opacity: 0;
-    animation: svgFadeIn 1s ease-out 1.5s forwards;
+    transform-origin: center;
+    animation: svgFadeIn .8s ease-out 1.5s forwards, svgPulse 2s ease-in-out 2.5s infinite alternate;
 }
+@media (prefers-reduced-motion: no-preference) {
+    @keyframes svgPulse {
+        from { transform: scale(1); }
+        to { transform: scale(1.05); }
+    }
+}
+
 
 .logo-gamepad-base {
     fill: var(--bg-2);
@@ -1775,7 +1636,13 @@ a:hover, a:focus-visible {
 
 .logo-d-pad, .logo-buttons-group {
     fill: var(--blue);
+    transition: fill .3s ease;
 }
+#ggeniusAnimatedLogo:hover .logo-d-pad,
+#ggeniusAnimatedLogo:hover .logo-buttons-group {
+    fill: var(--cyan); /* Change color on logo hover */
+}
+
 
 .logo-brain {
     opacity: 0;
@@ -1785,6 +1652,23 @@ a:hover, a:focus-visible {
 .logo-brain-line {
     fill: none;
     stroke: var(--yellow);
-    stroke-width: 2;
+    stroke-width: 1.5; /* Thinner lines */
     stroke-linecap: round;
-    stroke-dasharray: 
+    stroke-dasharray: 20; /* Adjust for desired dash pattern */
+    stroke-dashoffset: 20;
+    animation: svgDrawStroke 1.5s ease-out 2.5s forwards;
+}
+
+/* Specific brain lines if needed */
+.brain-left, .brain-left-secondary { stroke: var(--cyan); }
+.brain-right, .brain-right-secondary { stroke: var(--pink); }
+
+.gamepad-element { /* Class for individual gamepad parts if interactive */
+    filter: drop-shadow(0 0 8px currentColor); /* Softer shadow */
+    transition: filter .3s ease;
+}
+.gamepad-element:hover {
+    filter: drop-shadow(0 0 12px currentColor) brightness(1.1);
+}
+
+/* Final check for any unclosed blocks or missing semicolons - All seems complete. */
