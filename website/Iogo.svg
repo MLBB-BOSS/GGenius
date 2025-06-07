@@ -1,312 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="1024" height="1024" viewBox="0 0 1024 1024"
-     xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink">
+     xmlns="http://www.w3.org/2000/svg">
 
-  <!-- ============== REALISTIC DEFINITIONS ============== -->
   <defs>
-    <!-- Subtle Gray Background -->
-    <linearGradient id="subtle-bg" x1="0" y1="0" x2="0" y2="1">
+    <!-- Фон -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#F8F9FA"/>
-      <stop offset="50%" stop-color="#E9ECEF"/>
-      <stop offset="100%" stop-color="#DEE2E6"/>
+      <stop offset="100%" stop-color="#E9ECEF"/>
     </linearGradient>
-
-    <!-- Controller Realistic Body Gradient -->
-    <radialGradient id="realistic-body" cx="0.3" cy="0.25" r="1.1">
-      <stop offset="0%" stop-color="#4A5568"/>
-      <stop offset="30%" stop-color="#2D3748"/>
-      <stop offset="60%" stop-color="#1A202C"/>
-      <stop offset="100%" stop-color="#0F1419"/>
+    <!-- Тінь -->
+    <radialGradient id="floor-shadow" cx="0.5" cy="0.65" r="0.7">
+      <stop offset="0%" stop-color="#999" stop-opacity="0.24"/>
+      <stop offset="60%" stop-color="#333" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
     </radialGradient>
-
-    <!-- Natural Lighting -->
-    <linearGradient id="natural-lighting" x1="0" y1="0" x2="0.6" y2="0.8">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
-      <stop offset="25%" stop-color="rgba(255,255,255,0.2)"/>
-      <stop offset="60%" stop-color="rgba(255,255,255,0.05)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0.1)"/>
-    </linearGradient>
-
-    <!-- Realistic D-Pad Material -->
-    <radialGradient id="dpad-material" cx="0.5" cy="0.3" r="0.8">
-      <stop offset="0%" stop-color="#6B46C1"/>
-      <stop offset="50%" stop-color="#553C9A"/>
-      <stop offset="100%" stop-color="#44337A"/>
-    </radialGradient>
-
-    <!-- Button Material -->
-    <radialGradient id="button-material" cx="0.5" cy="0.3" r="0.8">
-      <stop offset="0%" stop-color="#0EA5E9"/>
-      <stop offset="50%" stop-color="#0284C7"/>
-      <stop offset="100%" stop-color="#0369A1"/>
-    </radialGradient>
-
-    <!-- Realistic Floor Shadow -->
-    <radialGradient id="floor-shadow" cx="0.5" cy="0.5" r="0.8">
-      <stop offset="0%" stop-color="rgba(0,0,0,0.3)"/>
-      <stop offset="40%" stop-color="rgba(0,0,0,0.15)"/>
-      <stop offset="70%" stop-color="rgba(0,0,0,0.05)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
-    </radialGradient>
-
-    <!-- Enhanced Realistic Shadow Filter -->
-    <filter id="realistic-shadow" x="-50%" y="-30%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="29" stdDeviation="40" flood-color="#000000" flood-opacity="0.4"/>
-      <feDropShadow dx="0" dy="14" stdDeviation="23" flood-color="#000000" flood-opacity="0.2"/>
-      <feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#000000" flood-opacity="0.1"/>
+    <!-- Світіння для кнопок -->
+    <filter id="glow-purple" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
-
-    <!-- Button Depth -->
-    <filter id="button-depth" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.6"/>
-      <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#000000" flood-opacity="0.3"/>
+    <filter id="glow-cyan" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="7" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
-
-    <!-- Enhanced Stick Shadow -->
-    <filter id="stick-shadow" x="-40%" y="-40%" width="180%" height="180%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.5"/>
-      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
-    </filter>
-
-    <!-- Realistic Stick Texture -->
-    <radialGradient id="stick-texture" cx="0.5" cy="0.3" r="0.9">
-      <stop offset="0%" stop-color="#4A5568"/>
-      <stop offset="40%" stop-color="#2D3748"/>
-      <stop offset="80%" stop-color="#1A202C"/>
-      <stop offset="100%" stop-color="#0F1419"/>
+    <!-- D-Pad Градієнт -->
+    <linearGradient id="dpad-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#C171FF"/>
+      <stop offset="100%" stop-color="#A020F0"/>
+    </linearGradient>
+    <!-- Кнопки градієнт -->
+    <linearGradient id="btn-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8FF6FF"/>
+      <stop offset="100%" stop-color="#66E0FF"/>
+    </linearGradient>
+    <!-- Основний корпус -->
+    <radialGradient id="body-grad" cx="0.5" cy="0.3" r="0.95">
+      <stop offset="0%" stop-color="#454C5E"/>
+      <stop offset="55%" stop-color="#252832"/>
+      <stop offset="100%" stop-color="#13151A"/>
     </radialGradient>
-
-    <!-- Enhanced Stick Rubber Pattern -->
-    <pattern id="rubber-pattern" patternUnits="userSpaceOnUse" width="3.5" height="3.5">
-      <rect width="3.5" height="3.5" fill="#1A202C"/>
-      <circle cx="1.75" cy="1.75" r="0.7" fill="#2D3748" opacity="0.8"/>
-    </pattern>
-
-    <!-- Metal Trigger Material -->
-    <linearGradient id="metal-trigger" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#718096"/>
-      <stop offset="30%" stop-color="#4A5568"/>
-      <stop offset="70%" stop-color="#2D3748"/>
-      <stop offset="100%" stop-color="#1A202C"/>
-    </linearGradient>
-
-    <!-- Screen Material -->
-    <linearGradient id="screen-material" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#000000"/>
-      <stop offset="50%" stop-color="#0F1419"/>
-      <stop offset="100%" stop-color="#000000"/>
-    </linearGradient>
-
-    <!-- Plastic Highlight -->
-    <linearGradient id="plastic-highlight" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
-      <stop offset="30%" stop-color="rgba(255,255,255,0.1)"/>
-      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    <!-- Світло -->
+    <linearGradient id="light" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.27)"/>
+      <stop offset="80%" stop-color="rgba(255,255,255,0)"/>
     </linearGradient>
   </defs>
 
-  <!-- ============== SUBTLE BACKGROUND ============== -->
-  <rect width="1024" height="1024" fill="url(#subtle-bg)"/>
+  <!-- Фон -->
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <!-- Тінь -->
+  <ellipse cx="512" cy="730" rx="330" ry="60" fill="url(#floor-shadow)"/>
+  
+  <!-- Корпус контролера -->
+  <path d="
+    M260,520
+    C242,450 304,380 410,360
+    C468,350 540,350 614,360
+    C720,380 782,450 764,520
+    C752,570 720,610 680,630
+    C650,645 610,640 580,620
+    C560,610 550,590 552,570
+    C554,550 538,538 520,538
+    C500,538 486,554 486,572
+    C484,590 480,610 456,625
+    C430,640 400,645 370,630
+    C330,610 288,570 260,520
+    Z"
+    fill="url(#body-grad)" stroke="#181B21" stroke-width="2.5"/>
+  <!-- Блік -->
+  <path d="
+    M285,520
+    C265,470 330,400 425,390
+    C470,380 550,380 610,390
+    C715,400 770,470 755,525
+    Q700,465 590,450
+    Q520,440 370,470
+    Q330,485 285,520
+    Z"
+    fill="url(#light)" opacity="0.32"/>
 
-  <!-- Enhanced Floor Shadow (15% larger and repositioned) -->
-  <ellipse cx="512" cy="770" rx="368" ry="92" fill="url(#floor-shadow)" opacity="0.6"/>
+  <!-- Сенсорна панель -->
+  <rect x="402" y="375" width="220" height="52" rx="13" fill="#1D1D1D" stroke="#333" stroke-width="2"/>
+  <rect x="408" y="382" width="208" height="38" rx="8" fill="#22242B" opacity="0.7"/>
+  <rect x="415" y="390" width="194" height="15" rx="7" fill="#fff" opacity="0.04"/>
 
-  <!-- ============== ENHANCED REALISTIC CONTROLLER (15% larger) ============== -->
-  <g id="realistic-controller" filter="url(#realistic-shadow)">
-    
-    <!-- Main Controller Body (15% larger) -->
-    <g id="controller-body">
-      <!-- Primary Body Shape -->
-      <path d="
-        M203,508
-        C180,425.75 291,333.75 425.75,321
-        C505.5,298 555.8,292.25 683,321
-        C818.75,333.75 897.75,425.75 874.75,523.75
-        C857.5,587 819.5,623 766.75,669
-        C727.5,698.75 683.25,707.25 637,660.5
-        C602.5,634.5 591,598.25 594.45,571.25
-        C597.9,531 585.75,508 555.8,508
-        C525.85,508 513.7,531 517.15,571.25
-        C520.6,598.25 509.1,634.5 474.6,660.5
-        C428.35,707.25 384.1,698.75 344.85,669
-        C292.1,623 254.1,587 203,508
-        Z"
-        fill="url(#realistic-body)" 
-        stroke="#000000" 
-        stroke-width="2.3"/>
-
-      <!-- Natural Surface Lighting -->
-      <path d="
-        M203,508
-        C180,425.75 291,333.75 425.75,321
-        C505.5,298 555.8,292.25 683,321
-        C818.75,333.75 897.75,425.75 874.75,523.75
-        C857.5,587 819.5,623 766.75,669
-        C727.5,698.75 683.25,707.25 637,660.5
-        C602.5,634.5 591,598.25 594.45,571.25
-        C597.9,531 585.75,508 555.8,508
-        C525.85,508 513.7,531 517.15,571.25
-        C520.6,598.25 509.1,634.5 474.6,660.5
-        C428.35,707.25 384.1,698.75 344.85,669
-        C292.1,623 254.1,587 203,508
-        Z"
-        fill="url(#natural-lighting)" 
-        opacity="0.7"/>
-    </g>
-
-    <!-- Enhanced Realistic Center Touchpad (15% larger) -->
-    <g id="center-touchpad">
-      <rect x="345.8" y="356.5" width="322" height="80.5" rx="18.4" 
-            fill="url(#screen-material)" stroke="#2D3748" stroke-width="2.3"/>
-      <rect x="351.55" y="363.25" width="310.5" height="69" rx="13.8" 
-            fill="#0F1419" stroke="#1A202C" stroke-width="1.15"/>
-      
-      <!-- Subtle Screen Reflection -->
-      <rect x="361.75" y="375.75" width="292.1" height="46" rx="9.2" fill="url(#plastic-highlight)" opacity="0.2"/>
-    </g>
-
-    <!-- Ultra-Enhanced Realistic Analog Sticks (15% larger) -->
-    <g id="realistic-sticks">
-      <!-- Left Stick Assembly -->
-      <g filter="url(#stick-shadow)">
-        <circle cx="420.8" cy="555.25" r="43.7" fill="#1A202C" stroke="#0F1419" stroke-width="2.3"/>
-        <circle cx="420.8" cy="555.25" r="39.1" fill="url(#stick-texture)"/>
-        
-        <circle cx="420.8" cy="549.5" r="23" fill="url(#metal-trigger)" stroke="#2D3748" stroke-width="1.15"/>
-        <circle cx="420.8" cy="547.2" r="18.4" fill="#4A5568"/>
-        
-        <circle cx="420.8" cy="544.9" r="13.8" fill="url(#rubber-pattern)"/>
-        <circle cx="420.8" cy="542.6" r="9.2" fill="#2D3748"/>
-        
-        <circle cx="420.8" cy="542.6" r="4.6" fill="#1A202C" opacity="0.8"/>
-      </g>
-
-      <!-- Right Stick Assembly -->
-      <g filter="url(#stick-shadow)">
-        <circle cx="686.8" cy="555.25" r="43.7" fill="#1A202C" stroke="#0F1419" stroke-width="2.3"/>
-        <circle cx="686.8" cy="555.25" r="39.1" fill="url(#stick-texture)"/>
-        
-        <circle cx="686.8" cy="549.5" r="23" fill="url(#metal-trigger)" stroke="#2D3748" stroke-width="1.15"/>
-        <circle cx="686.8" cy="547.2" r="18.4" fill="#4A5568"/>
-        
-        <circle cx="686.8" cy="544.9" r="13.8" fill="url(#rubber-pattern)"/>
-        <circle cx="686.8" cy="542.6" r="9.2" fill="#2D3748"/>
-        
-        <circle cx="686.8" cy="542.6" r="4.6" fill="#1A202C" opacity="0.8"/>
-      </g>
-    </g>
-
-    <!-- Enhanced Realistic Shoulder Triggers (15% larger) -->
-    <g id="shoulder-triggers">
-      <!-- Left Shoulder -->
-      <rect x="276.5" y="313.75" width="149.5" height="23" rx="11.5" fill="url(#metal-trigger)" stroke="#1A202C" stroke-width="1.15"/>
-      <rect x="282.25" y="317.2" width="138" height="16.1" rx="8.05" fill="#4A5568"/>
-      <text x="351.25" y="331" text-anchor="middle" fill="#A0AEC0" font-family="Arial" font-size="10.35">L1  L2</text>
-
-      <!-- Right Shoulder -->
-      <rect x="598.6" y="313.75" width="149.5" height="23" rx="11.5" fill="url(#metal-trigger)" stroke="#1A202C" stroke-width="1.15"/>
-      <rect x="604.35" y="317.2" width="138" height="16.1" rx="8.05" fill="#4A5568"/>
-      <text x="673.35" y="331" text-anchor="middle" fill="#A0AEC0" font-family="Arial" font-size="10.35">R1  R2</text>
-    </g>
-
-    <!-- ENHANCED REALISTIC BUTTON LAYOUT (15% larger) -->
-    <g id="realistic-buttons">
-      
-      <!-- D-Pad (shifted 1cm left, 0.5cm down, symmetrical) -->
-      <g id="realistic-dpad" filter="url(#button-depth)">
-        <!-- Vertical Bar -->
-        <rect x="298.25" y="416.65" width="39.1" height="115" rx="6.9" 
-              fill="url(#dpad-material)" stroke="#44337A" stroke-width="2.3"/>
-        <rect x="304" y="422.4" width="27.6" height="103.5" rx="4.6" 
-              fill="url(#plastic-highlight)" opacity="0.3"/>
-        
-        <!-- Horizontal Bar -->
-        <rect x="260.3" y="454.6" width="115" height="39.1" rx="6.9" 
-              fill="url(#dpad-material)" stroke="#44337A" stroke-width="2.3"/>
-        <rect x="266.05" y="460.35" width="103.5" height="27.6" rx="4.6" 
-              fill="url(#plastic-highlight)" opacity="0.3"/>
-        
-        <!-- Direction Arrows (re-centered) -->
-        <polygon points="317.8,433.9 333,438.1 317.8,452.3" fill="rgba(255,255,255,0.8)"/>
-        <polygon points="317.8,498.65 333,489.45 317.8,480.25" fill="rgba(255,255,255,0.8)"/>
-        <polygon points="287.75,457.2 298.95,468.4 287.75,479.6" fill="rgba(255,255,255,0.8)"/>
-        <polygon points="368.25,457.2 379.45,468.4 368.25,479.6" fill="rgba(255,255,255,0.8)"/>
-      </g>
-
-      <!-- Action Buttons (Clean Design) -->
-      <g id="action-buttons" filter="url(#button-depth)">
-        <!-- Y Button -->
-        <circle cx="757.3" cy="470.25" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
-        <circle cx="757.3" cy="470.25" r="16.1" fill="url(#plastic-highlight)" opacity="0.3"/>
-        <text x="757.3" y="477.15" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
-              font-family="Arial" font-size="16.1" font-weight="bold">Y</text>
-
-        <!-- X Button -->
-        <circle cx="697.5" cy="530.05" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
-        <circle cx="697.5" cy="530.05" r="16.1" fill="url(#plastic-highlight)" opacity="0.3"/>
-        <text x="697.5" y="536.95" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
-              font-family="Arial" font-size="16.1" font-weight="bold">X</text>
-
-        <!-- A Button -->
-        <circle cx="757.3" cy="589.85" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
-        <circle cx="757.3" cy="589.85" r="16.1" fill="url(#plastic-highlight)" opacity="0.3"/>
-        <text x="757.3" y="596.75" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
-              font-family="Arial" font-size="16.1" font-weight="bold">A</text>
-
-        <!-- B Button -->
-        <circle cx="817.1" cy="530.05" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
-        <circle cx="817.1" cy="530.05" r="16.1" fill="url(#plastic-highlight)" opacity="0.3"/>
-        <text x="817.1" y="536.95" text-anchor="middle" fill="rgba(255,255,255,0.9)" 
-              font-family="Arial" font-size="16.1" font-weight="bold">B</text>
-      </g>
-
-      <!-- System Controls (15% larger) -->
-      <g id="system-controls" filter="url(#button-depth)">
-        <!-- Menu Button -->
-        <rect x="510.75" y="496.25" width="25.3" height="18.4" rx="3.45" fill="#2D3748" stroke="#1A202C" stroke-width="1.15"/>
-        <line x1="517.5" y1="502" x2="529.2" y2="502" stroke="#A0AEC0" stroke-width="1.15"/>
-        <line x1="517.5" y1="505.45" x2="529.2" y2="505.45" stroke="#A0AEC0" stroke-width="1.15"/>
-        <line x1="517.5" y1="508.9" x2="529.2" y2="508.9" stroke="#A0AEC0" stroke-width="1.15"/>
-
-        <!-- Options Button -->
-        <rect x="567.55" y="496.25" width="25.3" height="18.4" rx="3.45" fill="#2D3748" stroke="#1A202C" stroke-width="1.15"/>
-        <circle cx="575.6" cy="502" r="1.725" fill="#A0AEC0"/>
-        <circle cx="584.8" cy="502" r="1.725" fill="#A0AEC0"/>
-        <circle cx="575.6" cy="508.9" r="1.725" fill="#A0AEC0"/>
-        <circle cx="584.8" cy="508.9" r="1.725" fill="#A0AEC0"/>
-      </g>
-    </g>
-
-    <!-- Enhanced Connectivity Status (15% larger) -->
-    <g id="connectivity-status">
-      <rect x="527.75" y="680.25" width="62.1" height="9.2" rx="4.6" fill="#1A202C" stroke="#2D3748" stroke-width="1.15"/>
-      <rect x="534.5" y="682.55" width="13.8" height="4.6" rx="2.3" fill="#10B981" opacity="0.8"/>
-      <text x="555.8" y="703.75" text-anchor="middle" fill="#718096" 
-            font-family="Arial" font-size="11.5">WIRELESS</text>
-    </g>
+  <!-- Аналогові стіки -->
+  <g>
+    <circle cx="414" cy="528" r="26" fill="#15191F" stroke="#262F38" stroke-width="2.2"/>
+    <circle cx="414" cy="528" r="17" fill="#232937"/>
+    <circle cx="414" cy="523" r="8" fill="#393D44"/>
+    <ellipse cx="414" cy="536" rx="8" ry="2.8" fill="#090B11" opacity="0.6"/>
+  </g>
+  <g>
+    <circle cx="614" cy="528" r="26" fill="#15191F" stroke="#262F38" stroke-width="2.2"/>
+    <circle cx="614" cy="528" r="17" fill="#232937"/>
+    <circle cx="614" cy="523" r="8" fill="#393D44"/>
+    <ellipse cx="614" cy="536" rx="8" ry="2.8" fill="#090B11" opacity="0.6"/>
   </g>
 
-  <!-- ============== MINIMAL BRANDING ============== -->
-  <g id="minimal-branding" opacity="0.6">
-    <!-- Subtle Corner Elements -->
-    <rect x="50" y="50" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.4"/>
-    <rect x="50" y="50" width="2" height="80" rx="1" fill="#9CA3AF" opacity="0.4"/>
-    
-    <rect x="894" y="50" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.4"/>
-    <rect x="972" y="50" width="2" height="80" rx="1" fill="#9CA3AF" opacity="0.4"/>
-    
-    <rect x="50" y="972" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.4"/>
-    <rect x="50" y="894" width="2" height="80" rx="1" fill="#9CA3AF" opacity="0.4"/>
-    
-    <rect x="894" y="972" width="80" height="2" rx="1" fill="#9CA3AF" opacity="0.4"/>
-    <rect x="972" y="894" width="2" height="80" rx="1" fill="#9CA3AF" opacity="0.4"/>
-
-    <!-- Enhanced Performance Info -->
-    <g id="minimal-info" opacity="0.5">
-      <rect x="80" y="80" width="140" height="60" rx="8" fill="rgba(255,255,255,0.1)" stroke="rgba(156,163,175,0.3)" stroke-width="1"/>
-      <text x="95" y="105" fill="#6B7280" font-family="Arial" font-size="12" font-weight="bold">MLBB CONTROLLER</text>
-      <text x="95" y="125" fill="#9CA3AF" font-family="Arial" font-size="10">Professional Edition</text>
-    </g>
+  <!-- D-Pad WOW (живий фіолетовий glow, правильна позиція) -->
+  <g filter="url(#glow-purple)">
+    <!-- Вертикаль -->
+    <rect x="312" y="420" width="26" height="86" rx="7.5" fill="url(#dpad-grad)"/>
+    <!-- Горизонталь -->
+    <rect x="287" y="445" width="76" height="26" rx="7.5" fill="url(#dpad-grad)"/>
+    <!-- Cерединна "діра" -->
+    <circle cx="325" cy="458" r="7" fill="#fff" opacity="0.07"/>
+    <!-- Стрілки -->
+    <polygon points="324,430 334,437 324,444" fill="#E3A5FF" opacity="0.72"/>
+    <polygon points="324,496 334,489 324,482" fill="#E3A5FF" opacity="0.72"/>
+    <polygon points="294,458 304,468 314,458 304,448" fill="#E3A5FF" opacity="0.55"/>
+    <polygon points="364,458 354,468 344,458 354,448" fill="#E3A5FF" opacity="0.55"/>
   </g>
+
+  <!-- Кнопки (правий блок, WOW-cyan, глибина + glow) -->
+  <g>
+    <circle cx="694" cy="445" r="17" fill="url(#btn-grad)" filter="url(#glow-cyan)" stroke="#66E0FF" stroke-width="2"/>
+    <circle cx="724" cy="475" r="17" fill="url(#btn-grad)" filter="url(#glow-cyan)" stroke="#66E0FF" stroke-width="2"/>
+    <circle cx="694" cy="505" r="17" fill="url(#btn-grad)" filter="url(#glow-cyan)" stroke="#66E0FF" stroke-width="2"/>
+    <circle cx="664" cy="475" r="17" fill="url(#btn-grad)" filter="url(#glow-cyan)" stroke="#66E0FF" stroke-width="2"/>
+    <!-- Символи кнопок -->
+    <text x="694" y="450" font-family="Arial" font-size="14" fill="#fff" text-anchor="middle" opacity="0.93" font-weight="bold">Y</text>
+    <text x="724" y="480" font-family="Arial" font-size="14" fill="#fff" text-anchor="middle" opacity="0.93" font-weight="bold">A</text>
+    <text x="694" y="510" font-family="Arial" font-size="14" fill="#fff" text-anchor="middle" opacity="0.93" font-weight="bold">B</text>
+    <text x="664" y="480" font-family="Arial" font-size="14" fill="#fff" text-anchor="middle" opacity="0.93" font-weight="bold">X</text>
+  </g>
+
+  <!-- Легке світло на корпусі (поверх всього) -->
+  <ellipse cx="512" cy="395" rx="170" ry="32" fill="url(#light)" opacity="0.3"/>
 </svg>
