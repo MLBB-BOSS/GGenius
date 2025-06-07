@@ -1,50 +1,55 @@
-/* Toast notification styles */
+/* Toast notification styles - Updated */
 .toast-container {
     position: fixed;
-    top: calc(var(--header-height) + var(--spacing-md));
-    right: var(--spacing-md);
+    /* Variables aligned with main style.css */
+    top: calc(var(--header-h) + var(--s-m)); /* Was --header-height, --spacing-md */
+    right: var(--s-m); /* Was --spacing-md */
     z-index: var(--z-modal);
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xs);
+    gap: var(--s-xs); /* Was --spacing-xs */
     pointer-events: none;
 }
 
 .toast {
-    background: var(--secondary-bg-color);
-    color: var(--text-primary);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-md);
+    background: var(--bg-2); /* Was --secondary-bg-color */
+    color: var(--text-1); /* Was --text-primary */
+    padding: var(--s-m); /* Was --spacing-md */
+    border-radius: var(--r-m); /* Was --border-radius-md */
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: var(--shadow-lg);
     max-width: 300px;
+    opacity: 0; /* Added for smoother transition */
     transform: translateX(100%);
-    transition: transform var(--transition-normal);
+    /* Added opacity to transition */
+    transition: transform var(--trans) ease-out, opacity var(--trans) ease-out; /* Was --transition-normal */
     pointer-events: auto;
     position: relative;
     overflow: hidden;
 }
 
 .toast.show {
+    opacity: 1; /* Added for smoother transition */
     transform: translateX(0);
 }
 
 .toast.success {
-    border-left: 4px solid var(--ggenius-green);
+    border-left: 4px solid var(--green); /* Was --ggenius-green */
 }
 
 .toast.error {
-    border-left: 4px solid #dc3545;
+    border-left: 4px solid #dc3545; /* Standard hex color, consistent */
 }
 
 .toast.warning {
-    border-left: 4px solid var(--accent-secondary);
+    border-left: 4px solid var(--yellow); /* Was --accent-secondary */
 }
 
 .toast.info {
-    border-left: 4px solid var(--accent-primary);
+    border-left: 4px solid var(--blue); /* Was --accent-primary */
 }
 
+/* Toast progress indicator bar */
 .toast::before {
     content: '';
     position: absolute;
@@ -52,9 +57,29 @@
     left: 0;
     height: 100%;
     width: 4px;
-    background: var(--accent-primary);
+    /* Default background, will be overridden by specific types */
+    background: var(--blue); /* Was --accent-primary */
     animation: toastProgress 3s linear;
+    transform-origin: top; /* Ensures scaleY shrinks from top to bottom */
 }
+
+/* Specific progress bar colors matching toast type */
+.toast.success::before {
+    background: var(--green); /* Was --ggenius-green */
+}
+
+.toast.error::before {
+    background: #dc3545;
+}
+
+.toast.warning::before {
+    background: var(--yellow); /* Was --accent-secondary */
+}
+
+.toast.info::before {
+    background: var(--blue); /* Was --accent-primary, consistent with border */
+}
+
 
 @keyframes toastProgress {
     from { transform: scaleY(1); }
@@ -64,9 +89,10 @@
 /* Responsive toast styles */
 @media (max-width: 768px) {
     .toast-container {
-        top: calc(var(--header-height) + var(--spacing-sm));
-        right: var(--spacing-sm);
-        left: var(--spacing-sm);
+        /* Variables aligned with main style.css */
+        top: calc(var(--header-h) + var(--s-s)); /* Was --header-height, --spacing-sm */
+        right: var(--s-s); /* Was --spacing-sm */
+        left: var(--s-s); /* Was --spacing-sm */
         align-items: center;
     }
     
