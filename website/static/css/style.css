@@ -1,12 +1,5 @@
 /* ===== GGENIUS REVOLUTION - PERFORMANCE OPTIMIZED CSS ===== */
-/* 
-    РЕКОМЕНДАЦІЯ: Видалено @import для Google Fonts. 
-    Переконайтеся, що шрифти підключаються через <link> в HTML для кращої продуктивності.
-    Наприклад:
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-*/
+/* ... (попередні стилі) ... */
 
 /* Critical CSS Variables - Optimized for Performance */
 :root {
@@ -403,25 +396,17 @@ a:hover,a:focus-visible{
     content:'';position:absolute;left:50%;top:0;bottom:0;width:6px;
     background:var(--g2);transform:translateX(-50%);border-radius:3px;
     box-shadow:0 0 30px var(--cyan),inset 0 0 10px rgba(255,255,255,.2);
-    animation:timelinePulse 4s ease-in-out infinite;
+    /* animation:timelinePulse 4s ease-in-out infinite; -- Animation removed as per request */
 }
 .timeline-item{display:flex;margin-bottom:4rem;position:relative}
 .timeline-item:nth-child(even){flex-direction:row-reverse}
 
-/* --- TIMELINE MARKER HIDDEN AS PER REQUEST --- */
 .timeline-marker{
     display: none; 
-    /* Original styles commented out:
-    width:100px;height:100px;border-radius:50%;background:var(--g2);display:flex;
-    align-items:center;justify-content:center;color:white;font-weight:900;font-size:1.4rem;
-    position:absolute;left:50%;transform:translateX(-50%);
-    box-shadow:0 0 40px var(--cyan),inset 0 0 20px rgba(255,255,255,.2);
-    border:4px solid var(--bg-1);z-index:10;animation:markerGlow 3s ease-in-out infinite alternate 
-    */
 }
 .timeline-content{
     width:45%;background:linear-gradient(135deg,rgba(26,29,35,.95),rgba(37,42,50,.95)),var(--g-holo);
-    padding: 3rem; /* Adjusted from 4rem top padding as marker is gone, but 3rem still gives good spacing */
+    padding: 3rem; 
     border-radius:25px;border:2px solid rgba(0,255,255,.3);
     backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 80px rgba(0,255,255,.2);
     transition:all .6s;position:relative;overflow:hidden;
@@ -637,14 +622,10 @@ a:hover,a:focus-visible{
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 @keyframes bgMove{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-/* Removed animations for hero elements: neuralPulse, cyberpunkShift, heroSlideIn, titleGlow, pulseGlow, statsContainer, numberGlow */
-/* Removed animations for SVG logo: svgDrawStroke, svgFadeIn, svgDrawStrokeAndFadeIn */
 @keyframes borderRotate{to{transform:rotate(360deg)}}
 @keyframes statusGlow{0%,100%{opacity:.8}50%{opacity:1;filter:brightness(1.2)}}
 @keyframes tabFadeIn{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes timelinePulse{0%,100%{box-shadow:0 0 30px var(--cyan),inset 0 0 10px rgba(255,255,255,.2);transform:translateX(-50%) scaleY(1)}50%{box-shadow:0 0 50px var(--pink),inset 0 0 20px rgba(255,255,255,.2);transform:translateX(-50%) scaleY(1.05)}}
-/* markerGlow animation is not needed as .timeline-marker is hidden */
-/* @keyframes markerGlow{0%,100%{box-shadow:0 0 40px var(--cyan),inset 0 0 20px rgba(255,255,255,.2)}50%{box-shadow:0 0 60px var(--pink),0 0 80px var(--electric),inset 0 0 30px rgba(255,255,255,.4)}} */
+/* @keyframes timelinePulse is removed as the animation is no longer used */
 @keyframes toastProgress{from{transform:scaleY(1)}to{transform:scaleY(0)}}
 
 
@@ -657,31 +638,28 @@ a:hover,a:focus-visible{
         border-top:1px solid rgba(255,255,255,.1);backdrop-filter:blur(20px)
     }
     .nav-menu.open{display:flex}
-    /* .hero-title responsive rule removed */
     .timeline-content{
         width:90%;
         margin-left: auto; 
         margin-right: auto;
         padding: 2rem 1.5rem; 
     }
-    .timeline-item{ /* Stack items vertically on mobile */
+    .timeline-item{ 
         flex-direction:column; 
         align-items: center;
     }
     .timeline-item:nth-child(even){ 
-        flex-direction:column; /* Ensure consistency */
+        flex-direction:column; 
         align-items: center;
     }
-     .roadmap-timeline::before { /* Ensure line is still centered correctly with stacked items */
+     .roadmap-timeline::before { 
         left: 50%; 
         transform: translateX(-50%);
     }
-    /* .timeline-marker responsive rule removed as it's hidden */
     .category-tab{padding:1rem 1.5rem}
     .feature-card-iui.enhanced{padding:2rem}
     .feature-card-iui.enhanced .feature-status { top: 1rem; right: 1rem; }
     .contact-grid{grid-template-columns:1fr}
-    /* .tech-categories responsive rule removed */
     .mission-vision{grid-template-columns:1fr}
     .toast-container{
         top:calc(var(--header-h) + var(--s-s));right:var(--s-s);left:var(--s-s);
@@ -691,9 +669,6 @@ a:hover,a:focus-visible{
 }
 
 @media (max-width:480px){
-    /* .hero-actions responsive rule removed */
-    /* .cta-button (hero specific) responsive rule removed */
-    /* .tech-category responsive rule removed */
     .timeline-content{
         padding: 2rem 1rem; 
     }
@@ -701,18 +676,12 @@ a:hover,a:focus-visible{
     .feature-card-iui.enhanced .feature-status { top: 0.75rem; right: 0.75rem; font-size: 0.7rem; padding: 0.4rem 0.8rem;}
     .newsletter-form{padding:var(--s-l)}
     .contact-link{padding:var(--s-m)}
-    /* .hero-section .subtitle responsive rule removed */
-    /* .scroll-down-indicator responsive rule removed */
 }
-
-/* High DPI Displays - hero-section specific rule removed */
 
 /* Reduced Motion */
 @media (prefers-reduced-motion:reduce){
     *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-    /* .hero-section::after animation none rule removed */
     .gaming-cursor{display:none}
-    /* .scroll-down-indicator animation rule removed */
 }
 
 /* Dark Theme Enhancements */
@@ -724,7 +693,6 @@ a:hover,a:focus-visible{
 @media print{
     .site-header,.gaming-cursor,.scroll-progress,.loading-screen,.toast-container{display:none}
     body{padding-top:0;background:white;color:black}
-    /* .hero-section::after display none rule removed */
     a{color:blue;text-decoration:underline}
 }
 
@@ -739,7 +707,3 @@ a:hover,a:focus-visible{
 .contain-layout{contain:layout}
 .contain-paint{contain:paint}
 .contain-strict{contain:strict}
-
-/* Hero Stats styles were removed in previous steps */
-/* RGB color variables and --surface-rgb were for hero-stats, can be removed if not used elsewhere */
-/* For now, keeping them in :root as they might be generally useful, but noting their origin. */
