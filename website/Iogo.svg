@@ -3,121 +3,302 @@
      xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
 
-  <!-- ==============  DEFINITIONS  ============== -->
+  <!-- ============== ADVANCED DEFINITIONS ============== -->
   <defs>
-    <!-- Фоновий градієнт -->
-    <linearGradient id="bg-grad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%"  stop-color="#F4F5F7"/>
-      <stop offset="100%" stop-color="#DFE1E4"/>
-    </linearGradient>
-
-    <!-- Градієнт корпусу -->
-    <radialGradient id="body-grad" cx="0.32" cy="0.25" r="0.9">
-      <stop offset="0%"  stop-color="#33363F"/>
-      <stop offset="65%" stop-color="#262830"/>
-      <stop offset="100%" stop-color="#1B1D23"/>
+    <!-- Premium Background Gradient -->
+    <radialGradient id="bg-premium" cx="0.5" cy="0.4" r="0.8">
+      <stop offset="0%" stop-color="#1A1D29"/>
+      <stop offset="40%" stop-color="#0F1419"/>
+      <stop offset="100%" stop-color="#000000"/>
     </radialGradient>
 
-    <!-- Блік корпусу -->
-    <linearGradient id="body-highlight" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"  stop-color="rgba(255,255,255,0.25)"/>
-      <stop offset="25%" stop-color="rgba(255,255,255,0.06)"/>
-      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    <!-- Gaming Controller Body Gradient -->
+    <radialGradient id="controller-body" cx="0.35" cy="0.25" r="1.2">
+      <stop offset="0%" stop-color="#4A4D58"/>
+      <stop offset="35%" stop-color="#2C3038"/>
+      <stop offset="70%" stop-color="#1E2026"/>
+      <stop offset="100%" stop-color="#0D0E12"/>
+    </radialGradient>
+
+    <!-- Metallic Highlight -->
+    <linearGradient id="metallic-shine" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
+      <stop offset="15%" stop-color="rgba(255,255,255,0.2)"/>
+      <stop offset="40%" stop-color="rgba(255,255,255,0.05)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.1)"/>
     </linearGradient>
 
-    <!-- Світіння -->
-    <filter id="glow-neon" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="5" result="colored"/>
+    <!-- MLBB Purple Glow -->
+    <radialGradient id="mlbb-purple" cx="0.5" cy="0.5" r="0.8">
+      <stop offset="0%" stop-color="#B026FF"/>
+      <stop offset="50%" stop-color="#8E1AE6"/>
+      <stop offset="100%" stop-color="#6B0FB8"/>
+    </radialGradient>
+
+    <!-- Cyan Gaming Accent -->
+    <radialGradient id="cyan-gaming" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="0%" stop-color="#00F5FF"/>
+      <stop offset="60%" stop-color="#00CDD9"/>
+      <stop offset="100%" stop-color="#0099A6"/>
+    </radialGradient>
+
+    <!-- Advanced Glow Effects -->
+    <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feOffset dx="0" dy="0" result="offsetBlur"/>
+      <feFlood flood-color="#FFFFFF" flood-opacity="0.3"/>
+      <feComposite in2="offsetBlur" operator="in"/>
       <feMerge>
-        <feMergeNode in="colored"/>
-        <feMergeNode in="colored"/>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="coloredBlur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
 
-    <!-- Тінь під геймпадом -->
-    <filter id="shadow-pad" x="-20%" y="-20%" width="140%" height="160%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="18" result="blur"/>
-      <feOffset dy="12" result="offset"/>
-      <feMerge>
-        <feMergeNode in="offset"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+    <!-- Premium Shadow -->
+    <filter id="premium-shadow" x="-30%" y="-20%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="20" stdDeviation="25" flood-color="#000000" flood-opacity="0.6"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.3"/>
     </filter>
+
+    <!-- Button Depth Effect -->
+    <filter id="button-depth" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#000000" flood-opacity="0.8"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#FFFFFF" flood-opacity="0.2"/>
+    </filter>
+
+    <!-- Stick Texture Pattern -->
+    <pattern id="stick-texture" patternUnits="userSpaceOnUse" width="4" height="4">
+      <rect width="4" height="4" fill="#1A1C22"/>
+      <circle cx="2" cy="2" r="0.8" fill="#2A2C32" opacity="0.6"/>
+    </pattern>
+
+    <!-- Gaming LED Strip -->
+    <linearGradient id="led-strip" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF0080"/>
+      <stop offset="25%" stop-color="#8000FF"/>
+      <stop offset="50%" stop-color="#0080FF"/>
+      <stop offset="75%" stop-color="#00FF80"/>
+      <stop offset="100%" stop-color="#FF8000"/>
+    </linearGradient>
+
+    <!-- Performance Cooling Vents -->
+    <pattern id="cooling-vents" patternUnits="userSpaceOnUse" width="8" height="3">
+      <rect width="8" height="3" fill="#151719"/>
+      <rect x="1" y="1" width="6" height="1" rx="0.5" fill="#2A2D33"/>
+    </pattern>
   </defs>
 
-  <!-- ==============  BACKGROUND  ============== -->
-  <rect width="1024" height="1024" fill="url(#bg-grad)"/>
+  <!-- ============== PREMIUM BACKGROUND ============== -->
+  <rect width="1024" height="1024" fill="url(#bg-premium)"/>
+  
+  <!-- Gaming Environment Particles -->
+  <g opacity="0.3">
+    <circle cx="150" cy="200" r="2" fill="#00F5FF" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="850" cy="300" r="1.5" fill="#B026FF" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="750" r="1" fill="#00FF80" opacity="0.5">
+      <animate attributeName="opacity" values="0.5;0.1;0.5" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="800" cy="800" r="2.5" fill="#FF8000" opacity="0.4">
+      <animate attributeName="opacity" values="0.4;0.1;0.4" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
-  <!-- ==============  CONTROLLER  ============== -->
-  <g id="controller" filter="url(#shadow-pad)">
-    <!-- Тінь -->
-    <ellipse cx="512" cy="690" rx="255" ry="45" fill="#000" opacity="0.12"/>
-
-    <!-- Корпус -->
-    <g id="body">
+  <!-- ============== ESPORTS CONTROLLER ============== -->
+  <g id="esports-controller" filter="url(#premium-shadow)">
+    
+    <!-- Main Controller Body -->
+    <g id="controller-chassis">
+      <!-- Primary Body Shape -->
       <path d="
-        M240,530
-        C220,460 300,385 403,365
-        C458,355 512,352 618,365
-        C722,385 804,460 783,535
-        C768,585 732,620 690,654
-        C658,672 627,680 594,660
-        C564,642 556,616 558,580
-        C560,552 540,536 512,536
-        C484,536 464,552 466,580
-        C468,618 454,642 427,660
-        C394,680 363,672 331,654
-        C288,620 255,585 240,530
+        M220,520
+        C195,440 285,355 395,330
+        C460,315 512,310 629,330
+        C739,355 829,440 804,525
+        C786,585 745,625 695,665
+        C658,690 620,700 580,675
+        C545,652 535,620 538,580
+        C541,545 518,525 512,525
+        C506,525 483,545 486,580
+        C489,620 479,652 444,675
+        C404,700 366,690 329,665
+        C279,625 238,585 220,520
         Z"
-        fill="url(#body-grad)" stroke="#0F1014" stroke-width="2"/>
+        fill="url(#controller-body)" 
+        stroke="#000000" 
+        stroke-width="3"/>
 
+      <!-- Metallic Shine Overlay -->
       <path d="
-        M240,530
-        C220,460 300,385 403,365
-        C458,355 512,352 618,365
-        C722,385 804,460 783,535
-        C768,585 732,620 690,654
-        C658,672 627,680 594,660
-        C564,642 556,616 558,580
-        C560,552 540,536 512,536
-        C484,536 464,552 466,580
-        C468,618 454,642 427,660
-        C394,680 363,672 331,654
-        C288,620 255,585 240,530
+        M220,520
+        C195,440 285,355 395,330
+        C460,315 512,310 629,330
+        C739,355 829,440 804,525
+        C786,585 745,625 695,665
+        C658,690 620,700 580,675
+        C545,652 535,620 538,580
+        C541,545 518,525 512,525
+        C506,525 483,545 486,580
+        C489,620 479,652 444,675
+        C404,700 366,690 329,665
+        C279,625 238,585 220,520
         Z"
-        fill="url(#body-highlight)"/>
+        fill="url(#metallic-shine)" 
+        opacity="0.8"/>
+
+      <!-- Gaming LED Strip -->
+      <rect x="280" y="310" width="464" height="4" rx="2" fill="url(#led-strip)" opacity="0.9">
+        <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2s" repeatCount="indefinite"/>
+      </rect>
+
+      <!-- Cooling Vents -->
+      <rect x="360" y="320" width="304" height="15" fill="url(#cooling-vents)" opacity="0.6"/>
     </g>
 
-    <!-- Сенсорна панель -->
-    <rect x="382" y="380" width="260" height="60" rx="14"
-          fill="#1B1D23" stroke="#2E3036" stroke-width="2"/>
-
-    <!-- Аналогові стики -->
-    <g id="sticks" fill="#1C1E23" stroke="#000" stroke-width="1.8">
-      <circle cx="412" cy="538" r="32"/>
-      <circle cx="612" cy="538" r="32"/>
+    <!-- Premium Touchpad/Display -->
+    <g id="central-display">
+      <rect x="372" y="365" width="280" height="75" rx="18" 
+            fill="#000000" stroke="#333333" stroke-width="2"/>
+      <rect x="377" y="370" width="270" height="65" rx="15" 
+            fill="#0A0B0F" stroke="#1A1D29" stroke-width="1"/>
+      
+      <!-- MLBB Logo Area -->
+      <rect x="385" y="380" width="254" height="45" rx="10" fill="#1A1D29" opacity="0.8"/>
+      <text x="512" y="405" text-anchor="middle" fill="#B026FF" 
+            font-family="Arial, sans-serif" font-size="16" font-weight="bold">MLBB ESPORTS</text>
     </g>
 
-    <!-- Верхні кнопки -->
-    <rect x="300" y="330" width="120" height="18" rx="9" fill="#111317"/>
-    <rect x="604" y="330" width="120" height="18" rx="9" fill="#111317"/>
+    <!-- Professional Analog Sticks -->
+    <g id="precision-sticks">
+      <!-- Left Stick -->
+      <circle cx="392" cy="530" r="38" fill="#1A1C22" stroke="#333333" stroke-width="2"/>
+      <circle cx="392" cy="530" r="32" fill="url(#stick-texture)" filter="url(#button-depth)"/>
+      <circle cx="392" cy="525" r="18" fill="#2A2D33" stroke="#404040" stroke-width="1"/>
+      <circle cx="392" cy="522" r="8" fill="#3A3D43"/>
 
-    <!-- ===========  BUTTONS  =========== -->
-    <g id="buttons">
-      <!-- D-pad -->
-      <g filter="url(#glow-neon)">
-        <rect x="322" y="460" width="29" height="92" rx="6" fill="#A020F0"/>
-        <rect x="295" y="487" width="92" height="29" rx="6" fill="#A020F0"/>
+      <!-- Right Stick -->
+      <circle cx="632" cy="530" r="38" fill="#1A1C22" stroke="#333333" stroke-width="2"/>
+      <circle cx="632" cy="530" r="32" fill="url(#stick-texture)" filter="url(#button-depth)"/>
+      <circle cx="632" cy="525" r="18" fill="#2A2D33" stroke="#404040" stroke-width="1"/>
+      <circle cx="632" cy="522" r="8" fill="#3A3D43"/>
+    </g>
+
+    <!-- Shoulder Buttons/Triggers -->
+    <g id="shoulder-controls">
+      <!-- Left Shoulder -->
+      <rect x="280" y="320" width="140" height="22" rx="11" fill="#1A1C22" stroke="#333333" stroke-width="1"/>
+      <rect x="285" y="323" width="130" height="16" rx="8" fill="#2A2D33"/>
+      <text x="350" y="335" text-anchor="middle" fill="#888888" font-family="Arial" font-size="10">L1  L2</text>
+
+      <!-- Right Shoulder -->
+      <rect x="604" y="320" width="140" height="22" rx="11" fill="#1A1C22" stroke="#333333" stroke-width="1"/>
+      <rect x="609" y="323" width="130" height="16" rx="8" fill="#2A2D33"/>
+      <text x="674" y="335" text-anchor="middle" fill="#888888" font-family="Arial" font-size="10">R1  R2</text>
+    </g>
+
+    <!-- =========== PREMIUM BUTTON LAYOUT =========== -->
+    <g id="button-matrix">
+      
+      <!-- MLBB D-Pad with Purple Glow -->
+      <g id="mlbb-dpad" filter="url(#neon-glow)">
+        <!-- Vertical Bar -->
+        <rect x="315" y="450" width="36" height="105" rx="8" 
+              fill="url(#mlbb-purple)" stroke="#8E1AE6" stroke-width="2"/>
+        <!-- Horizontal Bar -->
+        <rect x="285" y="480" width="105" height="36" rx="8" 
+              fill="url(#mlbb-purple)" stroke="#8E1AE6" stroke-width="2"/>
+        
+        <!-- Direction Indicators -->
+        <polygon points="333,465 343,475 333,485" fill="#FFFFFF" opacity="0.9"/>
+        <polygon points="333,540 343,530 333,520" fill="#FFFFFF" opacity="0.9"/>
+        <polygon points="300,493 310,503 290,503" fill="#FFFFFF" opacity="0.9"/>
+        <polygon points="375,493 385,503 375,513" fill="#FFFFFF" opacity="0.9"/>
       </g>
 
-      <!-- ABXY кнопки -->
-      <g fill="#66E0FF" filter="url(#glow-neon)">
-        <circle cx="692" cy="442" r="16"/>
-        <circle cx="724" cy="474" r="16"/>
-        <circle cx="692" cy="506" r="16"/>
-        <circle cx="660" cy="474" r="16"/>
+      <!-- Action Buttons (ABXY) with Cyan Gaming Theme -->
+      <g id="action-buttons" filter="url(#neon-glow)">
+        <!-- Y Button (Top) -->
+        <circle cx="702" cy="430" r="20" fill="url(#cyan-gaming)" stroke="#00CDD9" stroke-width="2"/>
+        <text x="702" y="437" text-anchor="middle" fill="#FFFFFF" 
+              font-family="Arial, sans-serif" font-size="16" font-weight="bold">Y</text>
+
+        <!-- X Button (Left) -->
+        <circle cx="650" cy="482" r="20" fill="url(#cyan-gaming)" stroke="#00CDD9" stroke-width="2"/>
+        <text x="650" y="489" text-anchor="middle" fill="#FFFFFF" 
+              font-family="Arial, sans-serif" font-size="16" font-weight="bold">X</text>
+
+        <!-- A Button (Bottom) -->
+        <circle cx="702" cy="534" r="20" fill="url(#cyan-gaming)" stroke="#00CDD9" stroke-width="2"/>
+        <text x="702" y="541" text-anchor="middle" fill="#FFFFFF" 
+              font-family="Arial, sans-serif" font-size="16" font-weight="bold">A</text>
+
+        <!-- B Button (Right) -->
+        <circle cx="754" cy="482" r="20" fill="url(#cyan-gaming)" stroke="#00CDD9" stroke-width="2"/>
+        <text x="754" y="489" text-anchor="middle" fill="#FFFFFF" 
+              font-family="Arial, sans-serif" font-size="16" font-weight="bold">B</text>
+      </g>
+
+      <!-- Menu/System Buttons -->
+      <g id="system-controls">
+        <!-- Menu Button -->
+        <rect x="460" y="470" width="24" height="18" rx="4" fill="#2A2D33" stroke="#404040" stroke-width="1"/>
+        <line x1="466" y1="476" x2="478" y2="476" stroke="#888888" stroke-width="1"/>
+        <line x1="466" y1="479" x2="478" y2="479" stroke="#888888" stroke-width="1"/>
+        <line x1="466" y1="482" x2="478" y2="482" stroke="#888888" stroke-width="1"/>
+
+        <!-- Options Button -->
+        <rect x="540" y="470" width="24" height="18" rx="4" fill="#2A2D33" stroke="#404040" stroke-width="1"/>
+        <circle cx="549" cy="476" r="2" fill="#888888"/>
+        <circle cx="555" cy="476" r="2" fill="#888888"/>
+        <circle cx="549" cy="482" r="2" fill="#888888"/>
+        <circle cx="555" cy="482" r="2" fill="#888888"/>
       </g>
     </g>
+
+    <!-- Professional Cable/Wireless Indicator -->
+    <g id="connectivity">
+      <rect x="480" y="640" width="64" height="8" rx="4" fill="#1A1C22"/>
+      <rect x="484" y="642" width="16" height="4" rx="2" fill="#00FF00" opacity="0.8">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.5s" repeatCount="indefinite"/>
+      </rect>
+      <text x="512" y="665" text-anchor="middle" fill="#888888" 
+            font-family="Arial" font-size="10">PRO WIRELESS</text>
+    </g>
+  </g>
+
+  <!-- ============== ESPORTS BRANDING ============== -->
+  <g id="esports-elements" opacity="0.8">
+    <!-- Corner Gaming Accents -->
+    <polygon points="50,50 150,50 50,150" fill="url(#mlbb-purple)" opacity="0.3"/>
+    <polygon points="974,50 874,50 974,150" fill="url(#cyan-gaming)" opacity="0.3"/>
+    <polygon points="50,974 150,974 50,874" fill="url(#cyan-gaming)" opacity="0.3"/>
+    <polygon points="974,974 874,974 974,874" fill="url(#mlbb-purple)" opacity="0.3"/>
+
+    <!-- Performance Stats Display -->
+    <g id="performance-hud" opacity="0.6">
+      <rect x="80" y="80" width="120" height="60" rx="8" fill="#000000" opacity="0.7"/>
+      <text x="90" y="100" fill="#00FF00" font-family="monospace" font-size="10">LATENCY: 1ms</text>
+      <text x="90" y="115" fill="#00F5FF" font-family="monospace" font-size="10">DPI: 16000</text>
+      <text x="90" y="130" fill="#B026FF" font-family="monospace" font-size="10">RATE: 1000Hz</text>
+    </g>
+  </g>
+
+  <!-- ============== DYNAMIC ANIMATIONS ============== -->
+  <g id="dynamic-effects">
+    <!-- Breathing LED Effect -->
+    <circle cx="512" cy="300" r="4" fill="#00F5FF" opacity="0.8">
+      <animate attributeName="r" values="4;8;4" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="3s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Gaming Pulse Effect -->
+    <circle cx="512" cy="512" r="280" fill="none" stroke="url(#led-strip)" stroke-width="2" opacity="0.2">
+      <animate attributeName="r" values="280;300;280" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.2;0.05;0.2" dur="4s" repeatCount="indefinite"/>
+    </circle>
   </g>
 </svg>
