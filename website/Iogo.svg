@@ -1,307 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="512" height="512" viewBox="0 0 512 512"
+<svg width="800" height="400" viewBox="0 0 800 400"
      xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
 
-  <!-- ============== PREMIUM LOGO DEFINITIONS ============== -->
+  <!-- ============== EXACT GGENIUS LOGO DEFINITIONS ============== -->
   <defs>
-    <!-- Primary Brand Gradient (Hexagon Frame) -->
-    <linearGradient id="hexagon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6366F1">
-        <animate attributeName="stop-color" 
-                 values="#6366F1;#8B5CF6;#A855F7;#6366F1" 
-                 dur="8s" 
-                 repeatCount="indefinite"/>
-      </stop>
-      <stop offset="25%" stop-color="#8B5CF6"/>
+    <!-- Exact Purple-Pink Gradient -->
+    <linearGradient id="ggenius-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
       <stop offset="50%" stop-color="#A855F7"/>
-      <stop offset="75%" stop-color="#EC4899"/>
-      <stop offset="100%" stop-color="#F97316">
-        <animate attributeName="stop-color" 
-                 values="#F97316;#EC4899;#A855F7;#F97316" 
-                 dur="8s" 
-                 repeatCount="indefinite"/>
-      </stop>
+      <stop offset="100%" stop-color="#EC4899"/>
     </linearGradient>
 
-    <!-- Brain Intelligence Gradient -->
-    <linearGradient id="brain-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#EF4444"/>
-      <stop offset="30%" stop-color="#F97316"/>
-      <stop offset="60%" stop-color="#EC4899"/>
-      <stop offset="100%" stop-color="#A855F7"/>
+    <!-- Brain Gradient (same as frame) -->
+    <linearGradient id="brain-exact" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="50%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#EC4899"/>
     </linearGradient>
 
-    <!-- Controller Base Gradient -->
-    <linearGradient id="controller-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6366F1"/>
-      <stop offset="50%" stop-color="#8B5CF6"/>
-      <stop offset="100%" stop-color="#A855F7"/>
+    <!-- Controller Elements -->
+    <linearGradient id="controller-exact" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="50%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#EC4899"/>
     </linearGradient>
-
-    <!-- Glow Effect for Premium Look -->
-    <filter id="premium-glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-      <feMerge>
-        <feMergeNode in="coloredBlur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <!-- Inner Shadow for Depth -->
-    <filter id="inner-shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.3"/>
-    </filter>
-
-    <!-- Subtle Animation Glow -->
-    <filter id="subtle-glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-      <feMerge>
-        <feMergeNode in="coloredBlur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
   </defs>
 
-  <!-- ============== PREMIUM HEXAGON FRAME ============== -->
-  <g id="hexagon-frame" filter="url(#premium-glow)">
-    <!-- Outer Hexagon with Rounded Corners -->
+  <!-- ============== BLACK BACKGROUND ============== -->
+  <rect width="800" height="400" fill="#000000"/>
+
+  <!-- ============== EXACT HEXAGON FRAME ============== -->
+  <g id="hexagon-exact" transform="translate(100, 200)">
+    <!-- Main Hexagon Shape -->
     <path d="
-      M256,40
-      C275,40 290,50 305,65
-      L395,155
-      C410,170 420,185 420,205
-      L420,307
-      C420,325 410,340 395,355
-      L305,445
-      C290,460 275,470 256,470
-      C235,470 220,460 205,445
-      L115,355
-      C100,340 90,325 90,307
-      L90,205
-      C90,185 100,170 115,155
-      L205,65
-      C220,50 235,40 256,40
+      M100,0
+      L150,0
+      C165,0 175,10 175,25
+      L200,75
+      C205,85 205,95 200,105
+      L175,155
+      C175,170 165,180 150,180
+      L100,180
+      L50,180
+      C35,180 25,170 25,155
+      L0,105
+      C-5,95 -5,85 0,75
+      L25,25
+      C25,10 35,0 50,0
+      L100,0
       Z"
       fill="none" 
-      stroke="url(#hexagon-gradient)" 
-      stroke-width="12"
+      stroke="url(#ggenius-gradient)" 
+      stroke-width="8"
       stroke-linecap="round"
       stroke-linejoin="round"/>
-    
-    <!-- Inner Hexagon for Depth -->
-    <path d="
-      M256,55
-      C272,55 285,63 298,76
-      L380,158
-      C393,171 401,184 401,200
-      L401,312
-      C401,328 393,341 380,354
-      L298,436
-      C285,449 272,457 256,457
-      C240,457 227,449 214,436
-      L132,354
-      C119,341 111,328 111,312
-      L111,200
-      C111,184 119,171 132,158
-      L214,76
-      C227,63 240,55 256,55
-      Z"
-      fill="none" 
-      stroke="url(#hexagon-gradient)" 
-      stroke-width="4"
-      opacity="0.6"/>
   </g>
 
-  <!-- ============== INTELLIGENT BRAIN DESIGN ============== -->
-  <g id="brain-intelligence" filter="url(#subtle-glow)">
+  <!-- ============== EXACT BRAIN DESIGN ============== -->
+  <g id="brain-exact" transform="translate(100, 200)">
     <!-- Left Brain Hemisphere -->
     <path d="
-      M256,120
-      C240,120 228,125 220,135
-      C215,140 212,145 210,152
-      C208,158 208,165 210,172
-      C212,178 215,183 220,188
-      C225,193 232,197 240,199
-      C245,200 250,200 256,200"
+      M70,50
+      C65,45 65,40 70,35
+      C75,30 85,30 90,35
+      C95,40 100,45 100,50
+      C100,55 95,60 90,65
+      C85,70 75,70 70,65
+      C65,60 65,55 70,50
+      Z"
       fill="none" 
-      stroke="url(#brain-gradient)" 
-      stroke-width="8"
+      stroke="url(#brain-exact)" 
+      stroke-width="4"
       stroke-linecap="round"/>
     
     <!-- Right Brain Hemisphere -->
     <path d="
-      M256,120
-      C272,120 284,125 292,135
-      C297,140 300,145 302,152
-      C304,158 304,165 302,172
-      C300,178 297,183 292,188
-      C287,193 280,197 272,199
-      C267,200 262,200 256,200"
-      fill="none" 
-      stroke="url(#brain-gradient)" 
-      stroke-width="8"
-      stroke-linecap="round"/>
-    
-    <!-- Central Connection -->
-    <line x1="256" y1="120" x2="256" y2="200" 
-          stroke="url(#brain-gradient)" 
-          stroke-width="6" 
-          stroke-linecap="round"/>
-    
-    <!-- Neural Networks (Left Side) -->
-    <g id="left-neurons">
-      <path d="M230,140 Q225,145 228,150 Q235,148 232,155" 
-            fill="none" stroke="url(#brain-gradient)" stroke-width="3" stroke-linecap="round"/>
-      <path d="M235,165 Q240,160 235,170 Q230,172 238,175" 
-            fill="none" stroke="url(#brain-gradient)" stroke-width="3" stroke-linecap="round"/>
-      <path d="M225,180 Q220,175 225,185 Q230,187 222,190" 
-            fill="none" stroke="url(#brain-gradient)" stroke-width="3" stroke-linecap="round"/>
-    </g>
-    
-    <!-- Neural Networks (Right Side) -->
-    <g id="right-neurons">
-      <path d="M282,140 Q287,145 284,150 Q277,148 280,155" 
-            fill="none" stroke="url(#brain-gradient)" stroke-width="3" stroke-linecap="round"/>
-      <path d="M277,165 Q272,160 277,170 Q282,172 274,175" 
-            fill="none" stroke="url(#brain-gradient)" stroke-width="3" stroke-linecap="round"/>
-      <path d="M287,180 Q292,175 287,185 Q282,187 290,190" 
-            fill="none" stroke="url(#brain-gradient)" stroke-width="3" stroke-linecap="round"/>
-    </g>
-  </g>
-
-  <!-- ============== PREMIUM GAMING CONTROLLER ============== -->
-  <g id="gaming-controller" filter="url(#inner-shadow)">
-    <!-- Controller Body Outline -->
-    <path d="
-      M180,240
-      C165,240 155,250 155,265
-      L155,300
-      C155,320 165,335 180,345
-      L200,360
-      C210,368 220,370 230,370
-      L250,370
-      C255,370 260,368 265,365
-      C270,362 275,358 280,355
-      L285,350
-      C287,348 288,346 290,344
-      C292,342 295,340 298,340
-      L332,340
-      C335,340 338,342 340,344
-      C342,346 343,348 345,350
-      L350,355
-      C355,358 360,362 365,365
-      C370,368 375,370 380,370
-      L400,370
-      C410,370 420,368 430,360
-      L450,345
-      C465,335 475,320 475,300
-      L475,265
-      C475,250 465,240 450,240
-      L420,240
-      C405,240 395,245 390,255
-      L385,265
-      C383,268 380,270 377,270
-      L355,270
-      C352,270 349,268 347,265
-      L342,255
-      C337,245 327,240 312,240
-      L180,240
+      M130,50
+      C135,45 135,40 130,35
+      C125,30 115,30 110,35
+      C105,40 100,45 100,50
+      C100,55 105,60 110,65
+      C115,70 125,70 130,65
+      C135,60 135,55 130,50
       Z"
       fill="none" 
-      stroke="url(#controller-gradient)" 
-      stroke-width="10"
-      stroke-linecap="round"
-      stroke-linejoin="round"/>
+      stroke="url(#brain-exact)" 
+      stroke-width="4"
+      stroke-linecap="round"/>
+    
+    <!-- Central Brain Connection -->
+    <line x1="100" y1="35" x2="100" y2="65" 
+          stroke="url(#brain-exact)" 
+          stroke-width="3" 
+          stroke-linecap="round"/>
+    
+    <!-- Brain Details - Left -->
+    <path d="M75,45 Q80,40 85,45 Q90,50 85,55" 
+          fill="none" stroke="url(#brain-exact)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M80,55 Q85,60 90,55" 
+          fill="none" stroke="url(#brain-exact)" stroke-width="2.5" stroke-linecap="round"/>
+    
+    <!-- Brain Details - Right -->
+    <path d="M125,45 Q120,40 115,45 Q110,50 115,55" 
+          fill="none" stroke="url(#brain-exact)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M120,55 Q115,60 110,55" 
+          fill="none" stroke="url(#brain-exact)" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
 
-    <!-- D-Pad (Left Controls) -->
-    <g id="d-pad">
-      <!-- Horizontal Bar -->
-      <rect x="190" y="285" width="35" height="12" rx="6" 
-            fill="url(#controller-gradient)"/>
-      <!-- Vertical Bar -->
-      <rect x="202" y="273" width="12" height="35" rx="6" 
-            fill="url(#controller-gradient)"/>
+  <!-- ============== EXACT CONTROLLER DESIGN ============== -->
+  <g id="controller-exact" transform="translate(100, 200)">
+    <!-- Controller Body -->
+    <path d="
+      M50,100
+      C45,95 45,90 50,85
+      L70,85
+      C75,85 80,90 85,95
+      L90,100
+      C95,105 105,105 110,100
+      L115,95
+      C120,90 125,85 130,85
+      L150,85
+      C155,90 155,95 150,100
+      L150,120
+      C155,125 155,135 150,140
+      L130,140
+      C125,140 120,135 115,130
+      L110,125
+      C105,120 95,120 90,125
+      L85,130
+      C80,135 75,140 70,140
+      L50,140
+      C45,135 45,125 50,120
+      L50,100
+      Z"
+      fill="none" 
+      stroke="url(#controller-exact)" 
+      stroke-width="4"
+      stroke-linecap="round"/>
+
+    <!-- D-Pad (Left Side) - Cross -->
+    <g id="dpad-cross">
+      <!-- Horizontal Line -->
+      <line x1="65" y1="112" x2="85" y2="112" 
+            stroke="url(#controller-exact)" 
+            stroke-width="4" 
+            stroke-linecap="round"/>
+      <!-- Vertical Line -->
+      <line x1="75" y1="102" x2="75" y2="122" 
+            stroke="url(#controller-exact)" 
+            stroke-width="4" 
+            stroke-linecap="round"/>
     </g>
 
-    <!-- Action Buttons (Right Controls) -->
-    <g id="action-buttons">
-      <!-- Button A -->
-      <circle cx="410" cy="280" r="8" fill="url(#controller-gradient)"/>
-      <!-- Button B -->
-      <circle cx="430" cy="295" r="6" fill="url(#controller-gradient)"/>
-      <!-- Button X -->
-      <circle cx="390" cy="295" r="6" fill="url(#controller-gradient)"/>
-      <!-- Button Y -->
-      <circle cx="410" cy="310" r="6" fill="url(#controller-gradient)"/>
-    </g>
-
-    <!-- Analog Sticks -->
-    <g id="analog-sticks">
-      <!-- Left Stick -->
-      <circle cx="230" cy="320" r="12" 
-              fill="none" 
-              stroke="url(#controller-gradient)" 
-              stroke-width="4"/>
-      <circle cx="230" cy="320" r="6" fill="url(#controller-gradient)"/>
-      
-      <!-- Right Stick -->
-      <circle cx="380" cy="340" r="12" 
-              fill="none" 
-              stroke="url(#controller-gradient)" 
-              stroke-width="4"/>
-      <circle cx="380" cy="340" r="6" fill="url(#controller-gradient)"/>
+    <!-- Action Buttons (Right Side) - Three Dots -->
+    <g id="action-dots">
+      <circle cx="125" cy="105" r="3" fill="url(#controller-exact)"/>
+      <circle cx="135" cy="112" r="3" fill="url(#controller-exact)"/>
+      <circle cx="125" cy="119" r="3" fill="url(#controller-exact)"/>
     </g>
   </g>
 
-  <!-- ============== PREMIUM ENHANCEMENT EFFECTS ============== -->
-  <g id="enhancement-effects" opacity="0.8">
-    <!-- Subtle Pulse Animation -->
-    <circle cx="256" cy="256" r="180" 
+  <!-- ============== EXACT GGENIUS TEXT ============== -->
+  <g id="ggenius-text" transform="translate(350, 200)">
+    <text x="0" y="20" 
+          font-family="Arial, sans-serif" 
+          font-size="72" 
+          font-weight="bold" 
+          fill="#FFFFFF"
+          text-anchor="start">GGenius</text>
+  </g>
+
+  <!-- ============== SUBTLE ENHANCEMENT ============== -->
+  <g id="subtle-glow" opacity="0.6">
+    <!-- Soft glow around hexagon -->
+    <circle cx="200" cy="200" r="120" 
             fill="none" 
-            stroke="url(#hexagon-gradient)" 
+            stroke="url(#ggenius-gradient)" 
             stroke-width="1" 
-            opacity="0.3">
-      <animate attributeName="r" values="180;190;180" dur="4s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite"/>
-    </circle>
-    
-    <!-- Brand Highlight Points -->
-    <g id="brand-highlights">
-      <circle cx="256" cy="80" r="3" fill="#EC4899">
-        <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="380" cy="170" r="2" fill="#A855F7">
-        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.5s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="380" cy="342" r="2" fill="#6366F1">
-        <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.5s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="256" cy="430" r="3" fill="#F97316">
-        <animate attributeName="opacity" values="0.5;1;0.5" dur="2.8s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="132" cy="342" r="2" fill="#EF4444">
-        <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3.2s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="132" cy="170" r="2" fill="#8B5CF6">
-        <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.7s" repeatCount="indefinite"/>
-      </circle>
-    </g>
-  </g>
-
-  <!-- ============== PREMIUM BRANDING SIGNATURE ============== -->
-  <g id="premium-signature" opacity="0.7">
-    <!-- Corner Accents -->
-    <rect x="50" y="50" width="25" height="2" rx="1" fill="url(#hexagon-gradient)"/>
-    <rect x="50" y="50" width="2" height="25" rx="1" fill="url(#hexagon-gradient)"/>
-    
-    <rect x="437" y="50" width="25" height="2" rx="1" fill="url(#hexagon-gradient)"/>
-    <rect x="460" y="50" width="2" height="25" rx="1" fill="url(#hexagon-gradient)"/>
-    
-    <rect x="50" y="460" width="25" height="2" rx="1" fill="url(#hexagon-gradient)"/>
-    <rect x="50" y="437" width="2" height="25" rx="1" fill="url(#hexagon-gradient)"/>
-    
-    <rect x="437" y="460" width="25" height="2" rx="1" fill="url(#hexagon-gradient)"/>
-    <rect x="460" y="437" width="2" height="25" rx="1" fill="url(#hexagon-gradient)"/>
+            opacity="0.3"/>
   </g>
 </svg>
