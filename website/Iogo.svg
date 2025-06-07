@@ -213,25 +213,25 @@
     <!-- ENHANCED REALISTIC BUTTON LAYOUT (15% larger) -->
     <g id="realistic-buttons">
       
-      <!-- D-Pad (Moved Up by ~2cm) -->
+      <!-- D-Pad (shifted 1cm left, 0.5cm down, symmetrical) -->
       <g id="realistic-dpad" filter="url(#button-depth)">
         <!-- Vertical Bar -->
-        <rect x="336.25" y="397.65" width="39.1" height="115" rx="6.9" 
+        <rect x="298.25" y="416.65" width="39.1" height="115" rx="6.9" 
               fill="url(#dpad-material)" stroke="#44337A" stroke-width="2.3"/>
-        <rect x="342" y="403.4" width="27.6" height="103.5" rx="4.6" 
+        <rect x="304" y="422.4" width="27.6" height="103.5" rx="4.6" 
               fill="url(#plastic-highlight)" opacity="0.3"/>
         
         <!-- Horizontal Bar -->
-        <rect x="308.5" y="426.4" width="115" height="39.1" rx="6.9" 
+        <rect x="260.3" y="454.6" width="115" height="39.1" rx="6.9" 
               fill="url(#dpad-material)" stroke="#44337A" stroke-width="2.3"/>
-        <rect x="314.25" y="432.15" width="103.5" height="27.6" rx="4.6" 
+        <rect x="266.05" y="460.35" width="103.5" height="27.6" rx="4.6" 
               fill="url(#plastic-highlight)" opacity="0.3"/>
         
-        <!-- Simple Direction Arrows (shifted up) -->
-        <polygon points="355.8,414.9 371,419.1 355.8,433.3" fill="rgba(255,255,255,0.8)"/>
-        <polygon points="355.8,479.65 371,470.45 355.8,461.25" fill="rgba(255,255,255,0.8)"/>
-        <polygon points="325.75,438.2 336.95,449.4 325.75,460.6" fill="rgba(255,255,255,0.8)"/>
-        <polygon points="406.25,438.2 417.45,449.4 406.25,460.6" fill="rgba(255,255,255,0.8)"/>
+        <!-- Direction Arrows (re-centered) -->
+        <polygon points="317.8,433.9 333,438.1 317.8,452.3" fill="rgba(255,255,255,0.8)"/>
+        <polygon points="317.8,498.65 333,489.45 317.8,480.25" fill="rgba(255,255,255,0.8)"/>
+        <polygon points="287.75,457.2 298.95,468.4 287.75,479.6" fill="rgba(255,255,255,0.8)"/>
+        <polygon points="368.25,457.2 379.45,468.4 368.25,479.6" fill="rgba(255,255,255,0.8)"/>
       </g>
 
       <!-- Action Buttons (Clean Design) -->
