@@ -154,7 +154,7 @@
     <!-- Enhanced Site Header with better semantics -->
     <header class="site-header" role="banner" itemscope itemtype="https://schema.org/WPHeader">
         <div class="container header-container">
-            <a href="#home" class="header-logo-link" aria-label="GGenius AI - повернутися на головну сторінку" itemprop="url">
+            <a href="#features" class="header-logo-link" aria-label="GGenius AI - повернутися на головну сторінку" itemprop="url"> <!-- Changed href to #features -->
                 <span class="header-logo-text" itemprop="name">GGenius</span>
                 <span class="header-logo-subtitle visually-hidden">AI для MLBB</span>
             </a>
@@ -172,9 +172,9 @@
                 </button>
                 
                 <ul id="main-menu" class="nav-menu" role="menubar">
-                    <li role="none"><a href="#home" class="nav-link active" role="menuitem" aria-current="page" itemprop="url">Головна</a></li>
+                    <li role="none"><a href="#features" class="nav-link" role="menuitem" itemprop="url">Головна</a></li> <!-- Changed href, removed active -->
                     <li role="none"><a href="#about" class="nav-link" role="menuitem" itemprop="url">Про проєкт</a></li>
-                    <li role="none"><a href="#features" class="nav-link" role="menuitem" itemprop="url">AI Можливості</a></li>
+                    <li role="none"><a href="#features" class="nav-link active" role="menuitem" aria-current="page" itemprop="url">AI Можливості</a></li> <!-- Added active and aria-current -->
                     <li role="none"><a href="#roadmap" class="nav-link" role="menuitem" itemprop="url">Roadmap</a></li>
                     <li role="none"><a href="#contact" class="nav-link" role="menuitem" itemprop="url">Контакти</a></li>
                 </ul>
@@ -186,27 +186,7 @@
     <div class="scroll-progress" id="scrollProgress" aria-hidden="true" role="progressbar" aria-label="Прогрес прокрутки сторінки"></div>
 
     <main id="main-content" role="main" itemprop="mainContentOfPage">
-        <!-- Enhanced Hero Section with better performance -->
-        <section id="home" class="hero-section" aria-labelledby="hero-title-placeholder" itemscope itemtype="https://schema.org/WebPageElement">
-            <div class="container">
-                <div class="hero-content">
-                    <!-- Hero Logo Container and Title Removed -->
-                    
-                    <p id="hero-title-placeholder" class="subtitle" role="text" itemprop="description">
-                        Ваш шлях до домінування в Mobile Legends: Bang Bang починається з 
-                        <strong>штучного інтелекту</strong>. Професійна аналітика, персональні тренування та турнірна екосист[[...]
-                    </p>
-                    
-                    <!-- Hero Actions and Stats Removed from previous step -->
-
-                    <a href="#features" class="scroll-down-indicator" aria-label="Прокрутити вниз до наступної секції">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </section>
+        <!-- Hero Section Removed -->
 
         <!-- Enhanced Features Section with better categorization -->
         <section id="features" class="features-section-iui" aria-labelledby="features-title" itemscope itemtype="https://schema.org/WebPageElement">
