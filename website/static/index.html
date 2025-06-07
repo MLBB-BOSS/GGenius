@@ -129,23 +129,24 @@
 
     <header class="site-header" role="banner" itemscope itemtype="https://schema.org/WPHeader">
         <div class="container header-container">
-            <a href="#home" class="header-logo-link" aria-label="GGenius AI - повернутися на головну сторінку" itemprop="url">
+            <a href="#about-project" class="header-logo-link" aria-label="GGenius AI - повернутися на головну сторінку" itemprop="url">
                 <span class="header-logo-text" itemprop="name">GGenius</span>
             </a>
             
             <nav id="main-navigation" class="main-navigation" role="navigation" aria-label="Головна навігація сайту" itemscope itemtype="https://schema.org/SiteNavigationElement">
                 <button class="mobile-menu-toggle" 
+                        id="mobileMenuToggle"
                         aria-expanded="false" 
                         aria-controls="main-menu-list" 
                         aria-label="Відкрити/закрити меню навігації"
                         type="button">
-                    <span class="hamburger-line" aria-hidden="true"></span>
-                    <span class="hamburger-line" aria-hidden="true"></span>
-                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="hamburger-line line-1" aria-hidden="true"></span>
+                    <span class="hamburger-line line-2" aria-hidden="true"></span>
+                    <span class="hamburger-line line-3" aria-hidden="true"></span>
                     <span class="visually-hidden">Меню</span>
                 </button>
                 
-                <ul id="main-menu-list" class="nav-menu" role="menubar" hidden>
+                <ul id="main-menu-list" class="nav-menu" role="menubar"> {/* Removed 'hidden' attribute, JS will handle visibility */}
                     <li role="none"><a href="#about-project" class="nav-link active" role="menuitem" aria-current="page" itemprop="url">Про проєкт</a></li>
                     <li role="none"><a href="#features" class="nav-link" role="menuitem" itemprop="url">AI Можливості</a></li>
                     <li role="none"><a href="#roadmap" class="nav-link" role="menuitem" itemprop="url">Roadmap</a></li>
