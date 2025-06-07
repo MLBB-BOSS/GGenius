@@ -1,20 +1,20 @@
 /* Toast notification styles */
 .toast-container {
     position: fixed;
-    top: calc(var(--header-h) + var(--s-m)); /* Adjusted from --header-height and --spacing-md */
-    right: var(--s-m); /* Adjusted from --spacing-md */
+    top: calc(var(--header-h) + var(--s-m)); 
+    right: var(--s-m); 
     z-index: var(--z-modal);
     display: flex;
     flex-direction: column;
-    gap: var(--s-xs); /* Adjusted from --spacing-xs */
+    gap: var(--s-xs); 
     pointer-events: none;
 }
 
 .toast {
-    background: var(--bg-2); /* Adjusted from --secondary-bg-color */
-    color: var(--text-1); /* Adjusted from --text-primary */
-    padding: var(--s-m); /* Adjusted from --spacing-md */
-    border-radius: var(--r-m); /* Adjusted from --border-radius-md */
+    background: var(--bg-2); 
+    color: var(--text-1); 
+    padding: var(--s-m); 
+    border-radius: var(--r-m); 
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: var(--shadow-lg);
     max-width: 300px;
@@ -34,15 +34,15 @@
 }
 
 .toast.error {
-    border-left: 4px solid var(--pink); /* Using theme variable */
+    border-left: 4px solid var(--pink); 
 }
 
 .toast.warning {
-    border-left: 4px solid var(--yellow); /* Adjusted from --accent-secondary */
+    border-left: 4px solid var(--yellow); 
 }
 
 .toast.info {
-    border-left: 4px solid var(--blue); /* Adjusted from --accent-primary */
+    border-left: 4px solid var(--blue); 
 }
 
 .toast::before {
@@ -52,7 +52,7 @@
     left: 0;
     height: 100%;
     width: 4px;
-    background: var(--blue); /* Adjusted from --accent-primary */
+    background: var(--blue); 
     animation: toastProgress 3s linear;
 }
 
@@ -64,9 +64,9 @@
 /* Responsive toast styles */
 @media (max-width: 768px) {
     .toast-container {
-        top: calc(var(--header-h) + var(--s-s)); /* Adjusted from --header-height and --spacing-sm */
-        right: var(--s-s); /* Adjusted from --spacing-sm */
-        left: var(--s-s); /* Adjusted from --spacing-sm */
+        top: calc(var(--header-h) + var(--s-s)); 
+        right: var(--s-s); 
+        left: var(--s-s); 
         align-items: center;
     }
     
