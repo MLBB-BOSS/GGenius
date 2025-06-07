@@ -1,1158 +1,365 @@
 /**
- * GGenius Advanced Enhancement System
- * Mobile-First Progressive Web App with AI-Powered UX
- * 
- * @author MLBB-BOSS
- * @version 2.0.0
- * @license MIT
+ * @file enhancements.js
+ * @description Game-themed website enhancements for the MLBB community.
+ * This script provides various visual and interactive effects to enrich the user experience.
+ * It adheres to modern JavaScript practices, focusing on performance, accessibility, and robustness.
+ * @version 0.3.0
+ * @author MLBB-BOSS (via Copilot assistance)
  */
 
-class GGeniusAdvancedSystem {
+/**
+ * @class GameWebsiteEnhancer
+ * @description Main class responsible for initializing and managing all website enhancements.
+ * It checks for user preferences like reduced motion and detects low-performance environments
+ * to adjust effects accordingly, aiming for a world-class quality experience.
+ */
+class GameWebsiteEnhancer {
+    /**
+     * @constructor
+     * Initializes critical properties like user's preference for reduced motion and
+     * detects if the environment is potentially low-performance.
+     * Sets up a global error handler for enhancement-specific issues.
+     */
     constructor() {
-        this.version = '2.0.0';
-        this.isProduction = window.location.hostname !== 'localhost';
-        this.isMobile = this.detectMobileDevice();
-        this.supportsAdvancedFeatures = this.checkAdvancedSupport();
-        
-        // Performance monitoring
-        this.performanceMetrics = {
-            startTime: performance.now(),
-            interactions: 0,
-            errors: 0
-        };
-        
-        // Mobile-specific configurations
-        this.mobileConfig = {
-            touchDelay: 300,
-            swipeThreshold: 100,
-            animationDuration: this.isMobile ? 200 : 300
-        };
-        
-        this.initializeSystem();
-    }
+        /** @type {boolean} - True if the user prefers reduced motion. */
+        this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    /**
-     * Detect mobile device with comprehensive checks
-     * @returns {boolean} True if mobile device detected
-     */
-    detectMobileDevice(): boolean {
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i;
-        
-        return mobileRegex.test(userAgent) || 
-               (window.matchMedia && window.matchMedia('(max-width: 767px)').matches) ||
-               ('ontouchstart' in window) ||
-               (navigator.maxTouchPoints > 0);
-    }
+        /** @type {boolean} - True if a low-performance environment is detected. */
+        this.isLowPerformance = false; // Will be determined by setupPerformanceMode
 
-    /**
-     * Check for advanced browser features
-     * @returns {boolean} True if advanced features supported
-     */
-    checkAdvancedSupport(): boolean {
-        return !!(
-            window.IntersectionObserver &&
-            window.requestAnimationFrame &&
-            window.CSS &&
-            window.CSS.supports &&
-            window.CSS.supports('backdrop-filter', 'blur(10px)')
-        );
-    }
-
-    /**
-     * Initialize the complete system
-     */
-    async initializeSystem(): Promise<void> {
-        try {
-            // Show loading indicator
-            this.showLoadingIndicator();
-            
-            // Initialize core components
-            await this.initializeComponents();
-            
-            // Setup event listeners
-            this.setupEventListeners();
-            
-            // Initialize mobile-specific features
-            if (this.isMobile) {
-                await this.initializeMobileFeatures();
-            }
-            
-            // Setup performance monitoring
-            this.setupPerformanceMonitoring();
-            
-            // Handle initial page state
-            await this.handleInitialPageLoad();
-            
-            // Hide loading indicator
-            this.hideLoadingIndicator();
-            
-            console.log(`✅ GGenius v${this.version} initialized successfully`);
-            
-        } catch (error) {
-            this.handleInitializationError(error);
-        }
-    }
-
-    /**
-     * Initialize core components
-     */
-    async initializeComponents(): Promise<void> {
-        // DOM element references
-        this.elements = {
+        /** @type {object|null} - Stores references to DOM elements for reuse. */
+        this.dom = {
             body: document.body,
-            header: document.querySelector('.site-header'),
-            mobileMenuToggle: document.querySelector('.mobile-menu-toggle'),
-            mobileNavigationOverlay: document.querySelector('.mobile-navigation-overlay'),
-            accordions: document.querySelectorAll('.accordion-header'),
-            navLinks: document.querySelectorAll('.main-navigation a, .mobile-nav-link'),
-            loadingIndicator: document.getElementById('loading-indicator'),
-            logo: document.getElementById('ggeniusAnimatedLogo'),
-            featureCards: document.querySelectorAll('.feature-card-iui'),
-            techItems: document.querySelectorAll('.tech-item'),
-            ctaButtons: document.querySelectorAll('.cta-button')
+            // Add other frequently accessed elements here if needed
         };
 
-        // Initialize intersection observer for animations
-        if (this.supportsAdvancedFeatures) {
-            this.initializeIntersectionObserver();
-        }
-
-        // Initialize touch gesture handler for mobile
-        if (this.isMobile) {
-            this.initializeTouchGestures();
-        }
+        this.init();
+        this._setupGlobalErrorHandling(); // Налаштування глобального обробника помилок для модуля
     }
 
     /**
-     * Setup comprehensive event listeners
+     * @private
+     * @description Sets up a global error handler for issues originating from enhancements.
+     * Це допомагає централізовано логувати помилки, не перериваючи роботу всього сайту.
      */
-    setupEventListeners(): void {
-        // Mobile menu functionality
-        if (this.elements.mobileMenuToggle) {
-            this.elements.mobileMenuToggle.addEventListener('click', 
-                this.toggleMobileMenu.bind(this), { passive: true });
-            
-            // Keyboard accessibility
-            this.elements.mobileMenuToggle.addEventListener('keydown', 
-                this.handleMobileMenuKeydown.bind(this));
-        }
-
-        // Accordion functionality
-        this.elements.accordions.forEach(header => {
-            header.addEventListener('click', this.handleAccordionToggle.bind(this));
-            header.addEventListener('keydown', this.handleAccordionKeydown.bind(this));
-        });
-
-        // Navigation with smooth scrolling
-        this.elements.navLinks.forEach(link => {
-            link.addEventListener('click', this.handleNavigationClick.bind(this));
-        });
-
-        // Scroll events with throttling
-        window.addEventListener('scroll', 
-            this.throttle(this.handleScroll.bind(this), 16), { passive: true });
-
-        // Resize events with debouncing
-        window.addEventListener('resize', 
-            this.debounce(this.handleResize.bind(this), 250), { passive: true });
-
-        // Enhanced logo interactions
-        if (this.elements.logo) {
-            this.setupLogoInteractions();
-        }
-
-        // Page visibility for performance optimization
-        document.addEventListener('visibilitychange', 
-            this.handleVisibilityChange.bind(this));
-
-        // Error handling
-        window.addEventListener('error', this.handleGlobalError.bind(this));
-        window.addEventListener('unhandledrejection', this.handleUnhandledRejection.bind(this));
-
-        // Mobile-specific events
-        if (this.isMobile) {
-            this.setupMobileSpecificEvents();
-        }
-    }
-
-    /**
-     * Initialize mobile-specific features
-     */
-    async initializeMobileFeatures(): Promise<void> {
-        // Add mobile class to body
-        this.elements.body.classList.add('mobile-device');
-        
-        // Initialize mobile navigation
-        this.setupMobileNavigation();
-        
-        // Setup touch optimizations
-        this.setupTouchOptimizations();
-        
-        // Initialize mobile performance optimizations
-        this.setupMobilePerformanceOptimizations();
-        
-        // Setup mobile accessibility features
-        this.setupMobileAccessibility();
-    }
-
-    /**
-     * Setup mobile navigation system
-     */
-    setupMobileNavigation(): void {
-        if (!this.elements.mobileNavigationOverlay) return;
-
-        // Create backdrop element for blur effect
-        const backdrop = document.createElement('div');
-        backdrop.className = 'mobile-menu-backdrop';
-        backdrop.addEventListener('click', this.closeMobileMenu.bind(this));
-        
-        this.elements.mobileNavigationOverlay.appendChild(backdrop);
-
-        // Handle navigation links in mobile menu
-        const mobileNavLinks = this.elements.mobileNavigationOverlay.querySelectorAll('.mobile-nav-link');
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', (event) => {
-                this.handleNavigationClick(event);
-                this.closeMobileMenu();
-            });
-        });
-
-        // Escape key support
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && this.isMobileMenuOpen()) {
-                this.closeMobileMenu();
+    _setupGlobalErrorHandling() {
+        window.addEventListener('error', (event) => {
+            if (event.filename && event.filename.includes('enhancements.js')) {
+                console.warn('[GameWebsiteEnhancer Error]', event.message, event.error);
+                // Тут можна додати відправку помилок на сервер аналітики, якщо потрібно
             }
         });
     }
 
     /**
-     * Toggle mobile menu with animations and accessibility
+     * @description Initializes all enhancement modules.
+     * It considers performance and accessibility settings before enabling certain features.
+     * Послідовність ініціалізації важлива: спочатку визначаємо продуктивність.
      */
-    toggleMobileMenu(): void {
-        const isOpen = this.isMobileMenuOpen();
-        
-        if (isOpen) {
-            this.closeMobileMenu();
+    init() {
+        this.setupPerformanceMode(); // Дуже важливо викликати першим
+
+        this.setupScrollProgress();
+        this.setupGamingCursor(); // Може бути спрощений або відключений у режимі низької продуктивності
+
+        if (!this.prefersReducedMotion && !this.isLowPerformance) {
+            this.setupParallaxEffect();
+            this.setupTypingAnimation();
         } else {
-            this.openMobileMenu();
+            // Забезпечити коректне відображення контенту, якщо анімації відключені
+            this._handleDisabledAnimations();
         }
+        
+        this.setupSoundEffects(); // Звуки можуть бути менш вимогливими, але теж варто контролювати
     }
 
     /**
-     * Open mobile menu with proper focus management
+     * @private
+     * @description Ensures content reliant on animations (like typing text) is correctly displayed
+     * when animations are disabled due to performance or accessibility settings.
+     * Це гарантує, що користувач не втратить важливу інформацію.
      */
-    openMobileMenu(): void {
-        const overlay = this.elements.mobileNavigationOverlay;
-        const toggle = this.elements.mobileMenuToggle;
-        
-        if (!overlay || !toggle) return;
-
-        // Set ARIA attributes
-        toggle.setAttribute('aria-expanded', 'true');
-        overlay.setAttribute('aria-hidden', 'false');
-        
-        // Add classes for animations
-        overlay.classList.add('active');
-        this.elements.body.classList.add('mobile-menu-open');
-        
-        // Focus management
-        const firstFocusableElement = overlay.querySelector('.mobile-nav-link');
-        if (firstFocusableElement) {
-            setTimeout(() => firstFocusableElement.focus(), this.mobileConfig.animationDuration);
-        }
-
-        // Track interaction
-        this.trackInteraction('mobile_menu_opened');
-    }
-
-    /**
-     * Close mobile menu with animations
-     */
-    closeMobileMenu(): void {
-        const overlay = this.elements.mobileNavigationOverlay;
-        const toggle = this.elements.mobileMenuToggle;
-        
-        if (!overlay || !toggle) return;
-
-        // Set ARIA attributes
-        toggle.setAttribute('aria-expanded', 'false');
-        overlay.setAttribute('aria-hidden', 'true');
-        
-        // Remove classes
-        overlay.classList.remove('active');
-        this.elements.body.classList.remove('mobile-menu-open');
-        
-        // Return focus to toggle button
-        toggle.focus();
-
-        // Track interaction
-        this.trackInteraction('mobile_menu_closed');
-    }
-
-    /**
-     * Check if mobile menu is open
-     */
-    isMobileMenuOpen(): boolean {
-        return this.elements.mobileNavigationOverlay?.classList.contains('active') || false;
-    }
-
-    /**
-     * Handle mobile menu keyboard navigation
-     */
-    handleMobileMenuKeydown(event: KeyboardEvent): void {
-        if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            this.toggleMobileMenu();
-        }
-    }
-
-    /**
-     * Handle accordion toggle with enhanced animations
-     */
-    handleAccordionToggle(event: Event): void {
-        const header = event.currentTarget as HTMLElement;
-        const content = header.nextElementSibling as HTMLElement;
-        const indicator = header.querySelector('.accordion-indicator') as HTMLElement;
-        
-        if (!content) return;
-
-        const isExpanded = header.getAttribute('aria-expanded') === 'true';
-        
-        // Close other accordions for mobile UX (optional)
-        if (this.isMobile) {
-            this.closeOtherAccordions(header);
-        }
-
-        if (isExpanded) {
-            this.closeAccordion(header, content, indicator);
-        } else {
-            this.openAccordion(header, content, indicator);
-        }
-
-        // Track interaction
-        this.trackInteraction('accordion_toggled', {
-            section: header.querySelector('h2')?.textContent || 'unknown',
-            action: isExpanded ? 'closed' : 'opened'
-        });
-    }
-
-    /**
-     * Open accordion with smooth animation
-     */
-    openAccordion(header: HTMLElement, content: HTMLElement, indicator: HTMLElement): void {
-        const inner = content.querySelector('.accordion-content-inner') as HTMLElement;
-        if (!inner) return;
-
-        // Set ARIA attributes
-        header.setAttribute('aria-expanded', 'true');
-        
-        // Calculate height for smooth animation
-        const scrollHeight = inner.scrollHeight;
-        content.style.maxHeight = `${scrollHeight}px`;
-        
-        // Add visual classes
-        header.parentElement?.classList.add('accordion-open');
-        
-        // Animate indicator
-        if (indicator) {
-            indicator.style.transform = 'rotate(45deg)';
-        }
-
-        // Scroll into view on mobile
-        if (this.isMobile) {
-            setTimeout(() => {
-                header.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'nearest' 
-                });
-            }, this.mobileConfig.animationDuration);
-        }
-    }
-
-    /**
-     * Close accordion with smooth animation
-     */
-    closeAccordion(header: HTMLElement, content: HTMLElement, indicator: HTMLElement): void {
-        // Set ARIA attributes
-        header.setAttribute('aria-expanded', 'false');
-        
-        // Animate closure
-        content.style.maxHeight = '0';
-        
-        // Remove visual classes
-        header.parentElement?.classList.remove('accordion-open');
-        
-        // Reset indicator
-        if (indicator) {
-            indicator.style.transform = 'rotate(0deg)';
-        }
-    }
-
-    /**
-     * Close other accordions (mobile UX optimization)
-     */
-    closeOtherAccordions(currentHeader: HTMLElement): void {
-        this.elements.accordions.forEach(header => {
-            if (header !== currentHeader && header.getAttribute('aria-expanded') === 'true') {
-                const content = header.nextElementSibling as HTMLElement;
-                const indicator = header.querySelector('.accordion-indicator') as HTMLElement;
-                this.closeAccordion(header, content, indicator);
+    _handleDisabledAnimations() {
+        document.querySelectorAll('.typing-animation-target').forEach(el => {
+            const textToDisplay = el.dataset.text || el.textContent;
+            if (textToDisplay && el.textContent !== textToDisplay) { // Показувати лише якщо текст ще не встановлено
+                el.textContent = textToDisplay;
             }
         });
+        // Можна додати обробку для інших анімацій, якщо вони приховують контент до запуску
     }
 
     /**
-     * Handle keyboard navigation for accordions
+     * @description Detects low-performance environments and applies a 'performance-mode' class to the body.
+     * This allows CSS to selectively disable or reduce resource-intensive styles.
+     * Логіка визначення: перевіряє кількість ядер процесора та об'єм оперативної пам'яті.
+     * Ці значення є евристичними і можуть потребувати налаштування.
      */
-    handleAccordionKeydown(event: KeyboardEvent): void {
-        if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            this.handleAccordionToggle(event);
+    setupPerformanceMode() {
+        const hasHardwareConcurrency = typeof navigator.hardwareConcurrency === 'number';
+        const hasDeviceMemory = typeof navigator.deviceMemory === 'number'; // GB
+
+        // Поріг для 'low-performance': менше 4 ядер АБО менше 4GB RAM.
+        // Ці значення можуть бути скориговані залежно від цільової аудиторії та складності ефектів.
+        this.isLowPerformance = (hasHardwareConcurrency && navigator.hardwareConcurrency < 4) ||
+                                (hasDeviceMemory && navigator.deviceMemory < 4);
+
+        if (this.isLowPerformance) {
+            this.dom.body.classList.add('performance-mode');
+            console.log("Performance mode activated: Animations and effects may be reduced.");
         }
     }
 
     /**
-     * Handle navigation clicks with smooth scrolling
+     * @description Creates and manages a scroll progress bar at the top of the page.
+     * Uses `requestAnimationFrame` for smooth updates and `passive` event listener for performance.
+     * Обробляє випадок, коли сторінка не прокручується.
      */
-    handleNavigationClick(event: Event): void {
-        const link = event.currentTarget as HTMLAnchorElement;
-        const href = link.getAttribute('href');
-        
-        if (!href || !href.startsWith('#')) return;
-        
-        event.preventDefault();
-        
-        const targetId = href.substring(1);
-        const targetElement = document.getElementById(targetId);
-        
-        if (!targetElement) return;
+    setupScrollProgress() {
+        const progressBar = document.createElement('div');
+        progressBar.className = 'scroll-progress';
+        // Стилі для progressBar (position, top, left, height, background, z-index) мають бути в CSS.
+        this.dom.body.appendChild(progressBar);
 
-        // Update active navigation
-        this.updateActiveNavigation(link);
-        
-        // Smooth scroll with mobile optimization
-        this.smoothScrollToElement(targetElement);
-        
-        // Track navigation
-        this.trackInteraction('navigation_clicked', { target: targetId });
-    }
-
-    /**
-     * Smooth scroll to element with mobile optimization
-     */
-    smoothScrollToElement(element: HTMLElement): void {
-        const headerHeight = this.elements.header?.offsetHeight || 0;
-        const mobileOffset = this.isMobile ? 20 : 40;
-        const targetPosition = element.offsetTop - headerHeight - mobileOffset;
-        
-        // Use native smooth scrolling if supported
-        if ('scrollBehavior' in document.documentElement.style) {
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-        } else {
-            // Fallback animation for older browsers
-            this.animateScrollTo(targetPosition);
-        }
-    }
-
-    /**
-     * Fallback scroll animation
-     */
-    animateScrollTo(targetPosition: number): void {
-        const startPosition = window.pageYOffset;
-        const distance = targetPosition - startPosition;
-        const duration = this.isMobile ? 500 : 800;
-        let startTime: number | null = null;
-
-        const animateScroll = (currentTime: number) => {
-            if (startTime === null) startTime = currentTime;
-            const timeElapsed = currentTime - startTime;
-            const run = this.easeInOutQuad(timeElapsed, startPosition, distance, duration);
-            
-            window.scrollTo(0, run);
-            
-            if (timeElapsed < duration) {
-                requestAnimationFrame(animateScroll);
+        let ticking = false;
+        const updateScrollProgress = () => {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            if (scrollHeight <= 0) { // Якщо сторінка не прокручується або вміст менший за екран
+                progressBar.style.width = '0%';
+                ticking = false;
+                return;
             }
+            const scrolled = (window.scrollY / scrollHeight) * 100;
+            progressBar.style.width = `${Math.min(scrolled, 100)}%`; // Обмеження до 100%
+            ticking = false;
         };
 
-        requestAnimationFrame(animateScroll);
-    }
-
-    /**
-     * Easing function for smooth animations
-     */
-    easeInOutQuad(t: number, b: number, c: number, d: number): number {
-        t /= d / 2;
-        if (t < 1) return c / 2 * t * t + b;
-        t--;
-        return -c / 2 * (t * (t - 2) - 1) + b;
-    }
-
-    /**
-     * Update active navigation state
-     */
-    updateActiveNavigation(activeLink: HTMLElement): void {
-        this.elements.navLinks.forEach(link => {
-            link.classList.remove('active');
-        });
-        activeLink.classList.add('active');
-    }
-
-    /**
-     * Handle scroll events with mobile optimizations
-     */
-    handleScroll(): void {
-        const scrollTop = window.pageYOffset;
-        
-        // Header scroll effect
-        if (this.elements.header) {
-            const scrollThreshold = this.isMobile ? 30 : 50;
-            if (scrollTop > scrollThreshold) {
-                this.elements.header.classList.add('scrolled');
-            } else {
-                this.elements.header.classList.remove('scrolled');
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateScrollProgress);
+                ticking = true;
             }
-        }
+        }, { passive: true });
 
-        // Update active navigation based on scroll position
-        this.updateNavigationOnScroll();
-        
-        // Mobile-specific scroll optimizations
-        if (this.isMobile) {
-            this.handleMobileScrollOptimizations();
+        // Initial update in case the page is already scrolled (e.g., after refresh)
+        if (!ticking) {
+            window.requestAnimationFrame(updateScrollProgress);
+            ticking = true;
         }
     }
 
     /**
-     * Update navigation based on scroll position
+     * @description Implements a custom "gaming" cursor that follows the mouse.
+     * Uses `requestAnimationFrame` and CSS transforms for smooth, hardware-accelerated animation.
+     * CSS повинен визначати вигляд `.gaming-cursor`, `.cursor-dot`, `.cursor-ring`.
+     * Важливо: курсор не повинен заважати взаємодії з елементами сторінки (`pointer-events: none`).
      */
-    updateNavigationOnScroll(): void {
-        const sections = ['home', 'features', 'about', 'contact'];
-        const headerHeight = this.elements.header?.offsetHeight || 0;
-        const scrollPosition = window.pageYOffset + headerHeight + 100;
+    setupGamingCursor() {
+        if (this.isLowPerformance && !this.prefersReducedMotion) { // Можна залишити простий курсор, якщо тільки isLowPerformance
+             // console.log("Gaming cursor simplified due to performance mode.");
+             // Можна додати клас для спрощеного курсора або повністю відключити
+        }
+        if(this.prefersReducedMotion) return; // Повністю відключаємо, якщо користувач так бажає
 
-        for (let i = sections.length - 1; i >= 0; i--) {
-            const section = document.getElementById(sections[i]);
-            if (section && scrollPosition >= section.offsetTop) {
-                const activeLink = document.querySelector(`[href="#${sections[i]}"]`);
-                if (activeLink && !activeLink.classList.contains('active')) {
-                    this.updateActiveNavigation(activeLink as HTMLElement);
-                }
-                break;
+        const cursor = document.createElement('div');
+        cursor.className = 'gaming-cursor'; // CSS: pointer-events: none;
+        cursor.innerHTML = '<div class="cursor-dot"></div><div class="cursor-ring"></div>';
+        this.dom.body.appendChild(cursor);
+
+        let lastX = 0;
+        let lastY = 0;
+        let ticking = false;
+
+        const updateCursorPosition = () => {
+            cursor.style.transform = `translate3d(${lastX}px, ${lastY}px, 0)`;
+            ticking = false;
+        };
+
+        document.addEventListener('mousemove', (e) => {
+            lastX = e.clientX;
+            lastY = e.clientY;
+            if (!ticking) {
+                window.requestAnimationFrame(updateCursorPosition);
+                ticking = true;
             }
-        }
+        }, { passive: true });
+
+        // Ефекти натискання (можна розширити)
+        document.addEventListener('mousedown', () => cursor.classList.add('clicked'), { passive: true });
+        document.addEventListener('mouseup', () => cursor.classList.remove('clicked'), { passive: true });
+
+        // Приховувати кастомний курсор, коли справжній курсор залишає вікно браузера
+        document.addEventListener('mouseleave', () => cursor.classList.add('hidden'), { passive: true });
+        document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'), { passive: true });
     }
 
     /**
-     * Mobile-specific scroll optimizations
+     * @description Animates text content of elements with class '.typing-animation-target'.
+     * Text can be provided via `data-text` attribute or existing content.
+     * Supports `data-typing-speed` (ms) and `data-typing-delay` (ms) attributes.
+     * Пропускається, якщо `prefersReducedMotion` або `isLowPerformance`.
+     * HTML Example: `<span class="hero-subtitle typing-animation-target" data-text="Welcome!" data-typing-speed="75" data-typing-delay="500"></span>`
      */
-    handleMobileScrollOptimizations(): void {
-        // Hide mobile address bar on scroll down
-        if (window.scrollY > 100) {
-            this.elements.body.classList.add('scrolling');
-        } else {
-            this.elements.body.classList.remove('scrolling');
-        }
-    }
+    setupTypingAnimation() {
+        const targets = document.querySelectorAll('.typing-animation-target');
+        if (targets.length === 0) return;
 
-    /**
-     * Handle window resize with mobile-first approach
-     */
-    handleResize(): void {
-        // Update mobile detection
-        const wasMobile = this.isMobile;
-        this.isMobile = this.detectMobileDevice();
-        
-        // If device type changed, reinitialize
-        if (wasMobile !== this.isMobile) {
-            this.reinitializeForDeviceChange();
-        }
+        targets.forEach(target => {
+            const textToType = target.dataset.text || target.textContent.trim();
+            if (!textToType) return;
 
-        // Recalculate accordion heights if open
-        this.recalculateAccordionHeights();
-        
-        // Update mobile menu state
-        if (!this.isMobile && this.isMobileMenuOpen()) {
-            this.closeMobileMenu();
-        }
-    }
-
-    /**
-     * Reinitialize when device type changes
-     */
-    async reinitializeForDeviceChange(): Promise<void> {
-        if (this.isMobile) {
-            await this.initializeMobileFeatures();
-        } else {
-            this.elements.body.classList.remove('mobile-device', 'mobile-menu-open');
-            if (this.isMobileMenuOpen()) {
-                this.closeMobileMenu();
-            }
-        }
-    }
-
-    /**
-     * Recalculate accordion heights for responsive design
-     */
-    recalculateAccordionHeights(): void {
-        const openAccordions = document.querySelectorAll('.accordion-header[aria-expanded="true"]');
-        openAccordions.forEach(header => {
-            const content = header.nextElementSibling as HTMLElement;
-            const inner = content?.querySelector('.accordion-content-inner') as HTMLElement;
-            if (content && inner) {
-                content.style.maxHeight = `${inner.scrollHeight}px`;
-            }
-        });
-    }
-
-    /**
-     * Setup enhanced logo interactions
-     */
-    setupLogoInteractions(): void {
-        if (!this.elements.logo) return;
-
-        let isHovered = false;
-
-        const handleLogoHover = () => {
-            if (isHovered) return;
-            isHovered = true;
+            const speed = parseInt(target.dataset.typingSpeed, 10) || 50;
+            const initialDelay = parseInt(target.dataset.typingDelay, 10) || 1000;
             
-            this.elements.logo.style.animationPlayState = 'paused';
-            this.elements.logo.style.transform = 'scale(1.05) rotate(5deg)';
-            
-            // Add glow effect
-            this.elements.logo.style.filter = 'drop-shadow(0 0 20px var(--accent-primary-glow))';
-        };
+            target.textContent = ''; // Очистити перед початком
+            let i = 0;
 
-        const handleLogoLeave = () => {
-            isHovered = false;
-            
-            this.elements.logo.style.animationPlayState = 'running';
-            this.elements.logo.style.transform = 'scale(1) rotate(0deg)';
-            this.elements.logo.style.filter = '';
-        };
-
-        const handleLogoClick = () => {
-            // Easter egg: Advanced logo animation
-            this.elements.logo.style.animation = 'logoSpecialAnimation 2s ease-in-out';
-            
-            setTimeout(() => {
-                this.elements.logo.style.animation = '';
-            }, 2000);
-            
-            this.trackInteraction('logo_clicked');
-        };
-
-        this.elements.logo.addEventListener('mouseenter', handleLogoHover);
-        this.elements.logo.addEventListener('mouseleave', handleLogoLeave);
-        this.elements.logo.addEventListener('click', handleLogoClick);
-
-        // Touch events for mobile
-        if (this.isMobile) {
-            this.elements.logo.addEventListener('touchstart', handleLogoHover, { passive: true });
-            this.elements.logo.addEventListener('touchend', handleLogoLeave, { passive: true });
-        }
-    }
-
-    /**
-     * Initialize intersection observer for scroll animations
-     */
-    initializeIntersectionObserver(): void {
-        const observerOptions = {
-            threshold: this.isMobile ? 0.1 : 0.2,
-            rootMargin: this.isMobile ? '0px 0px -30px 0px' : '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
-                    this.animateElement(entry.target as HTMLElement);
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements for animation
-        const elementsToObserve = [
-            ...this.elements.featureCards,
-            ...this.elements.techItems,
-            ...document.querySelectorAll('.accordion-section')
-        ];
-
-        elementsToObserve.forEach(element => {
-            observer.observe(element);
-        });
-    }
-
-    /**
-     * Animate element with staggered effects
-     */
-    animateElement(element: HTMLElement): void {
-        const animationClass = element.classList.contains('feature-card-iui') ? 
-            'slideInUp' : 'fadeInUp';
-        
-        element.style.animation = `${animationClass} ${this.mobileConfig.animationDuration}ms ease-out forwards`;
-    }
-
-    /**
-     * Initialize touch gestures for mobile
-     */
-    initializeTouchGestures(): void {
-        let touchStartX = 0;
-        let touchStartY = 0;
-        let touchEndX = 0;
-        let touchEndY = 0;
-
-        const handleTouchStart = (event: TouchEvent) => {
-            touchStartX = event.changedTouches[0].screenX;
-            touchStartY = event.changedTouches[0].screenY;
-        };
-
-        const handleTouchEnd = (event: TouchEvent) => {
-            touchEndX = event.changedTouches[0].screenX;
-            touchEndY = event.changedTouches[0].screenY;
-            this.handleSwipeGesture();
-        };
-
-        const handleSwipeGesture = () => {
-            const deltaX = touchEndX - touchStartX;
-            const deltaY = touchEndY - touchStartY;
-            
-            // Horizontal swipe detection
-            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > this.mobileConfig.swipeThreshold) {
-                if (deltaX > 0) {
-                    // Swipe right - open mobile menu
-                    if (!this.isMobileMenuOpen()) {
-                        this.openMobileMenu();
-                    }
+            const typeCharacter = () => {
+                if (i < textToType.length) {
+                    target.textContent += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeCharacter, speed);
                 } else {
-                    // Swipe left - close mobile menu
-                    if (this.isMobileMenuOpen()) {
-                        this.closeMobileMenu();
-                    }
+                    target.classList.add('typing-complete');
+                    // Можна додати тут "callback" або подію, якщо потрібно
                 }
-            }
-        };
-
-        document.addEventListener('touchstart', handleTouchStart, { passive: true });
-        document.addEventListener('touchend', handleTouchEnd, { passive: true });
-    }
-
-    /**
-     * Setup mobile-specific events
-     */
-    setupMobileSpecificEvents(): void {
-        // Prevent zoom on double tap for better UX
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', (event) => {
-            const now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-
-        // Handle orientation change
-        window.addEventListener('orientationchange', () => {
-            setTimeout(() => {
-                this.handleResize();
-            }, 500);
+            };
+            setTimeout(typeCharacter, initialDelay);
         });
     }
 
     /**
-     * Setup touch optimizations
+     * @description Sets up sound effects for interactive elements.
+     * Uses Web Audio API. Handles cases where AudioContext might not be available or needs resuming.
+     * Елементи для озвучення: `.cta-button, button, [data-sound-hover], [data-sound-click]`
+     * Можна додати контроль гучності та можливість вимкнення звуків користувачем.
      */
-    setupTouchOptimizations(): void {
-        // Add touch-specific CSS class
-        this.elements.body.classList.add('touch-device');
-        
-        // Optimize touch targets
-        const touchElements = document.querySelectorAll('button, a, .accordion-header');
-        touchElements.forEach(element => {
-            element.classList.add('touch-optimized');
-        });
-    }
-
-    /**
-     * Setup mobile performance optimizations
-     */
-    setupMobilePerformanceOptimizations(): void {
-        // Reduce animation complexity on low-end devices
-        if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
-            this.elements.body.classList.add('low-performance-device');
+    setupSoundEffects() {
+        let audioContext;
+        try {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+            console.warn("Web Audio API not supported. Sound effects disabled.", e);
+            return;
         }
 
-        // Optimize images for mobile
-        const images = document.querySelectorAll('img[data-src]');
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target as HTMLImageElement;
-                        img.src = img.dataset.src || '';
-                        img.classList.remove('lazy');
-                        imageObserver.unobserve(img);
-                    }
-                });
-            });
+        // Функція для відтворення звуку. Покращено для обробки стану AudioContext.
+        const playSound = (frequency, duration, type = 'sine', volume = 0.05) => {
+            if (!audioContext) return;
 
-            images.forEach(img => imageObserver.observe(img));
-        }
-    }
+            // Аудіоконтекст може бути "suspended" до першої взаємодії користувача.
+            if (audioContext.state === 'suspended') {
+                audioContext.resume().catch(err => console.warn("Failed to resume AudioContext:", err));
+            }
+            // Не відтворювати звук, якщо контекст все ще не активний.
+            if (audioContext.state !== 'running') {
+                 // console.log("AudioContext not running. Sound play aborted.");
+                return;
+            }
 
-    /**
-     * Setup mobile accessibility features
-     */
-    setupMobileAccessibility(): void {
-        // Announce page changes to screen readers
-        const announcer = document.createElement('div');
-        announcer.setAttribute('aria-live', 'polite');
-        announcer.setAttribute('aria-atomic', 'true');
-        announcer.className = 'visually-hidden';
-        announcer.id = 'mobile-announcer';
-        document.body.appendChild(announcer);
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
 
-        // Improve focus visibility on mobile
-        const focusableElements = document.querySelectorAll('a, button, input, textarea, select');
-        focusableElements.forEach(element => {
-            element.addEventListener('focus', () => {
-                element.classList.add('mobile-focused');
-            });
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.type = type; // 'sine', 'square', 'sawtooth', 'triangle'
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
             
-            element.addEventListener('blur', () => {
-                element.classList.remove('mobile-focused');
-            });
+            gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration); // Плавне затухання
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration);
+        };
+
+        // Звук при кліку
+        document.querySelectorAll('.cta-button, button, [data-sound-click]').forEach(element => {
+            element.addEventListener('click', () => {
+                const freq = parseInt(element.dataset.soundClickFreq) || 800;
+                const dur = parseFloat(element.dataset.soundClickDur) || 0.1;
+                playSound(freq, dur, 'triangle');
+            }, { passive: true });
         });
+
+        // Звук при наведенні (приклад, потребує CSS для :hover)
+        document.querySelectorAll('[data-sound-hover]').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                const freq = parseInt(element.dataset.soundHoverFreq) || 1200;
+                const dur = parseFloat(element.dataset.soundHoverDur) || 0.05;
+                playSound(freq, dur, 'sine', 0.03);
+            }, { passive: true });
+        });
+        // TODO: Додати можливість завантаження та відтворення коротких аудіофайлів замість генерованих тонів
+        // для більш тематичного звучання.
+        // TODO: Додати кнопку для користувача, щоб вмикати/вимикати звуки (зберігати вибір у localStorage).
     }
 
     /**
-     * Handle page visibility changes for performance
+     * @description Applies a parallax scrolling effect to elements with class '.parallax-bg'.
+     * Effect strength can be controlled via `data-parallax-speed` attribute (0.1 to 1.0).
+     * Uses `requestAnimationFrame` for performance.
+     * Пропускається, якщо `prefersReducedMotion` або `isLowPerformance`.
+     * HTML: `<div class="parallax-bg" style="background-image: url(...);" data-parallax-speed="0.3"></div>`
+     * CSS: `.parallax-bg` повинен мати `background-attachment: fixed;` (або інші налаштування для parallax)
+     *      та визначені розміри.
      */
-    handleVisibilityChange(): void {
-        if (document.hidden) {
-            // Pause animations and reduce activity
-            this.elements.body.style.animationPlayState = 'paused';
-            if (this.elements.logo) {
-                this.elements.logo.style.animationPlayState = 'paused';
-            }
-        } else {
-            // Resume animations
-            this.elements.body.style.animationPlayState = 'running';
-            if (this.elements.logo) {
-                this.elements.logo.style.animationPlayState = 'running';
-            }
-        }
-    }
+    setupParallaxEffect() {
+        const parallaxElements = document.querySelectorAll('.parallax-bg');
+        if (parallaxElements.length === 0) return;
 
-    /**
-     * Show loading indicator with mobile optimization
-     */
-    showLoadingIndicator(): void {
-        if (this.elements.loadingIndicator) {
-            this.elements.loadingIndicator.classList.remove('loading-hidden');
-            this.elements.loadingIndicator.setAttribute('aria-hidden', 'false');
-        }
-    }
+        let ticking = false;
 
-    /**
-     * Hide loading indicator
-     */
-    hideLoadingIndicator(): void {
-        if (this.elements.loadingIndicator) {
-            setTimeout(() => {
-                this.elements.loadingIndicator.classList.add('loading-hidden');
-                this.elements.loadingIndicator.setAttribute('aria-hidden', 'true');
-            }, this.mobileConfig.animationDuration);
-        }
-    }
+        const updateParallaxPositions = () => {
+            parallaxElements.forEach(el => {
+                const speed = Math.max(0.1, Math.min(1.0, parseFloat(el.dataset.parallaxSpeed) || 0.5));
+                const rect = el.getBoundingClientRect();
+                
+                // Розрахунок видимості елемента для оптимізації:
+                // Якщо елемент не у viewport, можна пропустити оновлення.
+                const isInViewport = rect.top < window.innerHeight && rect.bottom >= 0;
 
-    /**
-     * Handle initial page load
-     */
-    async handleInitialPageLoad(): Promise<void> {
-        // Handle hash-based navigation
-        if (window.location.hash) {
-            setTimeout(() => {
-                const targetElement = document.querySelector(window.location.hash);
-                if (targetElement) {
-                    this.smoothScrollToElement(targetElement as HTMLElement);
+                if (isInViewport) {
+                    // Простий parallax для background-position. 
+                    // Для більш складних ефектів (наприклад, transform) потрібен інший підхід.
+                    // Цей варіант передбачає, що CSS елемента налаштований для parallax (напр. background-attachment).
+                    const yPos = -(window.scrollY * speed * 0.5); // Коефіцієнт 0.5 для зменшення "сили" ефекту
+                    el.style.backgroundPosition = `50% ${yPos}px`;
                 }
-            }, 100);
-        }
-
-        // Trigger initial scroll check
-        this.handleScroll();
-
-        // Initialize service worker for PWA features
-        if ('serviceWorker' in navigator && this.isProduction) {
-            try {
-                await navigator.serviceWorker.register('/static/js/sw.js');
-                console.log('✅ Service Worker registered successfully');
-            } catch (error) {
-                console.warn('⚠️ Service Worker registration failed:', error);
+            });
+            ticking = false;
+        };
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallaxPositions);
+                ticking = true;
             }
+        }, { passive: true });
+
+        // Initial update
+        if (!ticking) {
+            window.requestAnimationFrame(updateParallaxPositions);
+            ticking = true;
         }
-    }
-
-    /**
-     * Setup performance monitoring
-     */
-    setupPerformanceMonitoring(): void {
-        // Track Core Web Vitals
-        if ('PerformanceObserver' in window) {
-            // First Contentful Paint
-            new PerformanceObserver((entryList) => {
-                for (const entry of entryList.getEntries()) {
-                    this.trackPerformance('FCP', entry.startTime);
-                }
-            }).observe({ entryTypes: ['paint'] });
-
-            // Largest Contentful Paint
-            new PerformanceObserver((entryList) => {
-                const entries = entryList.getEntries();
-                const lastEntry = entries[entries.length - 1];
-                this.trackPerformance('LCP', lastEntry.startTime);
-            }).observe({ entryTypes: ['largest-contentful-paint'] });
-        }
-
-        // Track custom metrics
-        this.trackPerformance('initialization_time', performance.now() - this.performanceMetrics.startTime);
-    }
-
-    /**
-     * Track user interactions for analytics
-     */
-    trackInteraction(event: string, data?: any): void {
-        this.performanceMetrics.interactions++;
-        
-        // Send to analytics service (placeholder)
-        if (this.isProduction) {
-            console.log(`📊 Interaction tracked: ${event}`, data);
-            // gtag('event', event, data);
-        }
-    }
-
-    /**
-     * Track performance metrics
-     */
-    trackPerformance(metric: string, value: number): void {
-        if (this.isProduction) {
-            console.log(`⚡ Performance metric: ${metric} = ${value.toFixed(2)}ms`);
-            // Send to monitoring service
-        }
-    }
-
-    /**
-     * Handle global errors
-     */
-    handleGlobalError(event: ErrorEvent): void {
-        this.performanceMetrics.errors++;
-        console.error('❌ Global error:', event.error);
-        
-        if (this.isProduction) {
-            // Send to error tracking service
-            // Sentry.captureException(event.error);
-        }
-    }
-
-    /**
-     * Handle unhandled promise rejections
-     */
-    handleUnhandledRejection(event: PromiseRejectionEvent): void {
-        this.performanceMetrics.errors++;
-        console.error('❌ Unhandled promise rejection:', event.reason);
-        
-        if (this.isProduction) {
-            // Send to error tracking service
-        }
-    }
-
-    /**
-     * Handle initialization errors
-     */
-    handleInitializationError(error: Error): void {
-        console.error('❌ Initialization failed:', error);
-        
-        // Show fallback UI
-        this.showFallbackUI();
-        
-        if (this.isProduction) {
-            // Send to error tracking service
-        }
-    }
-
-    /**
-     * Show fallback UI when JavaScript fails
-     */
-    showFallbackUI(): void {
-        const fallbackMessage = document.createElement('div');
-        fallbackMessage.className = 'fallback-message';
-        fallbackMessage.innerHTML = `
-            <div class="fallback-content">
-                <h2>⚠️ Щось пішло не так</h2>
-                <p>Спробуйте перезавантажити сторінку або скористайтеся базовою версією сайту.</p>
-                <button onclick="window.location.reload()">Перезавантажити</button>
-            </div>
-        `;
-        
-        document.body.appendChild(fallbackMessage);
-        this.hideLoadingIndicator();
-    }
-
-    /**
-     * Utility: Throttle function calls
-     */
-    throttle(func: Function, limit: number): Function {
-        let inThrottle: boolean;
-        return function(this: any, ...args: any[]) {
-            if (!inThrottle) {
-                func.apply(this, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    }
-
-    /**
-     * Utility: Debounce function calls
-     */
-    debounce(func: Function, wait: number): Function {
-        let timeout: NodeJS.Timeout;
-        return function(this: any, ...args: any[]) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(this, args), wait);
-        };
-    }
-
-    /**
-     * Get system information for debugging
-     */
-    getSystemInfo(): object {
-        return {
-            version: this.version,
-            isMobile: this.isMobile,
-            supportsAdvancedFeatures: this.supportsAdvancedFeatures,
-            isProduction: this.isProduction,
-            userAgent: navigator.userAgent,
-            viewport: {
-                width: window.innerWidth,
-                height: window.innerHeight
-            },
-            performance: this.performanceMetrics
-        };
     }
 }
 
-// Initialize the system when DOM is ready
+// Initialize enhancements when the DOM is fully loaded and parsed.
 document.addEventListener('DOMContentLoaded', () => {
-    window.ggenius = new GGeniusAdvancedSystem();
+    // Робимо екземпляр доступним глобально для легкого дебагу,
+    // але в продакшені це можна прибрати або обмежити.
+    window.gameWebsiteEnhancer = new GameWebsiteEnhancer();
+    console.log("GameWebsiteEnhancer initialized.");
 });
 
-// Add CSS animations for mobile
-const mobileAnimations = `
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes logoSpecialAnimation {
-    0% { transform: scale(1) rotate(0deg); }
-    25% { transform: scale(1.1) rotate(5deg); }
-    50% { transform: scale(1.2) rotate(-5deg); }
-    75% { transform: scale(1.1) rotate(5deg); }
-    100% { transform: scale(1) rotate(0deg); }
-}
-
-/* Mobile-specific styles */
-.mobile-device .feature-card-iui {
-    transform: translateY(20px);
-    opacity: 0;
-    transition: all 0.3s ease-out;
-}
-
-.mobile-device .feature-card-iui.animate-in {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.touch-device button,
-.touch-device a {
-    -webkit-tap-highlight-color: rgba(0, 123, 255, 0.2);
-}
-
-.mobile-focused {
-    outline: 2px solid var(--accent-primary) !important;
-    outline-offset: 2px;
-}
-
-.fallback-message {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(10, 12, 15, 0.95);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-}
-
-.fallback-content {
-    text-align: center;
-    padding: 2rem;
-    background: var(--secondary-bg-color);
-    border-radius: var(--border-radius-lg);
-    max-width: 400px;
-}
-
-.fallback-content button {
-    background: var(--gradient-cta-primary);
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    margin-top: 1rem;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .mobile-device .feature-card-iui {
-        transition: none;
-    }
-}
-`;
-
-// Inject mobile animations
-const mobileStyleSheet = document.createElement('style');
-mobileStyleSheet.textContent = mobileAnimations;
-document.head.appendChild(mobileStyleSheet);
-
-// Export for global access
-declare global {
-    interface Window {
-        ggenius: GGeniusAdvancedSystem;
-    }
-}
+/**
+ * TODOs for future enhancements (Креативні ідеї та покращення):
+ * 1.  **Advanced Particle Effects:** For backgrounds or interactive elements, controllable via performance settings.
+ * 2.  **Gamified Achievements/Notifications:** Pop-ups for specific user actions (e.g., first comment, X visits).
+ * 3.  **Thematic Page Transitions:** Smooth, gaming-style transitions between pages (if site is SPA or using Turbo/HTMX).
+ * 4.  **Interactive Mini-map/Navigation:** For sites with complex structure.
+ * 5.  **User-configurable Themes:** Allow users to select different visual themes (colors, cursors, sound packs).
+ * 6.  **Dynamic Content Loading Animations:** Skeletons loaders or thematic spinners for AJAX content.
+ * 7.  **Easter Eggs:** Hidden interactive elements or codes for community engagement.
+ */
