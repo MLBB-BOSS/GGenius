@@ -1,500 +1,229 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="1024" height="1024" viewBox="0 0 1024 1024"
      xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     class="mlbb-controller-pro">
+     class="mlbb-dark-pro">
 
-  <!-- ============== MLBB PROFESSIONAL DEFINITIONS ============== -->
+  <!-- === DARK E-SPORTS DEFINITIONS === -->
   <defs>
-    <!-- MLBB Signature Gradients -->
-    <radialGradient id="mlbb-primary" cx="0.3" cy="0.2" r="1.2">
-      <stop offset="0%" stop-color="#FFD700">
-        <animate attributeName="stop-color" values="#FFD700;#FFA500;#FFD700" dur="3s" repeatCount="indefinite"/>
-      </stop>
-      <stop offset="30%" stop-color="#FF6B35"/>
-      <stop offset="60%" stop-color="#1E3A8A"/>
+    <!-- Динамічний Темний Фон -->
+    <linearGradient id="super-dark-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A071A"/>
+      <stop offset="25%" stop-color="#161532"/>
+      <stop offset="50%" stop-color="#1C1942"/>
+      <stop offset="75%" stop-color="#210B2C"/>
+      <stop offset="100%" stop-color="#0A071A"/>
+    </linearGradient>
+
+    <!-- Основний Градієнт Корпусу -->
+    <radialGradient id="deep-dark-body" cx="0.3" cy="0.18" r="1.15">
+      <stop offset="0%" stop-color="#320B5B"/>
+      <stop offset="30%" stop-color="#1E1A3B"/>
+      <stop offset="55%" stop-color="#150C25"/>
+      <stop offset="85%" stop-color="#0C0722"/>
+      <stop offset="100%" stop-color="#060419"/>
+    </radialGradient>
+
+    <!-- Акцентне Неонове Світло -->
+    <radialGradient id="neon-glow-purple" cx="0.5" cy="0.2" r="1.2">
+      <stop offset="0%" stop-color="#C026D3"/>
+      <stop offset="45%" stop-color="#7C3AED"/>
+      <stop offset="85%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#1E1B4B"/>
+    </radialGradient>
+    <radialGradient id="neon-glow-cyan" cx="0.7" cy="0.15" r="1.1">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="55%" stop-color="#0EA5E9"/>
+      <stop offset="90%" stop-color="#0369A1"/>
       <stop offset="100%" stop-color="#0F172A"/>
     </radialGradient>
 
-    <!-- Dynamic Professional Background -->
-    <linearGradient id="pro-background" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0F172A"/>
-      <stop offset="25%" stop-color="#1E293B"/>
-      <stop offset="50%" stop-color="#334155"/>
-      <stop offset="75%" stop-color="#1E293B"/>
-      <stop offset="100%" stop-color="#0F172A"/>
-      <animateTransform attributeName="gradientTransform" type="rotate" 
-                        values="0 512 512;360 512 512" dur="20s" repeatCount="indefinite"/>
-    </linearGradient>
-
-    <!-- MLBB Hero Elements -->
-    <pattern id="mlbb-pattern" patternUnits="userSpaceOnUse" width="40" height="40">
-      <rect width="40" height="40" fill="#1E293B"/>
-      <polygon points="20,5 25,15 35,15 27,23 30,33 20,28 10,33 13,23 5,15 15,15" 
-               fill="#FFD700" opacity="0.3"/>
-      <animateTransform attributeName="patternTransform" type="rotate" 
-                        values="0 20 20;360 20 20" dur="10s" repeatCount="indefinite"/>
-    </pattern>
-
-    <!-- Ultra-Realistic Controller Body -->
-    <radialGradient id="ultra-realistic-body" cx="0.25" cy="0.2" r="1.3">
-      <stop offset="0%" stop-color="#64748B"/>
-      <stop offset="20%" stop-color="#475569"/>
-      <stop offset="40%" stop-color="#334155"/>
-      <stop offset="60%" stop-color="#1E293B"/>
-      <stop offset="80%" stop-color="#0F172A"/>
-      <stop offset="100%" stop-color="#020617"/>
-    </radialGradient>
-
-    <!-- Professional Lighting System -->
-    <linearGradient id="pro-lighting" x1="0" y1="0" x2="0.8" y2="0.6">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.6)"/>
-      <stop offset="20%" stop-color="rgba(255,215,0,0.3)"/>
-      <stop offset="40%" stop-color="rgba(255,255,255,0.15)"/>
-      <stop offset="70%" stop-color="rgba(255,255,255,0.05)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0.2)"/>
-    </linearGradient>
-
-    <!-- MLBB Button Materials -->
-    <radialGradient id="mlbb-button-gold" cx="0.3" cy="0.2" r="0.9">
+    <!-- Яскраві Золоті Кнопки -->
+    <radialGradient id="glossy-gold" cx="0.3" cy="0.2" r="0.8">
       <stop offset="0%" stop-color="#FFD700"/>
-      <stop offset="40%" stop-color="#FFA500"/>
-      <stop offset="80%" stop-color="#FF8C00"/>
-      <stop offset="100%" stop-color="#FF6B35"/>
+      <stop offset="50%" stop-color="#FFB800"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </radialGradient>
+    <!-- Яскраво-сині кнопки -->
+    <radialGradient id="glossy-blue" cx="0.3" cy="0.3" r="0.9">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="55%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#181B4B"/>
     </radialGradient>
 
-    <radialGradient id="mlbb-button-blue" cx="0.3" cy="0.2" r="0.9">
-      <stop offset="0%" stop-color="#60A5FA"/>
-      <stop offset="40%" stop-color="#3B82F6"/>
-      <stop offset="80%" stop-color="#1D4ED8"/>
-      <stop offset="100%" stop-color="#1E3A8A"/>
+    <!-- Тінь під корпусом -->
+    <radialGradient id="deep-floor-shadow" cx="0.5" cy="0.55" r="0.8">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.52"/>
+      <stop offset="70%" stop-color="#47126B" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
     </radialGradient>
 
-    <!-- Advanced Shadow System -->
-    <filter id="professional-shadow" x="-100%" y="-50%" width="300%" height="250%">
-      <feDropShadow dx="0" dy="35" stdDeviation="50" flood-color="#000000" flood-opacity="0.5"/>
-      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#1E3A8A" flood-opacity="0.3"/>
-      <feDropShadow dx="0" dy="10" stdDeviation="15" flood-color="#FFD700" flood-opacity="0.1"/>
-      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#000000" flood-opacity="0.4"/>
+    <!-- Глибокий Ефект Кнопок -->
+    <filter id="button-deep" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#C026D3" flood-opacity="0.35"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#22D3EE" flood-opacity="0.18"/>
     </filter>
 
-    <!-- Interactive Button Effects -->
-    <filter id="interactive-glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+    <!-- Shadow для корпуса -->
+    <filter id="body-shadow" x="-50%" y="-30%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="30" stdDeviation="40" flood-color="#0A071A" flood-opacity="0.70"/>
+      <feDropShadow dx="0" dy="12" stdDeviation="19" flood-color="#7C3AED" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#22D3EE" flood-opacity="0.14"/>
+    </filter>
+
+    <!-- Neon Glow (for glowing outlines) -->
+    <filter id="neon-blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
       <feMerge>
-        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-
-    <!-- MLBB Analog Stick Texture -->
-    <radialGradient id="mlbb-stick-texture" cx="0.4" cy="0.3" r="1">
-      <stop offset="0%" stop-color="#64748B"/>
-      <stop offset="30%" stop-color="#475569"/>
-      <stop offset="60%" stop-color="#334155"/>
-      <stop offset="90%" stop-color="#1E293B"/>
-      <stop offset="100%" stop-color="#0F172A"/>
-    </radialGradient>
-
-    <!-- Professional Rubber Pattern -->
-    <pattern id="pro-rubber-pattern" patternUnits="userSpaceOnUse" width="4" height="4">
-      <rect width="4" height="4" fill="#1E293B"/>
-      <circle cx="2" cy="2" r="0.8" fill="#334155" opacity="0.9"/>
-      <circle cx="2" cy="2" r="0.4" fill="#475569" opacity="0.6"/>
-    </pattern>
-
-    <!-- MLBB Screen Effect -->
-    <linearGradient id="mlbb-screen" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#000000"/>
-      <stop offset="20%" stop-color="#0F172A"/>
-      <stop offset="50%" stop-color="#1E293B"/>
-      <stop offset="80%" stop-color="#0F172A"/>
-      <stop offset="100%" stop-color="#000000"/>
-    </linearGradient>
-
-    <!-- Dynamic Floor Shadow -->
-    <radialGradient id="dynamic-floor-shadow" cx="0.5" cy="0.5" r="1">
-      <stop offset="0%" stop-color="rgba(0,0,0,0.4)"/>
-      <stop offset="30%" stop-color="rgba(30,58,138,0.2)"/>
-      <stop offset="60%" stop-color="rgba(0,0,0,0.15)"/>
-      <stop offset="90%" stop-color="rgba(255,215,0,0.05)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
-      <animateTransform attributeName="gradientTransform" type="scale" 
-                        values="1;1.2;1" dur="4s" repeatCount="indefinite"/>
-    </radialGradient>
-
-    <!-- MLBB Logo Elements -->
-    <symbol id="mlbb-mini-logo" viewBox="0 0 20 20">
-      <polygon points="10,2 13,8 19,8 14,12 16,18 10,15 4,18 6,12 1,8 7,8" 
-               fill="#FFD700" stroke="#FF6B35" stroke-width="0.5"/>
-      <circle cx="10" cy="10" r="3" fill="none" stroke="#1E3A8A" stroke-width="0.8"/>
-    </symbol>
   </defs>
 
-  <!-- ============== PROFESSIONAL MLBB BACKGROUND ============== -->
-  <rect width="1024" height="1024" fill="url(#pro-background)"/>
-  
-  <!-- MLBB Pattern Overlay -->
-  <rect width="1024" height="1024" fill="url(#mlbb-pattern)" opacity="0.15"/>
+  <!-- === TEMNYY FON === -->
+  <rect width="1024" height="1024" fill="url(#super-dark-bg)"/>
+  <!-- Тінь -->
+  <ellipse cx="512" cy="780" rx="390" ry="96" fill="url(#deep-floor-shadow)" opacity="0.82"/>
 
-  <!-- Enhanced Dynamic Floor Shadow -->
-  <ellipse cx="512" cy="780" rx="400" ry="100" fill="url(#dynamic-floor-shadow)" opacity="0.8"/>
+  <!-- === КОНТРОЛЕР, DARK/NEON === -->
+  <g id="dark-neon-controller" filter="url(#body-shadow)">
+    <!-- Корпус -->
+    <path d="
+      M200,510
+      C175,420 285,325 425,310
+      C505,285 560,280 690,310
+      C830,325 920,420 895,525
+      C875,590 835,630 780,680
+      C740,710 695,720 645,670
+      C610,645 600,605 605,575
+      C610,535 595,510 560,510
+      C525,510 510,535 515,575
+      C520,605 510,645 475,670
+      C425,720 380,710 340,680
+      C285,630 245,590 200,510
+      Z"
+      fill="url(#deep-dark-body)"
+      stroke="url(#neon-glow-purple)"
+      stroke-width="4.5"
+      filter="url(#neon-blur)"
+    />
+    <!-- Light highlight -->
+    <path d="
+      M200,510
+      C175,420 285,325 425,310
+      C505,285 560,280 690,310
+      C830,325 920,420 895,525
+      C875,590 835,630 780,680
+      C740,710 695,720 645,670
+      C610,645 600,605 605,575
+      C610,535 595,510 560,510
+      C525,510 510,535 515,575
+      C520,605 510,645 475,670
+      C425,720 380,710 340,680
+      C285,630 245,590 200,510
+      Z"
+      fill="url(#neon-glow-cyan)"
+      opacity="0.13"
+    />
+    <!-- Центральна панель -->
+    <rect x="340" y="350" width="340" height="90" rx="22" 
+          fill="#1C1942" stroke="#C026D3" stroke-width="3.5"/>
+    <rect x="350" y="360" width="320" height="70" rx="16" 
+          fill="#090720" stroke="#22D3EE" stroke-width="2"/>
+    <text x="510" y="387" text-anchor="middle" fill="#C026D3" font-family="Montserrat, Arial Black" font-size="18" font-weight="bold">GGenius PRO CONTROLLER</text>
+    <text x="510" y="410" text-anchor="middle" fill="#22D3EE" font-family="Montserrat, Arial" font-size="13">eSports Dark Edition</text>
+    <text x="510" y="430" text-anchor="middle" fill="#CFFAFE" font-family="Montserrat, Arial" font-size="10">STATUS: CONNECTED</text>
+  </g>
 
-  <!-- ============== MLBB PROFESSIONAL CONTROLLER ============== -->
-  <g id="mlbb-pro-controller" filter="url(#professional-shadow)">
-    
-    <!-- Professional Controller Body -->
-    <g id="pro-controller-body">
-      <!-- Main Body with MLBB Design -->
-      <path d="
-        M200,505
-        C175,420 285,325 425,310
-        C505,285 560,280 690,310
-        C830,325 920,420 895,525
-        C875,590 835,630 780,680
-        C740,710 695,720 645,670
-        C610,645 600,605 605,575
-        C610,535 595,505 560,505
-        C525,505 510,535 515,575
-        C520,605 510,645 475,670
-        C425,720 380,710 340,680
-        C285,630 245,590 200,505
-        Z"
-        fill="url(#ultra-realistic-body)" 
-        stroke="#FFD700" 
-        stroke-width="3"/>
-
-      <!-- Professional Surface Lighting -->
-      <path d="
-        M200,505
-        C175,420 285,325 425,310
-        C505,285 560,280 690,310
-        C830,325 920,420 895,525
-        C875,590 835,630 780,680
-        C740,710 695,720 645,670
-        C610,645 600,605 605,575
-        C610,535 595,505 560,505
-        C525,505 510,535 515,575
-        C520,605 510,645 475,670
-        C425,720 380,710 340,680
-        C285,630 245,590 200,505
-        Z"
-        fill="url(#pro-lighting)" 
-        opacity="0.8"/>
-
-      <!-- MLBB Brand Integration -->
-      <g id="mlbb-integration" opacity="0.4">
-        <use href="#mlbb-mini-logo" x="490" y="480" width="15" height="15"/>
-        <use href="#mlbb-mini-logo" x="515" y="480" width="15" height="15"/>
-        <use href="#mlbb-mini-logo" x="502" y="500" width="15" height="15"/>
-      </g>
+  <!-- === НЕОНОВІ СТІКИ === -->
+  <g id="sticks">
+    <!-- Left Stick -->
+    <g filter="url(#button-deep)">
+      <circle cx="415" cy="555" r="47" fill="#1E1A3B" stroke="url(#neon-glow-cyan)" stroke-width="5"/>
+      <circle cx="415" cy="555" r="35" fill="url(#neon-glow-purple)"/>
+      <circle cx="415" cy="548" r="19" fill="#320B5B"/>
+      <circle cx="415" cy="543" r="10" fill="#22D3EE"/>
+      <circle cx="415" cy="540" r="4" fill="#060419"/>
     </g>
-
-    <!-- MLBB Professional Display -->
-    <g id="mlbb-pro-display">
-      <rect x="340" y="350" width="340" height="90" rx="20" 
-            fill="url(#mlbb-screen)" stroke="#FFD700" stroke-width="3"/>
-      <rect x="350" y="360" width="320" height="70" rx="15" 
-            fill="#000000" stroke="#1E3A8A" stroke-width="2"/>
-      
-      <!-- MLBB Display Content -->
-      <text x="510" y="385" text-anchor="middle" fill="#FFD700" 
-            font-family="Arial Black" font-size="14" font-weight="bold">MOBILE LEGENDS</text>
-      <text x="510" y="405" text-anchor="middle" fill="#60A5FA" 
-            font-family="Arial" font-size="12">PROFESSIONAL CONTROLLER</text>
-      <text x="510" y="420" text-anchor="middle" fill="#34D399" 
-            font-family="Arial" font-size="10">STATUS: CONNECTED</text>
-      
-      <!-- Animated Status Indicator -->
-      <circle cx="620" cy="380" r="4" fill="#34D399">
-        <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
-      </circle>
-    </g>
-
-    <!-- Ultra-Professional Analog Sticks -->
-    <g id="mlbb-pro-sticks">
-      <!-- Left Stick Assembly -->
-      <g class="interactive-stick" filter="url(#interactive-glow)">
-        <circle cx="415" cy="555" r="45" fill="#0F172A" stroke="#FFD700" stroke-width="3"/>
-        <circle cx="415" cy="555" r="40" fill="url(#mlbb-stick-texture)"/>
-        
-        <!-- Precision Shaft -->
-        <circle cx="415" cy="548" r="25" fill="url(#mlbb-primary)" stroke="#1E3A8A" stroke-width="2"/>
-        <circle cx="415" cy="545" r="20" fill="#475569"/>
-        
-        <!-- MLBB Rubber Grip -->
-        <circle cx="415" cy="542" r="15" fill="url(#pro-rubber-pattern)"/>
-        <circle cx="415" cy="540" r="10" fill="#334155"/>
-        
-        <!-- Precision Center -->
-        <circle cx="415" cy="540" r="5" fill="#1E293B"/>
-        <use href="#mlbb-mini-logo" x="407" y="532" width="8" height="8"/>
-        
-        <!-- Hover Animation -->
-        <animateTransform attributeName="transform" type="scale" 
-                          values="1;1.05;1" dur="3s" repeatCount="indefinite"/>
-      </g>
-
-      <!-- Right Stick Assembly -->
-      <g class="interactive-stick" filter="url(#interactive-glow)">
-        <circle cx="685" cy="555" r="45" fill="#0F172A" stroke="#FFD700" stroke-width="3"/>
-        <circle cx="685" cy="555" r="40" fill="url(#mlbb-stick-texture)"/>
-        
-        <!-- Precision Shaft -->
-        <circle cx="685" cy="548" r="25" fill="url(#mlbb-primary)" stroke="#1E3A8A" stroke-width="2"/>
-        <circle cx="685" cy="545" r="20" fill="#475569"/>
-        
-        <!-- MLBB Rubber Grip -->
-        <circle cx="685" cy="542" r="15" fill="url(#pro-rubber-pattern)"/>
-        <circle cx="685" cy="540" r="10" fill="#334155"/>
-        
-        <!-- Precision Center -->
-        <circle cx="685" cy="540" r="5" fill="#1E293B"/>
-        <use href="#mlbb-mini-logo" x="677" y="532" width="8" height="8"/>
-        
-        <!-- Hover Animation -->
-        <animateTransform attributeName="transform" type="scale" 
-                          values="1;1.05;1" dur="3s" repeatCount="indefinite" begin="1.5s"/>
-      </g>
-    </g>
-
-    <!-- Professional Shoulder System -->
-    <g id="pro-shoulder-system">
-      <!-- Left Shoulder Complex -->
-      <rect x="270" y="310" width="160" height="25" rx="12" fill="url(#mlbb-primary)" stroke="#0F172A" stroke-width="2"/>
-      <rect x="280" y="315" width="140" height="15" rx="7" fill="#475569"/>
-      <text x="350" y="330" text-anchor="middle" fill="#FFD700" font-family="Arial Black" font-size="11">L1  L2</text>
-
-      <!-- Right Shoulder Complex -->
-      <rect x="590" y="310" width="160" height="25" rx="12" fill="url(#mlbb-primary)" stroke="#0F172A" stroke-width="2"/>
-      <rect x="600" y="315" width="140" height="15" rx="7" fill="#475569"/>
-      <text x="670" y="330" text-anchor="middle" fill="#FFD700" font-family="Arial Black" font-size="11">R1  R2</text>
-    </g>
-
-    <!-- =========== REVOLUTIONARY MLBB BUTTON LAYOUT =========== -->
-    <g id="mlbb-revolutionary-buttons">
-      
-      <!-- MLBB Professional D-Pad -->
-      <g id="mlbb-pro-dpad" class="interactive-dpad">
-        <!-- Vertical Component -->
-        <rect x="330" y="470" width="42" height="120" rx="8" 
-              fill="url(#mlbb-button-gold)" stroke="#FF6B35" stroke-width="3"/>
-        <rect x="337" y="477" width="28" height="106" rx="5" 
-              fill="url(#pro-lighting)" opacity="0.4"/>
-        
-        <!-- Horizontal Component -->
-        <rect x="305" y="500" width="120" height="42" rx="8" 
-              fill="url(#mlbb-button-gold)" stroke="#FF6B35" stroke-width="3"/>
-        <rect x="312" y="507" width="106" height="28" rx="5" 
-              fill="url(#pro-lighting)" opacity="0.4"/>
-        
-        <!-- MLBB Direction Indicators -->
-        <polygon points="351,488 368,493 351,508" fill="rgba(30,58,138,0.9)"/>
-        <polygon points="351,555 368,547 351,538" fill="rgba(30,58,138,0.9)"/>
-        <polygon points="322,515 335,528 322,541" fill="rgba(30,58,138,0.9)"/>
-        <polygon points="410,515 423,528 410,541" fill="rgba(30,58,138,0.9)"/>
-        
-        <!-- Interactive Pulse -->
-        <animateTransform attributeName="transform" type="scale" 
-                          values="1;1.02;1" dur="2s" repeatCount="indefinite"/>
-      </g>
-
-      <!-- MLBB Action Button Complex -->
-      <g id="mlbb-action-complex" class="interactive-buttons">
-        <!-- Ultimate Y Button -->
-        <g class="ultimate-button">
-          <circle cx="755" cy="470" r="22" fill="url(#mlbb-button-gold)" stroke="#FF6B35" stroke-width="3"/>
-          <circle cx="755" cy="470" r="18" fill="url(#pro-lighting)" opacity="0.4"/>
-          <text x="755" y="478" text-anchor="middle" fill="#0F172A" 
-                font-family="Arial Black" font-size="18" font-weight="bold">Y</text>
-          <use href="#mlbb-mini-logo" x="745" y="485" width="8" height="8"/>
-          
-          <!-- Glow Effect -->
-          <circle cx="755" cy="470" r="25" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.6">
-            <animate attributeName="r" values="22;28;22" dur="3s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0.6;0.2;0.6" dur="3s" repeatCount="indefinite"/>
-          </circle>
-        </g>
-
-        <!-- Skill X Button -->
-        <g class="skill-button">
-          <circle cx="695" cy="530" r="22" fill="url(#mlbb-button-blue)" stroke="#1E3A8A" stroke-width="3"/>
-          <circle cx="695" cy="530" r="18" fill="url(#pro-lighting)" opacity="0.4"/>
-          <text x="695" y="538" text-anchor="middle" fill="#FFD700" 
-                font-family="Arial Black" font-size="18" font-weight="bold">X</text>
-          
-          <!-- Skill Indicator -->
-          <circle cx="695" cy="545" r="3" fill="#60A5FA">
-            <animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite"/>
-          </circle>
-        </g>
-
-        <!-- Attack A Button -->
-        <g class="attack-button">
-          <circle cx="755" cy="590" r="22" fill="url(#mlbb-button-gold)" stroke="#FF6B35" stroke-width="3"/>
-          <circle cx="755" cy="590" r="18" fill="url(#pro-lighting)" opacity="0.4"/>
-          <text x="755" y="598" text-anchor="middle" fill="#0F172A" 
-                font-family="Arial Black" font-size="18" font-weight="bold">A</text>
-          
-          <!-- Attack Flash -->
-          <circle cx="755" cy="590" r="22" fill="none" stroke="#FF6B35" stroke-width="2" opacity="0">
-            <animate attributeName="opacity" values="0;1;0" dur="0.5s" repeatCount="indefinite" begin="0s"/>
-          </circle>
-        </g>
-
-        <!-- Battle B Button -->
-        <g class="battle-button">
-          <circle cx="815" cy="530" r="22" fill="url(#mlbb-button-blue)" stroke="#1E3A8A" stroke-width="3"/>
-          <circle cx="815" cy="530" r="18" fill="url(#pro-lighting)" opacity="0.4"/>
-          <text x="815" y="538" text-anchor="middle" fill="#FFD700" 
-                font-family="Arial Black" font-size="18" font-weight="bold">B</text>
-        </g>
-      </g>
-
-      <!-- Professional System Controls -->
-      <g id="pro-system-controls">
-        <!-- Enhanced Menu Button -->
-        <rect x="505" y="495" width="28" height="20" rx="4" fill="url(#mlbb-primary)" stroke="#FFD700" stroke-width="2"/>
-        <line x1="512" y1="501" x2="526" y2="501" stroke="#0F172A" stroke-width="2"/>
-        <line x1="512" y1="505" x2="526" y2="505" stroke="#0F172A" stroke-width="2"/>
-        <line x1="512" y1="509" x2="526" y2="509" stroke="#0F172A" stroke-width="2"/>
-
-        <!-- Enhanced Options Button -->
-        <rect x="565" y="495" width="28" height="20" rx="4" fill="url(#mlbb-primary)" stroke="#FFD700" stroke-width="2"/>
-        <circle cx="573" cy="501" r="2" fill="#0F172A"/>
-        <circle cx="585" cy="501" r="2" fill="#0F172A"/>
-        <circle cx="573" cy="509" r="2" fill="#0F172A"/>
-        <circle cx="585" cy="509" r="2" fill="#0F172A"/>
-      </g>
-    </g>
-
-    <!-- MLBB Professional Connectivity -->
-    <g id="mlbb-connectivity">
-      <rect x="520" y="680" width="70" height="12" rx="6" fill="url(#mlbb-primary)" stroke="#FFD700" stroke-width="2"/>
-      <rect x="528" y="684" width="15" height="4" rx="2" fill="#34D399">
-        <animate attributeName="width" values="15;25;15" dur="2s" repeatCount="indefinite"/>
-      </rect>
-      <text x="555" y="705" text-anchor="middle" fill="#FFD700" 
-            font-family="Arial Black" font-size="12">MLBB PRO</text>
-      
-      <!-- Signal Strength -->
-      <g id="signal-strength">
-        <rect x="545" y="688" width="2" height="2" fill="#34D399"/>
-        <rect x="549" y="686" width="2" height="4" fill="#34D399"/>
-        <rect x="553" y="684" width="2" height="6" fill="#34D399"/>
-        <rect x="557" y="682" width="2" height="8" fill="#34D399"/>
-      </g>
+    <!-- Right Stick -->
+    <g filter="url(#button-deep)">
+      <circle cx="685" cy="555" r="47" fill="#1E1A3B" stroke="url(#neon-glow-cyan)" stroke-width="5"/>
+      <circle cx="685" cy="555" r="35" fill="url(#neon-glow-purple)"/>
+      <circle cx="685" cy="548" r="19" fill="#320B5B"/>
+      <circle cx="685" cy="543" r="10" fill="#22D3EE"/>
+      <circle cx="685" cy="540" r="4" fill="#060419"/>
     </g>
   </g>
 
-  <!-- ============== MLBB PROFESSIONAL BRANDING ============== -->
-  <g id="mlbb-professional-branding">
-    <!-- Corner Enhancement Elements -->
-    <g opacity="0.8">
-      <rect x="40" y="40" width="100" height="3" rx="1.5" fill="#FFD700"/>
-      <rect x="40" y="40" width="3" height="100" rx="1.5" fill="#FFD700"/>
-      <use href="#mlbb-mini-logo" x="50" y="55" width="12" height="12"/>
-      
-      <rect x="884" y="40" width="100" height="3" rx="1.5" fill="#FFD700"/>
-      <rect x="981" y="40" width="3" height="100" rx="1.5" fill="#FFD700"/>
-      <use href="#mlbb-mini-logo" x="962" y="55" width="12" height="12"/>
-      
-      <rect x="40" y="981" width="100" height="3" rx="1.5" fill="#FFD700"/>
-      <rect x="40" y="884" width="3" height="100" rx="1.5" fill="#FFD700"/>
-      <use href="#mlbb-mini-logo" x="50" y="957" width="12" height="12"/>
-      
-      <rect x="884" y="981" width="100" height="3" rx="1.5" fill="#FFD700"/>
-      <rect x="981" y="884" width="3" height="100" rx="1.5" fill="#FFD700"/>
-      <use href="#mlbb-mini-logo" x="962" y="957" width="12" height="12"/>
-    </g>
+  <!-- === SHOULDER TRIGGERS (НЕОН) === -->
+  <g>
+    <rect x="270" y="310" width="160" height="25" rx="12" fill="url(#neon-glow-purple)" stroke="#060419" stroke-width="2.5"/>
+    <rect x="280" y="315" width="140" height="15" rx="7" fill="#21114D"/>
+    <text x="350" y="332" text-anchor="middle" fill="#C026D3" font-family="Montserrat, Arial Black" font-size="13">L1  L2</text>
 
-    <!-- Professional Information Panel -->
-    <g id="mlbb-info-panel">
-      <rect x="70" y="70" width="200" height="120" rx="15" 
-            fill="rgba(15,23,42,0.9)" stroke="#FFD700" stroke-width="2"/>
-      
-      <!-- MLBB Branding -->
-      <use href="#mlbb-mini-logo" x="85" y="85" width="20" height="20"/>
-      <text x="115" y="100" fill="#FFD700" font-family="Arial Black" font-size="16" font-weight="bold">MOBILE LEGENDS</text>
-      <text x="85" y="120" fill="#60A5FA" font-family="Arial" font-size="12">Professional Gaming Controller</text>
-      <text x="85" y="140" fill="#34D399" font-family="Arial" font-size="10">Tournament Edition</text>
-      <text x="85" y="155" fill="#94A3B8" font-family="Arial" font-size="9">Esports Certified</text>
-      <text x="85" y="170" fill="#64748B" font-family="Arial" font-size="8">v3.0 Pro</text>
-      
-      <!-- Performance Indicators -->
-      <g id="performance-indicators">
-        <rect x="180" y="120" width="80" height="8" rx="4" fill="#1E293B" stroke="#475569" stroke-width="1"/>
-        <rect x="182" y="122" width="60" height="4" rx="2" fill="#34D399">
-          <animate attributeName="width" values="60;76;60" dur="3s" repeatCount="indefinite"/>
-        </rect>
-        <text x="185" y="140" fill="#64748B" font-family="Arial" font-size="8">PERFORMANCE</text>
-        
-        <rect x="180" y="150" width="80" height="8" rx="4" fill="#1E293B" stroke="#475569" stroke-width="1"/>
-        <rect x="182" y="152" width="70" height="4" rx="2" fill="#FFD700"/>
-        <text x="185" y="170" fill="#64748B" font-family="Arial" font-size="8">PRECISION</text>
-      </g>
-    </g>
-
-    <!-- Tournament Ready Badge -->
-    <g id="tournament-badge" opacity="0.9">
-      <circle cx="880" cy="880" r="60" fill="rgba(15,23,42,0.95)" stroke="#FFD700" stroke-width="3"/>
-      <use href="#mlbb-mini-logo" x="870" y="860" width="20" height="20"/>
-      <text x="880" y="900" text-anchor="middle" fill="#FFD700" font-family="Arial Black" font-size="10">TOURNAMENT</text>
-      <text x="880" y="915" text-anchor="middle" fill="#60A5FA" font-family="Arial" font-size="8">READY</text>
-      
-      <!-- Rotating Badge Effect -->
-      <circle cx="880" cy="880" r="65" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.4">
-        <animateTransform attributeName="transform" type="rotate" 
-                          values="0 880 880;360 880 880" dur="8s" repeatCount="indefinite"/>
-      </circle>
-    </g>
+    <rect x="590" y="310" width="160" height="25" rx="12" fill="url(#neon-glow-cyan)" stroke="#060419" stroke-width="2.5"/>
+    <rect x="600" y="315" width="140" height="15" rx="7" fill="#21114D"/>
+    <text x="670" y="332" text-anchor="middle" fill="#22D3EE" font-family="Montserrat, Arial Black" font-size="13">R1  R2</text>
   </g>
 
-  <!-- ============== INTERACTIVE HOVER EFFECTS ============== -->
-  <style>
-    <![CDATA[
-    .mlbb-controller-pro {
-      transition: all 0.3s ease;
-    }
-    
-    .mlbb-controller-pro:hover {
-      filter: brightness(1.1);
-    }
-    
-    .interactive-stick:hover {
-      transform: scale(1.1);
-      transition: transform 0.2s ease;
-    }
-    
-    .interactive-dpad:hover {
-      filter: brightness(1.2);
-      transition: filter 0.2s ease;
-    }
-    
-    .interactive-buttons:hover {
-      filter: brightness(1.15) saturate(1.2);
-      transition: all 0.2s ease;
-    }
-    
-    .ultimate-button:hover circle:first-child {
-      stroke-width: 4;
-      transition: stroke-width 0.2s ease;
-    }
-    
-    .skill-button:hover circle:first-child {
-      stroke-width: 4;
-      transition: stroke-width 0.2s ease;
-    }
-    
-    .attack-button:hover circle:first-child {
-      stroke-width: 4;
-      transition: stroke-width 0.2s ease;
-    }
-    
-    .battle-button:hover circle:first-child {
-      stroke-width: 4;
-      transition: stroke-width 0.2s ease;
-    }
-    ]]>
-  </style>
+  <!-- === НЕОНОВИЙ D-PAD === -->
+  <g filter="url(#button-deep)">
+    <!-- Вертикаль -->
+    <rect x="330" y="470" width="42" height="120" rx="9" fill="url(#neon-glow-purple)" stroke="#4F46E5" stroke-width="3"/>
+    <!-- Горизонталь -->
+    <rect x="305" y="500" width="120" height="42" rx="9" fill="url(#neon-glow-cyan)" stroke="#22D3EE" stroke-width="3"/>
+    <!-- Неонові стрілки -->
+    <polygon points="351,488 368,493 351,508" fill="#C026D3"/>
+    <polygon points="351,555 368,547 351,538" fill="#22D3EE"/>
+    <polygon points="322,515 335,528 322,541" fill="#C026D3"/>
+    <polygon points="410,515 423,528 410,541" fill="#22D3EE"/>
+  </g>
+
+  <!-- === АКЦІЙНІ КНОПКИ (НЕОН/ГЛЯНЦ) === -->
+  <g filter="url(#button-deep)">
+    <!-- Y -->
+    <circle cx="755" cy="470" r="23" fill="url(#glossy-gold)" stroke="#C026D3" stroke-width="3"/>
+    <text x="755" y="478" text-anchor="middle" fill="#090720" font-family="Montserrat, Arial Black" font-size="19" font-weight="bold">Y</text>
+    <!-- X -->
+    <circle cx="695" cy="530" r="23" fill="url(#glossy-blue)" stroke="#22D3EE" stroke-width="3"/>
+    <text x="695" y="538" text-anchor="middle" fill="#FFD700" font-family="Montserrat, Arial Black" font-size="19" font-weight="bold">X</text>
+    <!-- A -->
+    <circle cx="755" cy="590" r="23" fill="url(#glossy-gold)" stroke="#C026D3" stroke-width="3"/>
+    <text x="755" y="598" text-anchor="middle" fill="#090720" font-family="Montserrat, Arial Black" font-size="19" font-weight="bold">A</text>
+    <!-- B -->
+    <circle cx="815" cy="530" r="23" fill="url(#glossy-blue)" stroke="#22D3EE" stroke-width="3"/>
+    <text x="815" y="538" text-anchor="middle" fill="#FFD700" font-family="Montserrat, Arial Black" font-size="19" font-weight="bold">B</text>
+  </g>
+
+  <!-- === СИСТЕМНІ КНОПКИ (НЕОН) === -->
+  <g filter="url(#button-deep)">
+    <rect x="505" y="495" width="28" height="20" rx="4" fill="url(#neon-glow-purple)" stroke="#C026D3" stroke-width="2"/>
+    <line x1="512" y1="501" x2="526" y2="501" stroke="#090720" stroke-width="2"/>
+    <line x1="512" y1="505" x2="526" y2="505" stroke="#090720" stroke-width="2"/>
+    <line x1="512" y1="509" x2="526" y2="509" stroke="#090720" stroke-width="2"/>
+    <rect x="565" y="495" width="28" height="20" rx="4" fill="url(#neon-glow-cyan)" stroke="#22D3EE" stroke-width="2"/>
+    <circle cx="573" cy="501" r="2" fill="#090720"/>
+    <circle cx="585" cy="501" r="2" fill="#090720"/>
+    <circle cx="573" cy="509" r="2" fill="#090720"/>
+    <circle cx="585" cy="509" r="2" fill="#090720"/>
+  </g>
+
+  <!-- === STATUS PANEL === -->
+  <g>
+    <rect x="520" y="680" width="70" height="12" rx="6" fill="url(#neon-glow-cyan)" stroke="#22D3EE" stroke-width="2"/>
+    <rect x="528" y="684" width="16" height="4" rx="2" fill="#C026D3"/>
+    <text x="555" y="705" text-anchor="middle" fill="#C026D3" font-family="Montserrat, Arial Black" font-size="13">DARK PRO</text>
+  </g>
+
+  <!-- === BRANDING CORNERS (НЕОН/ЗОЛОТО) === -->
+  <g opacity="0.88">
+    <rect x="40" y="40" width="90" height="3" rx="1.5" fill="#C026D3"/>
+    <rect x="40" y="40" width="3" height="90" rx="1.5" fill="#22D3EE"/>
+    <rect x="884" y="40" width="90" height="3" rx="1.5" fill="#C026D3"/>
+    <rect x="981" y="40" width="3" height="90" rx="1.5" fill="#22D3EE"/>
+    <rect x="40" y="981" width="90" height="3" rx="1.5" fill="#C026D3"/>
+    <rect x="40" y="884" width="3" height="90" rx="1.5" fill="#22D3EE"/>
+    <rect x="884" y="981" width="90" height="3" rx="1.5" fill="#C026D3"/>
+    <rect x="981" y="884" width="3" height="90" rx="1.5" fill="#22D3EE"/>
+  </g>
 </svg>
