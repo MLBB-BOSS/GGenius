@@ -139,8 +139,12 @@
         <a href="#contact" class="skip-link">Перейти до контактів</a>
     </nav>
 
-    <header class="site-header dashboard-header" role="banner" itemscope itemtype="https://schema.org/WPHeader">
+    <header class="site-header" role="banner" itemscope itemtype="https://schema.org/WPHeader">
         <div class="container header-container">
+            <a href="#home" class="header-logo-link-main" aria-label="GGenius AI - повернутися на головну сторінку" itemprop="url">
+                <span class="header-logo-text" itemprop="name">GGenius</span>
+            </a>
+            
             <nav id="main-navigation" class="main-navigation" role="navigation" aria-label="Головна навігація сайту" itemscope itemtype="https://schema.org/SiteNavigationElement">
                 <button class="mobile-menu-toggle" 
                         aria-expanded="false" 
@@ -155,7 +159,7 @@
                 
                 <div id="main-menu-panel" class="nav-menu-panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" hidden>
                     <div class="panel-header">
-                        <span id="panel-title" class="panel-title-text header-logo-text">GGenius</span>
+                        <span id="panel-title" class="panel-title-text">GGenius Dashboard</span>
                         <button class="close-panel-button" aria-label="Закрити панель приладів" type="button">&times;</button>
                     </div>
                     <ul class="nav-menu-dashboard" role="menubar">
@@ -166,7 +170,7 @@
                         <li role="none"><a href="#contact" class="nav-link" role="menuitem" itemprop="url">Контакти</a></li>
                     </ul>
                     <div class="panel-footer">
-                        <p class="panel-footer-text">&copy; 2025 GGenius AI. All rights reserved.</p>
+                        <p class="panel-footer-text">&copy; 2025 GGenius AI.</p>
                     </div>
                 </div>
             </nav>
@@ -190,8 +194,8 @@
                             </desc>
                             <defs>
                                 <linearGradient id="logoSvgGradient" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="objectBoundingBox">
-                                    <stop offset="0%" class="gradient-stop-1" stop-color="#007bff" />
-                                    <stop offset="100%" class="gradient-stop-2" stop-color="#ffc107" />
+                                    <stop offset="0%" class="gradient-stop-1" />
+                                    <stop offset="100%" class="gradient-stop-2" />
                                 </linearGradient>
                                 <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
                                     <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -242,7 +246,7 @@
                     
                     <div class="hero-actions" role="group" aria-label="Основні дії">
                         <a href="#features" 
-                           class="cta-button hero-cta" 
+                           class="cta-button hero-cta-primary" 
                            role="button"
                            aria-describedby="features-desc"
                            data-analytics="hero-cta-features">
@@ -251,7 +255,7 @@
                                 <path d="M7 17l9.2-9.2M17 17V7H7"/>
                             </svg>
                         </a>
-                        <button class="cta-button cta-yellow demo-button" 
+                        <button class="cta-button hero-cta-secondary" 
                                 type="button"
                                 aria-describedby="demo-desc"
                                 data-analytics="hero-cta-demo">
@@ -268,20 +272,7 @@
                         </div>
                     </div>
                     
-                    <div class="hero-stats" role="region" aria-label="Статистика платформи">
-                        <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-                            <span class="stat-number" data-count="100">0</span>
-                            <span class="stat-label">% AI Точність</span>
-                        </div>
-                        <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-                            <span class="stat-number" data-count="24">0</span>
-                            <span class="stat-label">/ 7 Підтримка</span>
-                        </div>
-                        <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
-                            <span class="stat-number" data-count="2025">0</span>
-                            <span class="stat-label">Майбутнє Тут</span>
-                        </div>
-                    </div>
+                    <!-- Hero Stats Block REMOVED -->
                 </div>
             </div>
         </section>
@@ -458,61 +449,71 @@
             </div>
         </section>
 
-        <section id="roadmap" class="roadmap-section" aria-labelledby="roadmap-title">
+        <!-- MODIFIED Roadmap Section -->
+        <section id="roadmap" class="roadmap-section-redesigned" aria-labelledby="roadmap-title-redesigned">
             <div class="container">
-                <h2 id="roadmap-title" class="section-title-iui">Roadmap 2025-2026</h2>
-                <div class="roadmap-timeline" role="list" aria-label="План розвитку проєкту">
-                    <div class="timeline-item" role="listitem" data-phase="q1-2025">
-                        <div class="timeline-marker" aria-hidden="true">Q1</div>
-                        <div class="timeline-content">
-                            <h3>MVP Launch</h3>
-                            <p>Базова аналітика матчів, реєстрація користувачів</p>
-                            <ul class="feature-list">
+                <h2 id="roadmap-title-redesigned" class="section-title-iui text-gradient">Roadmap 2025-2026</h2>
+                <div class="roadmap-grid" role="list" aria-label="План розвитку проєкту">
+                    <article class="roadmap-card" role="listitem" data-phase="q1-2025">
+                        <div class="roadmap-card-header">
+                            <span class="roadmap-quarter">Q1 2025</span>
+                            <h3 class="roadmap-title">MVP Launch</h3>
+                        </div>
+                        <div class="roadmap-card-body">
+                            <p>Базова аналітика матчів, реєстрація користувачів.</p>
+                            <ul class="roadmap-feature-list">
                                 <li>🎯 Match Analytics Engine</li>
                                 <li>👤 User Registration System</li>
                                 <li>📊 Basic Statistics Dashboard</li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="timeline-item" role="listitem" data-phase="q2-2025">
-                        <div class="timeline-marker" aria-hidden="true">Q2</div>
-                        <div class="timeline-content">
-                            <h3>AI Integration</h3>
-                            <p>Запуск нейронної аналітики та AI-тренера</p>
-                            <ul class="feature-list">
+                    </article>
+                    <article class="roadmap-card" role="listitem" data-phase="q2-2025">
+                        <div class="roadmap-card-header">
+                            <span class="roadmap-quarter">Q2 2025</span>
+                            <h3 class="roadmap-title">AI Integration</h3>
+                        </div>
+                        <div class="roadmap-card-body">
+                            <p>Запуск нейронної аналітики та AI-тренера.</p>
+                            <ul class="roadmap-feature-list">
                                 <li>🧠 Neural Network Analysis</li>
                                 <li>🤖 AI Personal Trainer</li>
                                 <li>🔍 Computer Vision Integration</li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="timeline-item" role="listitem" data-phase="q3-2025">
-                        <div class="timeline-marker" aria-hidden="true">Q3</div>
-                        <div class="timeline-content">
-                            <h3>Community & Tournaments</h3>
-                            <p>Соціальна платформа та турнірна система</p>
-                            <ul class="feature-list">
+                    </article>
+                    <article class="roadmap-card" role="listitem" data-phase="q3-2025">
+                        <div class="roadmap-card-header">
+                             <span class="roadmap-quarter">Q3 2025</span>
+                            <h3 class="roadmap-title">Community & Tournaments</h3>
+                        </div>
+                        <div class="roadmap-card-body">
+                            <p>Соціальна платформа та турнірна система.</p>
+                            <ul class="roadmap-feature-list">
                                 <li>👥 Professional Community</li>
                                 <li>🏆 Automated Tournaments</li>
                                 <li>🤝 Smart Team Matching</li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="timeline-item" role="listitem" data-phase="q4-2025">
-                        <div class="timeline-marker" aria-hidden="true">Q4</div>
-                        <div class="timeline-content">
-                            <h3>Global Expansion</h3>
-                            <p>Міжнародна експансія та партнерства</p>
-                            <ul class="feature-list">
+                    </article>
+                    <article class="roadmap-card" role="listitem" data-phase="q4-2025">
+                        <div class="roadmap-card-header">
+                            <span class="roadmap-quarter">Q4 2025</span>
+                            <h3 class="roadmap-title">Global Expansion</h3>
+                        </div>
+                        <div class="roadmap-card-body">
+                            <p>Міжнародна експансія та партнерства.</p>
+                            <ul class="roadmap-feature-list">
                                 <li>🌍 Multi-language Support</li>
                                 <li>🤝 Esports Partnerships</li>
                                 <li>📱 Mobile App Launch</li>
                             </ul>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </div>
         </section>
+
 
         <section id="about" class="accordion-section enhanced" aria-labelledby="about-header" itemscope itemtype="https://schema.org/AboutPage">
             <div class="container">
