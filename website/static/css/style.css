@@ -1,4 +1,4 @@
-/* = ==== GGENIUS REVOLUTION - ULTRA PERFORMANCE OPTIMIZED CSS ===== */
+/* ===== GGENIUS REVOLUTION - ULTRA PERFORMANCE OPTIMIZED CSS ===== */
 
 :root {
     /* Core Colors - Unified System */
@@ -149,15 +149,15 @@ body::before {
     background-color: var(--yellow); 
 }
 .visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0,0,0,0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0,0,0,0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }
 
 /* === CONTAINER, TYPOGRAPHY, LINKS, ICONS === */
@@ -441,7 +441,7 @@ body.menu-open { /* Added to body when mobile menu is open */
     }
 }
 
-/* === PROJECT INTRO HERO (ORIGINAL STYLES) === */
+/* === PROJECT INTRO HERO === */
 .project-intro-hero {
     background: var(--g-bg);
     padding: var(--s-2xl) 0;
@@ -499,7 +499,7 @@ body.menu-open { /* Added to body when mobile menu is open */
 .team-content p { font-size: var(--t-s); color: var(--text-2); margin-bottom: 0; }
 
 .project-cta { margin-top: var(--s-xl); display: flex; gap: var(--s-m); justify-content: center; flex-wrap: wrap; }
-.cta-button { /* General button style, can be specialized */
+.cta-button { 
     display: inline-flex; align-items: center; justify-content: center; gap: var(--s-xs);
     padding: var(--s-s) var(--s-l); font-size: var(--t-base); font-weight: 600;
     border-radius: var(--r-m); text-decoration: none; cursor: pointer;
@@ -513,16 +513,14 @@ body.menu-open { /* Added to body when mobile menu is open */
 .cta-button.secondary-cta { background: transparent; color: var(--text-1); border: 2px solid var(--blue); }
 .cta-button.secondary-cta:hover { background: var(--blue); color: var(--text-1); transform: translateY(-2px); }
 
-.project-decorations { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; /* Ensure it's behind content */ }
-.decoration-orb { position: absolute; border-radius: 50%; opacity: 0.07; /* Reduced opacity */ filter: blur(60px); /* Increased blur */ animation: slowPulse 10s infinite alternate; }
+.project-decorations { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.decoration-orb { position: absolute; border-radius: 50%; opacity: 0.07; filter: blur(60px); animation: slowPulse 10s infinite alternate; }
 .orb-1 { width: 350px; height: 350px; background-color: var(--cyan); top: -120px; left: -150px; animation-delay: 0s; }
 .orb-2 { width: 300px; height: 300px; background-color: var(--purple); bottom: -100px; right: -120px; animation-delay: 3s; }
 @keyframes slowPulse { 0% { transform: scale(1); opacity: 0.05; } 100% { transform: scale(1.1); opacity: 0.1; } }
 .decoration-line { position: absolute; background: linear-gradient(to right, transparent, rgba(var(--text-1-rgb), 0.05), transparent); height: 1px; opacity: 0.5; }
 .line-1 { width: 80%; top: 20%; left: 10%; transform: rotate(-5deg); }
 .line-2 { width: 70%; bottom: 15%; right: 15%; transform: rotate(3deg); }
-/* End of Original Project Intro Hero Styles */
-
 
 /* === AI FEATURES SECTION === */
 .features-section-iui {
@@ -530,13 +528,10 @@ body.menu-open { /* Added to body when mobile menu is open */
     border-top: 1px solid rgba(var(--text-1-rgb), .05);
     border-bottom: 1px solid rgba(var(--text-1-rgb), .05);
     position: relative;
-    contain: layout; /* Optimize rendering */
+    contain: layout; 
 }
-.features-section-iui.enhanced { /* Keep for potential future use or alternative styling */
+.features-section-iui.enhanced { 
     background: linear-gradient(135deg, rgba(var(--bg-1-rgb), .95), rgba(var(--bg-2-rgb), .9));
-}
-.tabs-component { /* Wrapper for tab functionality */
-    /* Add any specific layout for the tabs component if needed */
 }
 .feature-categories {
     display: flex;
@@ -589,17 +584,14 @@ body.menu-open { /* Added to body when mobile menu is open */
 .category-tab:hover svg.icon, .category-tab.active svg.icon {
     filter: drop-shadow(0 0 10px currentColor) brightness(1.2);
 }
-.tab-panels-container {
-    /* Add any specific layout for the panels container if needed */
-}
-.features-grid-iui.tab-content { /* Applied to panel divs */
-    display: none; /* Hidden by default */
+.features-grid-iui.tab-content { 
+    display: none; 
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
     gap: var(--s-l);
     container-type: inline-size; 
 }
 .features-grid-iui.tab-content.active {
-    display: grid; /* Shown when active */
+    display: grid; 
 }
 
 .feature-card-iui {
@@ -734,6 +726,10 @@ body.menu-open { /* Added to body when mobile menu is open */
 }
 
 /* === ROADMAP SECTION === */
+.roadmap-section-v2 {
+    padding: 40px;
+    background-color: var(--bg-1); /* Інтегровано в загальну колірну схему */
+}
 .roadmap-section-v2 .section-subtitle.roadmap-section-v2-subtitle {
     color: var(--text-3);
     font-style: italic;
@@ -847,9 +843,6 @@ body.menu-open { /* Added to body when mobile menu is open */
     padding-top: var(--s-l);
     padding-bottom: var(--s-l);
 }
-.accordion-content-inner {
-    /* Inner padding if needed */
-}
 .tech-philosophy h3 {
     font-size: var(--t-xl);
     color: var(--cyan);
@@ -958,7 +951,7 @@ body.menu-open { /* Added to body when mobile menu is open */
     font-style: italic;
 }
 
-/* === CONTACT SECTION (Accordion content) === */
+/* === CONTACT SECTION === */
 .contact-section .accordion-header h2 {
     /* Default accordion header styles apply */
 }
@@ -1012,9 +1005,6 @@ body.menu-open { /* Added to body when mobile menu is open */
     font-size: var(--t-s);
     color: var(--text-3);
 }
-.newsletter-section {
-    /* Container for newsletter form */
-}
 .newsletter-signup.enhanced {
     background: rgba(var(--bg-3-rgb), 0.7);
     padding: var(--s-l);
@@ -1064,9 +1054,9 @@ body.menu-open { /* Added to body when mobile menu is open */
     font-size: var(--t-s);
     color: var(--pink);
     margin-top: var(--s-xs);
-    display: none; /* Hidden by default, shown by JS */
+    display: none; 
 }
-.newsletter-form.enhanced input.input-error { /* Style for input with error */
+.newsletter-form.enhanced input.input-error { 
     border-color: var(--pink);
     box-shadow: 0 0 0 3px rgba(var(--pink-rgb), .25);
 }
@@ -1205,23 +1195,19 @@ body.menu-open { /* Added to body when mobile menu is open */
 /* Scroll Progress Bar */
 .scroll-progress {
     position: fixed;
-    top: var(--header-h); /* Position below the header */
+    top: var(--header-h); 
     left: 0;
     width: 100%;
-    height: 3px; /* Thinner bar */
+    height: 3px; 
     background: var(--cyan);
     transform-origin: 0 0;
     transform: scaleX(0);
-    z-index: calc(var(--z-sticky) + 1); /* Above header content but below modals if any */
-    transition: transform .1s linear; /* Smooth updates */
+    z-index: calc(var(--z-sticky) + 1); 
+    transition: transform .1s linear; 
     pointer-events: none;
 }
-/* Ensure it's not visible when header is not scrolled (if header becomes fully transparent) */
-.site-header:not(.scrolled) + main .scroll-progress {
-    /* display: none; */ /* Optional: hide if header is at top and not scrolled */
-}
 
-/* Modal Styles (Basic - from JS logic) */
+/* Modal Styles */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -1286,7 +1272,7 @@ body.menu-open { /* Added to body when mobile menu is open */
     position: fixed;
     bottom: var(--s-l);
     right: var(--s-l);
-    z-index: var(--z-max); /* Above everything */
+    z-index: var(--z-max); 
     display: flex;
     flex-direction: column;
     gap: var(--s-s);
@@ -1313,7 +1299,7 @@ body.menu-open { /* Added to body when mobile menu is open */
 .toast-icon { font-size: 1.2em; line-height: 1.4; }
 .toast-content { flex-grow: 1; }
 .toast-message { font-size: var(--t-base); margin-bottom: var(--s-xs); }
-.toast-action { /* For buttons inside toast */
+.toast-action { 
     font-size: var(--t-s);
     padding: .3rem .7rem;
     margin-top: .5rem;
@@ -1331,12 +1317,11 @@ body.menu-open { /* Added to body when mobile menu is open */
 .toast-warning { border-left-color: var(--yellow); }
 .toast-info    { border-left-color: var(--blue); }
 
-
-/* Ripple Effect (from JS) */
+/* Ripple Effect */
 .ripple-effect {
     position: absolute;
     border-radius: 50%;
-    background: rgba(var(--text-1-rgb), 0.2); /* Ripple color */
+    background: rgba(var(--text-1-rgb), 0.2); 
     transform: scale(0);
     animation: rippleEffectAnimation 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     pointer-events: none;
@@ -1344,14 +1329,14 @@ body.menu-open { /* Added to body when mobile menu is open */
 }
 @keyframes rippleEffectAnimation {
     to {
-        transform: scale(2.5); /* Adjust scale for desired ripple size */
+        transform: scale(2.5); 
         opacity: 0;
     }
 }
 
 /* Context Menu */
 .context-menu-ggenius {
-    position: fixed; /* Set by JS */
+    position: fixed; 
     background-color: var(--surface);
     border: 1px solid rgba(var(--text-1-rgb), 0.15);
     border-radius: var(--r-m);
@@ -1391,7 +1376,7 @@ body.menu-open { /* Added to body when mobile menu is open */
     bottom: 0;
     left: 0;
     right: 0;
-    background: var(--g1); /* Use a prominent gradient */
+    background: var(--g1); 
     color: var(--text-1);
     padding: var(--s-m);
     display: flex;
@@ -1419,7 +1404,7 @@ body.menu-open { /* Added to body when mobile menu is open */
 }
 .install-button {
     background-color: var(--text-1);
-    color: var(--blue); /* Use a color from the gradient for text */
+    color: var(--blue); 
     border: none;
 }
 .install-button:hover { background-color: rgba(255,255,255,0.9); }
@@ -1432,12 +1417,11 @@ body.menu-open { /* Added to body when mobile menu is open */
 
 /* Low Performance Mode Adjustments */
 .low-performance-device {
-    /* Reduce or disable complex animations globally */
-    --trans: .1s ease-out !important; /* Faster, simpler transitions */
+    --trans: .1s ease-out !important; 
     --trans-fast: .05s ease-out !important;
 }
 .low-performance-device * {
-    animation-duration: 0.01ms !important; /* Effectively disable CSS animations */
+    animation-duration: 0.01ms !important; 
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
 }
@@ -1446,10 +1430,10 @@ body.menu-open { /* Added to body when mobile menu is open */
 .low-performance-device .scroll-progress,
 .low-performance-device .feature-card-iui.enhanced::before,
 .low-performance-device .gaming-cursor {
-    display: none !important; /* Hide demanding decorative elements */
+    display: none !important; 
 }
 .low-performance-device .modal-overlay {
-    backdrop-filter: none; /* Remove blur */
+    backdrop-filter: none; 
     background-color: rgba(var(--bg-1-rgb), 0.9);
 }
 .low-performance-device .site-header {
