@@ -707,3 +707,48 @@ a:hover,a:focus-visible{
 .contain-layout{contain:layout}
 .contain-paint{contain:paint}
 .contain-strict{contain:strict}
+
+/* ===== GGENIUS REVOLUTION - PERFORMANCE OPTIMIZED CSS ===== */
+/* ... (весь попередній CSS код залишається без змін до секції .features-section-iui) ... */
+
+/* Features Section */
+.features-section-iui{
+    background:color-mix(in srgb,var(--bg-1) 30%,transparent);padding:var(--s-2xl) 0;
+    border-top:1px solid color-mix(in srgb,white 5%,transparent);
+    border-bottom:1px solid color-mix(in srgb,white 5%,transparent);
+    position:relative;contain:layout;
+    opacity: 1; /* ЗМІНЕНО: Елемент видимий за замовчуванням */
+    transform: none; /* ЗМІНЕНО: Без початкового зсуву */
+    /* 
+        Видалено transition та will-change, оскільки вхідна анімація через JS прибрана.
+        Якщо ці властивості потрібні для інших інтеракцій (наприклад, hover), їх можна залишити,
+        але для початкового завантаження вони більше не анімують вхід.
+    */
+    /* 
+    transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s, 
+                transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s; 
+    will-change: opacity, transform;
+    */
+}
+.features-section-iui.enhanced{
+    background:linear-gradient(135deg,rgba(10,12,15,.95),rgba(20,24,30,.9)),var(--g-holo);
+    backdrop-filter:blur(10px)
+}
+/* Клас .animate-in більше не використовується для початкової анімації входу, тому його можна видалити або залишити, якщо він використовується для інших цілей */
+/*
+.features-section-iui.animate-in { 
+    opacity: 1;
+    transform: translateY(0);
+}
+*/
+
+/* ... (решта CSS коду залишається без змін) ... */
+
+/* ВАЖЛИВО: Переконайтеся, що інші секції, які могли мати подібні початкові стилі 
+   для анімації (наприклад, opacity: 0), також оновлені, щоб бути видимими за замовчуванням.
+   Якщо такі стилі були в data-aos або подібних класах, їх теж треба скоригувати.
+   На основі наданого раніше CSS, .features-section-iui був основним кандидатом з явним opacity:0.
+   Для інших елементів, які оброблялися в makeElementsInitiallyVisible, 
+   встановлення element.style.opacity = '1' та element.style.transform = 'none' в JS 
+   буде достатньо, якщо вони не мають CSS правил, що їх приховують за замовчуванням.
+*/
