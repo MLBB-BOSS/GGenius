@@ -54,7 +54,7 @@
     --transition-normal: var(--trans); --transition-fast: var(--trans-fast);
     --ggenius-green: var(--green); --ggenius-cyan: var(--cyan);
     --shadow-lg: 0 8px 32px rgba(0,0,0,.6); --shadow-md: 0 4px 16px rgba(0,0,0,.5);
-     /* RGB versions for rgba() */
+    /* RGB versions for rgba() */
     --bg-secondary-rgb: 20, 24, 30;
     --bg-tertiary-rgb: 37, 42, 50;
     --accent-cyan-rgb: 0, 212, 255;
@@ -146,7 +146,7 @@ body::before{
 .container{width:var(--container);margin:0 auto;padding:0 var(--s-s);contain:layout}
 
 /* Typography Hierarchy */
-h1,h2,h3,h4,h5,h6{ 
+h1,h2,h3,h4,h5,h6{
     font-family:var(--f1);font-weight:700;line-height:1.3;color:var(--text-1);
     margin-bottom:var(--s-m);text-wrap:balance
 }
@@ -235,9 +235,9 @@ a:hover,a:focus-visible{
 }
 .nav-link:hover::after,.nav-link:focus-visible::after,.nav-link.active::after{width:70%}
 
-/* Hero Section related styles are removed */
+/* Hero Section styles are removed as the section was removed */
 
-/* General .cta-button styles remain as they are used by .newsletter-submit */
+/* CTA Buttons - General styles remain for newsletter, hero specifics removed */
 .cta-button{
     display:inline-flex;align-items:center;justify-content:center;gap:var(--s-xs);
     padding:var(--s-s) var(--s-l);font-family:var(--f1);font-weight:700;
@@ -247,9 +247,10 @@ a:hover,a:focus-visible{
     white-space:nowrap;contain:layout;will-change:transform,box-shadow
 }
 .cta-button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-.newsletter-submit{position:relative} 
+.newsletter-submit{position:relative} /* Uses .cta-button styles */
 .button-text{z-index:1;position:relative}
 
+/* Hero Stats styles are removed as the section was removed */
 
 /* Features Section */
 .features-section-iui{
@@ -257,17 +258,17 @@ a:hover,a:focus-visible{
     border-top:1px solid color-mix(in srgb,white 5%,transparent);
     border-bottom:1px solid color-mix(in srgb,white 5%,transparent);
     position:relative;contain:layout;
-    opacity: 0;
-    transform: translateY(40px); 
+    opacity: 0; /* For JS entry animation */
+    transform: translateY(40px);  /* For JS entry animation */
     transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s, 
                 transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s; 
     will-change: opacity, transform;
 }
-.features-section-iui.enhanced{ 
+.features-section-iui.enhanced{
     background:linear-gradient(135deg,rgba(10,12,15,.95),rgba(20,24,30,.9)),var(--g-holo);
     backdrop-filter:blur(10px)
 }
-.features-section-iui.animate-in { 
+.features-section-iui.animate-in { /* Class added by JS */
     opacity: 1;
     transform: translateY(0);
 }
@@ -371,8 +372,7 @@ a:hover,a:focus-visible{
     font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
     backdrop-filter:blur(10px);animation:statusGlow 3s ease-in-out infinite alternate
 }
-/* Added specificity for enhanced cards to fix overlap */
-.feature-card-iui.enhanced .feature-status {
+.feature-card-iui.enhanced .feature-status { /* Increased specificity for enhanced cards to prevent overlap */
     top: 1.5rem; 
     right: 1.5rem;
 }
@@ -403,31 +403,42 @@ a:hover,a:focus-visible{
     content:'';position:absolute;left:50%;top:0;bottom:0;width:6px;
     background:var(--g2);transform:translateX(-50%);border-radius:3px;
     box-shadow:0 0 30px var(--cyan),inset 0 0 10px rgba(255,255,255,.2);
-    animation:timelinePulse 4s ease-in-out infinite
+    animation:timelinePulse 4s ease-in-out infinite;
 }
 .timeline-item{display:flex;margin-bottom:4rem;position:relative}
 .timeline-item:nth-child(even){flex-direction:row-reverse}
+
+/* --- TIMELINE MARKER HIDDEN AS PER REQUEST --- */
 .timeline-marker{
+    display: none; 
+    /* Original styles commented out:
     width:100px;height:100px;border-radius:50%;background:var(--g2);display:flex;
     align-items:center;justify-content:center;color:white;font-weight:900;font-size:1.4rem;
     position:absolute;left:50%;transform:translateX(-50%);
     box-shadow:0 0 40px var(--cyan),inset 0 0 20px rgba(255,255,255,.2);
-    border:4px solid var(--bg-1);z-index:10;animation:markerGlow 3s ease-in-out infinite alternate
+    border:4px solid var(--bg-1);z-index:10;animation:markerGlow 3s ease-in-out infinite alternate 
+    */
 }
 .timeline-content{
     width:45%;background:linear-gradient(135deg,rgba(26,29,35,.95),rgba(37,42,50,.95)),var(--g-holo);
-    /* Increased top padding to prevent overlap with marker */
-    padding: 4rem 3rem 3rem; 
+    padding: 3rem; /* Adjusted from 4rem top padding as marker is gone, but 3rem still gives good spacing */
     border-radius:25px;border:2px solid rgba(0,255,255,.3);
     backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 80px rgba(0,255,255,.2);
-    transition:all .6s;position:relative;overflow:hidden
+    transition:all .6s;position:relative;overflow:hidden;
 }
+
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-right: auto; 
+}
+.timeline-item:nth-child(even) .timeline-content {
+    margin-left: auto; 
+}
+
 .timeline-content::before{
     content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
     background:linear-gradient(90deg,transparent,rgba(0,255,255,.1),transparent);transition:left .8s
 }
 .timeline-content:hover::before{left:100%}
-.timeline-item:nth-child(even) .timeline-content{margin-left:auto}
 .timeline-content:hover{
     transform:translateY(-15px) scale(1.02);
     box-shadow:0 30px 80px rgba(0,255,255,.4),0 0 100px rgba(255,7,58,.3)
@@ -618,37 +629,22 @@ a:hover,a:focus-visible{
     clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important
 }
 
-/* Toast Notifications */
-.toast-container{
-    position:fixed;top:calc(var(--header-h) + var(--s-m));right:var(--s-m);
-    z-index:var(--z-modal);display:flex;flex-direction:column;gap:var(--s-xs);
-    pointer-events:none
-}
-.toast{
-    background:var(--bg-2);color:var(--text-1);padding:var(--s-m);
-    border-radius:var(--r-m);border:1px solid rgba(255,255,255,.1);
-    box-shadow:var(--shadow-lg);max-width:300px;transform:translateX(100%);
-    transition:transform var(--trans);pointer-events:auto;position:relative;overflow:hidden
-}
-.toast.show{transform:translateX(0)}
-.toast.success{border-left:4px solid var(--green)}
-.toast.error{border-left:4px solid #dc3545}
-.toast.warning{border-left:4px solid var(--yellow)}
-.toast.info{border-left:4px solid var(--blue)}
-.toast::before{
-    content:'';position:absolute;top:0;left:0;height:100%;width:4px;
-    background:var(--blue);animation:toastProgress 3s linear
-}
+/* Toast Notifications are in toast-additions.css */
+
+/* SVG Logo Enhancements were for the removed hero section */
 
 /* Animations - Performance Optimized */
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 @keyframes bgMove{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+/* Removed animations for hero elements: neuralPulse, cyberpunkShift, heroSlideIn, titleGlow, pulseGlow, statsContainer, numberGlow */
+/* Removed animations for SVG logo: svgDrawStroke, svgFadeIn, svgDrawStrokeAndFadeIn */
 @keyframes borderRotate{to{transform:rotate(360deg)}}
 @keyframes statusGlow{0%,100%{opacity:.8}50%{opacity:1;filter:brightness(1.2)}}
 @keyframes tabFadeIn{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes timelinePulse{0%,100%{box-shadow:0 0 30px var(--cyan),inset 0 0 10px rgba(255,255,255,.2);transform:translateX(-50%) scaleY(1)}50%{box-shadow:0 0 50px var(--pink),inset 0 0 20px rgba(255,255,255,.2);transform:translateX(-50%) scaleY(1.05)}}
-@keyframes markerGlow{0%,100%{box-shadow:0 0 40px var(--cyan),inset 0 0 20px rgba(255,255,255,.2)}50%{box-shadow:0 0 60px var(--pink),0 0 80px var(--electric),inset 0 0 30px rgba(255,255,255,.4)}}
+/* markerGlow animation is not needed as .timeline-marker is hidden */
+/* @keyframes markerGlow{0%,100%{box-shadow:0 0 40px var(--cyan),inset 0 0 20px rgba(255,255,255,.2)}50%{box-shadow:0 0 60px var(--pink),0 0 80px var(--electric),inset 0 0 30px rgba(255,255,255,.4)}} */
 @keyframes toastProgress{from{transform:scaleY(1)}to{transform:scaleY(0)}}
 
 
@@ -661,12 +657,31 @@ a:hover,a:focus-visible{
         border-top:1px solid rgba(255,255,255,.1);backdrop-filter:blur(20px)
     }
     .nav-menu.open{display:flex}
-    .timeline-content{width:90%;margin:0 auto; padding: 3rem 2rem 2rem;} /* Adjusted padding for mobile */
-    .timeline-marker{width:80px;height:80px;font-size:1.2rem}
+    /* .hero-title responsive rule removed */
+    .timeline-content{
+        width:90%;
+        margin-left: auto; 
+        margin-right: auto;
+        padding: 2rem 1.5rem; 
+    }
+    .timeline-item{ /* Stack items vertically on mobile */
+        flex-direction:column; 
+        align-items: center;
+    }
+    .timeline-item:nth-child(even){ 
+        flex-direction:column; /* Ensure consistency */
+        align-items: center;
+    }
+     .roadmap-timeline::before { /* Ensure line is still centered correctly with stacked items */
+        left: 50%; 
+        transform: translateX(-50%);
+    }
+    /* .timeline-marker responsive rule removed as it's hidden */
     .category-tab{padding:1rem 1.5rem}
     .feature-card-iui.enhanced{padding:2rem}
-    .feature-card-iui.enhanced .feature-status { top: 1rem; right: 1rem; } /* Slightly less offset on mobile for enhanced cards */
+    .feature-card-iui.enhanced .feature-status { top: 1rem; right: 1rem; }
     .contact-grid{grid-template-columns:1fr}
+    /* .tech-categories responsive rule removed */
     .mission-vision{grid-template-columns:1fr}
     .toast-container{
         top:calc(var(--header-h) + var(--s-s));right:var(--s-s);left:var(--s-s);
@@ -676,19 +691,28 @@ a:hover,a:focus-visible{
 }
 
 @media (max-width:480px){
-    .timeline-content{padding: 2.5rem 1.5rem 1.5rem;} /* Further refined padding for very small screens */
+    /* .hero-actions responsive rule removed */
+    /* .cta-button (hero specific) responsive rule removed */
+    /* .tech-category responsive rule removed */
+    .timeline-content{
+        padding: 2rem 1rem; 
+    }
     .feature-card-iui.enhanced{padding:1.5rem}
     .feature-card-iui.enhanced .feature-status { top: 0.75rem; right: 0.75rem; font-size: 0.7rem; padding: 0.4rem 0.8rem;}
     .newsletter-form{padding:var(--s-l)}
     .contact-link{padding:var(--s-m)}
+    /* .hero-section .subtitle responsive rule removed */
+    /* .scroll-down-indicator responsive rule removed */
 }
 
-/* High DPI Displays - No specific changes related to hero section */
+/* High DPI Displays - hero-section specific rule removed */
 
 /* Reduced Motion */
 @media (prefers-reduced-motion:reduce){
     *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+    /* .hero-section::after animation none rule removed */
     .gaming-cursor{display:none}
+    /* .scroll-down-indicator animation rule removed */
 }
 
 /* Dark Theme Enhancements */
@@ -698,8 +722,9 @@ a:hover,a:focus-visible{
 
 /* Print Styles */
 @media print{
-    .site-header,.gaming-cursor,.scroll-progress,.loading-screen,.toast-container {display:none}
+    .site-header,.gaming-cursor,.scroll-progress,.loading-screen,.toast-container{display:none}
     body{padding-top:0;background:white;color:black}
+    /* .hero-section::after display none rule removed */
     a{color:blue;text-decoration:underline}
 }
 
@@ -715,4 +740,6 @@ a:hover,a:focus-visible{
 .contain-paint{contain:paint}
 .contain-strict{contain:strict}
 
-/* Styles for .hero-stats and its children are REMOVED */
+/* Hero Stats styles were removed in previous steps */
+/* RGB color variables and --surface-rgb were for hero-stats, can be removed if not used elsewhere */
+/* For now, keeping them in :root as they might be generally useful, but noting their origin. */
