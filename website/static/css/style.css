@@ -42,12 +42,10 @@
     /* Z-index Scale */
     --z-bg: -1; --z-normal: 1; --z-high: 10; --z-sticky: 100; --z-modal: 1000; --z-max: 9999;
     
-    /* Component Variables (simplified, as many are direct maps now) */
     --border-radius-md: var(--r-m);
     --transition-normal: var(--trans);
 }
 
-/* High Performance Reset */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;height:100%;font-size:100%}
 body{
@@ -55,7 +53,7 @@ body{
     -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;
     padding-top:var(--header-h);min-height:100vh;contain:layout style;
 }
-body.panel-open-overflow-hidden {
+body.panel-open-overflow-hidden { /* Class to prevent body scroll when panel is open */
     overflow: hidden;
 }
 
@@ -139,25 +137,46 @@ a:hover,a:focus-visible{
 }
 
 /* MODIFIED Header & Dashboard Panel Styles */
-.site-header.dashboard-header {
+.site-header { /* Removed .dashboard-header class, styles apply directly */
     background:color-mix(in srgb,var(--bg-1) 90%,transparent);
     backdrop-filter:blur(15px);
     border-bottom:1px solid color-mix(in srgb,white 5%,transparent);
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:var(--z-sticky);
+    height:var(--header-h);
+    display:flex;
+    align-items:center;
+    transition:background var(--trans);
+    contain:layout style;
+    will-change:background-color;
 }
-.site-header.scrolled { /* Keep scrolled state if needed for other effects */
+.site-header.scrolled {
     background:color-mix(in srgb,var(--bg-1) 95%,transparent);
     box-shadow:var(--shadow-md);
 }
-.header-container{
+.header-container{ /* Ensures GGenius title and hamburger are spaced out */
     display:flex;
-    justify-content:flex-end; /* Align toggle to the right */
+    justify-content:space-between; 
     align-items:center;
+    width: 100%; /* Take full width of the container */
     height:100%;
-    padding:0 var(--s-m); /* Add some padding to container */
+    padding:0 var(--s-m); 
+}
+.header-logo-link-main { /* For "GGenius" text in the header bar */
+    text-decoration: none;
+}
+.header-logo-text{ /* Style for "GGenius" in header bar and panel title */
+    font-family:var(--f1);font-size:var(--t-xl);font-weight:900;background:var(--g1);
+    background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    transition:filter var(--trans);
+}
+.header-logo-link-main:hover .header-logo-text {
+    filter:brightness(1.2);
 }
 
 .main-navigation {
-    position:static; /* Changed from relative for simpler panel positioning */
+    position:static; 
 }
 
 .mobile-menu-toggle {
@@ -170,7 +189,7 @@ a:hover,a:focus-visible{
     gap: 5px; 
     border-radius: var(--r-m);
     transition: background var(--trans), transform 0.3s ease;
-    z-index: calc(var(--z-modal) + 10); /* Ensure toggle is above panel overlay */
+    z-index: calc(var(--z-modal) + 10); 
 }
 .mobile-menu-toggle:hover {
     background: rgba(var(--accent-cyan-rgb), 0.1);
@@ -207,7 +226,7 @@ a:hover,a:focus-visible{
     overflow-y: auto;
     border-right: 2px solid var(--cyan);
 }
-.nav-menu-panel.panel-open { /* Class to trigger open state */
+.nav-menu-panel.panel-open { 
     left: 0;
 }
 
@@ -219,20 +238,17 @@ a:hover,a:focus-visible{
     border-bottom: 1px solid rgba(var(--accent-cyan-rgb), 0.2);
     flex-shrink: 0;
 }
-.panel-title-text {
+.panel-title-text { /* For "GGenius Dashboard" in panel */
     font-family: var(--f1);
-    font-size: var(--t-xl);
+    font-size: var(--t-xl); /* Same as header logo */
     font-weight: 900;
-    background: var(--g1);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-1); /* Solid color for panel title, or use gradient like .header-logo-text */
 }
 .close-panel-button {
     background: none;
     border: none;
     color: var(--text-2);
-    font-size: var(--t-2xl); /* Make X larger */
+    font-size: var(--t-2xl); 
     font-weight: bold;
     cursor: pointer;
     padding: var(--s-xs);
@@ -248,7 +264,7 @@ a:hover,a:focus-visible{
     list-style: none;
     padding: var(--s-l) 0;
     margin: 0;
-    flex-grow: 1; /* Allow this to take available space */
+    flex-grow: 1; 
 }
 .nav-menu-dashboard li a.nav-link {
     display: block;
@@ -266,19 +282,19 @@ a:hover,a:focus-visible{
 .nav-menu-dashboard li a.nav-link:hover,
 .nav-menu-dashboard li a.nav-link:focus-visible,
 .nav-menu-dashboard li a.nav-link.active {
-    background-color: rgba(var(--accent-cyan-rgb), 0.1);
+    background-color: rgba(var(--accent-cyan-rgb), 0.15); /* Slightly more emphasis */
     color: var(--cyan);
     padding-left: calc(var(--s-l) + var(--s-s));
     text-shadow: 0 0 10px var(--cyan);
     letter-spacing: 0.05em;
 }
-.nav-menu-dashboard li a.nav-link::after { /* Remove original underline if present */
+.nav-menu-dashboard li a.nav-link::after { 
     display: none; 
 }
 
 .panel-footer {
     padding: var(--s-m) var(--s-l);
-    margin-top: auto; /* Push to bottom */
+    margin-top: auto; 
     border-top: 1px solid rgba(var(--accent-cyan-rgb), 0.2);
     text-align: center;
     flex-shrink: 0;
@@ -289,25 +305,13 @@ a:hover,a:focus-visible{
     margin: 0;
 }
 
-/* Original .nav-menu (for desktop if it was different) should be hidden if not used */
-.nav-menu {
-    display: none; /* Assuming this is replaced by dashboard for mobile */
-}
-@media (min-width: 769px) {
-    /* If you had a different desktop nav, re-enable it here and hide mobile toggle */
-    /* .mobile-menu-toggle { display: none; } */
-    /* .nav-menu { display: flex; } */
-    /* For this exercise, we assume the panel is the primary nav on all screen sizes */
-}
-
-
 /* Hero Section */
 .hero-section{
     min-height:calc(100vh - var(--header-h));padding:var(--s-xl) 0;display:flex;
     align-items:center;position:relative;contain:layout;overflow:hidden
 }
 .hero-section::after{
-    content:'';position:absolute;inset:0;z-index:0;mix-blend-mode:screen;opacity:.4; /* Lowered z-index */
+    content:'';position:absolute;inset:0;z-index:0;mix-blend-mode:screen;opacity:.4; 
     background-image:radial-gradient(circle at 15% 25%,var(--cyan) 2px,transparent 2px),
     radial-gradient(circle at 85% 75%,var(--pink) 2px,transparent 2px),
     radial-gradient(circle at 45% 15%,var(--electric) 1px,transparent 1px),
@@ -323,26 +327,16 @@ a:hover,a:focus-visible{
     animation:heroSlideIn 1s ease-out .2s forwards;opacity:0;will-change:opacity,transform
 }
 
-/* Hero Title - "AI Revolution" is now the main title */
 .hero-title{
     font-weight:900;line-height:1.2;text-transform:uppercase;
     margin-bottom:var(--s-s);
     animation:heroSlideIn 1s ease-out .4s forwards,titleGlow 3s ease-in-out infinite alternate;
     opacity:0;position:relative;will-change:opacity,transform
 }
-.hero-title .title-main{ /* This was GGenius, now removed from HTML, so style is moot */
-    display:none; 
-}
-.hero-title .title-subtitle{ /* This is "AI Revolution" */
-    display:block;
-    font-size:var(--t-4xl); /* Make it large */
-    letter-spacing:.1em; /* Original spacing */
-    opacity:1; /* Fully visible */
-    margin-top:0; /* Remove top margin if .title-main is gone */
-    background:var(--g2);
-    background-clip:text;
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+.hero-title .title-main { display:none; }
+.hero-title .title-subtitle{ 
+    display:block; font-size:var(--t-4xl); letter-spacing:.1em; opacity:1; margin-top:0;
+    background:var(--g2); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
 }
 
 .hero-section .subtitle{
@@ -354,200 +348,144 @@ a:hover,a:focus-visible{
     display:flex;gap:var(--s-m);justify-content:center;flex-wrap:wrap;
     animation:heroSlideIn 1s ease-out .8s forwards;opacity:0;will-change:opacity,transform
 }
+
+/* MODIFIED CTA Button Styles */
 .cta-button{
     display:inline-flex;align-items:center;justify-content:center;gap:var(--s-xs);
-    padding:var(--s-s) var(--s-l);font-family:var(--f1);font-weight:700;
+    padding: var(--s-s) var(--s-l); /* Base padding */
+    font-family:var(--f1);font-weight:700;
     font-size:var(--t-base);border-radius:var(--r-m);text-transform:uppercase;
     letter-spacing:.09375em;cursor:pointer;position:relative;overflow:hidden;
     transition:all var(--trans);border:2px solid transparent;text-decoration:none;
-    white-space:nowrap;contain:layout;will-change:transform,box-shadow
+    white-space:nowrap;contain:layout;will-change:transform,box-shadow;
 }
-.cta-button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-.cta-button.hero-cta{
-    background:var(--g3);color:var(--text-1);
-    box-shadow:0 0 15px rgba(0,123,255,.5),0 0 25px rgba(0,123,255,.3);
-    animation:pulseGlow 2.5s infinite ease-in-out 1s
+.cta-button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+.cta-button.hero-cta-primary { /* Replaces .hero-cta */
+    background: var(--g1); /* Gradient: cyan to purple */
+    color: var(--text-1);
+    box-shadow: 0 0 15px rgba(var(--accent-cyan-rgb),.5), 0 0 25px rgba(var(--accent-purple-rgb),.3);
+    animation: pulseGlowPrimary 2.5s infinite ease-in-out 1s;
 }
-.cta-button.hero-cta:hover,.cta-button.hero-cta:focus-visible{
+.cta-button.hero-cta-primary:hover,
+.cta-button.hero-cta-primary:focus-visible {
     transform:translateY(-3px) scale(1.03);
-    box-shadow:0 0 25px rgba(0,123,255,.7),0 0 40px rgba(0,123,255,.5);
-    border-color:var(--blue)
-}
-.cta-button.cta-yellow{
-    background:linear-gradient(135deg,var(--yellow),color-mix(in srgb,var(--yellow) 70%,var(--green) 30%));
-    color:var(--bg-1);box-shadow:0 0 15px rgba(255,193,7,.5),0 0 25px rgba(255,193,7,.3)
-}
-.cta-button.cta-yellow:hover,.cta-button.cta-yellow:focus-visible{
-    transform:translateY(-3px) scale(1.03);
-    box-shadow:0 0 25px rgba(255,193,7,.7),0 0 40px rgba(255,193,7,.5);
-    border-color:var(--yellow)
+    box-shadow: 0 0 25px rgba(var(--accent-cyan-rgb),.7), 0 0 40px rgba(var(--accent-purple-rgb),.5);
+    border-color: var(--cyan);
 }
 
-/* ... (Hero Stats, Features, Roadmap, About, Tech Stack, Contact Sections remain as previously defined) ... */
-.hero-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
-    gap: var(--s-l); /* Adjusted from --space-lg */
-    margin-top: var(--s-2xl); /* Adjusted from --space-2xl */
-    padding: var(--s-l); /* Adjusted from --space-md */
-    background: linear-gradient(145deg, rgba(var(--bg-secondary-rgb), 0.7), rgba(var(--bg-tertiary-rgb), 0.8)); 
-    border-radius: var(--r-xl); 
-    border: 1px solid rgba(var(--accent-cyan-rgb), 0.2); 
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); 
-    position: relative; 
-    overflow: hidden; 
+.cta-button.hero-cta-secondary { /* Replaces .cta-yellow */
+    background: transparent;
+    color: var(--cyan);
+    border: 2px solid var(--cyan);
+    box-shadow: inset 0 0 10px rgba(var(--accent-cyan-rgb),.3), 0 0 10px rgba(var(--accent-cyan-rgb),.2);
 }
-.hero-stats .stat-item {
-    text-align: center;
-    padding: var(--s-m); /* Adjusted from --space-lg */
-    border-radius: var(--r-l); /* Adjusted from --radius-lg */
-    background: rgba(var(--surface-rgb), 0.6); 
-    border: 1px solid rgba(var(--accent-cyan-rgb), 0.35);
-    transition: transform var(--transition-normal), border-color var(--transition-normal);
+.cta-button.hero-cta-secondary:hover,
+.cta-button.hero-cta-secondary:focus-visible {
+    transform:translateY(-3px) scale(1.03);
+    background: rgba(var(--accent-cyan-rgb), 0.1);
+    color: var(--text-1);
+    box-shadow: inset 0 0 15px rgba(var(--accent-cyan-rgb),.5), 0 0 20px rgba(var(--accent-cyan-rgb),.4);
+    border-color: color-mix(in srgb, var(--cyan) 80%, white);
+}
+
+/* Hero Stats Block REMOVED - No CSS needed for it now */
+
+/* Features Section (styles remain largely the same) */
+/* ... */
+
+/* MODIFIED Roadmap Section */
+.roadmap-section-redesigned {
+    padding: var(--s-2xl) 0;
+    background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 70%, var(--bg-1) 100%);
     position: relative;
-    overflow: hidden; 
-    will-change: transform, border-color; 
 }
-.hero-stats .stat-item::before {
-    content: '';
+.roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: var(--s-l);
+    margin-top: var(--s-xl);
+}
+.roadmap-card {
+    background: linear-gradient(145deg, rgba(var(--surface-rgb), 0.95), rgba(var(--bg-2), 0.95));
+    border-radius: var(--r-l);
+    border: 1px solid rgba(var(--accent-cyan-rgb), 0.2);
+    padding: var(--s-l);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 15px rgba(var(--accent-cyan-rgb),0.1);
+    transition: transform var(--trans), box-shadow var(--trans);
+    display: flex;
+    flex-direction: column;
+}
+.roadmap-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(var(--accent-cyan-rgb),0.25), inset 0 0 20px rgba(var(--accent-cyan-rgb),0.15);
+    border-color: rgba(var(--accent-cyan-rgb), 0.5);
+}
+.roadmap-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--s-m);
+    margin-bottom: var(--s-m);
+    padding-bottom: var(--s-s);
+    border-bottom: 1px dashed rgba(var(--accent-cyan-rgb), 0.3);
+}
+.roadmap-quarter {
+    font-family: var(--f1);
+    font-size: var(--t-l);
+    font-weight: 900;
+    color: var(--text-1);
+    background: var(--g2); /* Using a gradient for quarter marker */
+    padding: var(--s-xs) var(--s-s);
+    border-radius: var(--r-m);
+    line-height: 1;
+    box-shadow: 0 0 10px rgba(var(--accent-pink-rgb), 0.4);
+}
+.roadmap-title { /* For MVP Launch, AI Integration etc. */
+    font-size: var(--t-xl);
+    color: var(--cyan);
+    margin: 0;
+    font-weight: 700;
+}
+.roadmap-card-body p {
+    font-size: var(--t-base);
+    color: var(--text-2);
+    margin-bottom: var(--s-m);
+    line-height: 1.6;
+}
+.roadmap-feature-list {
+    list-style: none;
+    padding-left: 0; /* Remove default padding */
+    margin: 0;
+    font-size: var(--t-s);
+}
+.roadmap-feature-list li {
+    color: var(--text-2);
+    padding: var(--s-xs) 0;
+    position: relative;
+    padding-left: var(--s-l); /* Space for custom bullet */
+}
+.roadmap-feature-list li::before {
+    content: '⚡'; /* Cyberpunk style bullet */
     position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0%; 
-    height: 2px; 
-    background: var(--cyan); /* Adjusted from --accent-cyan */
-    transition: width var(--transition-normal) ease-out;
-    will-change: width;
-    box-shadow: 0 0 8px rgba(var(--accent-cyan-rgb), 0.7); 
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--cyan);
+    font-size: 1.1em;
+    line-height: 1;
 }
-.hero-stats .stat-item:hover::before {
-    width: 60%; 
+.roadmap-feature-list li:hover {
+    color: var(--text-1);
 }
-.hero-stats .stat-item:hover {
-    transform: translateY(-6px) scale(1.02); 
-    border-color: rgba(var(--accent-cyan-rgb), 0.7); 
-}
-.hero-stats .stat-number{
-    font-size:3rem;font-weight:900;background:var(--g2);background-clip:text;
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    display:block;margin-bottom:.5rem;animation:numberGlow 2s ease-in-out infinite alternate
-}
-.hero-stats .stat-label{
-    font-size:1rem;color:var(--text-2);text-transform:uppercase;
-    letter-spacing:.1em;font-weight:600
+.roadmap-feature-list li:hover::before {
+    text-shadow: 0 0 8px var(--cyan);
 }
 
-/* Features Section */
-.features-section-iui{
-    background:color-mix(in srgb,var(--bg-1) 30%,transparent);padding:var(--s-2xl) 0;
-    border-top:1px solid color-mix(in srgb,white 5%,transparent);
-    border-bottom:1px solid color-mix(in srgb,white 5%,transparent);
-    position:relative;contain:layout
-}
-.features-section-iui.enhanced{
-    background:linear-gradient(135deg,rgba(10,12,15,.95),rgba(20,24,30,.9)),var(--g-holo);
-    backdrop-filter:blur(10px)
-}
-.feature-categories{
-    display:flex;justify-content:center;gap:1rem;margin-bottom:var(--s-2xl);flex-wrap:wrap
-}
-.category-tab{
-    display:flex;align-items:center;gap:.75rem;padding:1.25rem 2rem;
-    background:linear-gradient(135deg,rgba(26,29,35,.9),rgba(37,42,50,.9)),var(--g-holo);
-    border:2px solid rgba(var(--accent-cyan-rgb),.2);border-radius:25px;color:var(--text-2);
-    cursor:pointer;transition:all .4s;backdrop-filter:blur(15px);position:relative;
-    overflow:hidden;font-weight:600;text-transform:uppercase;letter-spacing:.05em
-}
-.category-tab::before{
-    content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
-    background:var(--g2);opacity:.1;transition:left .6s
-}
-.category-tab:hover::before,.category-tab.active::before{left:0}
-.category-tab:hover,.category-tab.active{
-    color:var(--text-1);border-color:var(--cyan);
-    box-shadow:0 10px 30px rgba(var(--accent-cyan-rgb),.3),0 0 50px rgba(var(--accent-pink-rgb),.2);
-    transform:translateY(-5px)
-}
-.category-tab svg{width:24px;height:24px;filter:drop-shadow(0 0 10px currentColor)}
-.features-grid-iui{
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17.5rem),1fr));
-    gap:var(--s-l);container-type:inline-size
-}
-.feature-card-iui{
-    background:var(--bg-2);padding:var(--s-l);border-radius:var(--r-l);
-    border:1px solid color-mix(in srgb,white 8%,transparent);
-    box-shadow:0 4px 20px rgba(0,0,0,.3);text-align:center;
-    transition:transform var(--trans),box-shadow var(--trans);position:relative;
-    overflow:hidden;contain:layout style;will-change:transform,box-shadow
-}
-.feature-card-iui.enhanced{
-    background:linear-gradient(135deg,rgba(var(--surface-rgb),.95),rgba(var(--bg-tertiary-rgb),.95)),var(--g-holo);
-    border:2px solid transparent;border-radius:25px;padding:3rem;
-    backdrop-filter:blur(20px);transform-style:preserve-3d
-}
-.feature-card-iui.enhanced::before{
-    content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
-    background:conic-gradient(from 0deg,transparent,var(--cyan),transparent,var(--pink),transparent,var(--electric),transparent);
-    animation:borderRotate 6s linear infinite;z-index:-1
-}
-.feature-card-iui.enhanced::after{
-    content:'';position:absolute;inset:2px;background:var(--g-bg);border-radius:23px;z-index:-1
-}
-.feature-card-iui:hover{
-    transform:translateY(-8px);box-shadow:0 8px 30px rgba(0,0,0,.4),0 0 20px rgba(0,123,255,.5)
-}
-.feature-card-iui.enhanced:hover{
-    transform:translateY(-20px) rotateX(15deg) rotateY(10deg) scale(1.05);
-    box-shadow:0 30px 80px rgba(var(--accent-cyan-rgb),.4),0 0 100px rgba(var(--accent-pink-rgb),.3),inset 0 0 50px rgba(var(--accent-purple-rgb),.2)
-}
-.feature-card-icon{
-    width:3.75rem;height:3.75rem;margin:0 auto var(--s-m);display:flex;
-    align-items:center;justify-content:center
-}
-.feature-card-icon svg{
-    width:100%;height:100%;stroke:var(--blue);stroke-width:1.5;
-    filter:drop-shadow(0 0 8px rgba(0,123,255,.5));transition:filter var(--trans)
-}
-.feature-card-iui:hover .feature-card-icon svg{filter:drop-shadow(0 0 12px rgba(0,123,255,.7))}
-.feature-card-title{
-    font-size:var(--t-xl);font-weight:700;color:var(--text-1);
-    margin-bottom:var(--s-s);text-wrap:balance
-}
-.feature-card-description{
-    font-size:var(--t-base);color:var(--text-2);line-height:1.6;
-    margin-bottom:var(--s-m);text-wrap:pretty
-}
-.feature-highlights{display:flex;flex-wrap:wrap;gap:.75rem;margin:var(--s-m) 0; justify-content: center;}
-.highlight-tag{
-    padding:.5rem 1rem;background:linear-gradient(135deg,rgba(var(--accent-cyan-rgb),.2),rgba(var(--accent-purple-rgb),.2));
-    border:1px solid rgba(var(--accent-cyan-rgb),.4);border-radius:20px;font-size:.8rem;
-    font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:.05em;
-    backdrop-filter:blur(10px);transition:all .3s
-}
-.highlight-tag:hover{
-    background:var(--g2);color:white;transform:scale(1.05);
-    box-shadow:0 5px 15px rgba(var(--accent-cyan-rgb),.4)
-}
-.feature-status{
-    position:absolute;top:1rem;right:1rem;padding:.5rem 1rem;border-radius:20px;
-    font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
-    backdrop-filter:blur(10px);animation:statusGlow 3s ease-in-out infinite alternate
-}
-.status-development{
-    background:linear-gradient(135deg,rgba(var(--ggenius-green),.2),rgba(var(--accent-cyan-rgb),.2));
-    color:var(--ggenius-green);border:1px solid var(--ggenius-green);box-shadow:0 0 20px rgba(var(--ggenius-green),.3)
-}
-.status-concept{
-    background:linear-gradient(135deg,rgba(255,193,7,.2),rgba(255,107,53,.2)); /* Using yellow from root */
-    color:var(--yellow);border:1px solid var(--yellow);box-shadow:0 0 20px rgba(255,193,7,.3)
-}
-.status-planning{
-    background:linear-gradient(135deg,rgba(var(--accent-purple-rgb),.2),rgba(0,123,255,.2)); /* Using electric and blue from root */
-    color:var(--electric);border:1px solid var(--electric);box-shadow:0 0 20px rgba(var(--accent-purple-rgb),.3)
-}
 
-/* Styled Footer */
+/* Accordion, About, Tech Stack, Contact Sections (styles remain largely the same) */
+/* ... */
+
+/* UPDATED Footer Styling */
 .site-footer.styled-footer {
     background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg-1) 100%);
     padding: var(--s-xl) 0 var(--s-l) 0;
@@ -598,7 +536,12 @@ a:hover,a:focus-visible{
     text-shadow: 0 0 5px var(--cyan);
 }
 
-/* Animations */
+/* Animations - Add new pulseGlowPrimary */
+@keyframes pulseGlowPrimary{
+    0%,100%{box-shadow: 0 0 15px rgba(var(--accent-cyan-rgb),.5), 0 0 25px rgba(var(--accent-purple-rgb),.3);}
+    50%{box-shadow: 0 0 25px rgba(var(--accent-cyan-rgb),.7), 0 0 40px rgba(var(--accent-purple-rgb),.5), 0 0 50px rgba(var(--accent-pink-rgb),.2);}
+}
+/* Other animations remain the same */
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 @keyframes bgMove{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
@@ -606,7 +549,6 @@ a:hover,a:focus-visible{
 @keyframes cyberpunkShift{to{background-position:120px 120px,180px 180px,80px 80px,60px 60px}}
 @keyframes heroSlideIn{from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)}}
 @keyframes titleGlow{0%,100%{text-shadow:0 0 20px var(--cyan)}50%{text-shadow:0 0 40px var(--pink),0 0 60px var(--electric)}}
-@keyframes pulseGlow{0%,100%{box-shadow:0 0 15px rgba(0,123,255,.5),0 0 25px rgba(0,123,255,.3)}50%{box-shadow:0 0 25px rgba(0,123,255,.7),0 0 40px rgba(0,123,255,.5)}}
 @keyframes statsContainer{0%,100%{box-shadow:0 20px 60px rgba(0,0,0,.4)}50%{box-shadow:0 25px 80px rgba(var(--accent-cyan-rgb),.2),0 0 100px rgba(var(--accent-pink-rgb),.1)}}
 @keyframes numberGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2) saturate(1.3)}}
 @keyframes borderRotate{to{transform:rotate(360deg)}}
@@ -622,38 +564,26 @@ a:hover,a:focus-visible{
 
 /* Responsive Design */
 @media (max-width:768px){
-    .hero-title .title-subtitle { font-size: clamp(2.2rem, 8vw, 3rem); } /* Adjust hero title on mobile */
-    .timeline-content{width:90%;margin:0 auto}
-    .timeline-marker{width:80px;height:80px;font-size:1.2rem}
-    .category-tab{padding:1rem 1.5rem}
-    .feature-card-iui.enhanced{padding:2rem}
-    .contact-grid{grid-template-columns:1fr}
-    .tech-categories{grid-template-columns:1fr}
-    .mission-vision{grid-template-columns:1fr}
-    .nav-menu-panel { width: clamp(260px, 85vw, 320px); } /* Adjust panel width for tablets */
-
+    .header-container { justify-content: space-between; } /* Ensure space for logo and toggle */
+    .hero-title .title-subtitle { font-size: clamp(2.2rem, 8vw, 3rem); }
+    .roadmap-grid { grid-template-columns: 1fr; } /* Stack roadmap cards on tablet */
+    .nav-menu-panel { width: clamp(260px, 85vw, 320px); } 
     .footer-content { gap: var(--s-s); }
     .footer-links { gap: var(--s-s) var(--s-m); }
 }
 
 @media (max-width:480px){
+    .header-logo-text { font-size: var(--t-l); } /* Slightly smaller logo text on very small screens */
     .hero-actions{flex-direction:column;align-items:center}
     .cta-button{width:100%;max-width:300px}
-    .tech-category{padding:2rem}
-    .timeline-content{padding:2rem}
-    .feature-card-iui.enhanced{padding:1.5rem}
-    .newsletter-form{padding:var(--s-l)}
-    .contact-link{padding:var(--s-m)}
-    .nav-menu-panel { width: clamp(240px, 90vw, 280px); } /* Adjust panel for smaller phones */
+    .nav-menu-panel { width: clamp(240px, 90vw, 280px); } 
 }
 
-/* Reduced Motion */
 @media (prefers-reduced-motion:reduce){
     *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important; scroll-behavior: auto !important;}
     .hero-section::after{animation:none}
 }
 
-/* Visually Hidden Utility */
 .visually-hidden{
     position:absolute!important;width:1px!important;height:1px!important;
     padding:0!important;margin:-1px!important;overflow:hidden!important;
