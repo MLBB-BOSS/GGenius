@@ -115,9 +115,9 @@
   <!-- ============== ENHANCED REALISTIC CONTROLLER (15% larger) ============== -->
   <g id="realistic-controller" filter="url(#realistic-shadow)">
     
-    <!-- Main Controller Body (15% larger - original multiplied by 1.15) -->
+    <!-- Main Controller Body (15% larger) -->
     <g id="controller-body">
-      <!-- Primary Body Shape (recalculated coordinates for 15% increase) -->
+      <!-- Primary Body Shape -->
       <path d="
         M203,508
         C180,425.75 291,333.75 425.75,321
@@ -136,7 +136,7 @@
         stroke="#000000" 
         stroke-width="2.3"/>
 
-      <!-- Natural Surface Lighting (15% larger) -->
+      <!-- Natural Surface Lighting -->
       <path d="
         M203,508
         C180,425.75 291,333.75 425.75,321
@@ -162,45 +162,37 @@
       <rect x="351.55" y="363.25" width="310.5" height="69" rx="13.8" 
             fill="#0F1419" stroke="#1A202C" stroke-width="1.15"/>
       
-      <!-- Subtle Screen Reflection (15% larger) -->
+      <!-- Subtle Screen Reflection -->
       <rect x="361.75" y="375.75" width="292.1" height="46" rx="9.2" fill="url(#plastic-highlight)" opacity="0.2"/>
     </g>
 
     <!-- Ultra-Enhanced Realistic Analog Sticks (15% larger) -->
     <g id="realistic-sticks">
-      <!-- Left Stick Assembly (15% larger) -->
+      <!-- Left Stick Assembly -->
       <g filter="url(#stick-shadow)">
-        <!-- Stick Base -->
         <circle cx="420.8" cy="555.25" r="43.7" fill="#1A202C" stroke="#0F1419" stroke-width="2.3"/>
         <circle cx="420.8" cy="555.25" r="39.1" fill="url(#stick-texture)"/>
         
-        <!-- Stick Shaft -->
         <circle cx="420.8" cy="549.5" r="23" fill="url(#metal-trigger)" stroke="#2D3748" stroke-width="1.15"/>
         <circle cx="420.8" cy="547.2" r="18.4" fill="#4A5568"/>
         
-        <!-- Rubber Grip -->
         <circle cx="420.8" cy="544.9" r="13.8" fill="url(#rubber-pattern)"/>
         <circle cx="420.8" cy="542.6" r="9.2" fill="#2D3748"/>
         
-        <!-- Center Indent -->
         <circle cx="420.8" cy="542.6" r="4.6" fill="#1A202C" opacity="0.8"/>
       </g>
 
-      <!-- Right Stick Assembly (15% larger) -->
+      <!-- Right Stick Assembly -->
       <g filter="url(#stick-shadow)">
-        <!-- Stick Base -->
         <circle cx="686.8" cy="555.25" r="43.7" fill="#1A202C" stroke="#0F1419" stroke-width="2.3"/>
         <circle cx="686.8" cy="555.25" r="39.1" fill="url(#stick-texture)"/>
         
-        <!-- Stick Shaft -->
         <circle cx="686.8" cy="549.5" r="23" fill="url(#metal-trigger)" stroke="#2D3748" stroke-width="1.15"/>
         <circle cx="686.8" cy="547.2" r="18.4" fill="#4A5568"/>
         
-        <!-- Rubber Grip -->
         <circle cx="686.8" cy="544.9" r="13.8" fill="url(#rubber-pattern)"/>
         <circle cx="686.8" cy="542.6" r="9.2" fill="#2D3748"/>
         
-        <!-- Center Indent -->
         <circle cx="686.8" cy="542.6" r="4.6" fill="#1A202C" opacity="0.8"/>
       </g>
     </g>
@@ -218,31 +210,31 @@
       <text x="673.35" y="331" text-anchor="middle" fill="#A0AEC0" font-family="Arial" font-size="10.35">R1  R2</text>
     </g>
 
-    <!-- =========== ENHANCED REALISTIC BUTTON LAYOUT (15% larger) =========== -->
+    <!-- ENHANCED REALISTIC BUTTON LAYOUT (15% larger) -->
     <g id="realistic-buttons">
       
-      <!-- D-Pad (Minimal Design, 15% larger) -->
+      <!-- D-Pad (Moved Up by ~2cm) -->
       <g id="realistic-dpad" filter="url(#button-depth)">
         <!-- Vertical Bar -->
-        <rect x="336.25" y="473.25" width="39.1" height="115" rx="6.9" 
+        <rect x="336.25" y="397.65" width="39.1" height="115" rx="6.9" 
               fill="url(#dpad-material)" stroke="#44337A" stroke-width="2.3"/>
-        <rect x="342" y="479" width="27.6" height="103.5" rx="4.6" 
+        <rect x="342" y="403.4" width="27.6" height="103.5" rx="4.6" 
               fill="url(#plastic-highlight)" opacity="0.3"/>
         
         <!-- Horizontal Bar -->
-        <rect x="308.5" y="502" width="115" height="39.1" rx="6.9" 
+        <rect x="308.5" y="426.4" width="115" height="39.1" rx="6.9" 
               fill="url(#dpad-material)" stroke="#44337A" stroke-width="2.3"/>
-        <rect x="314.25" y="507.75" width="103.5" height="27.6" rx="4.6" 
+        <rect x="314.25" y="432.15" width="103.5" height="27.6" rx="4.6" 
               fill="url(#plastic-highlight)" opacity="0.3"/>
         
-        <!-- Simple Direction Arrows (15% larger) -->
-        <polygon points="355.8,490.5 371,494.7 355.8,508.9" fill="rgba(255,255,255,0.8)"/>
-        <polygon points="355.8,555.25 371,546.05 355.8,536.85" fill="rgba(255,255,255,0.8)"/>
-        <polygon points="325.75,513.8 336.95,525 325.75,536.2" fill="rgba(255,255,255,0.8)"/>
-        <polygon points="406.25,513.8 417.45,525 406.25,536.2" fill="rgba(255,255,255,0.8)"/>
+        <!-- Simple Direction Arrows (shifted up) -->
+        <polygon points="355.8,414.9 371,419.1 355.8,433.3" fill="rgba(255,255,255,0.8)"/>
+        <polygon points="355.8,479.65 371,470.45 355.8,461.25" fill="rgba(255,255,255,0.8)"/>
+        <polygon points="325.75,438.2 336.95,449.4 325.75,460.6" fill="rgba(255,255,255,0.8)"/>
+        <polygon points="406.25,438.2 417.45,449.4 406.25,460.6" fill="rgba(255,255,255,0.8)"/>
       </g>
 
-      <!-- Action Buttons (Clean Design, 15% larger) -->
+      <!-- Action Buttons (Clean Design) -->
       <g id="action-buttons" filter="url(#button-depth)">
         <!-- Y Button -->
         <circle cx="757.3" cy="470.25" r="20.7" fill="url(#button-material)" stroke="#0369A1" stroke-width="2.3"/>
