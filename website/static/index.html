@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="GGenius - революційна AI-платформа для Mobile Legends: Bang Bang кіберспорту. Аналітика матчів, турніри.">
-    <meta name="keywords" content="MLBB, Mobile Legends Bang Bang, кіберспорт, AI аналітика, турніри, eSports, штучний інтелект, тренування">
+    <meta name="keywords" content="MLBB, Mobile Legends Bang Bang, кіберспорт, AI аналітика, турніри, eSports, штучний інтелект, тренування, ggenius, mlbb-boss">
     <meta name="author" content="MLBB-BOSS">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -12,8 +12,8 @@
     <!-- Безпека -->
     <meta http-equiv="Content-Security-Policy" 
           content="default-src 'self'; 
-                   script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
-                   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+                   script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; 
+                   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; 
                    font-src 'self' https://fonts.gstatic.com;
                    img-src 'self' data: https://ggenius.mlbb-boss.com https://user-images.githubusercontent.com;
                    connect-src 'self' https://api.ggenius.mlbb-boss.com;">
@@ -23,7 +23,7 @@
     
     <!-- Open Graph для соціальних мереж -->
     <meta property="og:title" content="GGenius - Революція в MLBB Кіберспорті з AI">
-    <meta property="og:description" content="Штучний інтелект зустрічає Mobile Legends: Bang Bang. Професійна аналітика, турніри та тренування.">
+    <meta property="og:description" content="Штучний інтелект зустрічає Mobile Legends: Bang Bang. Професійна аналітика, турніри та тренування для гравців усіх рівнів.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="GGenius">
     <meta property="og:url" content="https://ggenius.mlbb-boss.com">
@@ -53,21 +53,23 @@
     
     <!-- Іконки -->
     <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png" width="32" height="32">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png" width="16" height="16">
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png" width="180" height="180">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
     <link rel="manifest" href="/static/manifest.json">
     
     <!-- Попереднє завантаження критичних ресурсів -->
-    <link rel="preload" href="/static/css/style.css" as="style" importance="high">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" as="style" crossorigin>
-    <link rel="preload" href="/static/js/enhancements.js" as="script">
+    <link rel="preload" href="/static/css/style.css" as="style" fetchpriority="high">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" as="style" crossorigin="anonymous">
     <link rel="preload" href="https://unpkg.com/aos@next/dist/aos.css" as="style">
+    <link rel="preload" href="/static/js/enhancements.js" as="script" fetchpriority="high">
+    <link rel="preload" href="https://unpkg.com/aos@next/dist/aos.js" as="script" fetchpriority="low">
     
     <!-- Попереднє підключення -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://api.ggenius.mlbb-boss.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
     
     <title>GGenius - AI Революція в Mobile Legends: Bang Bang Кіберспорті 🎮🤖</title>
     <link rel="stylesheet" href="/static/css/style.css">
@@ -79,7 +81,7 @@
         "@context": "https://schema.org",
         "@type": ["WebSite", "SoftwareApplication"],
         "name": "GGenius",
-        "description": "Революційна AI-платформа для Mobile Legends: Bang Bang кіберспорту з аналітикою матчів, турнірами та персоналізованим тренуванням.",
+        "description": "Революційна AI-платформа для Mobile Legends: Bang Bang кіберспорту з аналітикою матчів, турнірами та персоналізованими тренуваннями.",
         "url": "https://ggenius.mlbb-boss.com",
         "applicationCategory": "GameApplication",
         "operatingSystem": "Web",
@@ -159,6 +161,7 @@
                 <ul id="main-menu-list" class="nav-menu" role="menubar">
                     <li role="none"><a href="#about-project" class="nav-link active" role="menuitem" aria-current="page" itemprop="url">Про проєкт</a></li>
                     <li role="none"><a href="#features" class="nav-link" role="menuitem" itemprop="url">AI Можливості</a></li>
+                    <li role="none"><a href="#project-goals" class="nav-link" role="menuitem" itemprop="url">Наші Цілі</a></li>
                     <li role="none"><a href="#roadmap" class="nav-link" role="menuitem" itemprop="url">Roadmap</a></li>
                     <li role="none"><a href="#contact" class="nav-link" role="menuitem" itemprop="url">Контакти</a></li>
                 </ul>
@@ -168,8 +171,8 @@
 
     <!-- Основний контент -->
     <main id="main-content" role="main" itemprop="mainContentOfPage">
-        <!-- Секція "Про проєкт" (тільки текст "про нас") -->
-        <section id="about-project" class="project-intro-hero" aria-labelledby="project-intro-title" itemscope itemtype="https://schema.org/AboutPage">
+        <!-- Секція "Про проєкт" (скорочена) -->
+        <section id="about-project" class="project-intro-hero section-padding" aria-labelledby="project-intro-title" itemscope itemtype="https://schema.org/AboutPage">
             <div class="container">
                 <div class="project-intro-card" data-aos="fade-up"> 
                     <div class="project-status-badge">
@@ -193,7 +196,10 @@
                                 кіберспорту Mobile Legends: Bang Bang. Ми об'єднуємо найсучасніші технології 
                                 штучного інтелекту з глибоким розумінням геймінгу.
                             </p>
-                            <!-- Видалено цілі, залишився лише опис -->
+                             <p class="mission-paragraph">
+                                Наша <strong>місія</strong> — демократизувати професійний кіберспорт, надаючи 
+                                кожному гравцю доступ до інструментів світового рівня для розвитку та досягнення успіху.
+                            </p>
                         </div>
 
                         <div class="project-cta">
@@ -203,7 +209,7 @@
                                     <path d="M7 17l9.2-9.2M17 17V7H7"/>
                                 </svg>
                             </a>
-                            <button class="cta-button secondary-cta" onclick="scrollToSection('#contact')">
+                            <button class="cta-button secondary-cta" onclick="scrollToSection('#contact')"> <!-- Переконайтесь, що функція scrollToSection визначена -->
                                 <span>Приєднатися до спільноти</span>
                                 <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                     <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -269,7 +275,7 @@
                     </div>
                     <div class="tab-panels-container">
                         <div id="ai-features-panel" class="features-grid-iui tab-content active" role="tabpanel" aria-labelledby="tab-ai-trigger">
-                            <article class="feature-card-iui enhanced" data-feature="ai-analytics" itemscope itemtype="https://schema.org/SoftwareApplication" data-aos="fade-up" data-aos-delay="200">
+                            <article class="feature-card-iui enhanced" data-feature="ai-analytics" itemscope itemtype="https://schema.org/SoftwareApplicationFeature" data-aos="fade-up" data-aos-delay="200">
                                 <div class="feature-card-icon">
                                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                        <path d="M12 1v22m5-18h-1.7c-.9 0-1.7.5-2.1 1.2l-3.2 5.8c-.4.7-.4 1.6 0 2.3l3.2 5.8c.4.7 1.1 1.2 2.1 1.2H17m-5 3v-2.5m0-11V3"/>
@@ -287,7 +293,7 @@
                                 </div>
                                 <div class="feature-status status-development">🧠 Deep Learning</div>
                             </article>
-                            <article class="feature-card-iui enhanced" data-feature="ai-coaching" itemscope itemtype="https://schema.org/SoftwareApplication" data-aos="fade-up" data-aos-delay="300">
+                            <article class="feature-card-iui enhanced" data-feature="ai-coaching" itemscope itemtype="https://schema.org/SoftwareApplicationFeature" data-aos="fade-up" data-aos-delay="300">
                                 <div class="feature-card-icon">
                                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                         <path d="M12 14l9-5-9-5-9 5 9 5z"/>
@@ -307,13 +313,12 @@
                                 </div>
                                 <div class="feature-status status-concept">🎯 Adaptive AI</div>
                             </article>
-                            <article class="feature-card-iui enhanced" data-feature="predictive-analytics" itemscope itemtype="https://schema.org/SoftwareApplication" data-aos="fade-up" data-aos-delay="400">
+                            <article class="feature-card-iui enhanced" data-feature="predictive-analytics" itemscope itemtype="https://schema.org/SoftwareApplicationFeature" data-aos="fade-up" data-aos-delay="400">
                                 <div class="feature-card-icon">
                                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                         <path d="M3 3v18h18"/>
                                         <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
-                                        <circle cx="12" cy="12" r="1"/>
-                                        <circle cx="18" cy="8" r="1"/>
+                                        <circle cx="12" cy="12" r="1"/><circle cx="18" cy="8" r="1"/>
                                     </svg>
                                 </div>
                                 <h3 class="feature-card-title" itemprop="name">Прогнозна Аналітика</h3>
@@ -330,7 +335,7 @@
                             </article>
                         </div>
                         <div id="social-features-panel" class="features-grid-iui tab-content" role="tabpanel" aria-labelledby="tab-social-trigger" hidden>
-                             <article class="feature-card-iui enhanced" data-feature="team-matching" itemscope itemtype="https://schema.org/SoftwareApplication" data-aos="fade-up" data-aos-delay="200">
+                             <article class="feature-card-iui enhanced" data-feature="team-matching" itemscope itemtype="https://schema.org/SoftwareApplicationFeature" data-aos="fade-up" data-aos-delay="200">
                                 <div class="feature-card-icon">
                                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -351,7 +356,7 @@
                                 </div>
                                 <div class="feature-status status-planning">🤝 Smart Matching</div>
                             </article>
-                            <article class="feature-card-iui enhanced" data-feature="community-hub" itemscope itemtype="https://schema.org/SoftwareApplication" data-aos="fade-up" data-aos-delay="300">
+                            <article class="feature-card-iui enhanced" data-feature="community-hub" itemscope itemtype="https://schema.org/SoftwareApplicationFeature" data-aos="fade-up" data-aos-delay="300">
                                 <div class="feature-card-icon">
                                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
@@ -374,7 +379,7 @@
                             </article>
                         </div>
                         <div id="competitive-features-panel" class="features-grid-iui tab-content" role="tabpanel" aria-labelledby="tab-competitive-trigger" hidden>
-                            <article class="feature-card-iui enhanced" data-feature="auto-tournaments" itemscope itemtype="https://schema.org/SoftwareApplication" data-aos="fade-up" data-aos-delay="200">
+                            <article class="feature-card-iui enhanced" data-feature="auto-tournaments" itemscope itemtype="https://schema.org/SoftwareApplicationFeature" data-aos="fade-up" data-aos-delay="200">
                                 <div class="feature-card-icon">
                                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                         <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
@@ -403,37 +408,40 @@
             </div>
         </section>
 
-        <!-- Нова секція "Наші цілі" після "AI Можливості" -->
-        <section id="project-goals" class="project-goals-section section-padding" aria-labelledby="goals-title">
+        <!-- Нова секція "Наші цілі" -->
+        <section id="project-goals" class="project-goals-section section-padding" aria-labelledby="goals-main-title">
             <div class="container">
-                <h2 id="goals-title" class="section-title-iui text-gradient">Наші цілі</h2>
-                <div class="goals-grid">
-                    <div class="goal-item">
+                <header class="section-header" data-aos="fade-up">
+                    <h2 id="goals-main-title" class="section-title-iui text-gradient">Наші цілі</h2>
+                    <p class="section-subtitle">Ключові напрямки розвитку GGenius для спільноти Mobile Legends: Bang Bang.</p>
+                </header>
+                <div class="goals-grid" data-aos="fade-up" data-aos-delay="100">
+                    <div class="goal-item" data-aos="fade-up" data-aos-delay="200">
                         <div class="goal-icon">🧠</div>
                         <div class="goal-content">
                             <h4>AI-Аналітика</h4>
-                            <p>Глибокий аналіз матчів та стратегій</p>
+                            <p>Глибокий аналіз матчів та стратегій для кожного.</p>
                         </div>
                     </div>
-                    <div class="goal-item">
+                    <div class="goal-item" data-aos="fade-up" data-aos-delay="300">
                         <div class="goal-icon">🏆</div>
                         <div class="goal-content">
                             <h4>Турнірна система</h4>
-                            <p>Автоматизовані змагання для всіх рівнів</p>
+                            <p>Автоматизовані змагання для всіх рівнів гравців.</p>
                         </div>
                     </div>
-                    <div class="goal-item">
+                    <div class="goal-item" data-aos="fade-up" data-aos-delay="400">
                         <div class="goal-icon">👥</div>
                         <div class="goal-content">
                             <h4>Об'єднання спільноти</h4>
-                            <p>Єдина платформа для всіх гравців MLBB</p>
+                            <p>Єдина, сильна та дружня платформа для гравців MLBB.</p>
                         </div>
                     </div>
-                    <div class="goal-item">
+                    <div class="goal-item" data-aos="fade-up" data-aos-delay="500">
                         <div class="goal-icon">💪</div>
                         <div class="goal-content">
                             <h4>Здоровий lifestyle</h4>
-                            <p>Пропаганда збалансованого геймінгу</p>
+                            <p>Пропаганда збалансованого геймінгу та розвитку.</p>
                         </div>
                     </div>
                 </div>
@@ -542,19 +550,19 @@
                             </ul>
                         </div>
                         <div class="enhanced-project-stats" role="region" aria-label="Статистика проєкту GGenius">
-                            <div class="stat-item" data-aos="count-up">
+                            <div class="stat-item" data-aos="fade-up" data-aos-delay="100"> <!-- Замінено data-aos="count-up" -->
                                 <span class="stat-number" data-target="2025">2025</span>
                                 <span class="stat-label">Рік Революції</span>
                             </div>
-                            <div class="stat-item" data-aos="count-up">
+                            <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
                                 <span class="stat-number">∞</span>
                                 <span class="stat-label">Потенціал AI</span>
                             </div>
-                            <div class="stat-item" data-aos="count-up">
+                            <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
                                 <span class="stat-number" data-target="24">24/7</span>
                                 <span class="stat-label">Підтримка AI</span>
                             </div>
-                            <div class="stat-item" data-aos="count-up">
+                            <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
                                 <span class="stat-number" data-target="95">95%</span>
                                 <span class="stat-label">Точність Прогнозів</span>
                             </div>
@@ -628,20 +636,135 @@
                             долучайтеся до бета-тестування та отримуйте ексклюзивні оновлення.
                         </p>
                         <div class="contact-grid">
-                            <div class="contact-methods" role="list" aria-label="Способи зв'язку з командою GGenius">
-                                <a href="https://github.com/MLBB-BOSS/GGenius" class="contact-link github-link" aria-label="GitHub репозиторій GGenius" target="_blank" rel="noopener noreferrer" data-analytics-event="click" data-analytics-category="Contact" data-analytics-action="GitHub" data-analytics-label="GitHub Repo">
+                            <div class="contact-methods" role="list" aria-label="Способи зв'язку з командою GGenius" data-aos="fade-right" data-aos-delay="100">
+                                <a href="https://github.com/MLBB-BOSS/GGenius" class="contact-link github-link" aria-label="GitHub репозиторій GGenius" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_github_click">
                                     <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.509 11.509 0 0 1 3.003-.404c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.565 21.796 24 17.302 24 12c0-6.627-5.373-12-12-12z"/>
                                     </svg>
                                     <span class="link-content"><span class="link-title">GitHub Repository</span><span class="link-description">Відкритий код та розробка</span></span>
                                 </a>
-                                <button class="contact-link email-link" type="button" aria-label="Скопіювати email адресу mlbb.boss.dev@gmail.com" data-email="mlbb.boss.dev@gmail.com" onclick="copyEmail(this)" data-analytics-event="click" data-analytics-category="Contact" data-analytics-action="Email" data-analytics-label="Copy Email">
+                                <button class="contact-link email-link" type="button" aria-label="Скопіювати email адресу mlbb.boss.dev@gmail.com" data-email="mlbb.boss.dev@gmail.com" data-analytics-event="contact_email_copy">
                                     <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                                         <polyline points="22,6 12,13 2,6"/>
                                     </svg>
                                     <span class="link-content"><span class="link-title">Email Contact</span><span class="link-description">Прямий зв'язок з розробником</span></span>
                                 </button>
-                                <a href="https://t.me/mlbb_boss" class="contact-link telegram-link" aria-label="Telegram канал MLBB-BOSS" target="_blank" rel="noopener noreferrer" data-analytics-event="click" data-analytics-category="Contact" data-analytics-action="Telegram" data-analytics-label="Telegram Channel">
+                                <a href="https://t.me/mlbb_boss" class="contact-link telegram-link" aria-label="Telegram канал MLBB-BOSS" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_telegram_click">
                                     <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm5.001 7.761c-.284.947-.707 2.383-1.271 4.31-.562 1.927-1.003 3.385-1.484 4.41-.482 1.025-1.048 1.41-1.636 1.41-.588 0-1.39-.64-2.405-1.92-1.015-1.28-1.554-2.05-2.506-3.28-.952-1.23-1.936-2.59-2.84-3.94-.904-1.35-1.304-2.35-1.304-3.35 0-1 .34-1.85.94-2.45.6-.6 1.43-.85 2.39-.85.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9-1.45-.9-2.45 0-1 .3-1.85.9-2.45.6-.6 1.45-.9 2.41-.9.96 0 1.81.3 2.41.9.6.6.9 1.45.9 2.45 0 1-.3 1.85-.9 2.45-.6.6-1.45.9-2.41.9-.96 0-1.81-.3-2.41-.9-.6-.6-.9
+                                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm5.001 7.761c-.284.947-.707 2.383-1.271 4.31-.562 1.927-1.003 3.385-1.003 3.385s-.021.112-.07.159c-.244.239-.6.209-.725.184-.13-.026-1.082-.71-1.839-1.276-.762-.562-1.385-.985-1.385-.985s-.115-.083-.26-.083c-.131 0-.26.051-.26.051s-1.016.664-2.987 1.955c-.239.159-.447.239-.626.239-.203 0-.385-.051-.538-.159-.16-.108-.266-.239-.324-.387s-.045-.317-.006-.508c.039-.191.145-.508.324-.953.209-.508.493-1.225.86-2.121.366-.896.737-1.844.737-1.844s.07-.159.039-.26c-.03-.108-.115-.147-.244-.121-.131.026-2.514 1.645-3.044 2.006-.239.159-.496.239-.781.239-.391 0-.71-.108-.959-.324-.216-.191-.324-.434-.324-.725s.076-.568.233-.83.366-.508.626-.737l11.134-4.542c.16-.065.305-.097.434-.097s.233.032.311.097c.084.065.125.13.125.197 0 .065-.024.153-.07.266z"/>
+                                    </svg>
+                                    <span class="link-content"><span class="link-title">Telegram</span><span class="link-description">Швидкі оновлення та новини</span></span>
+                                </a>
+                            </div>
+                            <div class="newsletter-section" data-aos="fade-left" data-aos-delay="100">
+                                <div class="newsletter-signup enhanced">
+                                    <h3 class="newsletter-title">🚀 Beta Access & Новини</h3>
+                                    <p class="newsletter-description">
+                                        Отримайте ранній доступ до GGenius AI та будьте серед перших, 
+                                        хто випробує революційні функції!
+                                    </p>
+                                    <form class="newsletter-form enhanced" id="newsletterForm" aria-label="Підписка на бета-доступ та оновлення" data-analytics-form="newsletter_signup">
+                                        <div class="form-group">
+                                            <label for="newsletter-email" class="visually-hidden">Ваша Email адреса</label>
+                                            <input type="email" id="newsletter-email" name="email" placeholder="your.email@example.com" required aria-describedby="email-error-message" autocomplete="email" aria-invalid="false">
+                                            <div id="email-error-message" class="error-message" role="alert" aria-live="polite"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="user-role" class="form-label">Ваша роль в MLBB:</label>
+                                            <select id="user-role" name="role" class="form-select">
+                                                <option value="">Оберіть роль...</option>
+                                                <option value="casual_gamer">Звичайний гравець</option>
+                                                <option value="competitive_player">Конкурентний гравець</option>
+                                                <option value="pro_player">Професійний гравець</option>
+                                                <option value="coach_analyst">Тренер/Аналітик</option>
+                                                <option value="tournament_organizer">Організатор турнірів</option>
+                                                <option value="content_creator">Контент-кріейтор</option>
+                                                <option value="other">Інше</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group checkbox-group">
+                                            <input type="checkbox" id="beta-access-checkbox" name="betaAccess" class="form-checkbox" value="yes">
+                                            <label for="beta-access-checkbox" class="checkbox-label">
+                                                Хочу отримати ранній доступ до бета-версії
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="cta-button newsletter-submit" data-loading-text="Підписуємо..." data-success-text="Підписано! ✅" data-error-text="Помилка! ❌">
+                                            <span class="button-text">Приєднатися до революції</span>
+                                            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                                <path d="M22 2L11 13"/><polygon points="22,2 15,22 11,13 2,9"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                    <div class="privacy-notice">
+                                        <p>🔒 Ми поважаємо вашу приватність. Ваші дані використовуються виключно для надсилання оновлень про GGenius.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-stats" role="region" aria-label="Статистика спільноти GGenius" data-aos="fade-up" data-aos-delay="200">
+                            <div class="stat-item">
+                                <span class="stat-number" data-target="0">0</span>
+                                <span class="stat-label">Beta Testers</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">24/7</span>
+                                <span class="stat-label">Розробка & AI</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-target="100">100%</span>
+                                <span class="stat-label">Відданість Проєкту</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Підвал сайту -->
+    <footer id="site-footer" class="site-footer-main section-padding" role="contentinfo" itemscope itemtype="https://schema.org/WPFooter">
+        <div class="container footer-content">
+            <a href="#about-project" class="footer-logo-link" aria-label="GGenius AI - про проєкт">
+                <span class="footer-logo-text">GGenius</span>
+            </a>
+            <nav class="footer-nav" aria-label="Додаткова навігація у підвалі">
+                <ul class="footer-links-list">
+                    <li><a href="#privacy-policy" class="footer-nav-link">Політика Приватності</a></li>
+                    <li><a href="#terms-of-service" class="footer-nav-link">Умови Використання</a></li>
+                    <li><a href="https://github.com/MLBB-BOSS/GGenius/issues" class="footer-nav-link" target="_blank" rel="noopener noreferrer">Підтримка та Issues</a></li>
+                </ul>
+            </nav>
+            <div class="footer-social-links" aria-label="Соціальні мережі GGenius">
+                <a href="https://github.com/MLBB-BOSS/GGenius" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GGenius on GitHub" itemprop="sameAs">
+                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.565 21.796 24 17.302 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <a href="https://t.me/mlbb_boss" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GGenius on Telegram" itemprop="sameAs">
+                     <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm5.001 7.761c-.284.947-.707 2.383-1.271 4.31-.562 1.927-1.003 3.385-1.003 3.385s-.021.112-.07.159c-.244.239-.6.209-.725.184-.13-.026-1.082-.71-1.839-1.276-.762-.562-1.385-.985-1.385-.985s-.115-.083-.26-.083c-.131 0-.26.051-.26.051s-1.016.664-2.987 1.955c-.239.159-.447.239-.626.239-.203 0-.385-.051-.538-.159-.16-.108-.266-.239-.324-.387s-.045-.317-.006-.508c.039-.191.145-.508.324-.953.209-.508.493-1.225.86-2.121.366-.896.737-1.844.737-1.844s.07-.159.039-.26c-.03-.108-.115-.147-.244-.121-.131.026-2.514 1.645-3.044 2.006-.239.159-.496.239-.781.239-.391 0-.71-.108-.959-.324-.216-.191-.324-.434-.324-.725s.076-.568.233-.83.366-.508.626-.737l11.134-4.542c.16-.065.305-.097.434-.097s.233.032.311.097c.084.065.125.13.125.197 0 .065-.024.153-.07.266z"/></svg>
+                </a>
+            </div>
+            <p class="footer-copyright">&copy; <span id="currentYear">2025</span> GGenius AI by MLBB-BOSS. Усі права захищено. <br> AI Revolution in MLBB eSports.</p>
+        </footer>
+    
+    <script src="https://unpkg.com/aos@next/dist/aos.js" defer></script>
+    <script src="/static/js/enhancements.js" defer></script>
+    <!-- 
+        Не забудьте додати ініціалізацію AOS у ваш /static/js/enhancements.js:
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,        // тривалість анімації в мс
+                    once: true,           // анімація відтворюється лише один раз
+                    offset: 120,          // відступ від нижньої частини вікна перед запуском анімації (в пікселях)
+                    easing: 'ease-in-out',// функція плавності анімації
+                    // delay: 0,          // затримка перед анімацією (в мс) - можна встановлювати індивідуально через data-aos-delay
+                    // anchorPlacement: 'top-bottom', // відносно чого визначається offset
+                });
+            }
+
+            // ... ваш інший JavaScript код для меню, табів, акордеонів, лічильників, форм і т.д. ...
+        });
+    -->
+</body>
+</html>
