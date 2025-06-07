@@ -144,7 +144,6 @@ html.theme-dark {
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
-    paddingme: 0;
     padding: 0;
     -webkit-tap-highlight-color: transparent;
 }
@@ -668,7 +667,7 @@ body.menu-open {
     background: rgba(var(--bg-3-rgb), 0.5);
     padding: var(--s-l);
     border-radius: var(--r-m);
-    border-left: 3px solid var(--purple);
+    border-left: 3px solid var(--bugs);
 }
 
 .vision-content p {
