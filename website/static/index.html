@@ -1,415 +1,282 @@
 <!DOCTYPE html>
-<html lang="uk" data-theme="dark">
+<html lang="uk" class="theme-dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="GGenius - революційна AI-платформа для кіберспорту. Аналітика матчів, турніри, тренування.">
-    <meta name="keywords" content="кіберспорт, eSports, AI аналітика, турніри, штучний інтелект, тренування, ігри">
-    <meta name="author" content="GGenius Team">
-    <meta name="robots" content="index, follow, max-image-preview:large">
-    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-content="meta.title">GGenius - AI Революція в Mobile Legends</title>
+    <meta name="description" data-content="meta.description" content="Штучний інтелект для аналізу та покращення гри в Mobile Legends: Bang Bang">
     
-    <meta http-equiv="Content-Security-Policy" 
-          content="default-src 'self'; 
-                   script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
-                   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
-                   font-src 'self' https://fonts.gstatic.com;
-                   img-src 'self' data: https://ggenius.gg https://user-images.githubusercontent.com;
-                   connect-src 'self' https://api.ggenius.gg;">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    
-    <meta property="og:title" content="GGenius - Революція в Кіберспорті з AI">
-    <meta property="og:description" content="Штучний інтелект для кіберспорту. Професійна аналітика, турніри та тренування.">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="GGenius">
-    <meta property="og:url" content="https://ggenius.gg">
-    <meta property="og:image" content="https://ggenius.gg/static/images/og-image.webp">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="GGenius - AI платформа для кіберспорту">
-    <meta property="og:locale" content="uk_UA">
-    
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="GGenius - AI Революція в Кіберспорті">
-    <meta name="twitter:description" content="Професійна AI-платформа для кіберспорту з аналітикою, турнірами та тренуваннями.">
-    <meta name="twitter:image" content="https://ggenius.gg/static/images/twitter-card.webp">
-    <meta name="twitter:image:alt" content="GGenius AI платформа для кіберспорту">
-    <meta name="twitter:creator" content="@GGeniusOfficial">
-    
-    <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#0a0c0f" media="(prefers-color-scheme: dark)">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="GGenius">
-    <meta name="application-name" content="GGenius">
-    <meta name="msapplication-TileColor" content="#007bff">
-    <meta name="msapplication-TileImage" content="/static/images/mstile-144x144.png">
-    
-    <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png" width="32" height="32">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png" width="16" height="16">
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png" width="180" height="180">
-    <link rel="manifest" href="/static/manifest.json">
-    
-    <link rel="preload" href="/static/css/style.css" as="style" importance="high">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" as="style" crossorigin>
-    <link rel="preload" href="/static/js/enhancements.js" as="script">
-    <link rel="preload" href="https://unpkg.com/aos@next/dist/aos.css" as="style">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://api.ggenius.gg">
-    
-    <title>GGenius - AI Революція в Кіберспорті 🎮🤖</title>
+    <!-- Styles -->
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="/static/css/content-loading.css">
     
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": ["WebSite", "SoftwareApplication"],
-        "name": "GGenius",
-        "description": "Революційна AI-платформа для кіберспорту з аналітикою матчів, турнірами та персоналізованим тренуванням.",
-        "url": "https://ggenius.gg",
-        "applicationCategory": "GameApplication",
-        "operatingSystem": "Web",
-        "author": {
-            "@type": "Organization",
-            "name": "GGenius Team",
-            "url": "https://github.com/GGeniusTeam"
-        },
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock"
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "5.0",
-            "ratingCount": "1",
-            "bestRating": "5",
-            "worstRating": "1"
-        },
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://ggenius.gg/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        },
-        "sameAs": [
-            "https://github.com/GGeniusTeam/GGenius"
-        ]
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "VideoGame",
-        "name": "Esports Analytics by GGenius",
-        "description": "AI-powered analytics and training platform for esports",
-        "genre": ["Strategy", "Esports"],
-        "gamePlatform": ["Mobile", "Web"],
-        "applicationCategory": "GameApplication",
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "5.0",
-            "reviewCount": "1"
-        }
-    }
-    </script>
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/static/data/content-uk.json" as="fetch" crossorigin>
+    <link rel="preload" href="/static/data/content-en.json" as="fetch" crossorigin>
 </head>
-<body itemscope itemtype="https://schema.org/WebPage">
-    <nav class="skip-links" aria-label="Швидка навігація">
-        <a href="#main-content" class="skip-link">Перейти до основного контенту</a>
-        <a href="#main-navigation" class="skip-link">Перейти до навігації</a>
-        <a href="#site-footer" class="skip-link">Перейти до підвалу</a>
-    </nav>
+<body>
+    <!-- Skip Links for Accessibility -->
+    <ul class="skip-links">
+        <li><a href="#main-content" class="skip-link">Перейти до основного контенту</a></li>
+        <li><a href="#main-navigation" class="skip-link">Перейти до навігації</a></li>
+    </ul>
 
-    <header class="site-header" role="banner" itemscope itemtype="https://schema.org/WPHeader">
-        <div class="container header-container">
-            <a href="#about-project" class="header-logo-link" aria-label="GGenius AI - повернутися на головну сторінку" itemprop="url">
-                <span class="header-logo-text" itemprop="name">GGenius</span>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen" aria-hidden="false">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <span data-content="header.logo" class="fallback-text">GGenius</span>
+            </div>
+            <div class="loading-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div id="progressBar" class="loading-progress"></div>
+            </div>
+            <p id="loadingText" class="loading-text" data-content="loading.initializing">Ініціалізація GGenius AI...</p>
+        </div>
+    </div>
+
+    <!-- Site Header -->
+    <header class="site-header" role="banner">
+        <div class="header-container container">
+            <a href="#main-content" class="header-logo-link">
+                <span class="header-logo-text" data-content="header.logo">
+                    <span class="fallback-text">GGenius</span>
+                </span>
             </a>
-            <nav id="main-navigation" class="main-navigation" role="navigation" aria-label="Головна навігація сайту" itemscope itemtype="https://schema.org/SiteNavigationElement">
-                <button class="mobile-menu-toggle" 
-                        id="mobileMenuToggle"
-                        aria-expanded="false" 
-                        aria-controls="main-menu-list" 
-                        aria-label="Відкрити/закрити меню навігації"
-                        type="button">
-                    <span class="hamburger-line line-1" aria-hidden="true"></span>
-                    <span class="hamburger-line line-2" aria-hidden="true"></span>
-                    <span class="hamburger-line line-3" aria-hidden="true"></span>
-                    <span class="visually-hidden">Меню</span>
+
+            <nav class="main-navigation" id="main-navigation" role="navigation" aria-label="Основна навігація">
+                <button 
+                    id="mobileMenuToggle" 
+                    class="mobile-menu-toggle" 
+                    aria-expanded="false" 
+                    aria-controls="main-menu-list"
+                    aria-label="Відкрити меню навігації"
+                >
+                    <span class="hamburger-line line-1"></span>
+                    <span class="hamburger-line line-2"></span>
+                    <span class="hamburger-line line-3"></span>
                 </button>
+
                 <ul id="main-menu-list" class="nav-menu" role="menubar">
-                    <li role="none"><a href="#about-project" class="nav-link active" role="menuitem" aria-current="page" itemprop="url" data-i18n-key="navAbout"></a></li>
-                    <li role="none"><a href="#roadmap" class="nav-link" role="menuitem" itemprop="url" data-i18n-key="navRoadmap"></a></li>
+                    <li role="none">
+                        <a href="#hero" class="nav-link active" role="menuitem" data-content="header.navigation.home">
+                            <span class="fallback-text">Головна</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#features" class="nav-link" role="menuitem" data-content="header.navigation.features">
+                            <span class="fallback-text">Функції</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#about" class="nav-link" role="menuitem" data-content="header.navigation.about">
+                            <span class="fallback-text">Про нас</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#contact" class="nav-link" role="menuitem" data-content="header.navigation.contact">
+                            <span class="fallback-text">Контакти</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main id="main-content" role="main" itemprop="mainContentOfPage">
-        <section id="about-project" class="project-intro-hero" aria-labelledby="project-intro-title-header" itemscope itemtype="https://schema.org/AboutPage">
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        <!-- Hero Section -->
+        <section id="hero" class="project-intro-hero section-padding" aria-labelledby="hero-title">
             <div class="container">
-                <div class="project-intro-card" data-aos="fade-up"> 
+                <div class="project-intro-card">
+                    <!-- Status Badge -->
                     <div class="project-status-badge">
                         <span class="status-icon">🚀</span>
-                        <span data-i18n-key="revolutionaryProjectBadge"></span>
+                        <span data-content="hero.status" class="fallback-text">В розробці</span>
                     </div>
-                    <div class="project-intro-content">
-                        <div class="project-brand">
-                            <h1 id="project-intro-title-header" class="project-title" itemprop="name" data-i18n-key="projectIntroTitle"></h1>
-                            <div class="project-subtitle" data-i18n-key="projectIntroSubtitle"></div>
-                        </div>
-                        <div class="project-description" itemprop="description">
-                            <p class="intro-paragraph" data-i18n-key="projectIntroParagraph1"></p>
-                            <p class="mission-paragraph" data-i18n-key="projectIntroParagraph2"></p>
-                        </div>
-                        <div class="project-cta">
-                            <button class="cta-button secondary-cta" onclick="handleJoinCommunityClick()">
-                                <span data-i18n-key="projectCTAJoinCommunity"></span>
-                                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                                    <circle cx="9" cy="7" r="4"/>
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                                </svg>
-                            </button>
+
+                    <!-- Project Brand -->
+                    <div class="project-brand">
+                        <h1 id="hero-title" class="project-title" data-content="hero.title">
+                            <span class="fallback-text">GGenius AI</span>
+                        </h1>
+                        <p class="project-subtitle">
+                            <span class="gradient-text" data-content="hero.subtitle">
+                                <span class="fallback-text">Революція штучного інтелекту в Mobile Legends</span>
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="project-description">
+                        <p class="intro-paragraph" data-content="hero.description.intro">
+                            <span class="fallback-text">
+                                Вітаємо у майбутньому кіберспорту! GGenius - це передова платформа штучного інтелекту, створена спеціально для Mobile Legends: Bang Bang.
+                            </span>
+                        </p>
+                        <p class="mission-paragraph" data-content="hero.description.mission">
+                            <span class="fallback-text">
+                                Наша місія - революціонізувати спосіб, яким гравці аналізують, навчаються та покращують свою гру за допомогою передових AI технологій.
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- Goals -->
+                    <div class="project-goals">
+                        <h2 class="goals-title" data-content="hero.goals.title">
+                            <span class="fallback-text">Наші цілі</span>
+                        </h2>
+                        <div class="goals-grid">
+                            <div class="goal-item">
+                                <div class="goal-icon">🎯</div>
+                                <div class="goal-content">
+                                    <h4 data-content="hero.goals.items.0.title">
+                                        <span class="fallback-text">Точний аналіз</span>
+                                    </h4>
+                                    <p data-content="hero.goals.items.0.description">
+                                        <span class="fallback-text">Глибокий аналіз ігрових моментів та стратегій</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="goal-item">
+                                <div class="goal-icon">📈</div>
+                                <div class="goal-content">
+                                    <h4 data-content="hero.goals.items.1.title">
+                                        <span class="fallback-text">Покращення навичок</span>
+                                    </h4>
+                                    <p data-content="hero.goals.items.1.description">
+                                        <span class="fallback-text">Персоналізовані рекомендації для росту</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="goal-item">
+                                <div class="goal-icon">🤖</div>
+                                <div class="goal-content">
+                                    <h4 data-content="hero.goals.items.2.title">
+                                        <span class="fallback-text">AI асистент</span>
+                                    </h4>
+                                    <p data-content="hero.goals.items.2.description">
+                                        <span class="fallback-text">Розумний помічник для кожного гравця</span>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="project-decorations" aria-hidden="true">
-                        <div class="decoration-orb orb-1"></div>
-                        <div class="decoration-orb orb-2"></div>
-                        <div class="decoration-line line-1"></div>
-                        <div class="decoration-line line-2"></div>
+
+                    <!-- CTA Buttons -->
+                    <div class="project-cta">
+                        <button type="button" class="cta-button primary-cta" onclick="app.showDemoModal()">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            <span data-content="hero.cta.primary" class="fallback-text">Спробувати демо</span>
+                        </button>
+                        <a href="#features" class="cta-button secondary-cta">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <span data-content="hero.cta.secondary" class="fallback-text">Дізнатися більше</span>
+                        </a>
                     </div>
+                </div>
+
+                <!-- Decorative Elements -->
+                <div class="project-decorations" aria-hidden="true">
+                    <div class="decoration-orb orb-1"></div>
+                    <div class="decoration-orb orb-2"></div>
+                    <div class="decoration-line line-1"></div>
+                    <div class="decoration-line line-2"></div>
                 </div>
             </div>
         </section>
 
-        <section id="roadmap" class="roadmap-section-v2 section-padding" aria-labelledby="roadmap-main-title-header">
+        <!-- Features Section -->
+        <section id="features" class="features-section-iui enhanced section-padding" aria-labelledby="features-title">
             <div class="container">
-                <header class="section-header" data-aos="fade-up">
-                    <h2 id="roadmap-main-title-header" class="section-title-iui text-gradient" data-i18n-key="roadmapMainTitle"></h2>
-                </header>
-                <div class="roadmap-content-grid" role="list" aria-label="План розвитку проєкту GGenius" data-aos="fade-up" data-aos-delay="100">
-                    <article class="roadmap-quarter-block" role="listitem" data-phase="q1-2025" data-aos="fade-up" data-aos-delay="200">
-                        <div class="roadmap-card-header">
-                            <span class="quarter-date" data-i18n-key="roadmapQ12025Date"></span>
-                            <h3 class="quarter-main-title" data-i18n-key="roadmapQ12025Title"></h3>
-                        </div>
-                        <div class="roadmap-card-body">
-                            <p class="quarter-description" data-i18n-key="roadmapQ12025Desc"></p>
-                            <ul class="quarter-feature-list">
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">🎯</span><span data-i18n-key="roadmapQ12025Feature1"></span></li>
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">👤</span><span data-i18n-key="roadmapQ12025Feature2"></span></li>
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">📊</span><span data-i18n-key="roadmapQ12025Feature3"></span></li>
-                            </ul>
-                        </div>
-                    </article>
-                    <article class="roadmap-quarter-block" role="listitem" data-phase="q2-2025" data-aos="fade-up" data-aos-delay="300">
-                        <div class="roadmap-card-header">
-                            <span class="quarter-date" data-i18n-key="roadmapQ22025Date"></span>
-                            <h3 class="quarter-main-title" data-i18n-key="roadmapQ22025Title"></h3>
-                        </div>
-                        <div class="roadmap-card-body">
-                            <p class="quarter-description" data-i18n-key="roadmapQ22025Desc"></p>
-                            <ul class="quarter-feature-list">
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">🧠</span><span data-i18n-key="roadmapQ22025Feature1"></span></li>
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">🤖</span><span data-i18n-key="roadmapQ22025Feature2"></span></li>
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">👁️</span><span data-i18n-key="roadmapQ22025Feature3"></span></li>
-                            </ul>
-                        </div>
-                    </article>
-                    <article class="roadmap-quarter-block" role="listitem" data-phase="q3-2025" data-aos="fade-up" data-aos-delay="400">
-                        <div class="roadmap-card-header">
-                            <span class="quarter-date" data-i18n-key="roadmapQ32025Date"></span>
-                            <h3 class="quarter-main-title" data-i18n-key="roadmapQ32025Title"></h3>
-                        </div>
-                        <div class="roadmap-card-body">
-                            <p class="quarter-description" data-i18n-key="roadmapQ32025Desc"></p>
-                            <ul class="quarter-feature-list">
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">👥</span><span data-i18n-key="roadmapQ32025Feature1"></span></li>
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">🏆</span><span data-i18n-key="roadmapQ32025Feature2"></span></li>
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">🤝</span><span data-i18n-key="roadmapQ32025Feature3"></span></li>
-                            </ul>
-                        </div>
-                    </article>
-                    <article class="roadmap-quarter-block" role="listitem" data-phase="q4-2025" data-aos="fade-up" data-aos-delay="500">
-                        <div class="roadmap-card-header">
-                            <span class="quarter-date" data-i18n-key="roadmapQ42025Date"></span>
-                            <h3 class="quarter-main-title" data-i18n-key="roadmapQ42025Title"></h3>
-                        </div>
-                        <div class="roadmap-card-body">
-                            <p class="quarter-description" data-i18n-key="roadmapQ42025Desc"></p>
-                            <ul class="quarter-feature-list">
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">🌐</span><span data-i18n-key="roadmapQ42025Feature1"></span></li>
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">💰</span><span data-i18n-key="roadmapQ42025Feature2"></span></li>
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">📈</span><span data-i18n-key="roadmapQ42025Feature3"></span></li>
-                            </ul>
-                        </div>
-                    </article>
-                    <article class="roadmap-quarter-block" role="listitem" data-phase="q1-2026" data-aos="fade-up" data-aos-delay="600">
-                        <div class="roadmap-card-header">
-                            <span class="quarter-date" data-i18n-key="roadmapQ12026Date"></span>
-                            <h3 class="quarter-main-title" data-i18n-key="roadmapQ12026Title"></h3>
-                        </div>
-                        <div class="roadmap-card-body">
-                            <p class="quarter-description" data-i18n-key="roadmapQ12026Desc"></p>
-                            <ul class="quarter-feature-list">
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">🌍</span><span data-i18n-key="roadmapQ12026Feature1"></span></li>
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">🤝</span><span data-i18n-key="roadmapQ12026Feature2"></span></li>
-                                <li class="quarter-feature-item"><span class="feature-icon" aria-hidden="true">📱</span><span data-i18n-key="roadmapQ12026Feature3"></span></li>
-                            </ul>
-                        </div>
-                    </article>
+                <div class="section-header">
+                    <h2 id="features-title" class="section-title-iui text-gradient" data-content="features.title">
+                        <span class="fallback-text">Можливості AI</span>
+                    </h2>
+                    <p class="section-subtitle" data-content="features.subtitle">
+                        <span class="fallback-text">Передові технології для вашого успіху</span>
+                    </p>
+                </div>
+
+                <!-- Feature Categories Tabs -->
+                <div class="feature-categories tabs-component" role="tablist">
+                    <button 
+                        role="tab" 
+                        class="category-tab" 
+                        aria-selected="true" 
+                        aria-controls="analysis-panel"
+                        data-content="features.categories.analysis"
+                    >
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                        <span class="fallback-text">Аналіз</span>
+                    </button>
+                    <button 
+                        role="tab" 
+                        class="category-tab" 
+                        aria-selected="false" 
+                        aria-controls="coaching-panel"
+                        data-content="features.categories.coaching"
+                    >
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                        </svg>
+                        <span class="fallback-text">Навчання</span>
+                    </button>
+                    <button 
+                        role="tab" 
+                        class="category-tab" 
+                        aria-selected="false" 
+                        aria-controls="prediction-panel"
+                        data-content="features.categories.prediction"
+                    >
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <span class="fallback-text">Прогнози</span>
+                    </button>
+                </div>
+
+                <!-- Feature Panels -->
+                <div id="analysis-panel" class="features-grid-iui tab-content active" role="tabpanel">
+                    <div class="feature-card-iui">
+                        <div class="feature-icon">📊</div>
+                        <h3 data-content="features.items.analysis.0.title">
+                            <span class="fallback-text">Аналіз матчів</span>
+                        </h3>
+                        <p data-content="features.items.analysis.0.description">
+                            <span class="fallback-text">Детальний розбір кожного матчу з AI рекомендаціями</span>
+                        </p>
+                    </div>
+                    <!-- Більше карток... -->
+                </div>
+
+                <div id="coaching-panel" class="features-grid-iui tab-content" role="tabpanel" hidden>
+                    <!-- Контент для навчання -->
+                </div>
+
+                <div id="prediction-panel" class="features-grid-iui tab-content" role="tabpanel" hidden>
+                    <!-- Контент для прогнозів -->
                 </div>
             </div>
         </section>
     </main>
 
-    <footer id="site-footer" class="site-footer" role="contentinfo" itemscope itemtype="https://schema.org/WPFooter">
-        <div class="container footer-container">
-            <div class="footer-top-row">
-                <div class="footer-brand">
-                    <span class="footer-logo-text">GGenius AI</span>
-                    <p class="footer-tagline" data-i18n-key="footerTagline"></p>
-                </div>
-                <div class="footer-social-links" role="navigation" aria-label="Соціальні мережі GGenius">
-                    <a href="https://github.com/GGeniusTeam" target="_blank" rel="noopener noreferrer" aria-label="GGenius на GitHub">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.033-1.614-4.033-1.614-.547-1.381-1.335-1.75-1.335-1.75-1.088-.741.083-.726.083-.726 1.203.083 1.835 1.23 1.835 1.23 1.07 1.828 2.805 1.301 3.49.995.109-.772.419-1.3.763-1.601-2.665-.3-5.468-1.331-5.468-5.923 0-1.309.469-2.379 1.236-3.218-.124-.302-.536-1.522.116-3.173 0 0 1.007-.321 3.3 1.228.957-.265 1.983-.398 3.003-.402 1.02.004 2.047.137 3.006.402 2.291-1.55 3.297-1.228 3.297-1.228.653 1.651.24 2.871.118 3.173.77.839 1.235 1.909 1.235 3.218 0 4.592-2.809 5.623-5.479 5.922.43.371.823 1.101.823 2.219v3.29c0 .318.191.692.8.575C20.562 21.796 24 17.301 24 12.001c0-6.627-5.373-12-12-12z"/></svg>
-                    </a>
-                    <a href="https://t.me/GGeniusOfficial" target="_blank" rel="noopener noreferrer" aria-label="GGenius у Telegram">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0011.944 0zm5.001 7.761c-.284.947-.707 2.383-1.271 4.31-.562 1.927-1.003 3.385-1.12 3.712-.119.327-.238.654-.357.981-.119.327-.298.593-.537.778-.238.185-.537.278-.895.278-.537 0-1.014-.148-1.432-.445-.418-.297-.656-.593-.716-.89-.06-.297.06-.654.357-1.072.298-.418.716-.956 1.255-1.615l1.966-2.447c.06-.06.09-.12.09-.18s-.03-.12-.09-.18c-.06-.06-.12-.09-.18-.09s-.12.03-.18.09l-3.04 2.508c-.954.778-1.67 1.298-2.147 1.56-.477.262-.954.393-1.432.393-.716 0-1.255-.241-1.615-.723-.357-.482-.477-1.026-.357-1.631.119-.605.477-1.489 1.073-2.651L6.11 5.917c.119-.357.239-.654.358-.89.119-.236.238-.415.357-.534.119-.119.238-.178.357-.178s.179.06.239.178l10.138 5.721c.238.119.357.297.357.535a.746.746 0 0 1-.119.416z"/></svg>
-                    </a>
-                </div>
-            </div>
-            <div class="footer-bottom-row">
-                <p class="copyright-text">
-                    &copy; <span id="currentYear"></span> <span data-i18n-key="footerCopyright"></span>
-                </p>
-                <div class="theme-switcher-footer">
-                    <button id="themeToggleFooter" class="theme-toggle-button" aria-label="Переключити тему оформлення">
-                        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l-1.42-1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l-1.42 1.42"/></svg>
-                        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-                    </button>
-                </div>
-            </div>
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <p data-content="footer.copyright">
+                <span class="fallback-text">© 2024 GGenius. Всі права захищені.</span>
+            </p>
         </div>
     </footer>
 
-    <script src="/static/js/main.js" defer></script>
-    <script src="/static/js/enhancements.js" defer></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        /**
-         * Завантажує та застосовує переклади до елементів сторінки.
-         * @async
-         * @param {string} [lang='uk'] - Код мови (наприклад, 'uk'). За замовчуванням 'uk'.
-         * @returns {Promise<void>}
-         */
-        async function loadTranslations(lang = 'uk') {
-            console.log(`[i18n] Attempting to load translations for: ${lang}`);
-            try {
-                const response = await fetch(`lang/${lang}.json?v=${new Date().getTime()}`); // Кеш-бастер
-                console.log(`[i18n] Fetch response status for ${lang}.json: ${response.status}`);
-
-                if (!response.ok) {
-                    console.error(`[i18n] HTTP error! Status: ${response.status} for ${lang}.json. URL: ${response.url}`);
-                    document.querySelectorAll('[data-i18n-key]').forEach(el => {
-                        if (!el.innerHTML || el.innerHTML.trim() === '' || el.innerHTML.includes('(Ключ не знайдено)')) {
-                            el.innerHTML = `${el.dataset.i18nKey} (Невдале завантаження)`;
-                        }
-                    });
-                    return;
-                }
-                
-                const translations = await response.json();
-                console.log('[i18n] Translations loaded and parsed successfully:', translations);
-
-                document.querySelectorAll('[data-i18n-key]').forEach(el => {
-                    const key = el.dataset.i18nKey;
-                    // console.log(`[i18n] Processing element with key: '${key}'`, el); // Можна розкоментувати для детального логування кожного елемента
-
-                    if (translations[key] !== undefined) {
-                        const translationValue = translations[key];
-                        console.log(`[i18n] Value for key '${key}':`, JSON.stringify(translationValue)); // Логуємо точне значення з JSON
-
-                        if (typeof translationValue === 'string' && translationValue.trim() === '' && el.dataset.i18nAllowEmpty !== 'true') {
-                            console.warn(`[i18n] Key '${key}' has an empty string value in ${lang}.json. Setting key as text.`);
-                            el.innerHTML = `${key} (Порожнє значення)`;
-                        } else {
-                            el.innerHTML = translationValue; // Встановлюємо HTML
-                            // console.log(`[i18n] Element innerHTML for key '${key}' AFTER set:`, el.innerHTML); // Можна розкоментувати
-                        }
-                        
-                        // Додаткова перевірка видимості після встановлення innerHTML
-                        const styles = window.getComputedStyle(el);
-                        const textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '');
-                        const hasVisibleText = textNode && textNode.textContent.trim().length > 0;
-
-                        if (styles.display === 'none' || styles.visibility === 'hidden' || parseFloat(styles.opacity) === 0 || parseFloat(styles.fontSize) === 0) {
-                             console.warn(`[i18n] Element for key '${key}' might be styled to be invisible. Display: ${styles.display}, Visibility: ${styles.visibility}, Opacity: ${styles.opacity}, Font-Size: ${styles.fontSize}`);
-                        } else if (el.innerHTML.includes('>') && !hasVisibleText && el.textContent.trim().length > 0 && el.textContent.trim().length < 5) { // Якщо є HTML, але немає текстових вузлів, і є лише короткий контент (ймовірно, емодзі)
-                            console.warn(`[i18n] Element for key '${key}' contains HTML and emojis, but textual part might not be rendering. el.textContent: '${el.textContent.trim()}'`);
-                        }
-
-                    } else {
-                        console.warn(`[i18n] Translation key not found: '${key}' in ${lang}.json.`);
-                        if (!el.innerHTML || el.innerHTML.trim() === '') { 
-                           el.innerHTML = `${key} (Ключ не знайдено)`;
-                        }
-                    }
-                });
-                console.log('[i18n] All keys processed.');
-            } catch (error) {
-                // Перевіряємо, чи помилка не через відповідь, що не є JSON
-                if (error instanceof SyntaxError && error.message.includes("JSON.parse")) {
-                     console.error(`[i18n] Failed to parse JSON from lang/${lang}.json. The server might have returned non-JSON content (e.g., HTML error page). Check Network tab.`, error);
-                } else {
-                    console.error('[i18n] Critical error in loadTranslations:', error);
-                }
-                document.querySelectorAll('[data-i18n-key]').forEach(el => {
-                     if (!el.innerHTML || el.innerHTML.trim() === '' || el.innerHTML.includes('(Ключ не знайдено)')) {
-                        el.innerHTML = `${el.dataset.i18nKey} (Помилка скрипта)`;
-                    }
-                });
-            }
-        }
-        
-        function handleJoinCommunityClick() {
-            console.log('Кнопка "Приєднатися до спільноти" натиснута.');
-            alert('Дякуємо за інтерес! Деталі спільноти будуть доступні незабаром.');
-            // Наприклад: window.open('https://t.me/YourTelegramGroup', '_blank');
-        }
-        
-        function scrollToSection(selector) {
-            const section = document.querySelector(selector);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                 console.warn('Секцію для прокрутки не знайдено:', selector);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            AOS.init({
-                duration: 800, 
-                once: true,    
-                offset: 50,    
-            });
-            loadTranslations('uk'); 
-
-            const currentYearSpan = document.getElementById('currentYear');
-            if (currentYearSpan) {
-                currentYearSpan.textContent = new Date().getFullYear();
-            }
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="/static/js/content-manager.js"></script>
+    <script src="/static/js/enhancements-updated.js"></script>
 </body>
 </html>
