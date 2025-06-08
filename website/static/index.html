@@ -159,7 +159,7 @@
                 <ul id="main-menu-list" class="nav-menu" role="menubar">
                     <li role="none"><a href="#about-project" class="nav-link active" role="menuitem" aria-current="page" itemprop="url">Про проєкт</a></li>
                     <li role="none"><a href="#roadmap" class="nav-link" role="menuitem" itemprop="url">Roadmap</a></li>
-                    <li role="none"><a href="#contact" class="nav-link" role="menuitem" itemprop="url">Контакти</a></li>
+                    <!-- Пункт меню "Контакти" видалено -->
                 </ul>
             </nav>
         </div>
@@ -196,13 +196,8 @@
                         </div>
 
                         <div class="project-cta">
-                            <a href="#roadmap" class="cta-button primary-cta" data-scroll-target="#roadmap"> <!-- Оновлено посилання на #roadmap -->
-                                <span>Дізнатися більше</span> <!-- Текст кнопки можна уточнити -->
-                                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path d="M7 17l9.2-9.2M17 17V7H7"/>
-                                </svg>
-                            </a>
-                            <button class="cta-button secondary-cta" onclick="scrollToSection('#contact')">
+                            <!-- Перша кнопка "Дізнатися більше" видалена -->
+                            <button class="cta-button secondary-cta" onclick="scrollToSection('#contact')"> <!-- Увага: onclick="scrollToSection('#contact')" тепер посилається на неіснуючу секцію -->
                                 <span>Приєднатися до спільноти</span>
                                 <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                     <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -229,7 +224,6 @@
             <div class="container">
                 <header class="section-header" data-aos="fade-up">
                     <h2 id="roadmap-main-title" class="section-title-iui text-gradient">Roadmap</h2>
-                    <!-- Підзаголовок "2025-2026: Наш шлях до інновацій" видалено -->
                 </header>
                 <div class="roadmap-content-grid" role="list" aria-label="План розвитку проєкту GGenius" data-aos="fade-up" data-aos-delay="100">
                     <article class="roadmap-quarter-block" role="listitem" data-phase="q1-2025" data-aos="fade-up" data-aos-delay="200">
@@ -306,62 +300,8 @@
             </div>
         </section>
 
-        <!-- Секція "Контакти" -->
-        <section id="contact" class="accordion-section contact-section enhanced section-padding" aria-labelledby="contact-main-title-header" itemscope itemtype="https://schema.org/ContactPage" data-aos="fade-up">
-            <div class="container">
-                <div class="accordion-header" id="contact-main-title-header" role="button" tabindex="0" aria-expanded="false" aria-controls="contact-content-panel">
-                    <h2 itemprop="name">Приєднуйтеся до AI Революції</h2>
-                    <span class="accordion-indicator" aria-hidden="true">+</span>
-                </div>
-                <div id="contact-content-panel" class="accordion-content" role="region" aria-labelledby="contact-main-title-header" hidden>
-                    <div class="accordion-content-inner">
-                        <p class="contact-intro" itemprop="description">
-                            Станьте частиною майбутнього кіберспорту! Слідкуйте за розробкою, 
-                            долучайтеся до бета-тестування та отримуйте ексклюзивні оновлення.
-                        </p>
-                        <div class="contact-grid">
-                            <div class="contact-methods" role="list" aria-label="Способи зв'язку з командою GGenius">
-                                <a href="https://github.com/GGeniusTeam/GGenius" class="contact-link github-link" aria-label="GitHub репозиторій GGenius" target="_blank" rel="noopener noreferrer" data-analytics-event="social_link_click" data-analytics-platform="github">
-                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.565 21.802 24 17.302 24 12.001c0-6.628-5.373-12.001-12-12.001z"/>
-                                    </svg>
-                                    <span class="link-content"><span class="link-title">GitHub Repository</span><span class="link-description">Відкритий код та розробка</span></span>
-                                </a>
-                                <button class="contact-link email-link" type="button" aria-label="Скопіювати email адресу info@ggenius.gg" data-email="info@ggenius.gg" onclick="copyEmailToClipboard(this)" data-analytics-event="email_copy_click">
-                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                        <polyline points="22,6 12,13 2,6"/>
-                                    </svg>
-                                    <span class="link-content"><span class="link-title">Email Contact</span><span class="link-description">Прямий зв'язок з командою</span></span>
-                                </button>
-                                <a href="https://t.me/GGeniusOfficial" class="contact-link telegram-link" aria-label="Telegram канал GGenius" target="_blank" rel="noopener noreferrer" data-analytics-event="social_link_click" data-analytics-platform="telegram">
-                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 11.944 0zm5.001 7.761c-.284.947-.707 2.383-1.271 4.31-.562 1.927-1.003 3.385-1.12 3.712-.119.327-.238.654-.357.981-.119.327-.298.593-.537.778-.238.185-.537.278-.895.278-.537 0-1.014-.148-1.432-.445-.418-.297-.656-.593-.716-.89-.06-.297.06-.654.357-1.072.298-.418.716-.956 1.255-1.615l1.966-2.447c.06-.06.09-.12.09-.18s-.03-.12-.09-.18c-.06-.06-.12-.09-.18-.09s-.12.03-.18.09l-3.04 2.508c-.954.778-1.67 1.298-2.147 1.56-.477.262-.954.393-1.432.393-.716 0-1.255-.241-1.615-.723-.357-.482-.477-1.026-.357-1.631.119-.605.477-1.489 1.073-2.651L6.11 5.917c.119-.357.239-.654.358-.89.119-.236.238-.415.357-.534.119-.119.238-.178.357-.178s.179.06.239.178l10.138 5.721c.238.119.357.297.357.535a.746.746 0 0 1-.119.416z"/>
-                                    </svg>
-                                    <span class="link-content"><span class="link-title">Telegram Channel</span><span class="link-description">Новини та оновлення</span></span>
-                                </a>
-                            </div>
-                            <div class="contact-form-placeholder" role="form" aria-label="Форма зворотного зв'язку GGenius">
-                                <h4 class="form-title">Зворотний зв'язок</h4>
-                                <p class="form-description">Маєте питання або пропозиції? Напишіть нам!</p>
-                                <div class="form-loader">
-                                    <span>Відправка...</span>
-                                    <div class="spinner"></div>
-                                </div>
-                                <div class="form-confirmation" hidden>
-                                    <span>✅ Повідомлення відправлено!</span>
-                                </div>
-                                <div class="form-inputs">
-                                    <input type="email" name="email" placeholder="Ваш Email" aria-label="Ваш Email" required>
-                                    <textarea name="message" placeholder="Ваше повідомлення..." aria-label="Ваше повідомлення" rows="4" required></textarea>
-                                    <button type="submit" class="cta-button form-submit-button" data-analytics-event="contact_form_submit">Відправити</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Секція "Контакти" повністю видалена -->
+
     </main>
 
     <!-- Підвал сайту -->
@@ -379,45 +319,9 @@
                     <a href="https://t.me/GGeniusOfficial" target="_blank" rel="noopener noreferrer" aria-label="GGenius у Telegram">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0011.944 0zm5.001 7.761c-.284.947-.707 2.383-1.271 4.31-.562 1.927-1.003 3.385-1.12 3.712-.119.327-.238.654-.357.981-.119.327-.298.593-.537.778-.238.185-.537.278-.895.278-.537 0-1.014-.148-1.432-.445-.418-.297-.656-.593-.716-.89-.06-.297.06-.654.357-1.072.298-.418.716-.956 1.255-1.615l1.966-2.447c.06-.06.09-.12.09-.18s-.03-.12-.09-.18c-.06-.06-.12-.09-.18-.09s-.12.03-.18.09l-3.04 2.508c-.954.778-1.67 1.298-2.147 1.56-.477.262-.954.393-1.432.393-.716 0-1.255-.241-1.615-.723-.357-.482-.477-1.026-.357-1.631.119-.605.477-1.489 1.073-2.651L6.11 5.917c.119-.357.239-.654.358-.89.119-.236.238-.415.357-.534.119-.119.238-.178.357-.178s.179.06.239.178l10.138 5.721c.238.119.357.297.357.535a.746.746 0 0 1-.119.416z"/></svg>
                     </a>
-                    <!-- Додайте інші соціальні мережі за потреби -->
                 </div>
             </div>
-            <div class="footer-links-grid">
-                <div class="footer-column">
-                    <h4 class="footer-column-title">Продукт</h4>
-                    <ul class="footer-links-list">
-                        <!-- Посилання на AI Можливості видалено -->
-                        <li><a href="#roadmap">Roadmap</a></li>
-                        <li><a href="/pricing">Тарифи (Майбутнє)</a></li>
-                        <li><a href="/docs">Документація (Майбутнє)</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4 class="footer-column-title">Ресурси</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="/blog">Блог (Майбутнє)</a></li>
-                        <li><a href="/faq">FAQ</a></li>
-                        <li><a href="/support">Підтримка</a></li>
-                        <li><a href="/community">Спільнота</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4 class="footer-column-title">Компанія</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="/about-us">Про нас (Майбутнє)</a></li>
-                        <li><a href="/careers">Кар'єра (Майбутнє)</a></li>
-                        <li><a href="/contact-us">Контакти</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4 class="footer-column-title">Правова інформація</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="/terms-of-service">Умови використання</a></li>
-                        <li><a href="/privacy-policy">Політика конфіденційності</a></li>
-                        <li><a href="/cookie-policy">Політика Cookie</a></li>
-                    </ul>
-                </div>
-            </div>
+            <!-- Блок footer-links-grid повністю видалено -->
             <div class="footer-bottom-row">
                 <p class="copyright-text">&copy; <span id="currentYear"></span> GGenius. Всі права захищено.</p>
                 <div class="theme-switcher-footer">
@@ -435,18 +339,20 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
       AOS.init({
-          duration: 800, // тривалість анімації
-          once: true,    // анімація відтворюється лише один раз
-          offset: 50,    // відступ від краю екрану для запуску анімації
+          duration: 800, 
+          once: true,    
+          offset: 50,    
       });
-      // Функція для плавної прокрутки, якщо вона потрібна для інших посилань
+      
       function scrollToSection(selector) {
             const section = document.querySelector(selector);
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                console.warn('Секцію для прокрутки не знайдено:', selector);
             }
         }
-      // Функція копіювання email
+      
       function copyEmailToClipboard(buttonElement) {
             const email = buttonElement.dataset.email;
             if (!email) {
@@ -473,7 +379,7 @@
                 }, 2000);
             });
         }
-        // Додаємо обробник подій для кнопок копіювання email
+        
         document.querySelectorAll('.email-link[data-email]').forEach(button => {
             button.addEventListener('click', () => copyEmailToClipboard(button));
         });
