@@ -108,6 +108,80 @@
     --z-max: 9999;
 }
 
+/* Базові стилі (Reset & Base) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern' 1;
+    height: 100%;
+}
+
+body {
+    font-family: var(--f2);
+    font-size: var(--t-base);
+    line-height: 1.6;
+    color: var(--text-1);
+    background: var(--g-bg);
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Fallback для старих браузерів */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-1);
+    background: linear-gradient(145deg, #0a0c0f 0%, #0d1014 50%, #080a0c 100%);
+    z-index: var(--z-bg);
+    pointer-events: none;
+}
+
+/* Skip Links для доступності */
+.skip-links {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    list-style: none;
+    z-index: var(--z-max);
+}
+
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--bg-1);
+    color: var(--text-1);
+    padding: var(--s-s);
+    text-decoration: none;
+    border-radius: var(--r-s);
+    transform: translateY(-100%);
+    transition: transform var(--trans);
+}
+
+.skip-link:focus {
+    transform: translateY(100px);
+}
+
 /* Загальні стилі (General Styles) */
 .container {
     width: 100%;
@@ -116,6 +190,8 @@
     margin-right: auto;
     padding-left: clamp(1rem, 4vw, 2rem);
     padding-right: clamp(1rem, 4vw, 2rem);
+    position: relative;
+    z-index: var(--z-normal);
 }
 
 .section-padding {
@@ -131,6 +207,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     line-height: 1.1;
+    font-family: var(--f1);
 }
 
 .section-title-iui.text-gradient {
@@ -138,7 +215,16 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
     padding-bottom: 0.1em;
+}
+
+/* Fallback для браузерів без підтримки background-clip: text */
+@supports not (-webkit-background-clip: text) {
+    .section-title-iui.text-gradient {
+        color: var(--cyan);
+        -webkit-text-fill-color: var(--cyan);
+    }
 }
 
 .section-subtitle {
@@ -156,9 +242,20 @@
     text-align: center;
 }
 
+/* Головна секція Hero */
+.project-intro-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
 /* Головна картка (Project Intro Card) */
 .project-intro-card {
     background: var(--g-card);
+    background: linear-gradient(145deg, rgba(20, 24, 30, 0.95), rgba(37, 42, 50, 0.85));
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     border-radius: var(--r-3xl);
@@ -171,6 +268,7 @@
     position: relative;
     z-index: var(--z-normal);
     animation: heroCardFloat 6s ease-in-out infinite;
+    width: 100%;
 }
 
 @keyframes heroCardFloat {
@@ -181,9 +279,10 @@
 .project-motto-badge {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: var(--s-s);
-    background: linear-gradient(135deg, rgba(var(--green-rgb), 0.15), rgba(var(--cyan-rgb), 0.1));
-    border: 2px solid rgba(var(--green-rgb), 0.3);
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 212, 255, 0.1));
+    border: 2px solid rgba(0, 255, 136, 0.3);
     color: var(--green);
     padding: var(--s-m) var(--s-xl);
     border-radius: var(--r-full);
@@ -192,11 +291,24 @@
     text-transform: none;
     letter-spacing: 0.02em;
     margin-bottom: var(--s-xl);
-    box-shadow: var(--shadow-glow), 0 4px 20px rgba(var(--green-rgb), 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3), 0 4px 20px rgba(0, 255, 136, 0.2);
     animation: mottoGlow 4s ease-in-out infinite alternate;
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(10px);
+    width: auto;
+    max-width: 90%;
+}
+
+.project-motto-badge .motto-icon {
+    font-size: 1.2em;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+.project-motto-badge .motto-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .project-motto-badge::before {
@@ -206,14 +318,20 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(var(--green-rgb), 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.3), transparent);
     transform: skewX(-25deg);
     animation: mottoShimmer 3s ease-in-out infinite;
 }
 
 @keyframes mottoGlow {
-    0% { box-shadow: var(--shadow-glow), 0 4px 20px rgba(var(--green-rgb), 0.2); border-color: rgba(var(--green-rgb), 0.3); }
-    100% { box-shadow: var(--shadow-glow-hover), 0 6px 30px rgba(var(--green-rgb), 0.4); border-color: rgba(var(--green-rgb), 0.5); }
+    0% { 
+        box-shadow: 0 0 20px rgba(0, 255, 136, 0.3), 0 4px 20px rgba(0, 255, 136, 0.2);
+        border-color: rgba(0, 255, 136, 0.3);
+    }
+    100% { 
+        box-shadow: 0 0 30px rgba(0, 255, 136, 0.5), 0 6px 30px rgba(0, 255, 136, 0.4);
+        border-color: rgba(0, 255, 136, 0.5);
+    }
 }
 
 @keyframes mottoShimmer {
@@ -226,8 +344,8 @@
     display: inline-flex;
     align-items: center;
     gap: var(--s-xs);
-    background: linear-gradient(135deg, rgba(var(--cyan-rgb), 0.2), rgba(var(--purple-rgb), 0.1));
-    border: 1px solid rgba(var(--cyan-rgb), 0.3);
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(165, 94, 234, 0.1));
+    border: 1px solid rgba(0, 212, 255, 0.3);
     color: var(--cyan);
     padding: var(--s-xs) var(--s-l);
     border-radius: var(--r-full);
@@ -236,13 +354,17 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: var(--s-2xl);
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
     animation: badgePulse 3s ease-in-out infinite;
 }
 
 @keyframes badgePulse {
-    0%, 100% { box-shadow: var(--shadow-glow); }
-    50% { box-shadow: var(--shadow-glow-hover); }
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    }
+    50% { 
+        box-shadow: 0 0 25px rgba(0, 212, 255, 0.5), 0 0 35px rgba(165, 94, 234, 0.3);
+    }
 }
 
 .project-brand {
@@ -256,6 +378,7 @@
     margin-bottom: var(--s-s);
     letter-spacing: -0.03em;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-family: var(--f1);
 }
 
 .project-description {
@@ -300,6 +423,8 @@
     font-family: var(--f1);
     letter-spacing: 0.02em;
     will-change: transform;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .cta-button.community-cta {
@@ -311,7 +436,17 @@
     font-weight: 800;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    box-shadow: var(--shadow-xl), 0 0 30px rgba(var(--green-rgb), 0.4);
+    box-shadow: var(--shadow-xl), 0 0 30px rgba(0, 255, 136, 0.4);
+}
+
+.cta-button:hover,
+.cta-button:focus {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-2xl), 0 0 40px rgba(0, 255, 136, 0.6);
+}
+
+.cta-button:active {
+    transform: translateY(0);
 }
 
 /* Як це працює (How It Works) */
@@ -325,41 +460,54 @@
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--s-2xl);
     margin-top: var(--s-2xl);
+    position: relative;
+    z-index: var(--z-normal);
 }
 
 .step-card {
     background: var(--g-card);
+    background: linear-gradient(145deg, rgba(20, 24, 30, 0.8), rgba(37, 42, 50, 0.6));
     border-radius: var(--r-xl);
     padding: var(--s-xl);
     text-align: center;
     box-shadow: var(--shadow-md);
     transition: all var(--trans);
+    border: 1px solid rgba(var(--text-1-rgb), 0.05);
 }
 
 .step-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
+    border-color: rgba(var(--cyan-rgb), 0.2);
 }
 
 .step-number {
     font-size: var(--t-3xl);
+    font-weight: 900;
     color: var(--cyan);
     margin-bottom: var(--s-m);
+    font-family: var(--f1);
+    text-shadow: 0 0 10px rgba(var(--cyan-rgb), 0.5);
 }
 
 .step-icon {
     font-size: var(--t-4xl);
     margin-bottom: var(--s-s);
+    filter: drop-shadow(0 0 8px rgba(var(--cyan-rgb), 0.3));
 }
 
 .step-title {
     font-size: var(--t-xl);
+    font-weight: 700;
     margin-bottom: var(--s-s);
+    color: var(--text-1);
+    font-family: var(--f1);
 }
 
 .step-description {
     font-size: var(--t-base);
     color: var(--text-2);
+    line-height: 1.6;
 }
 
 .steps-connection {
@@ -369,9 +517,10 @@
     width: 100%;
     height: 100px;
     z-index: var(--z-bg);
+    pointer-events: none;
 }
 
-/* Дорожня карта (Roadmap) */
+/* Дорожна карта (Roadmap) */
 .roadmap {
     background: var(--g-bg);
     position: relative;
@@ -400,9 +549,11 @@
     position: relative;
     padding: var(--s-l);
     background: var(--g-card);
+    background: linear-gradient(145deg, rgba(20, 24, 30, 0.8), rgba(37, 42, 50, 0.6));
     border-radius: var(--r-xl);
     box-shadow: var(--shadow-md);
     transition: all var(--trans);
+    border: 1px solid rgba(var(--text-1-rgb), 0.05);
 }
 
 .timeline-item:hover {
@@ -410,37 +561,83 @@
     box-shadow: var(--shadow-lg);
 }
 
+.timeline-item.completed {
+    border-color: rgba(var(--green-rgb), 0.3);
+}
+
+.timeline-item.current {
+    border-color: rgba(var(--cyan-rgb), 0.3);
+    box-shadow: var(--shadow-md), 0 0 20px rgba(var(--cyan-rgb), 0.1);
+}
+
+.timeline-item.future {
+    border-color: rgba(var(--text-3-rgb), 0.2);
+    opacity: 0.8;
+}
+
 .timeline-marker {
     position: absolute;
-    left: calc(var(--s-m) - 8px);
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
+    left: calc(-1 * var(--s-xl) + var(--s-m) - 12px);
+    top: var(--s-l);
+    width: 24px;
+    height: 24px;
     background: var(--cyan);
     border-radius: 50%;
-    box-shadow: 0 0 10pxysku rgba(var(--cyan-rgb), 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    box-shadow: 0 0 10px rgba(var(--cyan-rgb), 0.6);
+    border: 2px solid var(--bg-1);
+}
+
+.timeline-item.completed .timeline-marker {
+    background: var(--green);
+    box-shadow: 0 0 10px rgba(var(--green-rgb), 0.6);
+}
+
+.timeline-item.current .timeline-marker {
+    background: var(--cyan);
+    box-shadow: 0 0 15px rgba(var(--cyan-rgb), 0.8);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.timeline-item.future .timeline-marker {
+    background: var(--text-3);
+    box-shadow: 0 0 5px rgba(var(--text-3-rgb), 0.3);
 }
 
 .timeline-content {
-    padding-left: var(--s-xl);
+    padding-left: 0;
 }
 
 .timeline-date {
-    font-size: var(--t-l);
+    font-size: var(--t-s);
     color: var(--text-3);
     margin-bottom: var(--s-s);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .timeline-title {
-    font-size: var(--t-2xl);
+    font-size: var(--t-xl);
+    font-weight: 700;
     margin-bottom: var(--s-s);
+    color: var(--text-1);
+    font-family: var(--f1);
 }
 
 .timeline-description {
     font-size: var(--t-base);
     color: var(--text-2);
     margin-bottom: var(--s-m);
+    line-height: 1.6;
 }
 
 .timeline-progress {
@@ -448,83 +645,272 @@
 }
 
 .progress-bar {
-    height: 10px;
-    background: var(--bg-3);
-    border-radius: var(--r-s);
+    height: 8px;
+    background: rgba(var(--bg-3-rgb), 0.8);
+    border-radius: var(--r-full);
     overflow: hidden;
+    position: relative;
 }
 
 .progress-fill {
     height: 100%;
     background: var(--g-success);
-    transition: width var(--trans);
+    background: linear-gradient(90deg, var(--green), var(--cyan));
+    transition: width var(--trans-slow);
+    border-radius: var(--r-full);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progressShimmer 2s ease-in-out infinite;
+}
+
+@keyframes progressShimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
 }
 
 .progress-text {
     font-size: var(--t-s);
     color: var(--text-2);
     margin-top: var(--s-xs);
+    font-weight: 500;
+}
+
+/* Fallback текст */
+.fallback-text {
+    display: none;
+}
+
+.fallback-mode .fallback-text {
+    display: inline !important;
 }
 
 /* Адаптивність (Media Queries) */
 @media (max-width: 768px) {
+    body {
+        font-size: var(--t-s);
+    }
+
     .container {
         padding-left: var(--s-s);
         padding-right: var(--s-s);
     }
 
     .section-padding {
-        padding-top: var(--s-xl);
-        padding-bottom: var(--s-xl);
+        padding-top: var(--s-2xl);
+        padding-bottom: var(--s-2xl);
     }
 
     .section-title-iui {
-        font-size: var(--t-2xl);
+        font-size: var(--t-3xl);
+        margin-bottom: var(--s-l);
+    }
+
+    .section-subtitle {
+        font-size: var(--t-l);
+        margin-bottom: var(--s-l);
+    }
+
+    .project-intro-hero {
+        min-height: 100vh;
+        padding: var(--s-l) 0;
     }
 
     .project-intro-card {
         max-width: 100%;
-        padding: var(--s-m);
-        max-height: clamp(400px, 80vh, 600px);
+        padding: var(--s-l);
+        margin: var(--s-s);
+        border-radius: var(--r-xl);
     }
 
     .project-title {
         font-size: var(--t-3xl);
+        margin-bottom: var(--s-m);
     }
 
     .project-description p {
         font-size: var(--t-base);
+        margin-bottom: var(--s-m);
+    }
+
+    .project-motto-badge {
+        padding: var(--s-s) var(--s-l);
+        font-size: var(--t-base);
+        margin-bottom: var(--s-l);
+        flex-direction: column;
+        gap: var(--s-xs);
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .project-motto-badge .motto-text {
+        white-space: normal;
+        text-align: center;
+    }
+
+    .project-status-badge {
+        font-size: 10px;
+        padding: var(--s-xs) var(--s-m);
+        margin-bottom: var(--s-l);
     }
 
     .cta-button {
-        padding: var(--s-s) var(--s-l);
+        padding: var(--s-m) var(--s-l);
         font-size: var(--t-base);
         min-height: 3rem;
-        max-width: 300px;
-        margin: 0 auto;
+        width: 100%;
+        max-width: 320px;
     }
 
     .cta-button.community-cta {
         padding: var(--s-m) var(--s-xl);
         font-size: var(--t-l);
         min-height: 3.5rem;
-        max-width: 300px;
-        margin: 0 auto;
+        width: 100%;
+        max-width: 320px;
     }
 
     .steps-grid {
         grid-template-columns: 1fr;
+        gap: var(--s-l);
     }
 
     .step-card {
-        padding: var(--s-m);
+        padding: var(--s-l);
+    }
+
+    .step-number {
+        font-size: var(--t-2xl);
+    }
+
+    .step-icon {
+        font-size: var(--t-3xl);
     }
 
     .roadmap-timeline {
-        padding-left: 0;
+        padding-left: var(--s-l);
+    }
+
+    .roadmap-timeline::before {
+        left: var(--s-xs);
     }
 
     .timeline-item {
         padding: var(--s-m);
+        margin-left: var(--s-s);
+    }
+
+    .timeline-marker {
+        left: calc(-1 * var(--s-l) + var(--s-xs) - 12px);
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+
+    .timeline-title {
+        font-size: var(--t-l);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding-left: var(--s-xs);
+        padding-right: var(--s-xs);
+    }
+
+    .project-intro-card {
+        margin: 0;
+        padding: var(--s-m);
+        border-radius: var(--r-l);
+    }
+
+    .project-title {
+        font-size: var(--t-2xl);
+    }
+
+    .section-title-iui {
+        font-size: var(--t-2xl);
+    }
+
+    .project-motto-badge {
+        padding: var(--s-xs) var(--s-s);
+        font-size: var(--t-s);
+    }
+
+    .cta-button.community-cta {
+        font-size: var(--t-base);
+        padding: var(--s-s) var(--s-l);
+    }
+}
+
+/* Високий контраст для доступності */
+@media (prefers-contrast: high) {
+    :root {
+        --text-1: #ffffff;
+        --text-2: #e0e0e0;
+        --bg-1: #000000;
+        --bg-2: #1a1a1a;
+    }
+}
+
+/* Зменшена анімація для користувачів з motion sensitivity */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .project-intro-card {
+        animation: none;
+    }
+
+    .project-motto-badge::before {
+        animation: none;
+    }
+
+    .timeline-marker {
+        animation: none;
+    }
+}
+
+/* Debug mode стилі */
+.debug-mode * {
+    outline: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.debug-mode .container {
+    outline: 2px solid rgba(0, 255, 0, 0.5);
+}
+
+/* Performance optimizations */
+.project-intro-card,
+.step-card,
+.timeline-item,
+.cta-button {
+    will-change: transform;
+    contain: layout style paint;
+}
+
+/* Обробка touch пристроїв */
+@media (hover: none) and (pointer: coarse) {
+    .cta-button:hover {
+        transform: none;
+    }
+    
+    .step-card:hover,
+    .timeline-item:hover {
+        transform: none;
     }
 }
