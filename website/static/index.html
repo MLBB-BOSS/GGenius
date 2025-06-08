@@ -315,12 +315,12 @@
          */
         async function loadTranslations(lang = 'uk') {
             try {
-                const response = await fetch(`lang/${lang}.json?v=${new Date().getTime()}`); // Додано кеш-бастер
+                const response = await fetch(`lang/${lang}.json?v=${new Date().getTime()}`); // Кеш-бастер
                 if (!response.ok) {
                     console.error(`Помилка завантаження файлу перекладу (${lang}.json): ${response.status} ${response.statusText}`);
                     document.querySelectorAll('[data-i18n-key]').forEach(el => {
-                        if (!el.textContent || el.textContent.trim() === '') {
-                            el.textContent = `${el.dataset.i18nKey} (Невдале завантаження)`;
+                        if (!el.innerHTML || el.innerHTML.trim() === '' || el.innerHTML.includes('(Ключ не знайдено)')) { // Перевіряємо, чи не порожній або вже не містить помилку
+                            el.innerHTML = `${el.dataset.i18nKey} (Невдале завантаження)`;
                         }
                     });
                     return;
@@ -330,42 +330,35 @@
                 document.querySelectorAll('[data-i18n-key]').forEach(el => {
                     const key = el.dataset.i18nKey;
                     if (translations[key] !== undefined) {
-                        el.innerHTML = translations[key]; // Використовуємо innerHTML для підтримки HTML в перекладах
+                        if (translations[key].trim() === '' && el.dataset.i18nAllowEmpty !== 'true') { // Додано перевірку на порожній рядок
+                            console.warn(`Ключ '${key}' має порожнє значення у ${lang}.json. Встановлено ключ як текст.`);
+                            el.innerHTML = `${key} (Порожнє значення)`;
+                        } else {
+                            el.innerHTML = translations[key];
+                        }
                     } else {
                         console.warn(`Ключ перекладу не знайдено: '${key}' у файлі ${lang}.json`);
-                        if (!el.textContent || el.textContent.trim() === '') {
-                           el.textContent = `${key} (Ключ не знайдено)`;
+                        if (!el.innerHTML || el.innerHTML.trim() === '') { 
+                           el.innerHTML = `${key} (Ключ не знайдено)`;
                         }
                     }
                 });
             } catch (error) {
                 console.error('Не вдалося завантажити або застосувати переклади:', error);
                 document.querySelectorAll('[data-i18n-key]').forEach(el => {
-                    if (!el.textContent || el.textContent.trim() === '') {
-                        el.textContent = `${el.dataset.i18nKey} (Помилка скрипта)`;
+                     if (!el.innerHTML || el.innerHTML.trim() === '' || el.innerHTML.includes('(Ключ не знайдено)')) {
+                        el.innerHTML = `${el.dataset.i18nKey} (Помилка скрипта)`;
                     }
                 });
             }
         }
-
-        /**
-         * Обробник кліку для кнопки "Приєднатися до спільноти".
-         * Потрібно визначити, що саме має відбуватися при кліку.
-         * Наприклад, відкриття посилання на Telegram/Discord або прокрутка до певної секції (якщо така буде).
-         */
+        
         function handleJoinCommunityClick() {
             console.log('Кнопка "Приєднатися до спільноти" натиснута.');
-            // TODO: Додайте сюди логіку для кнопки, наприклад:
-            // window.open('https://t.me/YourTelegramGroup', '_blank');
-            // або scrollToSection('#someRelevantSection');
-            // Оскільки секція #contact видалена, scrollToSection('#contact') більше не працюватиме.
             alert('Дякуємо за інтерес! Деталі спільноти будуть доступні незабаром.');
+            // Наприклад: window.open('https://t.me/YourTelegramGroup', '_blank');
         }
         
-        /**
-         * Функція для плавної прокрутки до секції.
-         * @param {string} selector - CSS селектор цільової секції (наприклад, '#roadmap').
-         */
         function scrollToSection(selector) {
             const section = document.querySelector(selector);
             if (section) {
@@ -381,9 +374,8 @@
                 once: true,    
                 offset: 50,    
             });
-            loadTranslations('uk'); // Завантажуємо українську мову
+            loadTranslations('uk'); 
 
-            // Оновлення року в футері
             const currentYearSpan = document.getElementById('currentYear');
             if (currentYearSpan) {
                 currentYearSpan.textContent = new Date().getFullYear();
