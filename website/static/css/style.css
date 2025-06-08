@@ -1,4 +1,4 @@
-/* Повний CSS (збережено попередній код + додатки) */
+/* Змінні (Variables) */
 :root {
     /* Core Color Palette - Cyberpunk AI Theme */
     --bg-1: #0a0c0f;
@@ -108,6 +108,7 @@
     --z-max: 9999;
 }
 
+/* Light Theme Overrides */
 html.theme-light {
     --bg-1: #fafafa;
     --bg-2: #f5f5f5;
@@ -140,6 +141,7 @@ html.theme-light {
     }
 }
 
+/* Базові стилі (Base Styles) */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -170,6 +172,7 @@ body {
     display: flex;
     flex-direction: column;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    max-width: 100vw; /* Додано для запобігання переповненню */
 }
 
 main {
@@ -192,6 +195,7 @@ body::before {
     100% { opacity: 1; transform: scale(1.05); }
 }
 
+/* Skip Links */
 .skip-links {
     list-style: none;
     position: absolute;
@@ -228,6 +232,7 @@ body::before {
     color: var(--bg-1);
 }
 
+/* Utility Classes */
 .visually-hidden {
     position: absolute !important;
     width: 1px !important;
@@ -249,6 +254,7 @@ body::before {
     padding-right: clamp(1rem, 4vw, 2rem);
 }
 
+/* Typography */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--f1);
     font-weight: 700;
@@ -274,6 +280,7 @@ p {
     text-wrap: pretty;
 }
 
+/* Section Styling */
 .section-padding {
     padding-top: clamp(var(--s-3xl), 8vw, var(--s-4xl));
     padding-bottom: clamp(var(--s-3xl), 8vw, var(--s-4xl));
@@ -312,6 +319,7 @@ p {
     text-align: center;
 }
 
+/* Шапка (Header) */
 .site-header {
     background: rgba(var(--bg-1-rgb), 0.9);
     -webkit-backdrop-filter: blur(20px);
@@ -547,101 +555,7 @@ p {
     box-shadow: 0 0 8px rgba(var(--cyan-rgb), 0.6);
 }
 
-@media (max-width: 768px) {
-    .mobile-menu-toggle {
-        display: flex;
-    }
-
-    .nav-menu {
-        position: fixed;
-        top: var(--header-h);
-        left: 0;
-        right: 0;
-        bottom: 0;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: stretch;
-        gap: 0;
-        background: rgba(var(--bg-1-rgb), 0.95);
-        backdrop-filter: blur(20px);
-        padding: var(--s-2xl) var(--s-l);
-        z-index: var(--z-modal);
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-100%);
-        transition: all var(--trans-slow);
-        overflow-y: auto;
-        border-top: 1px solid rgba(var(--text-1-rgb), 0.1);
-    }
-
-    .nav-menu.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    .nav-menu li {
-        width: 100%;
-        border-bottom: 1px solid rgba(var(--text-1-rgb), 0.05);
-    }
-
-    .nav-menu li:last-child {
-        border-bottom: none;
-    }
-
-    .nav-link {
-        display: block;
-        width: 100%;
-        padding: var(--s-l);
-        font-size: var(--t-l);
-        text-align: center;
-        border-radius: var(--r-l);
-        margin-bottom: var(--s-s);
-        transition: all var(--trans);
-    }
-
-    .nav-link:hover,
-    .nav-link:focus-visible {
-        background: rgba(var(--cyan-rgb), 0.1);
-        transform: none;
-    }
-
-    .nav-link::after {
-        display: none;
-    }
-
-    body.menu-open {
-        overflow: hidden;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-    }
-
-    .nav-menu li {
-        animation: slideInFromTop 0.5s ease-out forwards;
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-
-    .nav-menu.active li {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .nav-menu.active li:nth-child(1) { animation-delay: 0.1s; }
-    .nav-menu.active li:nth-child(2) { animation-delay: 0.2s; }
-    .nav-menu.active li:nth-child(3) { animation-delay: 0.3s; }
-    .nav-menu.active li:nth-child(4) { animation-delay: 0.4s; }
-    .nav-menu.active li:nth-child(5) { animation-delay: 0.5s; }
-}
-
-@keyframes slideInFromTop {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
+/* Геройська секція (Hero Section) */
 .project-intro-hero {
     background: var(--g-bg);
     position: relative;
@@ -998,16 +912,111 @@ p {
 
 .cta-button.community-cta span {
     position: relative;
+    z-index: 1;
 }
 
-/* Секція "Як це працює" */
-.steps-connection {
-    position: absolute;
-    top: 50%;
-    left: 0;
+/* Віджети (Widgets) */
+.online-status-widget {
+    background: var(--g-bg);
+    padding: var(--s-xl) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.status-card {
+    background: var(--g-card);
+    border-radius: var(--r-2xl);
+    padding: var(--s-2xl);
+    text-align: center;
+    box-shadow: var(--shadow-xl);
+    backdrop-filter: blur(10px);
+}
+
+.status-title {
+    font-size: var(--t-3xl);
+    margin-bottom: var(--s-l);
+    color: var(--cyan);
+}
+
+.online-players {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-m);
+    justify-content: center;
+    margin-bottom: var(--s-xl);
+}
+
+.player-item {
+    background: var(--surface);
+    border-radius: var(--r-l);
+    padding: var(--s-m);
     width: 100%;
-    height: 100px;
-    z-index: var(--z-bg);
+    max-width: 300px;
+    display: flex;
+    align-items: center;
+    gap: var(--s-s);
+    box-shadow: var(--shadow-md);
+    transition: transform var(--trans);
+}
+
+.player-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.player-avatar {
+    font-size: var(--t-2xl);
+}
+
+.player-info {
+    flex-grow: 1;
+}
+
+.player-name {
+    font-size: var(--t-l);
+    color: var(--text-1);
+}
+
+.player-status {
+    font-size: var(--t-s);
+    color: var(--text-3);
+}
+
+.player-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.total-online {
+    font-size: var(--t-xl);
+    color: var(--text-2);
+}
+
+.online-count {
+    font-weight: 700;
+    color: var(--cyan);
+}
+
+/* Як це працює (How It Works) */
+.how-it-works {
+    background: var(--g-bg);
+    position: relative;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--s-2xl);
+    margin-top: var(--s-2xl);
 }
 
 .step-card {
@@ -1045,7 +1054,20 @@ p {
     color: var(--text-2);
 }
 
-/* Слайдер відгуків */
+.steps-connection {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    z-index: var(--z-bg);
+}
+
+/* Відгуки (Testimonials) */
+.testimonials {
+    background: var(--g-bg);
+}
+
 .testimonials-slider {
     position: relative;
     overflow: hidden;
@@ -1138,6 +1160,7 @@ p {
     height: 10px;
     background: var(--text-3);
     border-radius: var(--r-full);
+    border: none;
     cursor: pointer;
     transition: all var(--trans);
 }
@@ -1147,7 +1170,12 @@ p {
     transform: scale(1.3);
 }
 
-/* Табличні панелі у секції функцій */
+/* Функції (Features) */
+.features {
+    background: var(--g-bg);
+    position: relative;
+}
+
 .tabs-component {
     display: flex;
     flex-wrap: wrap;
@@ -1203,7 +1231,6 @@ p {
     display: block;
 }
 
-/* Картки функцій */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1242,7 +1269,297 @@ p {
     color: var(--text-2);
 }
 
-/* Картки гравців у пошуку команди */
+.feature-stats,
+.feature-demo,
+.feature-preview,
+.feature-progress,
+.feature-tips,
+.feature-library,
+.prediction-display,
+.meta-trends,
+.draft-recommendations {
+    margin-top: var(--s-m);
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--s-xs) 0;
+    border-bottom: 1px solid rgba(var(--text-1-rgb), 0.1);
+}
+
+.stat-number {
+    font-weight: 700;
+    color: var(--cyan);
+}
+
+.stat-label {
+    color: var(--text-3);
+}
+
+.mini-map {
+    width: 100px;
+    height: 100px;
+    background: rgba(var(--bg-3-rgb), 0.5);
+    border-radius: var(--r-m);
+    position: relative;
+    overflow: hidden;
+}
+
+.map-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--green);
+    border-radius: 50%;
+    position: absolute;
+    animation: dotPulse 1.5s infinite;
+}
+
+.map-dot.dot-1 { top: 20%; left: 20%; }
+.map-dot.dot-2 { top: 50%; left: 70%; }
+.map-dot.dot-3 { top: 80%; left: 30%; }
+.map-path {
+    position: absolute;
+    width: 2px;
+    height: 70%;
+    background: var(--cyan);
+    top: 20%;
+    left: 20%;
+    transform: rotate(45deg);
+    animation: pathDraw 2s ease-out forwards;
+}
+
+@keyframes dotPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+@keyframes pathDraw {
+    from { height: 0; }
+    to { height: 70%; }
+}
+
+.battle-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-xs);
+}
+
+.timeline-event {
+    padding: var(--s-xs) var(--s-m);
+    border-radius: var(--r-s);
+    font-size: var(--t-s);
+}
+
+.timeline-event.win { background: rgba(var(--green-rgb), 0.2); color: var(--green); }
+.timeline-event.neutral { background: rgba(var(--cyan-rgb), 0.2); color: var(--cyan); }
+.timeline-event.loss { background: rgba(var(--pink-rgb), 0.2); color: var(--pink); }
+
+.progress-item {
+    margin-bottom: var(--s-s);
+}
+
+.progress-label {
+    font-size: var(--t-s);
+    color: var(--text-2);
+    margin-bottom: var(--s-xs);
+}
+
+.progress-bar {
+    height: 10px;
+    background: var(--bg-3);
+    border-radius: var(--r-s);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--g-success);
+    transition: width var(--trans);
+}
+
+.tip-item {
+    background: var(--g-card);
+    padding: var(--s-xs) var(--s-m);
+    border-radius: var(--r-s);
+    margin-bottom: var(--s-xs);
+    font-size: var(--t-s);
+    color: var(--text-2);
+}
+
+.library-item {
+    background: var(--g-card);
+    padding: var(--s-xs) var(--s-m);
+    border-radius: var(--r-s);
+    margin-bottom: var(--s-xs);
+    font-size: var(--t-s);
+    color: var(--text-2);
+}
+
+.prediction-result {
+    text-align: center;
+    margin-bottom: var(--s-m);
+}
+
+.prediction-chance {
+    font-size: var(--t-3xl);
+    color: var(--green);
+    font-weight: 700;
+}
+
+.prediction-label {
+    font-size: var(--t-base);
+    color: var(--text-2);
+}
+
+.prediction-factors {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-xs);
+}
+
+.factor {
+    background: var(--g-card);
+    padding: var(--s-xs) var(--s-m);
+    border-radius: var(--r-s);
+    font-size: var(--t-s);
+    color: var(--text-2);
+}
+
+.meta-trends {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-s);
+}
+
+.trend-item {
+    background: var(--g-card);
+    padding: var(--s-xs) var(--s-m);
+    border-radius: var(--r-s);
+    font-size: var(--t-s);
+    color: var(--text-2);
+    display: flex;
+    justify-content: space-between;
+    width: 48%;
+}
+
+.trend-item.trending-up .trend-change {
+    color: var(--green);
+}
+
+.trend-item.trending-down .trend-change {
+    color: var(--pink);
+}
+
+.draft-section {
+    margin-bottom: var(--s-m);
+}
+
+.draft-label {
+    font-size: var(--t-base);
+    color: var(--text-1);
+    font-weight: 600;
+    margin-bottom: var(--s-xs);
+}
+
+.draft-heroes {
+    display: flex;
+    gap: var(--s-xs);
+}
+
+.hero-pick {
+    background: var(--g-card);
+    padding: var(--s-xs) var(--s-m);
+    border-radius: var(--r-s);
+    font-size: var(--t-s);
+    color: var(--text-2);
+}
+
+.hero-pick.recommended { border: 1px solid var(--green); }
+.hero-pick.banned { border: 1px solid var(--pink); }
+
+/* Пошук команди (Team Finder) */
+.team-finder {
+    background: var(--g-bg);
+    position: relative;
+}
+
+.team-finder-content {
+    margin-top: var(--s-2xl);
+}
+
+.finder-tabs {
+    display: flex;
+    gap: var(--s-m);
+    justify-content: center;
+    margin-bottom: var(--s-xl);
+}
+
+.finder-tab {
+    background: var(--g-card);
+    border: 1px solid rgba(var(--cyan-rgb), 0.3);
+    color: var(--text-1);
+    padding: var(--s-m) var(--s-xl);
+    border-radius: var(--r-l);
+    cursor: pointer;
+    transition: all var(--trans);
+}
+
+.finder-tab.active {
+    background: var(--g-button-primary);
+    color: var(--bg-1);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.finder-panels {
+    margin-top: var(--s-xl);
+}
+
+.finder-panel {
+    display: none;
+}
+
+.finder-panel.active {
+    display: block;
+}
+
+.search-filters {
+    display: flex;
+    gap: var(--s-m);
+    margin-bottom: var(--s-xl);
+}
+
+.filter-select {
+    padding: var(--s-s) var(--s-m);
+    border-radius: var(--r-m);
+    border: 1px solid rgba(var(--text-1-rgb), 0.1);
+    background: var(--bg-3);
+    color: var(--text-1);
+    font-size: var(--t-base);
+}
+
+.filter-btn {
+    background: var(--g-button-primary);
+    border: none;
+    color: var(--bg-1);
+    padding: var(--s-s) var(--s-l);
+    border-radius: var(--r-m);
+    cursor: pointer;
+    transition: all var(--trans);
+}
+
+.filter-btn:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-glow);
+}
+
+.players-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--s-l);
+}
+
 .player-card {
     background: var(--g-card);
     border-radius: var(--r-xl);
@@ -1349,7 +1666,74 @@ p {
     color: var(--text-1);
 }
 
-/* Лідерборд */
+.coming-soon {
+    text-align: center;
+    padding: var(--s-2xl);
+    background: var(--g-card);
+    border-radius: var(--r-2xl);
+    box-shadow: var(--shadow-md);
+}
+
+.coming-soon-icon {
+    font-size: var(--t-4xl);
+    margin-bottom: var(--s-m);
+}
+
+.coming-soon h3 {
+    font-size: var(--t-2xl);
+    margin-bottom: var(--s-s);
+}
+
+.coming-soon p {
+    font-size: var(--t-base);
+    color: var(--text-2);
+    margin-bottom: var(--s-l);
+}
+
+.notify-btn {
+    margin-top: var(--s-m);
+}
+
+/* Лідерборд (Leaderboard) */
+.leaderboard {
+    background: var(--g-bg);
+    position: relative;
+}
+
+.leaderboard-content {
+    margin-top: var(--s-2xl);
+}
+
+.leaderboard-tabs {
+    display: flex;
+    gap: var(--s-m);
+    justify-content: center;
+    margin-bottom: var(--s-xl);
+}
+
+.leaderboard-tab {
+    background: var(--g-card);
+    border: 1px solid rgba(var(--cyan-rgb), 0.3);
+    color: var(--text-1);
+    padding: var(--s-m) var(--s-xl);
+    border-radius: var(--r-l);
+    cursor: pointer;
+    transition: all var(--trans);
+}
+
+.leaderboard-tab.active {
+    background: var(--g-button-primary);
+    color: var(--bg-1);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.leaderboard-list {
+    display: grid;
+    gap: var(--s-m);
+    margin-bottom: var(--s-xl);
+}
+
 .leaderboard-item {
     background: var(--g-card);
     border-radius: var(--r-xl);
@@ -1381,6 +1765,28 @@ p {
 .rank-2 .rank-badge { background: #c0c0c0; color: var(--bg-1); }
 .rank-3 .rank-badge { background: #cd7f32; color: var(--bg-1); }
 .rank-badge { background: var(--g-card); color: var(--text-1); }
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: var(--s-m);
+    flex-grow: 1;
+}
+
+.player-avatar {
+    font-size: var(--t-2xl);
+}
+
+.player-details .player-name {
+    font-size: var(--t-l);
+    color: var(--text-1);
+    font-weight: 600;
+}
+
+.player-details .player-rank {
+    font-size: var(--t-s);
+    color: var(--text-3);
+}
 
 .player-score {
     font-size: var(--t-xl);
@@ -1417,7 +1823,33 @@ p {
     box-shadow: var(--shadow-glow);
 }
 
-/* Відлік турніру */
+/* Відлік турніру (Tournament Countdown) */
+.tournament-countdown {
+    background: var(--g-bg);
+    position: relative;
+}
+
+.countdown-card {
+    background: var(--g-card);
+    border-radius: var(--r-2xl);
+    padding: var(--s-2xl);
+    text-align: center;
+    box-shadow: var(--shadow-xl);
+    backdrop-filter: blur(10px);
+}
+
+.countdown-header .countdown-title {
+    font-size: var(--t-3xl);
+    margin-bottom: var(--s-s);
+    color: var(--cyan);
+}
+
+.countdown-header .countdown-subtitle {
+    font-size: var(--t-base);
+    color: var(--text-2);
+    margin-bottom: var(--s-l);
+}
+
 .countdown-timer {
     display: flex;
     justify-content: center;
@@ -1436,6 +1868,34 @@ p {
 
 .timer-separator {
     font-size: var(--t-2xl);
+}
+
+.countdown-actions {
+    display: flex;
+    gap: var(--s-m);
+    justify-content: center;
+    margin-bottom: var(--s-xl);
+}
+
+.tournament-btn {
+    background: var(--g-button-primary);
+    border: none;
+    color: var(--bg-1);
+    padding: var(--s-s) var(--s-xl);
+    border-radius: var(--r-l);
+    cursor: pointer;
+    transition: all var(--trans);
+}
+
+.tournament-btn:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-glow);
+}
+
+.tournament-btn.secondary {
+    background: var(--g-button-secondary);
+    color: var(--text-1);
+    border: 1px solid rgba(var(--cyan-rgb), 0.3);
 }
 
 .tournament-info {
@@ -1458,7 +1918,12 @@ p {
     color: var(--text-1);
 }
 
-/* Дорожня карта */
+/* Дорожня карта (Roadmap) */
+.roadmap {
+    background: var(--g-bg);
+    position: بتنrelative;
+}
+
 .roadmap-timeline {
     display: flex;
     flex-direction: column;
@@ -1552,7 +2017,12 @@ p {
 .timeline-item.current .timeline-marker { background: var(--yellow); }
 .timeline-item.future .timeline-marker { background: var(--purple); }
 
-/* Демо-секція */
+/* Демо-секція (Demo Section) */
+.demo-section {
+    background: var(--g-bg);
+    position: relative;
+}
+
 .demo-card {
     background: var(--g-card);
     border-radius: var(--r-2xl);
@@ -1682,6 +2152,11 @@ p {
 }
 
 /* FAQ */
+.faq {
+    background: var(--g-bg);
+    position: relative;
+}
+
 .faq-list {
     max-width: 800px;
     margin: 0 auto;
@@ -1739,7 +2214,7 @@ p {
     color: var(--text-2);
 }
 
-/* Футер */
+/* Футер (Footer) */
 .site-footer {
     background: rgba(var(--bg-1-rgb), 0.9);
     backdrop-filter: blur(20px);
@@ -1827,4 +2302,225 @@ p {
 
 .social-link:hover {
     color: var(--cyan);
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: var(--s-xl);
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: var(--text-2);
+    font-size: var(--t-s);
+    animation: bounce 2s infinite;
+}
+
+.scroll-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scroll-arrow svg {
+    margin-top: var(--s-xs);
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Медіа-запити для адаптивності */
+@media (max-width: 768px) {
+    /* Запобігання переповненню вмісту */
+    body, section {
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+
+    /* Корекція контейнера */
+    .container {
+        padding-left: var(--s-s);
+        padding-right: var(--s-s);
+    }
+
+    /* Зменшення відступів для секцій */
+    .section-padding {
+        padding-top: var(--s-xl);
+        padding-bottom: var(--s-xl);
+    }
+
+    /* Корекція шапки */
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        gap: 0;
+        background: rgba(var(--bg-1-rgb), 0.95);
+        backdrop-filter: blur(20px);
+        padding: var(--s-2xl) var(--s-l);
+        z-index: var(--z-modal);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-100%);
+        transition: all var(--trans-slow);
+        overflow-y: auto;
+        border-top: 1px solid rgba(var(--text-1-rgb), 0.1);
+    }
+
+    .nav-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .nav-menu li {
+        width: 100%;
+        border-bottom: 1px solid rgba(var(--text-1-rgb), 0.05);
+    }
+
+    .nav-menu li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-link {
+        display: block;
+        width: 100%;
+        padding: var(--s-l);
+        font-size: var(--t-l);
+        text-align: center;
+        border-radius: var(--r-l);
+        margin-bottom: var(--s-s);
+        transition: all var(--trans);
+    }
+
+    .nav-link:hover,
+    .nav-link:focus-visible {
+        background: rgba(var(--cyan-rgb), 0.1);
+        transform: none;
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+    body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+
+    .nav-menu li {
+        animation: slideInFromTop 0.5s ease-out forwards;
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    .nav-menu.active li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-menu.active li:nth-child(1) { animation-delay: 0.1s; }
+    .nav-menu.active li:nth-child(2) { animation-delay: 0.2s; }
+    .nav-menu.active li:nth-child(3) { animation-delay: 0.3s; }
+    .nav-menu.active li:nth-child(4) { animation-delay: 0.4s; }
+    .nav-menu.active li:nth-child(5) { animation-delay: 0.5s; }
+
+    /* Корекція геройської секції */
+    .project-intro-card {
+        max-width: 100%;
+        padding: var(--s-l);
+    }
+
+    .project-title {
+        font-size: var(--t-3xl);
+    }
+
+    .project-description p {
+        font-size: var(--t-base);
+    }
+
+    .cta-button {
+        width: 100%;
+        font-size: var(--t-base);
+    }
+
+    /* Корекція заголовків секцій */
+    .section-title-iui {
+        font-size: var(--t-2xl);
+    }
+
+    /* Корекція карток та сіток */
+    .status-card, .step-card, .testimonial-card, 
+    .feature-card-iui, .player-card, .leaderboard-item, 
+    .countdown-card, .demo-card {
+        max-width: 100%;
+        padding: var(--s-m);
+    }
+
+    .online-players, .steps-grid, .features-grid, 
+    .players-list, .leaderboard-list {
+        grid-template-columns: 1fr;
+    }
+
+    /* Корекція демо-секції */
+    .demo-card {
+        flex-direction: column;
+    }
+
+    .demo-screen {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    /* Корекція дорожньої карти */
+    .roadmap-timeline {
+        padding-left: 0;
+    }
+
+    .timeline-item {
+        padding: var(--s-m);
+    }
+
+    /* Корекція FAQ */
+    .faq-question {
+        padding: var(--s-s) var(--s-m);
+    }
+
+    /* Корекція футера */
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
+}
+
+@keyframes slideInFromTop {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
