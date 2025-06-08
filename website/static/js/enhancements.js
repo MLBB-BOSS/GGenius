@@ -1,1144 +1,1086 @@
 /**
- * GGenius Enhanced Interactive Experience with Content Management
- * Performance-optimized ES2023+ JavaScript for cyberpunk AI platform
- * @version 2.8.0 - Mobile Navigation Enhanced
- * @author GGenius Team
+ * AI Cards Hub Revolution - Interactive Card System
+ * Революційна система інтерактивних AI карток для GGenius
+ * 
+ * @version 1.0.0
+ * @author MLBB-BOSS
+ * @description Система живих AI-модулів з flip-анімаціями та drag'n'drop
  */
 
+'use strict';
+
 /**
- * Mobile Navigation Manager - НОВИЙ КЛАС
- * Керує мобільною навігацією та інтерактивністю header
+ * Основний клас для управління AI Cards Hub
  */
-class MobileNavigationManager {
+class AICardsHub {
     constructor() {
-        this.header = null;
-        this.mobileMenuToggle = null;
-        this.headerNav = null;
-        this.mobileMenuOverlay = null;
-        this.isMenuOpen = false;
-        this.scrollThreshold = 50;
-        this.lastScrollY = 0;
-        this.touchStartY = 0;
-        this.touchEndY = 0;
+        // Конфігурація
+        this.config = {
+            apiBase: '/api',
+            flipDuration: 600,
+            dragThreshold: 5,
+            animationDelay: 100,
+            maxRetries: 3,
+            debounceDelay: 300,
+            sessionStorageKey: 'ggenius-cards-hub'
+        };
+
+        // Стан системи
+        this.state = {
+            cards: new Map(),
+            expandedCard: null,
+            draggedCard: null,
+            isDragging: false,
+            isLoading: false,
+            viewMode: 'grid',
+            sessionData: this.loadSessionData()
+        };
+
+        // Статистика
+        this.stats = {
+            totalFlips: 0,
+            aiInteractions: 0,
+            sessionStartTime: Date.now(),
+            successfulActions: 0
+        };
+
+        // Event listeners
+        this.eventListeners = new Map();
         
+        // Ініціалізація
         this.init();
     }
 
     /**
-     * Ініціалізація мобільної навігації
-     */
-    init() {
-        this.bindElements();
-        this.setupEventListeners();
-        this.handleInitialState();
-        console.log('🔧 Mobile Navigation Manager initialized');
-    }
-
-    /**
-     * Прив'язка DOM елементів
-     */
-    bindElements() {
-        this.header = document.getElementById('site-header');
-        this.mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        this.headerNav = document.getElementById('header-nav');
-        this.mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-        
-        // Створити overlay якщо не існує
-        if (!this.mobileMenuOverlay) {
-            this.mobileMenuOverlay = document.createElement('div');
-            this.mobileMenuOverlay.className = 'mobile-menu-overlay';
-            this.mobileMenuOverlay.id = 'mobile-menu-overlay';
-            document.body.appendChild(this.mobileMenuOverlay);
-        }
-    }
-
-    /**
-     * Налаштування event listeners
-     */
-    setupEventListeners() {
-        if (this.mobileMenuToggle) {
-            this.mobileMenuToggle.addEventListener('click', this.toggleMobileMenu.bind(this));
-        }
-
-        if (this.mobileMenuOverlay) {
-            this.mobileMenuOverlay.addEventListener('click', this.closeMobileMenu.bind(this));
-        }
-
-        // Закриття меню при кліку на посилання
-        if (this.headerNav) {
-            this.headerNav.addEventListener('click', (e) => {
-                if (e.target.tagName === 'A') {
-                    this.closeMobileMenu();
-                    this.setActiveNavItem(e.target);
-                }
-            });
-        }
-
-        // Скрол навігація
-        window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
-
-        // Обробка зміни розміру вікна
-        window.addEventListener('resize', this.handleResize.bind(this));
-
-        // Обробка ESC клавіші
-        document.addEventListener('keydown', this.handleKeyDown.bind(this));
-
-        // Touch events для свайпів
-        document.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
-        document.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
-    }
-
-    /**
-     * Обробка початкового стану
-     */
-    handleInitialState() {
-        this.closeMobileMenu();
-        this.updateScrollState();
-        this.setActiveNavItemFromHash();
-    }
-
-    /**
-     * Перемикання мобільного меню
-     */
-    toggleMobileMenu() {
-        if (this.isMenuOpen) {
-            this.closeMobileMenu();
-        } else {
-            this.openMobileMenu();
-        }
-    }
-
-    /**
-     * Відкриття мобільного меню
-     */
-    openMobileMenu() {
-        if (this.isMenuOpen) return;
-
-        this.isMenuOpen = true;
-        
-        // Додати класи та атрибути
-        if (this.headerNav) {
-            this.headerNav.classList.add('mobile-menu-open');
-        }
-        
-        if (this.mobileMenuToggle) {
-            this.mobileMenuToggle.classList.add('active');
-            this.mobileMenuToggle.setAttribute('aria-expanded', 'true');
-        }
-        
-        if (this.mobileMenuOverlay) {
-            this.mobileMenuOverlay.classList.add('active');
-        }
-
-        // Блокувати скрол body
-        document.body.style.overflow = 'hidden';
-        
-        // Фокус на першому елементі меню
-        this.focusFirstMenuItem();
-
-        console.log('📱 Mobile menu opened');
-    }
-
-    /**
-     * Закриття мобільного меню
-     */
-    closeMobileMenu() {
-        if (!this.isMenuOpen) return;
-
-        this.isMenuOpen = false;
-        
-        // Видалити класи та атрибути
-        if (this.headerNav) {
-            this.headerNav.classList.remove('mobile-menu-open');
-        }
-        
-        if (this.mobileMenuToggle) {
-            this.mobileMenuToggle.classList.remove('active');
-            this.mobileMenuToggle.setAttribute('aria-expanded', 'false');
-        }
-        
-        if (this.mobileMenuOverlay) {
-            this.mobileMenuOverlay.classList.remove('active');
-        }
-
-        // Відновити скрол body
-        document.body.style.overflow = '';
-
-        console.log('📱 Mobile menu closed');
-    }
-
-    /**
-     * Обробка скролу
-     */
-    handleScroll() {
-        this.updateScrollState();
-        
-        // Закрити меню при скролі
-        if (this.isMenuOpen) {
-            this.closeMobileMenu();
-        }
-    }
-
-    /**
-     * Оновлення стану при скролі
-     */
-    updateScrollState() {
-        const currentScrollY = window.scrollY;
-        
-        if (this.header) {
-            if (currentScrollY > this.scrollThreshold) {
-                this.header.classList.add('scrolled');
-            } else {
-                this.header.classList.remove('scrolled');
-            }
-        }
-        
-        this.lastScrollY = currentScrollY;
-    }
-
-    /**
-     * Обробка зміни розміру вікна
-     */
-    handleResize() {
-        // Закрити меню при зміні орієнтації або розміру
-        if (this.isMenuOpen) {
-            this.closeMobileMenu();
-        }
-        
-        // Автоматично закрити меню на великих екранах
-        if (window.innerWidth > 768 && this.isMenuOpen) {
-            this.closeMobileMenu();
-        }
-    }
-
-    /**
-     * Обробка натискання клавіш
-     */
-    handleKeyDown(event) {
-        if (event.key === 'Escape' && this.isMenuOpen) {
-            this.closeMobileMenu();
-            this.mobileMenuToggle?.focus();
-        }
-    }
-
-    /**
-     * Обробка початку дотику
-     */
-    handleTouchStart(event) {
-        this.touchStartY = event.touches[0].clientY;
-    }
-
-    /**
-     * Обробка кінця дотику (свайп)
-     */
-    handleTouchEnd(event) {
-        this.touchEndY = event.changedTouches[0].clientY;
-        this.handleSwipe();
-    }
-
-    /**
-     * Обробка свайпу
-     */
-    handleSwipe() {
-        const swipeDistance = this.touchStartY - this.touchEndY;
-        const minSwipeDistance = 50;
-
-        // Свайп вгору - закрити меню
-        if (swipeDistance > minSwipeDistance && this.isMenuOpen) {
-            this.closeMobileMenu();
-        }
-    }
-
-    /**
-     * Фокус на першому елементі меню
-     */
-    focusFirstMenuItem() {
-        if (this.headerNav) {
-            const firstLink = this.headerNav.querySelector('a');
-            if (firstLink) {
-                setTimeout(() => firstLink.focus(), 100);
-            }
-        }
-    }
-
-    /**
-     * Встановлення активного елемента навігації
-     */
-    setActiveNavItem(clickedItem) {
-        if (!this.headerNav) return;
-
-        // Видалити active клас з усіх елементів
-        this.headerNav.querySelectorAll('a').forEach(link => {
-            link.classList.remove('active');
-        });
-
-        // Додати active клас до поточного елемента
-        if (clickedItem) {
-            clickedItem.classList.add('active');
-        }
-    }
-
-    /**
-     * Встановлення активного елемента з хешу URL
-     */
-    setActiveNavItemFromHash() {
-        const hash = window.location.hash || '#hero';
-        const activeLink = this.headerNav?.querySelector(`a[href="${hash}"]`);
-        
-        if (activeLink) {
-            this.setActiveNavItem(activeLink);
-        }
-    }
-
-    /**
-     * Оновлення активного елемента при скролі до секції
-     */
-    updateActiveNavOnScroll() {
-        const sections = document.querySelectorAll('section[id]');
-        const scrollPos = window.scrollY + 100;
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-
-            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                const activeLink = this.headerNav?.querySelector(`a[href="#${sectionId}"]`);
-                if (activeLink) {
-                    this.setActiveNavItem(activeLink);
-                }
-            }
-        });
-    }
-
-    /**
-     * Знищення event listeners
-     */
-    destroy() {
-        window.removeEventListener('scroll', this.handleScroll.bind(this));
-        window.removeEventListener('resize', this.handleResize.bind(this));
-        document.removeEventListener('keydown', this.handleKeyDown.bind(this));
-        document.removeEventListener('touchstart', this.handleTouchStart.bind(this));
-        document.removeEventListener('touchend', this.handleTouchEnd.bind(this));
-        
-        console.log('🧹 Mobile Navigation Manager destroyed');
-    }
-}
-
-/**
- * Content Management System - Enhanced для роботи з контентом секцій
- */
-class ContentManager {
-    constructor() {
-        this.content = new Map();
-        this.currentLanguage = 'uk';
-        this.fallbackLanguage = 'en';
-        this.isLoaded = false;
-        this.loadingPromise = null;
-        this.retryCount = 0;
-        this.maxRetries = 2;
-
-        // Статичний контент для збережених секцій
-        this.staticContent = {
-            'uk': {
-                // Головна секція
-                'hero.status': 'В РОЗРОБЦІ',
-                'hero.title': 'GGenius AI',
-                'hero.description.intro': 'Вітаємо у майбутньому кіберспорту! GGenius - це передова платформа штучного інтелекту, створена спеціально для Mobile Legends: Bang Bang.',
-                'hero.cta.join': 'Приєднатися до спільноти',
-
-                // Як це працює
-                'how-it-works.title': 'Як це працює',
-                'how-it-works.subtitle': 'Три простих кроки до професійного рівня гри',
-
-                // Roadmap
-                'roadmap.title': 'Roadmap',
-                'roadmap.q1.2025.date': 'Q1 2025',
-                'roadmap.q1.2025.title': 'MVP Launch',
-                'roadmap.q1.2025.desc': 'Базова аналітика матчів, розробка та тестування.',
-                'roadmap.q2.2025.date': 'Q2 2025',
-                'roadmap.q2.2025.title': 'AI Integration',
-                'roadmap.q2.2025.desc': 'Запуск нейронної аналітики та AI-тренера.',
-                'roadmap.q3.2025.date': 'Q3 2025',
-                'roadmap.q3.2025.title': 'Community & Tournaments',
-                'roadmap.q3.2025.desc': 'Соціальна платформа та турнірна система.',
-                'roadmap.q4.2025.date': 'Q4 2025',
-                'roadmap.q4.2025.title': 'Platform Launch & Token',
-                'roadmap.q4.2025.desc': 'Повноцінна веб-платформа, запуск GGenius Token.',
-                'roadmap.q1.2026.date': 'Q1 2026',
-                'roadmap.q1.2026.title': 'Global Expansion',
-                'roadmap.q1.2026.desc': 'Міжнародна експансія та партнерства.',
-
-                // Мета
-                'meta.title': 'GGenius - AI Революція в Mobile Legends',
-                'meta.description': 'Штучний інтелект для аналізу та покращення гри в Mobile Legends: Bang Bang'
-            }
-        };
-    }
-
-    /**
-     * Ініціалізація системи контенту
+     * Ініціалізація системи
      */
     async init() {
-        if (this.loadingPromise) {
-            return this.loadingPromise;
-        }
+        try {
+            console.log('🚀 Ініціалізація AI Cards Hub...');
+            
+            // Перевіряємо підтримку браузера
+            if (!this.checkBrowserSupport()) {
+                this.showFallbackMode();
+                return;
+            }
 
-        this.loadingPromise = this.loadContentWithTimeout();
-        return this.loadingPromise;
+            // Налаштовуємо DOM
+            this.setupDOM();
+            
+            // Налаштовуємо обробники подій
+            this.setupEventListeners();
+            
+            // Налаштовуємо drag & drop
+            this.setupDragAndDrop();
+            
+            // Завантажуємо картки
+            await this.loadCards();
+            
+            // Запускаємо статистику
+            this.startSessionTracking();
+            
+            // Показуємо успішну ініціалізацію
+            this.showNotification('AI Cards Hub готовий до роботи! 🎮', 'success');
+            
+            console.log('✅ AI Cards Hub успішно ініціалізовано');
+            
+        } catch (error) {
+            console.error('❌ Помилка ініціалізації AI Cards Hub:', error);
+            this.handleError(error, 'Не вдалося ініціалізувати Cards Hub');
+        }
     }
 
     /**
-     * Завантаження контенту з timeout
+     * Перевірка підтримки браузера
      */
-    async loadContentWithTimeout() {
-        try {
-            console.log('🔄 Loading content with fast fallback...');
-
-            // Використовуємо статичний контент
-            this.useStaticContent();
-
-            // Спроба завантаження з lang файлу
-            const timeoutPromise = new Promise((_, reject) => {
-                setTimeout(() => reject(new Error('Content loading timeout')), 3000);
-            });
-
-            try {
-                await Promise.race([
-                    this.loadFromExistingLangFiles(),
-                    timeoutPromise
-                ]);
-            } catch (error) {
-                console.warn('⚠️ Lang files loading failed or timed out, using static:', error.message);
+    checkBrowserSupport() {
+        const required = {
+            css: {
+                transform3d: 'transform' in document.documentElement.style,
+                transition: 'transition' in document.documentElement.style,
+                backdropFilter: 'backdropFilter' in document.documentElement.style
+            },
+            js: {
+                fetch: typeof fetch !== 'undefined',
+                promise: typeof Promise !== 'undefined',
+                map: typeof Map !== 'undefined'
             }
+        };
 
-            this.isLoaded = true;
-            this.retryCount = 0;
-            console.log('✅ Content loaded successfully');
+        const unsupported = [];
+        
+        Object.entries(required).forEach(([category, features]) => {
+            Object.entries(features).forEach(([feature, supported]) => {
+                if (!supported) {
+                    unsupported.push(`${category}.${feature}`);
+                }
+            });
+        });
 
-            this.applyContentToPage();
-            return true;
-        } catch (error) {
-            console.warn('⚠ Content loading failed, using static:', error);
-            this.useStaticContent();
-            this.applyContentToPage();
+        if (unsupported.length > 0) {
+            console.warn('⚠️ Деякі функції не підтримуються:', unsupported);
             return false;
         }
+
+        return true;
     }
 
     /**
-     * Завантаження з lang файлів
+     * Налаштування DOM елементів
      */
-    async loadFromExistingLangFiles() {
-        try {
-            const response = await fetch(`/static/lang/${this.currentLanguage}.json`, {
-                cache: 'no-cache'
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-
-            const langData = await response.json();
-            const convertedData = this.convertLangFileToContentStructure(langData);
-            const mergedContent = { 
-                ...this.staticContent[this.currentLanguage] || this.staticContent.uk, 
-                ...convertedData 
-            };
-
-            this.content.set(this.currentLanguage, mergedContent);
-            console.log(`✅ Loaded content from lang/${this.currentLanguage}.json`);
-        } catch (error) {
-            console.warn('Failed to load from lang files:', error);
-            throw error;
-        }
-    }
-
-    /**
-     * Конвертація структури lang файлу
-     */
-    convertLangFileToContentStructure(langData) {
-        const converted = {};
-        const mappings = {
-            'projectIntroTitle': 'hero.title',
-            'projectIntroDescriptionIntro': 'hero.description.intro',
-            'roadmapTitle': 'roadmap.title'
+    setupDOM() {
+        // Отримуємо основні елементи
+        this.elements = {
+            container: document.getElementById('ai-cards-container'),
+            grid: document.getElementById('cards-hub-grid'),
+            loading: document.getElementById('cards-loading'),
+            empty: document.getElementById('cards-empty'),
+            controls: document.querySelector('.cards-hub-controls'),
+            overlay: document.getElementById('card-overlay'),
+            notifications: document.getElementById('notification-container')
         };
 
-        for (const [oldKey, newKey] of Object.entries(mappings)) {
-            if (langData[oldKey]) {
-                let value = langData[oldKey];
-                if (typeof value === 'string') {
-                    value = value.replace(/<[^>]*>/g, '').trim();
-                }
-                converted[newKey] = value;
+        // Перевіряємо наявність обов'язкових елементів
+        const required = ['container', 'grid'];
+        required.forEach(key => {
+            if (!this.elements[key]) {
+                throw new Error(`Відсутній обов'язковий DOM елемент: ${key}`);
             }
-        }
+        });
 
-        return converted;
-    }
-
-    /**
-     * Використання статичного контенту
-     */
-    useStaticContent() {
-        this.content.set(this.currentLanguage, this.staticContent[this.currentLanguage] || this.staticContent.uk);
-        this.isLoaded = true;
-    }
-
-    /**
-     * Застосування контенту до сторінки
-     */
-    applyContentToPage() {
-        const currentContent = this.getCurrentContent();
-        let appliedCount = 0;
-
-        try {
-            document.querySelectorAll('[data-content]').forEach(element => {
-                const contentKey = element.getAttribute('data-content');
-                const content = this.getContentByKey(contentKey, currentContent);
-
-                if (content) {
-                    this.setElementContent(element, content);
-                    appliedCount++;
-                } else {
-                    const fallback = element.querySelector('.fallback-text');
-                    if (fallback) {
-                        fallback.style.display = 'inline';
-                    }
-                    console.debug(`Content not found for key: ${contentKey}`);
-                }
-            });
-
-            if (currentContent['meta.title']) {
-                document.title = currentContent['meta.title'];
-            }
-
-            document.dispatchEvent(new CustomEvent('content:loaded', {
-                detail: { 
-                    language: this.currentLanguage,
-                    keysLoaded: Object.keys(currentContent).length,
-                    elementsUpdated: appliedCount
-                }
-            }));
-
-            console.log(`📝 Content applied: ${appliedCount} elements updated`);
-        } catch (error) {
-            console.error('❌ Error applying content to page:', error);
-            document.querySelectorAll('.fallback-text').forEach(fallback => {
-                fallback.style.display = 'inline';
-            });
-        }
-    }
-
-    /**
-     * Встановлення контенту для елемента
-     */
-    setElementContent(element, content) {
-        const contentType = element.getAttribute('data-content-type') || 'text';
-
-        try {
-            if (contentType === 'html') {
-                element.innerHTML = content;
-            } else {
-                element.textContent = content;
-            }
-
-            const fallback = element.querySelector('.fallback-text');
-            if (fallback) {
-                fallback.style.display = 'none';
-            }
-        } catch (error) {
-            console.error('Error setting element content:', error);
-            const fallback = element.querySelector('.fallback-text');
-            if (fallback) {
-                fallback.style.display = 'inline';
-            }
-        }
-    }
-
-    /**
-     * Отримання контенту за ключем
-     */
-    getContentByKey(key, content) {
-        return content[key] || null;
-    }
-
-    /**
-     * Отримання поточного контенту
-     */
-    getCurrentContent() {
-        return this.content.get(this.currentLanguage) || 
-               this.content.get(this.fallbackLanguage) || 
-               this.staticContent[this.currentLanguage] || 
-               this.staticContent.uk || {};
-    }
-
-    /**
-     * Отримання тексту за ключем
-     */
-    getText(key) {
-        if (!this.isLoaded) {
-            return this.staticContent.uk[key] || key;
-        }
-
-        const content = this.getCurrentContent();
-        return this.getContentByKey(key, content) || key;
-    }
-
-    /**
-     * Зміна мови
-     */
-    async setLanguage(language) {
-        this.currentLanguage = language;
-        localStorage.setItem('ggenius-language', language);
-        document.documentElement.lang = language;
-
-        try {
-            await this.loadFromExistingLangFiles();
-            this.applyContentToPage();
-        } catch (error) {
-            console.warn('Failed to change language, using static content:', error);
-            this.useStaticContent();
-            this.applyContentToPage();
-        }
-    }
-
-    /**
-     * Отримання статистики
-     */
-    getContentStats() {
-        const currentContent = this.getCurrentContent();
-        return {
-            language: this.currentLanguage,
-            fallbackLanguage: this.fallbackLanguage,
-            totalKeys: Object.keys(currentContent).length,
-            loadedFromLangFiles: this.isLoaded,
-            retryCount: this.retryCount
-        };
-    }
-}
-
-/**
- * Smooth Scroll Manager - НОВИЙ КЛАС
- * Керує плавним скролом та активними секціями
- */
-class SmoothScrollManager {
-    constructor(navigationManager) {
-        this.navigationManager = navigationManager;
-        this.isScrolling = false;
-        this.scrollTimeout = null;
+        // Створюємо відсутні елементи
+        this.createMissingElements();
         
-        this.init();
+        // Налаштовуємо ARIA атрибути
+        this.setupAccessibility();
     }
 
     /**
-     * Ініціалізація smooth scroll
+     * Створення відсутніх DOM елементів
      */
-    init() {
-        this.setupSmoothScrolling();
-        this.setupScrollSpy();
-        console.log('🔄 Smooth Scroll Manager initialized');
+    createMissingElements() {
+        // Створюємо overlay якщо відсутній
+        if (!this.elements.overlay) {
+            this.elements.overlay = document.createElement('div');
+            this.elements.overlay.id = 'card-overlay';
+            this.elements.overlay.className = 'card-overlay';
+            this.elements.overlay.setAttribute('aria-hidden', 'true');
+            document.body.appendChild(this.elements.overlay);
+        }
+
+        // Створюємо контейнер для нотифікацій
+        if (!this.elements.notifications) {
+            this.elements.notifications = document.createElement('div');
+            this.elements.notifications.id = 'notification-container';
+            this.elements.notifications.className = 'notification-container';
+            this.elements.notifications.setAttribute('aria-live', 'polite');
+            document.body.appendChild(this.elements.notifications);
+        }
     }
 
     /**
-     * Налаштування плавного скролу
+     * Налаштування accessibility
      */
-    setupSmoothScrolling() {
-        document.addEventListener('click', (e) => {
-            if (e.target.matches('a[href^="#"]')) {
+    setupAccessibility() {
+        // ARIA labels для grid
+        this.elements.grid.setAttribute('role', 'grid');
+        this.elements.grid.setAttribute('aria-label', 'AI Cards Hub - Інтерактивні картки');
+        
+        // Keyboard navigation
+        this.elements.grid.setAttribute('tabindex', '0');
+        
+        // Screen reader announcements
+        const announcement = document.createElement('div');
+        announcement.className = 'sr-only';
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.id = 'cards-announcements';
+        document.body.appendChild(announcement);
+        this.elements.announcements = announcement;
+    }
+
+    /**
+     * Налаштування обробників подій
+     */
+    setupEventListeners() {
+        // Клік по картках
+        this.addEventListener(this.elements.grid, 'click', this.handleCardClick.bind(this));
+        
+        // Подвійний клік для розширення
+        this.addEventListener(this.elements.grid, 'dblclick', this.handleCardDoubleClick.bind(this));
+        
+        // Keyboard navigation
+        this.addEventListener(this.elements.grid, 'keydown', this.handleKeyNavigation.bind(this));
+        
+        // Закриття розширеної картки
+        this.addEventListener(this.elements.overlay, 'click', this.closeExpandedCard.bind(this));
+        this.addEventListener(document, 'keydown', this.handleGlobalKeydown.bind(this));
+        
+        // Controls
+        this.setupControlsListeners();
+        
+        // Resize для адаптивності
+        this.addEventListener(window, 'resize', this.debounce(this.handleResize.bind(this), this.config.debounceDelay));
+        
+        // Visibility change для паузи анімацій
+        this.addEventListener(document, 'visibilitychange', this.handleVisibilityChange.bind(this));
+        
+        // Before unload для збереження сесії
+        this.addEventListener(window, 'beforeunload', this.saveSessionData.bind(this));
+    }
+
+    /**
+     * Налаштування обробників для контролів
+     */
+    setupControlsListeners() {
+        // Кнопки управління
+        const controls = {
+            'cards-refresh': this.refreshCards.bind(this),
+            'cards-shuffle': this.shuffleCards.bind(this),
+            'cards-reset': this.resetCards.bind(this),
+            'cards-fullscreen': this.toggleFullscreen.bind(this)
+        };
+
+        Object.entries(controls).forEach(([id, handler]) => {
+            const element = document.getElementById(id);
+            if (element) {
+                this.addEventListener(element, 'click', handler);
+            }
+        });
+
+        // View mode toggle
+        const viewModeButtons = document.querySelectorAll('.view-mode-btn');
+        viewModeButtons.forEach(btn => {
+            this.addEventListener(btn, 'click', (e) => {
+                const mode = e.target.dataset.view;
+                this.setViewMode(mode);
+            });
+        });
+
+        // Floating button
+        const floatingBtn = document.getElementById('floating-cards-hub');
+        if (floatingBtn) {
+            this.addEventListener(floatingBtn, 'click', this.scrollToCardsHub.bind(this));
+        }
+    }
+
+    /**
+     * Налаштування drag & drop
+     */
+    setupDragAndDrop() {
+        let startPos = { x: 0, y: 0 };
+        let isDragging = false;
+
+        // Mouse events
+        this.addEventListener(this.elements.grid, 'mousedown', (e) => {
+            const card = e.target.closest('.ai-card');
+            if (!card || card.classList.contains('expanded')) return;
+
+            startPos = { x: e.clientX, y: e.clientY };
+            this.prepareDrag(card, e);
+        });
+
+        this.addEventListener(document, 'mousemove', (e) => {
+            if (!this.state.draggedCard) return;
+
+            const distance = Math.sqrt(
+                Math.pow(e.clientX - startPos.x, 2) + 
+                Math.pow(e.clientY - startPos.y, 2)
+            );
+
+            if (distance > this.config.dragThreshold && !isDragging) {
+                isDragging = true;
+                this.startDrag(this.state.draggedCard, e);
+            }
+
+            if (isDragging) {
+                this.updateDrag(e);
+            }
+        });
+
+        this.addEventListener(document, 'mouseup', (e) => {
+            if (isDragging) {
+                this.endDrag(e);
+            }
+            isDragging = false;
+            this.state.draggedCard = null;
+        });
+
+        // Touch events для мобільних
+        this.setupTouchEvents();
+        
+        // Drop zones
+        this.setupDropZones();
+    }
+
+    /**
+     * Налаштування touch events
+     */
+    setupTouchEvents() {
+        let touchStartPos = { x: 0, y: 0 };
+        let isTouchDragging = false;
+
+        this.addEventListener(this.elements.grid, 'touchstart', (e) => {
+            const card = e.target.closest('.ai-card');
+            if (!card || card.classList.contains('expanded')) return;
+
+            const touch = e.touches[0];
+            touchStartPos = { x: touch.clientX, y: touch.clientY };
+            this.prepareDrag(card, touch);
+        }, { passive: false });
+
+        this.addEventListener(document, 'touchmove', (e) => {
+            if (!this.state.draggedCard) return;
+
+            const touch = e.touches[0];
+            const distance = Math.sqrt(
+                Math.pow(touch.clientX - touchStartPos.x, 2) + 
+                Math.pow(touch.clientY - touchStartPos.y, 2)
+            );
+
+            if (distance > this.config.dragThreshold && !isTouchDragging) {
+                isTouchDragging = true;
+                this.startDrag(this.state.draggedCard, touch);
                 e.preventDefault();
-                
-                const targetId = e.target.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-                
-                if (targetElement) {
-                    this.scrollToElement(targetElement);
-                }
             }
+
+            if (isTouchDragging) {
+                this.updateDrag(touch);
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        this.addEventListener(document, 'touchend', (e) => {
+            if (isTouchDragging) {
+                const touch = e.changedTouches[0];
+                this.endDrag(touch);
+            }
+            isTouchDragging = false;
+            this.state.draggedCard = null;
         });
     }
 
     /**
-     * Скрол до елемента
+     * Налаштування drop zones
      */
-    scrollToElement(element) {
-        const headerHeight = this.navigationManager?.header?.offsetHeight || 64;
-        const targetPosition = element.offsetTop - headerHeight;
+    setupDropZones() {
+        const dropZones = document.querySelectorAll('.drop-zone');
         
-        this.isScrolling = true;
-        
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
+        dropZones.forEach(zone => {
+            this.addEventListener(zone, 'dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('drag-over');
+            });
 
-        // Оновити URL без перезавантаження
-        const targetId = element.getAttribute('id');
-        if (targetId) {
-            history.pushState(null, '', `#${targetId}`);
-        }
-
-        // Скинути флаг скролінгу
-        clearTimeout(this.scrollTimeout);
-        this.scrollTimeout = setTimeout(() => {
-            this.isScrolling = false;
-        }, 1000);
-    }
-
-    /**
-     * Налаштування scroll spy
-     */
-    setupScrollSpy() {
-        const observerOptions = {
-            root: null,
-            rootMargin: '-20% 0px -70% 0px',
-            threshold: 0
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            if (this.isScrolling) return;
-
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const sectionId = entry.target.getAttribute('id');
-                    const activeLink = document.querySelector(`a[href="#${sectionId}"]`);
-                    
-                    if (activeLink && this.navigationManager) {
-                        this.navigationManager.setActiveNavItem(activeLink);
-                    }
-                    
-                    // Оновити URL
-                    if (sectionId) {
-                        history.replaceState(null, '', `#${sectionId}`);
-                    }
+            this.addEventListener(zone, 'dragleave', (e) => {
+                if (!zone.contains(e.relatedTarget)) {
+                    zone.classList.remove('drag-over');
                 }
             });
-        }, observerOptions);
 
-        // Спостерігати за всіма секціями
-        document.querySelectorAll('section[id]').forEach(section => {
-            observer.observe(section);
+            this.addEventListener(zone, 'drop', (e) => {
+                e.preventDefault();
+                zone.classList.remove('drag-over');
+                
+                if (this.state.draggedCard) {
+                    this.handleCardDrop(this.state.draggedCard, zone);
+                }
+            });
         });
     }
-}
-
-/**
- * Performance Monitor - НОВИЙ КЛАС
- * Моніторинг продуктивності та оптимізація
- */
-class PerformanceMonitor {
-    constructor() {
-        this.metrics = {
-            loadTime: 0,
-            firstContentfulPaint: 0,
-            largestContentfulPaint: 0,
-            cumulativeLayoutShift: 0,
-            firstInputDelay: 0
-        };
-        
-        this.thresholds = {
-            loadTime: 3000,      // 3 секунди
-            fcp: 1800,           // 1.8 секунди
-            lcp: 2500,           // 2.5 секунди
-            cls: 0.1,            // 0.1
-            fid: 100             // 100мс
-        };
-        
-        this.init();
-    }
 
     /**
-     * Ініціалізація моніторингу
+     * Завантаження карток
      */
-    init() {
-        this.measureLoadTime();
-        this.measureWebVitals();
-        this.setupResourceObserver();
-        console.log('⚡ Performance Monitor initialized');
-    }
+    async loadCards() {
+        if (this.state.isLoading) return;
 
-    /**
-     * Вимірювання часу завантаження
-     */
-    measureLoadTime() {
-        const loadTime = performance.now();
-        this.metrics.loadTime = loadTime;
-        
-        if (loadTime > this.thresholds.loadTime) {
-            console.warn(`⚠️ Slow load time: ${loadTime.toFixed(2)}ms`);
-        } else {
-            console.log(`✅ Load time: ${loadTime.toFixed(2)}ms`);
-        }
-    }
-
-    /**
-     * Вимірювання Web Vitals
-     */
-    measureWebVitals() {
-        // First Contentful Paint
-        if ('PerformanceObserver' in window) {
-            const fcpObserver = new PerformanceObserver((entryList) => {
-                for (const entry of entryList.getEntries()) {
-                    if (entry.name === 'first-contentful-paint') {
-                        this.metrics.firstContentfulPaint = entry.startTime;
-                        console.log(`🎨 FCP: ${entry.startTime.toFixed(2)}ms`);
-                    }
-                }
-            });
-            
-            fcpObserver.observe({ entryTypes: ['paint'] });
-
-            // Largest Contentful Paint
-            const lcpObserver = new PerformanceObserver((entryList) => {
-                const entries = entryList.getEntries();
-                const lastEntry = entries[entries.length - 1];
-                this.metrics.largestContentfulPaint = lastEntry.startTime;
-                console.log(`🖼️ LCP: ${lastEntry.startTime.toFixed(2)}ms`);
-            });
-            
-            lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
-
-            // Cumulative Layout Shift
-            let clsValue = 0;
-            const clsObserver = new PerformanceObserver((entryList) => {
-                for (const entry of entryList.getEntries()) {
-                    if (!entry.hadRecentInput) {
-                        clsValue += entry.value;
-                    }
-                }
-                this.metrics.cumulativeLayoutShift = clsValue;
-            });
-            
-            clsObserver.observe({ entryTypes: ['layout-shift'] });
-
-            // First Input Delay
-            const fidObserver = new PerformanceObserver((entryList) => {
-                for (const entry of entryList.getEntries()) {
-                    this.metrics.firstInputDelay = entry.processingStart - entry.startTime;
-                    console.log(`⚡ FID: ${this.metrics.firstInputDelay.toFixed(2)}ms`);
-                }
-            });
-            
-            fidObserver.observe({ entryTypes: ['first-input'] });
-        }
-    }
-
-    /**
-     * Спостереження за ресурсами
-     */
-    setupResourceObserver() {
-        if ('PerformanceObserver' in window) {
-            const resourceObserver = new PerformanceObserver((entryList) => {
-                for (const entry of entryList.getEntries()) {
-                    if (entry.duration > 1000) { // Повільні ресурси (>1с)
-                        console.warn(`🐌 Slow resource: ${entry.name} - ${entry.duration.toFixed(2)}ms`);
-                    }
-                }
-            });
-            
-            resourceObserver.observe({ entryTypes: ['resource'] });
-        }
-    }
-
-    /**
-     * Отримання звіту про продуктивність
-     */
-    getPerformanceReport() {
-        return {
-            metrics: this.metrics,
-            thresholds: this.thresholds,
-            score: this.calculatePerformanceScore(),
-            recommendations: this.getRecommendations()
-        };
-    }
-
-    /**
-     * Розрахунок оцінки продуктивності
-     */
-    calculatePerformanceScore() {
-        let score = 100;
-        
-        // Штрафи за перевищення порогів
-        if (this.metrics.loadTime > this.thresholds.loadTime) {
-            score -= 20;
-        }
-        if (this.metrics.firstContentfulPaint > this.thresholds.fcp) {
-            score -= 15;
-        }
-        if (this.metrics.largestContentfulPaint > this.thresholds.lcp) {
-            score -= 20;
-        }
-        if (this.metrics.cumulativeLayoutShift > this.thresholds.cls) {
-            score -= 15;
-        }
-        if (this.metrics.firstInputDelay > this.thresholds.fid) {
-            score -= 10;
-        }
-        
-        return Math.max(0, score);
-    }
-
-    /**
-     * Отримання рекомендацій
-     */
-    getRecommendations() {
-        const recommendations = [];
-        
-        if (this.metrics.loadTime > this.thresholds.loadTime) {
-            recommendations.push('Оптимізуйте завантаження ресурсів');
-        }
-        if (this.metrics.firstContentfulPaint > this.thresholds.fcp) {
-            recommendations.push('Покращте швидкість відображення контенту');
-        }
-        if (this.metrics.largestContentfulPaint > this.thresholds.lcp) {
-            recommendations.push('Оптимізуйте завантаження великих елементів');
-        }
-        if (this.metrics.cumulativeLayoutShift > this.thresholds.cls) {
-            recommendations.push('Зменште зміщення макету');
-        }
-        if (this.metrics.firstInputDelay > this.thresholds.fid) {
-            recommendations.push('Покращте відгук на взаємодію користувача');
-        }
-        
-        return recommendations;
-    }
-}
-
-/**
- * Головний клас додатка GGenius
- */
-class GGeniusApp {
-    constructor() {
-        this.isLoaded = false;
-        this.eventListeners = new Map();
-        this.contentManager = new ContentManager();
-        this.mobileNavigationManager = null;
-        this.smoothScrollManager = null;
-        this.performanceMonitor = new PerformanceMonitor();
-        
-        this.settings = {
-            language: localStorage.getItem('ggenius-language') || 'uk',
-            reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        };
-
-        this.performance = {
-            startTime: performance.now(),
-            isLowPerformance: this.detectLowPerformance()
-        };
-
-        this.init();
-    }
-
-    /**
-     * Ініціалізація додатка
-     */
-    async init() {
         try {
-            console.log('🚀 Initializing GGenius App...');
+            this.state.isLoading = true;
+            this.showLoadingState();
 
-            const initTimeout = new Promise((_, reject) => {
-                setTimeout(() => reject(new Error('Initialization timeout')), 5000);
-            });
-
-            try {
-                await Promise.race([
-                    this.contentManager.init(),
-                    initTimeout
-                ]);
-            } catch (error) {
-                console.warn('⚠️ Content manager init failed or timed out:', error.message);
-                this.contentManager.useStaticContent();
-                this.contentManager.applyContentToPage();
+            // Simulate API call або використовуємо реальний API
+            const cardsData = await this.fetchCardsData();
+            
+            if (!cardsData || cardsData.length === 0) {
+                this.showEmptyState();
+                return;
             }
 
-            // Ініціалізація інших компонентів
-            this.mobileNavigationManager = new MobileNavigationManager();
-            this.smoothScrollManager = new SmoothScrollManager(this.mobileNavigationManager);
-
-            this.isLoaded = true;
-            console.log('✅ GGenius App initialized successfully');
-
-            document.dispatchEvent(new CustomEvent('ggenius:ready', {
-                detail: {
-                    version: '2.8.0',
-                    performance: this.performance.isLowPerformance ? 'low' : 'normal',
-                    language: this.settings.language,
-                    features: ['mobile-navigation', 'smooth-scroll', 'performance-monitoring']
-                }
-            }));
+            // Очищаємо існуючі картки
+            this.clearCards();
+            
+            // Створюємо нові картки
+            await this.createCards(cardsData);
+            
+            // Оновлюємо статистику
+            this.updateCardsCounter(cardsData.length);
+            
+            // Приховуємо loading state
+            this.hideLoadingState();
+            
+            // Announce для screen readers
+            this.announceToScreenReader(`Завантажено ${cardsData.length} AI карток`);
+            
         } catch (error) {
-            console.error('❌ Failed to initialize GGenius App:', error);
-            this.fallbackMode(error);
+            console.error('Помилка завантаження карток:', error);
+            this.handleError(error, 'Не вдалося завантажити картки');
+            this.showEmptyState();
+        } finally {
+            this.state.isLoading = false;
         }
     }
 
     /**
-     * Виявлення низької продуктивності
+     * Отримання даних карток (може бути замінено на реальний API)
      */
-    detectLowPerformance() {
-        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
-        const hasLimitedMemory = navigator.deviceMemory && navigator.deviceMemory < 2;
-        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    async fetchCardsData() {
+        // Спробуємо спочатку реальний API
+        try {
+            const response = await fetch(`${this.config.apiBase}/cards`);
+            if (response.ok) {
+                const data = await response.json();
+                return data.cards || data;
+            }
+        } catch (error) {
+            console.warn('API недоступний, використовуємо mock дані:', error);
+        }
 
-        return isSlowConnection || hasLimitedMemory || (isMobile && window.innerWidth < 768);
-    }
-
-    /**
-     * Fallback режим
-     */
-    fallbackMode(error) {
-        console.log('🔧 Entering fallback mode...');
-
-        document.documentElement.classList.add('fallback-mode');
-        document.querySelectorAll('.fallback-text').forEach(element => {
-            element.style.display = 'inline';
+        // Fallback на mock дані
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve([
+                    {
+                        id: 'guides_card',
+                        type: 'guides',
+                        title: 'Гайди героїв',
+                        description: 'Актуальні гайди та мета аналіз',
+                        icon: '🎯',
+                        status: 'active',
+                        statusText: '12 нових гайдів',
+                        priority: 1,
+                        actions: [
+                            { text: '🎯 Завантажити PDF гайд', action: 'download-guide', primary: true },
+                            { text: '🤖 AI-аналіз героя', action: 'ai-analysis' },
+                            { text: '📊 Історія мети', action: 'meta-history' },
+                            { text: '💡 Персональні поради', action: 'personal-tips' }
+                        ]
+                    },
+                    {
+                        id: 'tournaments_card',
+                        type: 'tournaments',
+                        title: 'Турніри',
+                        description: 'Наступний матч через 1д 2г',
+                        icon: '⚔️',
+                        status: 'active',
+                        statusText: 'Зареєстровано',
+                        priority: 2,
+                        actions: [
+                            { text: '🏆 Зареєструватись', action: 'register', primary: true },
+                            { text: '📋 Сітка турніру', action: 'bracket' },
+                            { text: '📈 Мій прогрес', action: 'progress' },
+                            { text: '🎥 Дивитись стрім', action: 'watch-stream' }
+                        ]
+                    },
+                    {
+                        id: 'team_finder_card',
+                        type: 'team-finder',
+                        title: 'Пошук команди',
+                        description: '3 запрошення активні',
+                        icon: '💬',
+                        status: 'pending',
+                        statusText: 'Нові повідомлення',
+                        priority: 3,
+                        actions: [
+                            { text: '👥 Знайти команду', action: 'find-team', primary: true },
+                            { text: '⚙️ Налаштувати фільтри', action: 'filters' },
+                            { text: '💬 Надіслати повідомлення', action: 'message' },
+                            { text: '🤖 AI-підбір гравців', action: 'ai-match' }
+                        ]
+                    },
+                    {
+                        id: 'analytics_card',
+                        type: 'analytics',
+                        title: 'Аналітика',
+                        description: 'KDA 3.2, WinRate 68%',
+                        icon: '📊',
+                        status: 'active',
+                        statusText: 'Оновлено',
+                        priority: 4,
+                        actions: [
+                            { text: '📊 Детальний звіт', action: 'detailed-report', primary: true },
+                            { text: '📈 Тренд за 30 днів', action: 'trends' },
+                            { text: '🎯 Що покращити', action: 'improvements' },
+                            { text: '🏅 Порівняти з про', action: 'compare-pro' }
+                        ]
+                    }
+                ]);
+            }, 1000); // Симулюємо затримку мережі
         });
-
-        if (localStorage.getItem('ggenius-debug') === 'true') {
-            const message = document.createElement('div');
-            message.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: var(--pink, #ff073a);
-                color: white;
-                padding: 1rem;
-                border-radius: 8px;
-                z-index: 10000;
-                max-width: 300px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            `;
-            message.innerHTML = `
-                <strong>Режим fallback</strong><br>
-                ${error.message}<br>
-                <button onclick="location.reload()" style="
-                    background: transparent;
-                    border: 1px solid currentColor;
-                    color: inherit;
-                    padding: 0.25rem 0.5rem;
-                    border-radius: 4px;
-                    margin-top: 0.5rem;
-                    cursor: pointer;
-                ">Оновити</button>
-            `;
-            document.body.appendChild(message);
-        }
-
-        console.log('✅ Fallback mode activated');
     }
 
     /**
-     * Додавання event listener
+     * Створення карток
      */
-    _addEventListener(target, type, listener, key, options = { passive: true }) {
-        if (this.eventListeners.has(key)) {
-            this._removeEventListener(key);
-        }
-        target.addEventListener(type, listener, options);
-        this.eventListeners.set(key, { target, type, listener, options });
-    }
-
-    /**
-     * Видалення event listener
-     */
-    _removeEventListener(key) {
-        if (this.eventListeners.has(key)) {
-            const { target, type, listener, options } = this.eventListeners.get(key);
-            target.removeEventListener(type, listener, options);
-            this.eventListeners.delete(key);
-        }
-    }
-
-    /**
-     * Отримання тексту
-     */
-    getText(key) {
-        return this.contentManager.getText(key);
-    }
-
-    /**
-     * Отримання звіту про продуктивність
-     */
-    getPerformanceReport() {
-        return this.performanceMonitor.getPerformanceReport();
-    }
-
-    /**
-     * Очищення ресурсів
-     */
-    destroy() {
-        this.eventListeners.forEach((listener, key) => {
-            this._removeEventListener(key);
-        });
+    async createCards(cardsData) {
+        const fragment = document.createDocumentFragment();
         
-        this.mobileNavigationManager?.destroy();
-        
-        console.log('🧹 GGenius App destroyed');
-    }
-}
-
-// Ініціалізація
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('🚀 DOM Content Loaded, initializing GGenius...');
-        setTimeout(() => {
-            window.app = new GGeniusApp();
-        }, 100);
-
-        if (localStorage.getItem('ggenius-debug') === 'true') {
-            document.documentElement.classList.add('debug-mode');
-            console.log('🔧 Debug mode enabled');
+        for (let i = 0; i < cardsData.length; i++) {
+            const cardData = cardsData[i];
+            const cardElement = this.createCardElement(cardData);
+            
+            // Додаємо затримку для анімації появи
+            cardElement.style.animationDelay = `${i * this.config.animationDelay}ms`;
+            
+            // Зберігаємо дані картки
+            this.state.cards.set(cardData.id, {
+                element: cardElement,
+                data: cardData,
+                isFlipped: false,
+                actions: cardData.actions || []
+            });
+            
+            fragment.appendChild(cardElement);
         }
-    });
-} else {
-    console.log('🚀 DOM already loaded, initializing GGenius...');
-    window.app = new GGeniusApp();
-}
-
-// Глобальні утиліти для розробки
-window.GGeniusDebug = {
-    enableDebug() {
-        localStorage.setItem('ggenius-debug', 'true');
-        document.documentElement.classList.add('debug-mode');
-        console.log('🔧 Debug mode enabled');
-    },
-
-    disableDebug() {
-        localStorage.removeItem('ggenius-debug');
-        document.documentElement.classList.remove('debug-mode');
-        console.log('🔧 Debug mode disabled');
-    },
-
-    getContentStats() {
-        return window.app?.contentManager?.getContentStats();
-    },
-
-    testContentKey(key) {
-        return window.app?.contentManager?.getText(key);
-    },
-
-    getPerformanceReport() {
-        return window.app?.getPerformanceReport();
-    },
-
-    toggleMobileMenu() {
-        window.app?.mobileNavigationManager?.toggleMobileMenu();
-    },
-
-    forceReload() {
-        location.reload();
+        
+        this.elements.grid.appendChild(fragment);
     }
-};
 
-// Експорт для модулів
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { 
-        GGeniusApp, 
-        ContentManager, 
-        MobileNavigationManager, 
-        SmoothScrollManager,
-        PerformanceMonitor 
-    };
+    /**
+     * Створення елемента картки
+     */
+    createCardElement(cardData) {
+        const card = document.createElement('div');
+        card.className = `ai-card card-type-${cardData.type}`;
+        card.dataset.cardId = cardData.id;
+        card.setAttribute('role', 'gridcell');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `${cardData.title}: ${cardData.description}`);
+        
+        card.innerHTML = `
+            <div class="card-face card-front">
+                <div class="card-icon" aria-hidden="true">${cardData.icon}</div>
+                <div class="card-title">${this.escapeHtml(cardData.title)}</div>
+                <div class="card-description">${this.escapeHtml(cardData.description)}</div>
+                <div class="card-status">
+                    <div class="status-indicator" aria-label="Статус: ${cardData.status}"></div>
+                    <div class="status-text">${this.escapeHtml(cardData.statusText)}</div>
+                </div>
+            </div>
+            <div class="card-face card-back">
+                <div class="card-actions" role="list" aria-label="Дії картки">
+                    <!-- Дії будуть додані динамічно -->
+                </div>
+            </div>
+        `;
+        
+        return card;
+    }
+
+    /**
+     * Обробка кліку по картці
+     */
+    async handleCardClick(event) {
+        const card = event.target.closest('.ai-card');
+        if (!card) return;
+
+        const cardId = card.dataset.cardId;
+        const cardState = this.state.cards.get(cardId);
+        
+        if (!cardState) return;
+
+        // Перевіряємо чи це клік по кнопці дії
+        const actionButton = event.target.closest('.action-button');
+        if (actionButton) {
+            await this.handleActionClick(actionButton, cardState);
+            return;
+        }
+
+        // Перевіряємо чи це клік по кнопці закриття
+        const closeButton = event.target.closest('.close-card');
+        if (closeButton) {
+            this.closeExpandedCard();
+            return;
+        }
+
+        // Flip картки
+        await this.flipCard(card, cardState);
+    }
+
+    /**
+     * Перевертання картки
+     */
+    async flipCard(cardElement, cardState) {
+        if (cardElement.classList.contains('expanded')) return;
+        
+        try {
+            // Оновлюємо статистику
+            this.stats.totalFlips++;
+            this.updateStatistic('total-flips', this.stats.totalFlips);
+            
+            // Переключаємо стан
+            cardState.isFlipped = !cardState.isFlipped;
+            cardElement.classList.toggle('flipped', cardState.isFlipped);
+            
+            // Якщо перевертаємо на задню сторону і дії ще не завантажені
+            if (cardState.isFlipped && !cardState.actionsLoaded) {
+                await this.loadCardActions(cardElement, cardState);
+            }
+            
+            // Announce для screen readers
+            const status = cardState.isFlipped ? 'перевернута' : 'повернута';
+            this.announceToScreenReader(`Картка ${cardState.data.title} ${status}`);
+            
+        } catch (error) {
+            console.error('Помилка перевертання картки:', error);
+            this.handleError(error, 'Не вдалося перевернути картку');
+        }
+    }
+
+    /**
+     * Завантаження дій для картки
+     */
+    async loadCardActions(cardElement, cardState) {
+        const actionsContainer = cardElement.querySelector('.card-actions');
+        if (!actionsContainer) return;
+
+        try {
+            // Показуємо loading
+            actionsContainer.innerHTML = '<div class="loading-actions">Завантаження дій...</div>';
+            
+            // Симулюємо загрузку (може бути замінено на реальний API)
+            await this.delay(500);
+            
+            // Очищаємо контейнер
+            actionsContainer.innerHTML = '';
+            
+            // Створюємо кнопки дій
+            cardState.actions.forEach(action => {
+                const button = this.createActionButton(action);
+                actionsContainer.appendChild(button);
+            });
+            
+            // Додаємо AI відповідь якщо є
+            if (cardState.actions.length > 0) {
+                const aiResponse = document.createElement('div');
+                aiResponse.className = 'ai-response';
+                aiResponse.textContent = 'AI готовий допомогти з аналітикою та порадами...';
+                actionsContainer.appendChild(aiResponse);
+            }
+            
+            cardState.actionsLoaded = true;
+            
+        } catch (error) {
+            console.error('Помилка завантаження дій:', error);
+            actionsContainer.innerHTML = '<div class="error-actions">Помилка завантаження дій</div>';
+        }
+    }
+
+    /**
+     * Створення кнопки дії
+     */
+    createActionButton(actionData) {
+        const button = document.createElement('button');
+        button.className = `action-button ${actionData.primary ? 'primary' : ''}`;
+        button.textContent = actionData.text;
+        button.dataset.action = actionData.action;
+        button.setAttribute('role', 'listitem');
+        button.setAttribute('aria-label', actionData.text);
+        
+        return button;
+    }
+
+    /**
+     * Обробка подвійного кліку (розширення картки)
+     */
+    handleCardDoubleClick(event) {
+        const card = event.target.closest('.ai-card');
+        if (!card) return;
+
+        this.expandCard(card);
+    }
+
+    /**
+     * Розширення картки
+     */
+    expandCard(cardElement) {
+        if (this.state.expandedCard) {
+            this.closeExpandedCard();
+        }
+
+        try {
+            // Додаємо overlay
+            this.elements.overlay.classList.add('active');
+            this.elements.overlay.setAttribute('aria-hidden', 'false');
+            
+            // Додаємо кнопку закриття
+            const closeButton = document.createElement('button');
+            closeButton.className = 'close-card';
+            closeButton.innerHTML = '×';
+            closeButton.setAttribute('aria-label', 'Закрити розширену картку');
+            cardElement.appendChild(closeButton);
+            
+            // Розширюємо картку
+            cardElement.classList.add('expanded');
+            this.state.expandedCard = cardElement;
+            
+            // Блокуємо скролл body
+            document.body.style.overflow = 'hidden';
+            
+            // Focus trap
+            this.setupFocusTrap(cardElement);
+            
+            // Announce для screen readers
+            const cardTitle = cardElement.querySelector('.card-title')?.textContent || 'картка';
+            this.announceToScreenReader(`${cardTitle} розширена. Натисніть Escape для закриття`);
+            
+        } catch (error) {
+            console.error('Помилка розширення картки:', error);
+            this.handleError(error, 'Не вдалося розширити картку');
+        }
+    }
+
+    /**
+     * Закриття розширеної картки
+     */
+    closeExpandedCard() {
+        if (!this.state.expandedCard) return;
+
+        try {
+            // Приховуємо overlay
+            this.elements.overlay.classList.remove('active');
+            this.elements.overlay.setAttribute('aria-hidden', 'true');
+            
+            // Видаляємо кнопку закриття
+            const closeButton = this.state.expandedCard.querySelector('.close-card');
+            if (closeButton) {
+                closeButton.remove();
+            }
+            
+            // Згортаємо картку
+            this.state.expandedCard.classList.remove('expanded');
+            
+            // Відновлюємо скролл
+            document.body.style.overflow = '';
+            
+            // Повертаємо фокус
+            this.state.expandedCard.focus();
+            
+            this.state.expandedCard = null;
+            
+        } catch (error) {
+            console.error('Помилка закриття картки:', error);
+        }
+    }
+
+    /**
+     * Налаштування focus trap для розширеної картки
+     */
+    setupFocusTrap(cardElement) {
+        const focusableElements = cardElement.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        
+        if (focusableElements.length === 0) return;
+        
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        
+        // Focus на перший елемент
+        firstElement.focus();
+        
+        // Обробник Tab
+        const handleTab = (e) => {
+            if (e.key !== 'Tab') return;
+            
+            if (e.shiftKey) {
+                if (document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                }
+            } else {
+                if (document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        };
+        
+        cardElement.addEventListener('keydown', handleTab);
+        
+        // Очищаємо при закритті
+        const cleanup = () => {
+            cardElement.removeEventListener('keydown', handleTab);
+        };
+        
+        // Зберігаємо cleanup функцію
+        cardElement.focusTrapCleanup = cleanup;
+    }
+
+    /**
+     * Обробка клавіатурної навігації
+     */
+    handleKeyNavigation(event) {
+        const { key, target } = event;
+        const card = target.closest('.ai-card');
+        
+        if (!card) return;
+        
+        switch (key) {
+            case 'Enter':
+            case ' ':
+                event.preventDefault();
+                this.flipCard(card, this.state.cards.get(card.dataset.cardId));
+                break;
+                
+            case 'ArrowRight':
+            case 'ArrowDown':
+                event.preventDefault();
+                this.focusNextCard(card);
+                break;
+                
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                event.preventDefault();
+                this.focusPreviousCard(card);
+                break;
+                
+            case 'Home':
+                event.preventDefault();
+                this.focusFirstCard();
+                break;
+                
+            case 'End':
+                event.preventDefault();
+                this.focusLastCard();
+                break;
+        }
+    }
+
+    /**
+     * Фокус на наступну картку
+     */
+    focusNextCard(currentCard) {
+        const cards = Array.from(this.elements.grid.querySelectorAll('.ai-card'));
+        const currentIndex = cards.indexOf(currentCard);
+        const nextCard = cards[currentIndex + 1] || cards[0];
+        nextCard.focus();
+    }
+
+    /**
+     * Фокус на попередню картку
+     */
+    focusPreviousCard(currentCard) {
+        const cards = Array.from(this.elements.grid.querySelectorAll('.ai-card'));
+        const currentIndex = cards.indexOf(currentCard);
+        const prevCard = cards[currentIndex - 1] || cards[cards.length - 1];
+        prevCard.focus();
+    }
+
+    /**
+     * Фокус на першу картку
+     */
+    focusFirstCard() {
+        const firstCard = this.elements.grid.querySelector('.ai-card');
+        if (firstCard) firstCard.focus();
+    }
+
+    /**
+     * Фокус на останню картку
+     */
+    focusLastCard() {
+        const cards = this.elements.grid.querySelectorAll('.ai-card');
+        const lastCard = cards[cards.length - 1];
+        if (lastCard) lastCard.focus();
+    }
+
+    /**
+     * Глобальна обробка клавіш
+     */
+    handleGlobalKeydown(event) {
+        if (event.key === 'Escape') {
+            if (this.state.expandedCard) {
+                this.closeExpandedCard();
+            }
+        }
+    }
+
+    /**
+     * Обробка дій картки
+     */
+    async handleActionClick(button, cardState) {
+        const action = button.dataset.action;
+        
+        if (!action) return;
+        
+        try {
+            // Показуємо loading стан кнопки
+            const originalText = button.textContent;
+            button.disabled = true;
+            button.textContent = '⏳ Обробка...';
+            
+            // Виконуємо дію
+            const result = await this.executeAction(action, cardState.data);
+            
+            // Оновлюємо статистику
+            this.stats.aiInteractions++;
+            this.stats.successfulActions++;
+            this.updateStatistic('ai-interactions', this.stats.aiInteractions);
+            this.updateStatistic('success-rate', Math.round((this.stats.successfulActions / this.stats.aiInteractions) * 100));
+            
+            // Показуємо результат
+            this.showActionResult(cardState, result);
+            
+            // Показуємо успішне повідомлення
+            this.showNotification(`Дія "${originalText}" виконана успішно! ✅`, 'success');
+            
+        } catch (error) {
+            console.error('Помилка виконання дії:', error);
+            this.handleError(error, 'Не вдалося виконати дію');
+        } finally {
+            // Відновлюємо кнопку
+            button.disabled = false;
+            button.textContent = originalText;
+        }
+    }
+
+    /**
+     * Виконання дії
+     */
+    async executeAction(action, cardData) {
+        // Спробуємо реальний API
+        try {
+            const response = await fetch(`${this.config.apiBase}/cards/${cardData.id}/action`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ action, cardData })
+            });
+            
+            if (response.ok) {
+                return await response.json();
+            }
+        } catch (error) {
+            console.warn('API недоступний, використовуємо mock відповіді:', error);
+        }
+        
+        // Fallback на mock відповіді
+        return this.getMockActionResult(action, cardData);
+    }
+
+    /**
+     * Mock результати для дій
+     */
+    async getMockActionResult(action, cardData) {
+        // Симулюємо затримку
+        await this.delay(Math.random() * 1000 + 500);
+        
+        const mockResults = {
+            'ai-analysis': {
+                type: 'ai-response',
+                data: {
+                    recommendations: [
+                        'Покращити фарм у ранній грі (+15% ефективності)',
+                        'Більше участі в командних боях',
+                        'Оптимізувати білд під поточну мету'
+                    ],
+                    confidence: 0.92,
+                    analysis: `AI аналіз для ${cardData.title} завершено успішно!`
+                }
+            },
+            'download-guide': {
+                type: 'download',
+                data: {
+                    url: `/downloads/guide_${cardData.type}.pdf`,
+                    filename: `Гайд_${cardData.title}.pdf`,
+                    size: '2.1 MB'
+                }
+            },
+            'register': {
+                type: 'registration',
+                data: {
+                    status: 'success',
+                    tournamentId: 'mlbb_championship_2024',
+                    nextMatch: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+                }
+            },
+            'find-team': {
+                type: 'team-search',
+                data: {
+                    matches: 5,
+                    recommendations: ['Team Alpha', 'Team Beta', 'Team Gamma'],
+                    searchId: 'search_' + Date.now()
+                }
+            }
+        };
+        
+        return mockResults[action] || {
+            type: 'success',
+            data: { message: `Дія ${action} виконана успішно!` }
+        };
+    }
+
+    /**
+     * Показ результату дії
+     */
+    showActionResult(cardState, result) {
+        const aiResponse = cardState.element.querySelector('.ai-response');
+        if (!aiResponse) return;
+        
+        switch (result.type) {
+            case 'ai-response':
+                aiResponse.innerHTML = `
+                    <strong>🤖 AI Рекомендації:</strong><br>
+                    ${result.data.recommendations.map(rec => `• ${rec}`).join('<br>')}
+                    <br><small>Впевненість: ${Math.round(result.data.confidence * 100)}%</small>
+                `;
+                break;
+                
+            case 'download':
+                aiResponse.innerHTML = `
+                    <strong>📥 Завантаження:</strong><br>
+                    Файл: ${result.data.filename}<br>
+                    Розмір: ${result.data.size}
+                `;
+                // Тут можна додати реальне завантаження
+                break;
+                
+            case 'registration':
+                aiResponse.innerHTML = `
+                    <strong>🏆 Реєстрація:</strong><br>
+                    Статус: Успішно зареєстровано<br>
+                    Наступний матч: ${new Date(result.data.nextMatch).toLocaleDateString()}
+                `;
+                break;
+                
+            case 'team-search':
+                aiResponse.innerHTML = `
+                    <strong>👥 Пошук команди:</strong><br>
+                    Знайдено ${result.data.matches} команд<br>
+                    Рекомендації: ${result.data.recommendations.join(', ')}
+                `;
+                break;
+                
+            default:
+                aiResponse.innerHTML = `
+                    <strong>✅ Результат:</strong><br>
+                    ${result.data.message}
+                `;
+        }
+    }
+
+    // ... (продовження коду в наступній частині)
 }
+
+// Глобальні утиліти та ініціалізація
+window.AICardsHub = AICardsHub;
+
+// Ініціалізація при завантаженні DOM
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        window.aiCardsHub = new AICardsHub();
+        console.log('🎮 AI Cards Hub Revolution готовий до роботи!');
+    } catch (error) {
+        console.error('❌ Критична помилка ініціалізації:', error);
+    }
+});
