@@ -33,14 +33,15 @@
     --pink-rgb: 255, 7, 58;
     --electric-rgb: 191, 0, 255;
 
-    /* Gradients - Optimized */
+    /* Gradients - Оптимізовані для плавного скролінгу */
     --g1: linear-gradient(135deg, var(--cyan), var(--purple));
     --g2: linear-gradient(135deg, var(--cyan) 0%, var(--electric) 50%, var(--pink) 100%);
     --g3: linear-gradient(135deg, var(--blue) 0%, #4a90e2 100%);
-    --g-bg: linear-gradient(180deg, var(--bg-1) 0%, #0d1014 100%);
+    --g-bg: linear-gradient(145deg, var(--bg-1) 0%, #0d1014 50%, #080a0c 100%);
+    --g-bg-mobile: var(--bg-1);
     --g-success: linear-gradient(135deg, var(--green), var(--cyan));
     --g-error: linear-gradient(135deg, var(--pink), var(--yellow));
-    --g-card: linear-gradient(145deg, rgba(var(--bg-2-rgb), 0.9), rgba(var(--bg-3-rgb), 0.7));
+    --g-card: linear-gradient(145deg, rgba(var(--bg-2-rgb), 0.8), rgba(var(--bg-3-rgb), 0.6));
     --g-button-primary: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
     --g-button-secondary: linear-gradient(135deg, transparent 0%, rgba(var(--cyan-rgb), 0.1) 100%);
 
@@ -81,16 +82,18 @@
     --r-3xl: 32px;
     --r-full: 9999px;
 
-    /* Shadows - Reduced intensity */
+    /* Shadows - Зменшені для кращої продуктивності */
     --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    --shadow-glow: 0 0 8px rgba(var(--cyan-rgb), 0.15);
-    --shadow-glow-hover: 0 0 12px rgba(var(--cyan-rgb), 0.25);
-    --shadow-glow-active: 0 0 6px rgba(var(--cyan-rgb), 0.2);
+    
+    /* Зменшені glow ефекти */
+    --shadow-glow: 0 0 10px rgba(var(--cyan-rgb), 0.2);
+    --shadow-glow-hover: 0 0 15px rgba(var(--cyan-rgb), 0.3);
+    --shadow-glow-active: 0 0 8px rgba(var(--cyan-rgb), 0.25);
 
     /* Transitions */
     --trans-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -104,8 +107,8 @@
     --z-normal: 1;
     --z-high: 10;
     --z-sticky: 100;
-    --z-header: 200;
-    --z-modal: 1000;
+    --z-header: 1000;
+    --z-modal: 2000;
     --z-max: 9999;
 }
 
@@ -138,130 +141,269 @@ body {
     line-height: 1.6;
     color: var(--text-1);
     background: var(--g-bg);
-    /* Removed background-attachment: fixed for mobile compatibility */
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
 }
 
-/* Стабільний фон без glitches */
+/* Мобільна оптимізація фону */
+@media (max-width: 768px) {
+    body {
+        background: var(--g-bg-mobile);
+        background-image: linear-gradient(145deg, #0a0c0f 0%, #0d1014 50%, #080a0c 100%);
+    }
+}
+
+/* Fallback для старих браузерів */
 body::before {
     content: '';
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: var(--bg-1);
-    background: linear-gradient(180deg, #0a0c0f 0%, #0d1014 100%);
+    background: linear-gradient(145deg, #0a0c0f 0%, #0d1014 50%, #080a0c 100%);
     z-index: var(--z-bg);
     pointer-events: none;
 }
 
-/* Header Navigation */
-.main-header {
+@media (max-width: 768px) {
+    body::before {
+        display: none;
+    }
+}
+
+/* 🔧 ВИПРАВЛЕНИЙ HEADER - Головна проблема */
+.site-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    width: 100%;
     height: var(--header-h);
-    background: rgba(var(--bg-1-rgb), 0.95);
+    background: rgba(var(--bg-1-rgb), 0.98);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(var(--text-1-rgb), 0.1);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(var(--text-1-rgb), 0.05);
     z-index: var(--z-header);
     transition: all var(--trans);
+    /* ВАЖЛИВО: Забезпечення правильного відображення */
+    display: flex;
+    align-items: center;
 }
 
-.main-header.scrolled {
-    background: rgba(var(--bg-1-rgb), 0.98);
-    border-bottom-color: rgba(var(--cyan-rgb), 0.2);
-    box-shadow: var(--shadow-md);
+.site-header.scrolled {
+    background: rgba(var(--bg-1-rgb), 0.99);
+    border-bottom-color: rgba(var(--cyan-rgb), 0.1);
+    box-shadow: var(--shadow-lg);
 }
 
 .header-container {
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 4vw, 2rem);
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100%;
-    padding: 0 clamp(1rem, 4vw, 2rem);
-    max-width: var(--container);
-    margin: 0 auto;
+    position: relative;
 }
 
-.logo {
+/* 🎨 СТИЛІЗОВАНИЙ ЛОГОТИП */
+.header-logo {
     font-size: var(--t-xl);
     font-weight: 900;
-    color: var(--text-1);
-    text-decoration: none;
     font-family: var(--f1);
-    letter-spacing: -0.02em;
-}
-
-.logo .logo-highlight {
+    text-decoration: none;
     background: var(--g1);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
+    letter-spacing: -0.02em;
+    transition: all var(--trans);
+    position: relative;
+    z-index: var(--z-high);
 }
 
-.main-nav {
-    display: flex;
-    align-items: center;
-    gap: var(--s-xl);
+/* Fallback для браузерів без підтримки background-clip */
+@supports not (-webkit-background-clip: text) {
+    .header-logo {
+        color: var(--cyan);
+        -webkit-text-fill-color: var(--cyan);
+    }
 }
 
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: var(--s-l);
+.header-logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 8px rgba(var(--cyan-rgb), 0.3));
+}
+
+/* 📱 МОБІЛЬНА НАВІГАЦІЯ - ПРИХОВАНО ПО ЗАМОВЧУВАННЮ */
+.header-nav {
+    display: none; /* Приховано на мобільних по замовчуванню */
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    background: rgba(var(--bg-1-rgb), 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(var(--text-1-rgb), 0.1);
+    padding: var(--s-l);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--trans);
+    z-index: calc(var(--z-header) - 1);
+    max-height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+}
+
+.header-nav.open {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.header-nav ul {
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-m);
+    margin: 0;
+    padding: 0;
 }
 
-.nav-link {
+.header-nav a {
     color: var(--text-2);
     text-decoration: none;
     font-weight: 500;
-    font-size: var(--t-s);
+    font-size: var(--t-l);
+    padding: var(--s-s) var(--s-m);
+    border-radius: var(--r-m);
     transition: all var(--trans);
+    display: block;
+    text-align: center;
     position: relative;
-    padding: var(--s-xs) var(--s-s);
-    border-radius: var(--r-s);
+    background: rgba(var(--bg-2-rgb), 0.3);
+    border: 1px solid rgba(var(--text-1-rgb), 0.05);
 }
 
-.nav-link:hover,
-.nav-link.active {
+.header-nav a:hover,
+.header-nav a.active {
     color: var(--cyan);
     background: rgba(var(--cyan-rgb), 0.1);
+    border-color: rgba(var(--cyan-rgb), 0.2);
+    transform: translateY(-1px);
 }
 
-.nav-link.active::after {
+.header-nav a::after {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 20px;
+    width: 0;
     height: 2px;
-    background: var(--cyan);
+    background: var(--g1);
+    transition: width var(--trans);
     border-radius: 1px;
 }
 
+.header-nav a:hover::after,
+.header-nav a.active::after {
+    width: 80%;
+}
+
+/* 🍔 BURGER MENU BUTTON */
 .mobile-menu-toggle {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
     background: none;
     border: none;
-    color: var(--text-1);
-    font-size: var(--t-xl);
     cursor: pointer;
-    padding: var(--s-xs);
-    border-radius: var(--r-s);
+    position: relative;
+    z-index: var(--z-high);
     transition: all var(--trans);
+    padding: 0;
 }
 
 .mobile-menu-toggle:hover {
-    background: rgba(var(--cyan-rgb), 0.1);
-    color: var(--cyan);
+    transform: scale(1.1);
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--text-1);
+    transition: all var(--trans);
+    transform-origin: center;
+    border-radius: 1px;
+    margin: 2px 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+    background: var(--cyan);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+    background: var(--cyan);
+}
+
+/* 💻 DESKTOP НАВІГАЦІЯ */
+@media (min-width: 769px) {
+    .mobile-menu-toggle {
+        display: none;
+    }
+
+    .header-nav {
+        display: flex !important;
+        position: static;
+        background: none;
+        backdrop-filter: none;
+        border: none;
+        padding: 0;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        max-height: none;
+        overflow: visible;
+    }
+
+    .header-nav ul {
+        flex-direction: row;
+        gap: var(--s-l);
+    }
+
+    .header-nav a {
+        font-size: var(--t-s);
+        padding: var(--s-xs) var(--s-s);
+        background: none;
+        border: none;
+        text-align: left;
+    }
+
+    .header-nav a:hover,
+    .header-nav a.active {
+        background: rgba(var(--cyan-rgb), 0.05);
+        transform: none;
+    }
 }
 
 /* Skip Links для доступності */
@@ -305,6 +447,11 @@ body::before {
 .section-padding {
     padding-top: clamp(var(--s-3xl), 8vw, var(--s-4xl));
     padding-bottom: clamp(var(--s-3xl), 8vw, var(--s-4xl));
+}
+
+/* 🔧 КОМПЕНСАЦІЯ ДЛЯ FIXED HEADER */
+main {
+    padding-top: var(--header-h);
 }
 
 .section-title-iui {
@@ -358,17 +505,17 @@ body::before {
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding-top: var(--header-h);
 }
 
-/* Головна картка (Project Intro Card) - Removed floating animation */
+/* Головна картка (Project Intro Card) */
 .project-intro-card {
     background: var(--g-card);
     background: linear-gradient(145deg, rgba(20, 24, 30, 0.95), rgba(37, 42, 50, 0.85));
-    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     border-radius: var(--r-3xl);
     padding: clamp(var(--s-2xl), 6vw, var(--s-4xl));
-    box-shadow: var(--shadow-xl), inset 0 1px 0 rgba(var(--text-1-rgb), 0.05);
+    box-shadow: var(--shadow-xl), inset 0 1px 0 rgba(var(--text-1-rgb), 0.1);
     border: 1px solid rgba(var(--text-1-rgb), 0.1);
     max-width: 56rem;
     margin: 0 auto;
@@ -376,22 +523,16 @@ body::before {
     position: relative;
     z-index: var(--z-normal);
     width: 100%;
-    /* Removed floating animation for stability */
-    transition: transform var(--trans);
 }
 
-.project-intro-card:hover {
-    transform: translateY(-2px);
-}
-
-/* Reduced glow effects */
+/* Project Motto Badge - ЗМЕНШЕНІ ЕФЕКТИ СЯЙВА */
 .project-motto-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: var(--s-s);
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.12), rgba(0, 212, 255, 0.08));
-    border: 1px solid rgba(0, 255, 136, 0.25);
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 212, 255, 0.1));
+    border: 2px solid rgba(0, 255, 136, 0.3);
     color: var(--green);
     padding: var(--s-m) var(--s-xl);
     border-radius: var(--r-full);
@@ -400,24 +541,17 @@ body::before {
     text-transform: none;
     letter-spacing: 0.02em;
     margin-bottom: var(--s-xl);
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.2), 0 4px 12px rgba(0, 255, 136, 0.1);
+    animation: mottoGlowSubtle 4s ease-in-out infinite alternate;
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(10px);
     width: auto;
     max-width: 90%;
-    /* Reduced aggressive animations */
-    transition: all var(--trans);
-}
-
-.project-motto-badge:hover {
-    border-color: rgba(0, 255, 136, 0.4);
-    box-shadow: var(--shadow-glow-hover);
 }
 
 .project-motto-badge .motto-icon {
     font-size: 1.2em;
-    filter: drop-shadow(0 0 4px currentColor);
 }
 
 .project-motto-badge .motto-text {
@@ -426,30 +560,22 @@ body::before {
     text-overflow: ellipsis;
 }
 
-/* Subtle shimmer effect */
-.project-motto-badge::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-    transform: skewX(-25deg);
-    animation: mottoShimmer 4s ease-in-out infinite;
-}
-
-@keyframes mottoShimmer {
-    0% { left: -100%; }
-    25% { left: 100%; }
-    100% { left: 100%; }
+@keyframes mottoGlowSubtle {
+    0% { 
+        box-shadow: 0 0 8px rgba(0, 255, 136, 0.2), 0 4px 12px rgba(0, 255, 136, 0.1);
+        border-color: rgba(0, 255, 136, 0.3);
+    }
+    100% { 
+        box-shadow: 0 0 12px rgba(0, 255, 136, 0.3), 0 6px 18px rgba(0, 255, 136, 0.15);
+        border-color: rgba(0, 255, 136, 0.4);
+    }
 }
 
 .project-status-badge {
     display: inline-flex;
     align-items: center;
     gap: var(--s-xs);
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(165, 94, 234, 0.08));
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(165, 94, 234, 0.1));
     border: 1px solid rgba(0, 212, 255, 0.3);
     color: var(--cyan);
     padding: var(--s-xs) var(--s-l);
@@ -459,13 +585,17 @@ body::before {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: var(--s-2xl);
-    box-shadow: var(--shadow-glow);
-    /* Removed aggressive pulsing */
-    transition: all var(--trans);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
+    animation: badgePulseSubtle 3s ease-in-out infinite;
 }
 
-.project-status-badge:hover {
-    box-shadow: var(--shadow-glow-hover);
+@keyframes badgePulseSubtle {
+    0%, 100% { 
+        box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
+    }
+    50% { 
+        box-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
+    }
 }
 
 .project-brand {
@@ -537,14 +667,13 @@ body::before {
     font-weight: 800;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
-    /* Reduced aggressive glow */
+    box-shadow: var(--shadow-lg), 0 0 15px rgba(0, 255, 136, 0.2);
 }
 
 .cta-button:hover,
 .cta-button:focus {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-xl), var(--shadow-glow-hover);
+    box-shadow: var(--shadow-xl), 0 0 20px rgba(0, 255, 136, 0.3);
 }
 
 .cta-button:active {
@@ -578,9 +707,9 @@ body::before {
 }
 
 .step-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
-    border-color: rgba(var(--cyan-rgb), 0.15);
+    border-color: rgba(var(--cyan-rgb), 0.2);
 }
 
 .step-number {
@@ -589,13 +718,12 @@ body::before {
     color: var(--cyan);
     margin-bottom: var(--s-m);
     font-family: var(--f1);
-    text-shadow: 0 0 8px rgba(var(--cyan-rgb), 0.3);
+    text-shadow: 0 0 5px rgba(var(--cyan-rgb), 0.3);
 }
 
 .step-icon {
     font-size: var(--t-4xl);
     margin-bottom: var(--s-s);
-    filter: drop-shadow(0 0 6px rgba(var(--cyan-rgb), 0.2));
 }
 
 .step-title {
@@ -659,7 +787,7 @@ body::before {
 }
 
 .timeline-item:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
 }
 
@@ -669,7 +797,7 @@ body::before {
 
 .timeline-item.current {
     border-color: rgba(var(--cyan-rgb), 0.3);
-    box-shadow: var(--shadow-md), var(--shadow-glow);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(var(--cyan-rgb), 0.1);
 }
 
 .timeline-item.future {
@@ -689,30 +817,29 @@ body::before {
     align-items: center;
     justify-content: center;
     font-size: 12px;
-    box-shadow: 0 0 8px rgba(var(--cyan-rgb), 0.4);
+    box-shadow: 0 0 5px rgba(var(--cyan-rgb), 0.4);
     border: 2px solid var(--bg-1);
 }
 
 .timeline-item.completed .timeline-marker {
     background: var(--green);
-    box-shadow: 0 0 8px rgba(var(--green-rgb), 0.4);
+    box-shadow: 0 0 5px rgba(var(--green-rgb), 0.4);
 }
 
 .timeline-item.current .timeline-marker {
     background: var(--cyan);
-    box-shadow: 0 0 10px rgba(var(--cyan-rgb), 0.6);
-    /* Subtle pulse instead of aggressive animation */
-    animation: pulse 3s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(var(--cyan-rgb), 0.6);
+    animation: pulseSubtle 2s ease-in-out infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.05); opacity: 0.9; }
+@keyframes pulseSubtle {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 .timeline-item.future .timeline-marker {
     background: var(--text-3);
-    box-shadow: 0 0 5px rgba(var(--text-3-rgb), 0.3);
+    box-shadow: 0 0 3px rgba(var(--text-3-rgb), 0.2);
 }
 
 .timeline-content {
@@ -765,22 +892,6 @@ body::before {
     overflow: hidden;
 }
 
-.progress-fill::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    animation: progressShimmer 3s ease-in-out infinite;
-}
-
-@keyframes progressShimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
-
 .progress-text {
     font-size: var(--t-s);
     color: var(--text-2);
@@ -797,43 +908,14 @@ body::before {
     display: inline !important;
 }
 
-/* Адаптивність (Media Queries) */
+/* 📱 АДАПТИВНІСТЬ */
 @media (max-width: 768px) {
-    .main-nav {
-        position: fixed;
-        top: var(--header-h);
-        left: 0;
-        right: 0;
-        background: rgba(var(--bg-1-rgb), 0.98);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(var(--text-1-rgb), 0.1);
-        padding: var(--s-l);
-        transform: translateY(-100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: all var(--trans);
+    .header-container {
+        padding: 0 var(--s-s);
     }
 
-    .main-nav.open {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        gap: var(--s-m);
-        align-items: stretch;
-    }
-
-    .nav-link {
-        padding: var(--s-s) var(--s-m);
-        border-radius: var(--r-m);
-        text-align: center;
-    }
-
-    .mobile-menu-toggle {
-        display: block;
+    .header-logo {
+        font-size: var(--t-l);
     }
 
     body {
@@ -861,8 +943,8 @@ body::before {
     }
 
     .project-intro-hero {
-        min-height: 100vh;
-        padding: calc(var(--header-h) + var(--s-l)) 0 var(--s-l);
+        min-height: calc(100vh - var(--header-h));
+        padding: var(--s-l) 0;
     }
 
     .project-intro-card {
@@ -963,11 +1045,7 @@ body::before {
 
 @media (max-width: 480px) {
     .header-container {
-        padding: 0 var(--s-s);
-    }
-
-    .logo {
-        font-size: var(--t-l);
+        padding: 0 var(--s-xs);
     }
 
     .container {
@@ -1020,30 +1098,9 @@ body::before {
         transition-duration: 0.01ms !important;
     }
 
-    .project-intro-card {
-        animation: none;
-    }
-
-    .project-motto-badge::before {
-        animation: none;
-    }
-
     .timeline-marker {
         animation: none;
     }
-
-    .progress-fill::before {
-        animation: none;
-    }
-}
-
-/* Debug mode стилі */
-.debug-mode * {
-    outline: 1px solid rgba(255, 0, 0, 0.2);
-}
-
-.debug-mode .container {
-    outline: 2px solid rgba(0, 255, 0, 0.5);
 }
 
 /* Performance optimizations */
@@ -1051,7 +1108,7 @@ body::before {
 .step-card,
 .timeline-item,
 .cta-button,
-.main-header {
+.site-header {
     will-change: transform;
     contain: layout style paint;
 }
@@ -1064,10 +1121,6 @@ body::before {
     
     .step-card:hover,
     .timeline-item:hover {
-        transform: none;
-    }
-
-    .project-intro-card:hover {
         transform: none;
     }
 }
