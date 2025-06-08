@@ -8,8 +8,22 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="/static/css/style.css">
+    
+    <!-- Preload критичних ресурсів -->
+    <link rel="preload" href="/static/js/enhancements.js" as="script">
+    
+    <!-- PWA метатеги -->
+    <meta name="theme-color" content="#00d4ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
+    <!-- Skip Links для доступності -->
+    <ul class="skip-links" aria-label="Швидка навігація">
+        <li><a href="#main-content" class="skip-link">Перейти до основного контенту</a></li>
+        <li><a href="#nav" class="skip-link">Перейти до навігації</a></li>
+    </ul>
+
     <!-- Loading Screen -->
     <div id="loadingScreen" class="loading-screen" aria-hidden="false">
         <div class="loading-content">
@@ -26,13 +40,13 @@
     <!-- Site Header -->
     <header class="site-header" role="banner">
         <div class="header-container container">
-            <a href="#main-content" class="header-logo-link">
+            <a href="#hero" class="header-logo-link">
                 <span class="header-logo-text" data-content="header.logo">
                     <span class="fallback-text">GGenius</span>
                 </span>
             </a>
 
-            <nav class="main-navigation" role="navigation">
+            <nav id="nav" class="main-navigation" role="navigation" aria-label="Основна навігація">
                 <button 
                     id="mobileMenuToggle" 
                     class="mobile-menu-toggle" 
@@ -52,13 +66,18 @@
                         </a>
                     </li>
                     <li role="none">
+                        <a href="#how-it-works" class="nav-link" role="menuitem">
+                            <span class="fallback-text">Як працює</span>
+                        </a>
+                    </li>
+                    <li role="none">
                         <a href="#features" class="nav-link" role="menuitem" data-content="features.title">
                             <span class="fallback-text">Функції</span>
                         </a>
                     </li>
                     <li role="none">
-                        <a href="#about" class="nav-link" role="menuitem" data-content="nav.about">
-                            <span class="fallback-text">Про проєкт</span>
+                        <a href="#community" class="nav-link" role="menuitem">
+                            <span class="fallback-text">Спільнота</span>
                         </a>
                     </li>
                     <li role="none">
@@ -72,29 +91,33 @@
     </header>
 
     <!-- Main Content -->
-    <main id="main-content" role="main">
+    <main id="main-content">
+        
         <!-- Hero Section -->
-        <section id="hero" class="project-intro-hero section-padding">
+        <section id="hero" class="project-intro-hero section-padding" aria-labelledby="hero-title">
             <div class="container">
                 <div class="project-intro-card">
-                    <!-- Status Badge -->
+                    <!-- Project Status Badge -->
                     <div class="project-status-badge">
                         <span class="status-icon">🚀</span>
-                        <span data-content="hero.status" data-content-type="html">
+                        <span data-content="hero.status">
                             <span class="fallback-text">В РОЗРОБЦІ</span>
                         </span>
                     </div>
 
-                    <!-- Project Brand -->
+                    <!-- Motto Badge -->
+                    <div class="project-motto-badge">
+                        <span class="motto-icon">⚡</span>
+                        <span class="motto-text">
+                            <strong>GGenius</strong> — твій успіх — наша місія!
+                        </span>
+                    </div>
+
+                    <!-- Brand Section -->
                     <div class="project-brand">
-                        <h1 class="project-title" data-content="hero.title">
+                        <h1 id="hero-title" class="project-title" data-content="hero.title">
                             <span class="fallback-text">GGenius AI</span>
                         </h1>
-                        <p class="project-subtitle" data-content="hero.subtitle" data-content-type="html">
-                            <span class="fallback-text">
-                                <span class="gradient-text">Революція штучного інтелекту</span> в Mobile Legends
-                            </span>
-                        </p>
                     </div>
 
                     <!-- Description -->
@@ -104,44 +127,211 @@
                                 Вітаємо у майбутньому кіберспорту! GGenius - це передова платформа штучного інтелекту, створена спеціально для Mobile Legends: Bang Bang.
                             </span>
                         </p>
-                        <p class="mission-paragraph" data-content="hero.description.mission" data-content-type="html">
-                            <span class="fallback-text">🚀 GGenius — твій успіх — наша місія!</span>
-                        </p>
                     </div>
 
-                    <!-- CTA Buttons -->
+                    <!-- CTA Section -->
                     <div class="project-cta">
-                        <button type="button" class="cta-button primary-cta" onclick="app.showDemoModal()">
-                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                            <span data-content="hero.cta.primary">
-                                <span class="fallback-text">Спробувати демо</span>
-                            </span>
-                        </button>
-                        <a href="#features" class="cta-button secondary-cta">
-                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                            </svg>
-                            <span data-content="hero.cta.secondary">
-                                <span class="fallback-text">Дізнатися більше</span>
-                            </span>
+                        <a href="#demo" class="cta-button community-cta" data-content="hero.cta.join">
+                            <span class="fallback-text">Приєднатися до спільноти</span>
+                            <span class="icon">🎮</span>
                         </a>
-                        <a href="#community" class="cta-button tertiary-cta">
-                            <span data-content="hero.cta.join">
-                                <span class="fallback-text">Приєднатися до спільноти</span>
-                            </span>
-                        </a>
+                    </div>
+                </div>
+
+                <!-- Decorative Elements -->
+                <div class="project-decorations" aria-hidden="true">
+                    <div class="decoration-orb orb-1"></div>
+                    <div class="decoration-orb orb-2"></div>
+                    <div class="decoration-line line-1"></div>
+                    <div class="decoration-line line-2"></div>
+                </div>
+            </div>
+
+            <!-- Scroll Down Indicator -->
+            <div class="scroll-indicator" aria-hidden="true">
+                <div class="scroll-arrow">
+                    <span>Дізнайся більше</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Online Status Widget -->
+        <section class="online-status-widget" aria-labelledby="online-title">
+            <div class="container">
+                <div class="status-card">
+                    <h2 id="online-title" class="status-title">
+                        🔴 Зараз у грі
+                    </h2>
+                    <div class="online-players">
+                        <div class="player-item">
+                            <div class="player-avatar">🎯</div>
+                            <div class="player-info">
+                                <span class="player-name">ML_Pro_2024</span>
+                                <span class="player-status">Аналізує матч</span>
+                            </div>
+                            <div class="player-indicator pulse"></div>
+                        </div>
+                        <div class="player-item">
+                            <div class="player-avatar">⚡</div>
+                            <div class="player-info">
+                                <span class="player-name">CyberNinja</span>
+                                <span class="player-status">Тренується з AI</span>
+                            </div>
+                            <div class="player-indicator pulse"></div>
+                        </div>
+                        <div class="player-item">
+                            <div class="player-avatar">🔥</div>
+                            <div class="player-info">
+                                <span class="player-name">TeamKiller</span>
+                                <span class="player-status">У турнірі</span>
+                            </div>
+                            <div class="player-indicator pulse"></div>
+                        </div>
+                    </div>
+                    <div class="total-online">
+                        <span class="online-count">1,247</span>
+                        <span class="online-text">активних гравців</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Features Section -->
-        <section id="features" class="features-section-iui enhanced section-padding">
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="how-it-works section-padding" aria-labelledby="how-title">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title-iui text-gradient" data-content="features.title">
+                    <h2 id="how-title" class="section-title-iui text-gradient">
+                        Як це працює
+                    </h2>
+                    <p class="section-subtitle">
+                        Три простих кроки до професійного рівня гри
+                    </p>
+                </div>
+
+                <div class="steps-grid">
+                    <div class="step-card animate-on-scroll">
+                        <div class="step-number">01</div>
+                        <div class="step-icon">👤</div>
+                        <h3 class="step-title">Реєстрація</h3>
+                        <p class="step-description">
+                            Створюєш профіль, підключаєш свій MLBB акаунт та налаштовуєш цілі
+                        </p>
+                    </div>
+                    
+                    <div class="step-card animate-on-scroll">
+                        <div class="step-number">02</div>
+                        <div class="step-icon">🤖</div>
+                        <h3 class="step-title">AI Аналіз</h3>
+                        <p class="step-description">
+                            Наш штучний інтелект аналізує твої матчі та виявляє зони для покращення
+                        </p>
+                    </div>
+                    
+                    <div class="step-card animate-on-scroll">
+                        <div class="step-number">03</div>
+                        <div class="step-icon">🏆</div>
+                        <h3 class="step-title">Змагання</h3>
+                        <p class="step-description">
+                            Приєднуйся до турнірів, знаходь команду та досягай нових висот
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Connection Lines -->
+                <svg class="steps-connection" viewBox="0 0 800 100" aria-hidden="true">
+                    <path d="M200 50 Q400 20 600 50" stroke="url(#stepGradient)" stroke-width="2" fill="none" stroke-dasharray="5,5">
+                        <animate attributeName="stroke-dashoffset" values="0;-10" dur="2s" repeatCount="indefinite"/>
+                    </path>
+                    <defs>
+                        <linearGradient id="stepGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:var(--cyan);stop-opacity:0.3"/>
+                            <stop offset="100%" style="stop-color:var(--purple);stop-opacity:0.3"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Testimonials Slider -->
+        <section class="testimonials section-padding" aria-labelledby="testimonials-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="testimonials-title" class="section-title-iui text-gradient">
+                        Реальні відгуки
+                    </h2>
+                    <p class="section-subtitle">
+                        Що говорять наші користувачі про GGenius
+                    </p>
+                </div>
+
+                <div class="testimonials-slider" id="testimonialsSlider">
+                    <div class="testimonial-slide active">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>"За тиждень використання GGenius мій рейтинг виріс на 200 очок! AI-аналіз реально працює."</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">🎮</div>
+                                <div class="author-info">
+                                    <span class="author-name">ProGamer_UA</span>
+                                    <span class="author-rank">Mythic Glory</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>"Знайшов команду мрії через GGenius. Тепер ми разом йдемо до професійних турнірів!"</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">⚡</div>
+                                <div class="author-info">
+                                    <span class="author-name">TeamCaptain</span>
+                                    <span class="author-rank">Legend I</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>"AI-тренер допоміг зрозуміти мої помилки. Тепер граю набагато розумніше!"</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">🔥</div>
+                                <div class="author-info">
+                                    <span class="author-name">SkillImprover</span>
+                                    <span class="author-rank">Epic III</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slider Controls -->
+                <div class="slider-controls">
+                    <button class="slider-btn prev" aria-label="Попередній відгук">‹</button>
+                    <div class="slider-dots">
+                        <button class="dot active" data-slide="0" aria-label="Відгук 1"></button>
+                        <button class="dot" data-slide="1" aria-label="Відгук 2"></button>
+                        <button class="dot" data-slide="2" aria-label="Відгук 3"></button>
+                    </div>
+                    <button class="slider-btn next" aria-label="Наступний відгук">›</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section with Interactive Tabs -->
+        <section id="features" class="features section-padding" aria-labelledby="features-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="features-title" class="section-title-iui text-gradient" data-content="features.title">
                         <span class="fallback-text">МОЖЛИВОСТІ AI</span>
                     </h2>
                     <p class="section-subtitle" data-content="features.subtitle">
@@ -149,150 +339,188 @@
                     </p>
                 </div>
 
-                <!-- Feature Categories Tabs -->
-                <div class="feature-categories tabs-component" role="tablist">
-                    <button role="tab" class="category-tab" aria-selected="true" aria-controls="analysis-panel">
-                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-                        </svg>
-                        <span data-content="features.categories.analysis">
-                            <span class="fallback-text">Аналіз</span>
-                        </span>
-                    </button>
-                    <button role="tab" class="category-tab" aria-selected="false" aria-controls="coaching-panel">
-                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
-                        </svg>
-                        <span data-content="features.categories.coaching">
-                            <span class="fallback-text">Навчання</span>
-                        </span>
-                    </button>
-                    <button role="tab" class="category-tab" aria-selected="false" aria-controls="prediction-panel">
-                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <span data-content="features.categories.prediction">
-                            <span class="fallback-text">Прогнози</span>
-                        </span>
-                    </button>
-                </div>
+                <!-- Feature Tabs -->
+                <div class="tabs-component" role="tablist" aria-label="Категорії функцій">
+                    <div class="tabs-nav">
+                        <button class="tab-btn active" role="tab" aria-controls="analysis-panel" aria-selected="true" id="analysis-tab">
+                            <span class="tab-icon">📊</span>
+                            <span class="tab-text">Аналіз</span>
+                        </button>
+                        <button class="tab-btn" role="tab" aria-controls="coaching-panel" aria-selected="false" id="coaching-tab">
+                            <span class="tab-icon">🎯</span>
+                            <span class="tab-text">Навчання</span>
+                        </button>
+                        <button class="tab-btn" role="tab" aria-controls="prediction-panel" aria-selected="false" id="prediction-tab">
+                            <span class="tab-icon">🔮</span>
+                            <span class="tab-text">Прогнози</span>
+                        </button>
+                    </div>
 
-                <!-- Feature Panels -->
-                <div id="analysis-panel" class="features-grid-iui tab-content active" role="tabpanel">
-                    <div class="feature-card-iui">
-                        <div class="feature-icon">📊</div>
-                        <h3><span class="fallback-text">Аналіз матчів</span></h3>
-                        <p><span class="fallback-text">Детальний розбір кожного матчу з AI рекомендаціями</span></p>
-                    </div>
-                    
-                    <div class="feature-card-iui">
-                        <div class="feature-icon">🎮</div>
-                        <h3><span class="fallback-text">Аналіз героїв</span></h3>
-                        <p><span class="fallback-text">Глибоке вивчення механік та оптимальних білдів</span></p>
-                    </div>
-                    
-                    <div class="feature-card-iui">
-                        <div class="feature-icon">📈</div>
-                        <h3><span class="fallback-text">Статистика прогресу</span></h3>
-                        <p><span class="fallback-text">Відстеження покращень та досягнень</span></p>
-                    </div>
-                </div>
+                    <!-- Tab Panels -->
+                    <div class="tab-panels">
+                        <div class="tab-panel active" role="tabpanel" aria-labelledby="analysis-tab" id="analysis-panel">
+                            <div class="features-grid">
+                                <div class="feature-card-iui animate-on-scroll">
+                                    <div class="feature-icon">📈</div>
+                                    <h3 class="feature-title">Детальна статистика</h3>
+                                    <p class="feature-description">
+                                        Аналіз KDA, winrate, золота за хвилину та інших ключових показників
+                                    </p>
+                                    <div class="feature-stats">
+                                        <div class="stat-item">
+                                            <span class="stat-number">95%</span>
+                                            <span class="stat-label">Точність</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-number">1.2сек</span>
+                                            <span class="stat-label">Швидкість</span>
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div id="coaching-panel" class="features-grid-iui tab-content" role="tabpanel" hidden>
-                    <div class="feature-card-iui">
-                        <div class="feature-icon">🎓</div>
-                        <h3><span class="fallback-text">Персональні уроки</span></h3>
-                        <p><span class="fallback-text">AI тренер адаптує навчання під ваш стиль гри</span></p>
-                    </div>
-                </div>
+                                <div class="feature-card-iui animate-on-scroll">
+                                    <div class="feature-icon">🗺️</div>
+                                    <h3 class="feature-title">Карта рухів</h3>
+                                    <p class="feature-description">
+                                        Відстеження твоїх переміщень та оптимізація маршрутів на карті
+                                    </p>
+                                    <div class="feature-demo">
+                                        <div class="mini-map">
+                                            <div class="map-dot dot-1"></div>
+                                            <div class="map-dot dot-2"></div>
+                                            <div class="map-dot dot-3"></div>
+                                            <div class="map-path"></div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div id="prediction-panel" class="features-grid-iui tab-content" role="tabpanel" hidden>
-                    <div class="feature-card-iui">
-                        <div class="feature-icon">🔮</div>
-                        <h3><span class="fallback-text">Прогноз матчів</span></h3>
-                        <p><span class="fallback-text">AI передбачає результати з високою точністю</span></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Roadmap Section -->
-        <section id="roadmap" class="roadmap-section section-padding">
-            <div class="container">
-                <h2 class="section-title-iui text-gradient" data-content="roadmap.title">
-                    <span class="fallback-text">Roadmap</span>
-                </h2>
-                
-                <div class="roadmap-timeline">
-                    <!-- Q1 2025 -->
-                    <div class="roadmap-quarter-block">
-                        <div class="quarter-date" data-content="roadmap.q1.2025.date">
-                            <span class="fallback-text">Q1 2025</span>
+                                <div class="feature-card-iui animate-on-scroll">
+                                    <div class="feature-icon">⚔️</div>
+                                    <h3 class="feature-title">Аналіз боїв</h3>
+                                    <p class="feature-description">
+                                        Покрокове вивчення кожного teamfight з рекомендаціями AI
+                                    </p>
+                                    <div class="feature-preview">
+                                        <div class="battle-timeline">
+                                            <div class="timeline-event win">Вдала засідка</div>
+                                            <div class="timeline-event neutral">Обмін ultami</div>
+                                            <div class="timeline-event loss">Втрата позиції</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h3 data-content="roadmap.q1.2025.title">
-                            <span class="fallback-text">MVP Launch</span>
-                        </h3>
-                        <p data-content="roadmap.q1.2025.desc">
-                            <span class="fallback-text">Базова аналітика матчів, реєстрація користувачів.</span>
-                        </p>
-                        <ul class="feature-list">
-                            <li data-content="roadmap.q1.2025.feature1">
-                                <span class="fallback-text">Match Analytics Engine</span>
-                            </li>
-                            <li data-content="roadmap.q1.2025.feature2">
-                                <span class="fallback-text">User Registration System</span>
-                            </li>
-                            <li data-content="roadmap.q1.2025.feature3">
-                                <span class="fallback-text">Basic Statistics Dashboard</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Q2 2025 -->
-                    <div class="roadmap-quarter-block">
-                        <div class="quarter-date" data-content="roadmap.q2.2025.date">
-                            <span class="fallback-text">Q2 2025</span>
+
+                        <div class="tab-panel" role="tabpanel" aria-labelledby="coaching-tab" id="coaching-panel" hidden>
+                            <div class="features-grid">
+                                <div class="feature-card-iui animate-on-scroll">
+                                    <div class="feature-icon">🎓</div>
+                                    <h3 class="feature-title">Персональний AI-тренер</h3>
+                                    <p class="feature-description">
+                                        Індивідуальні рекомендації та план розвитку від штучного інтелекту
+                                    </p>
+                                    <div class="feature-progress">
+                                        <div class="progress-item">
+                                            <span class="progress-label">Механіки</span>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 78%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="progress-item">
+                                            <span class="progress-label">Стратегія</span>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 65%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="feature-card-iui animate-on-scroll">
+                                    <div class="feature-icon">💡</div>
+                                    <h3 class="feature-title">Поради в реальному часі</h3>
+                                    <p class="feature-description">
+                                        Миттєві підказки під час гри через overlay або додаток
+                                    </p>
+                                    <div class="feature-tips">
+                                        <div class="tip-item">💰 Час збирати золото з джунглів</div>
+                                        <div class="tip-item">🛡️ Відступай - ворог сильніший</div>
+                                        <div class="tip-item">⚡ Ідеальний момент для ганку!</div>
+                                    </div>
+                                </div>
+
+                                <div class="feature-card-iui animate-on-scroll">
+                                    <div class="feature-icon">📚</div>
+                                    <h3 class="feature-title">Бібліотека навчання</h3>
+                                    <p class="feature-description">
+                                        Гайди, відео-уроки та інтерактивні тренування для кожного героя
+                                    </p>
+                                    <div class="feature-library">
+                                        <div class="library-item">🔮 Гайд по Kagura</div>
+                                        <div class="library-item">🗡️ Механіки Fanny</div>
+                                        <div class="library-item">🏹 Позиціювання ADC</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h3 data-content="roadmap.q2.2025.title">
-                            <span class="fallback-text">AI Integration</span>
-                        </h3>
-                        <p data-content="roadmap.q2.2025.desc">
-                            <span class="fallback-text">Запуск нейронної аналітики та AI-тренера.</span>
-                        </p>
-                        <ul class="feature-list">
-                            <li data-content="roadmap.q2.2025.feature1">
-                                <span class="fallback-text">Neural Network Analysis</span>
-                            </li>
-                            <li data-content="roadmap.q2.2025.feature2">
-                                <span class="fallback-text">AI Personal Trainer</span>
-                            </li>
-                            <li data-content="roadmap.q2.2025.feature3">
-                                <span class="fallback-text">Computer Vision Integration</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Додаткові квартали... -->
-                </div>
-            </div>
-        </section>
-    </main>
 
-    <!-- Footer -->
-    <footer class="site-footer" role="contentinfo">
-        <div class="container">
-            <div class="footer-content">
-                <p class="footer-tagline" data-content="footer.tagline">
-                    <span class="fallback-text">Революція в кіберспорті з AI</span>
-                </p>
-                <p class="footer-copyright" data-content="footer.copyright">
-                    <span class="fallback-text">GGenius. Всі права захищено.</span>
-                </p>
-            </div>
-        </div>
-    </footer>
+                        <div class="tab-panel" role="tabpanel" aria-labelledby="prediction-tab" id="prediction-panel" hidden>
+                            <div class="features-grid">
+                                <div class="feature-card-iui animate-on-scroll">
+                                    <div class="feature-icon">🔮</div>
+                                    <h3 class="feature-title">Прогноз перемоги</h3>
+                                    <p class="feature-description">
+                                        Аналіз draft та передбачення результату матчу з точністю 87%
+                                    </p>
+                                    <div class="prediction-display">
+                                        <div class="prediction-result">
+                                            <span class="prediction-chance">73%</span>
+                                            <span class="prediction-label">Шанс перемоги</span>
+                                        </div>
+                                        <div class="prediction-factors">
+                                            <div class="factor">📊 Статистика команди</div>
+                                            <div class="factor">🎯 Композиція героїв</div>
+                                            <div class="factor">⏰ Мета гри</div>
+                                        </div>
+                                    </div>
+                                </div>
 
-    <!-- Scripts -->
-    <script src="/static/js/enhancements.js"></script>
-</body>
-</html>
+                                <div class="feature-card-iui animate-on-scroll">
+                                    <div class="feature-icon">📊</div>
+                                    <h3 class="feature-title">Тренди мети</h3>
+                                    <p class="feature-description">
+                                        Передбачення популярних героїв та стратегій на поточний патч
+                                    </p>
+                                    <div class="meta-trends">
+                                        <div class="trend-item trending-up">
+                                            <span class="trend-hero">Kagura</span>
+                                            <span class="trend-change">+12%</span>
+                                        </div>
+                                        <div class="trend-item trending-down">
+                                            <span class="trend-hero">Lancelot</span>
+                                            <span class="trend-change">-8%</span>
+                                        </div>
+                                        <div class="trend-item trending-up">
+                                            <span class="trend-hero">Estes</span>
+                                            <span class="trend-change">+15%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="feature-card-iui animate-on-scroll">
+                                    <div class="feature-icon">🎯</div>
+                                    <h3 class="feature-title">Рекомендації draft</h3>
+                                    <p class="feature-description">
+                                        Оптимальний пік та бан героїв на основі аналізу противника
+                                    </p>
+                                    <div class="draft-recommendations">
+                                        <div class="draft-section">
+                                            <span class="draft-label">Рекомендуємо:</span>
+                                            <div class="draft-heroes">
+                                                <span class="hero-pick recommended">🔥 Valir</span>
+                                                <span class="hero-pick recommended">⚡ Cecilion</span>
+                                            </div>
+                                        </div>
+                                        <div class="draft-section">
+                                            <span class="draft-label">Заборонити:</span>
+                                            <div class="draft-heroes">
+                                                <span class="hero-pick banned">🚫 Hayab
