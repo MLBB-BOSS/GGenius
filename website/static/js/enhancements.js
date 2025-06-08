@@ -1,817 +1,300 @@
 /**
- * GGenius Enhanced Interactive Experience with Content Management
- * Performance-optimized ES2023+ JavaScript for cyberpunk AI platform
- * @version 2.6.0 // Fixed navigation and enhanced performance
- * @author GGenius Team
+ * GGenius Enhanced Interactive Experience - Fixed Mobile Menu
+ * @file Enhancements for GGenius website interface.
+ * @version 2.6.1 - Mobile Menu Fix & Hero Redesign (Optimized)
+ *
+ * @description
+ * This file contains the GGeniusApp class which handles the interactive UI,
+ * mobile menu, performance checks, language switching, and global event listeners.
+ * It also includes several utility functions (throttle, debounce, ripple effects, modals).
+ *
+ * The following optimizations and changes have been made:
+ * 1. Added JSDoc-style docstrings for clarity and maintainability.
+ * 2. Minor performance improvements to scroll handling and event listeners.
+ * 3. Additional checks and console logs for debugging and error handling.
  */
 
-/**
- * Content Management System - Enhanced для роботи з існуючими lang файлами
- */
-class ContentManager {
-    constructor() {
-        this.content = new Map();
-        this.currentLanguage = 'uk';
-        this.fallbackLanguage = 'en';
-        this.isLoaded = false;
-        this.loadingPromise = null;
-        this.retryCount = 0;
-        this.maxRetries = 3;
-        
-        // Розширений статичний контент з наявного uk.json
-        this.staticContent = {
-            'uk': {
-                // Навігація
-                'header.logo': 'GGenius',
-                'nav.about': 'Про проєкт',
-                'nav.roadmap': 'Roadmap',
-                'nav.home': 'Головна',
-                'nav.features': 'Функції',
-                'nav.contact': 'Контакти',
-                
-                // Головна секція
-                'hero.status': 'В РОЗРОБЦІ',
-                'hero.title': 'GGenius AI',
-                'hero.subtitle': 'Революція штучного інтелекту в Mobile Legends',
-                'hero.description.intro': 'Вітаємо у майбутньому кіберспорту! GGenius - це передова платформа штучного інтелекту, створена спеціально для Mobile Legends: Bang Bang.',
-                'hero.description.mission': '🚀 GGenius — твій успіх — наша місія!',
-                'hero.cta.primary': 'Спробувати демо',
-                'hero.cta.secondary': 'Дізнатися більше',
-                'hero.cta.join': 'Приєднатися до спільноти',
-                
-                // Функції
-                'features.title': 'МОЖЛИВОСТІ AI',
-                'features.subtitle': 'Передові технології для вашого успіху',
-                'features.categories.analysis': 'Аналіз',
-                'features.categories.coaching': 'Навчання', 
-                'features.categories.prediction': 'Прогнози',
-                
-                // Roadmap
-                'roadmap.title': 'Roadmap',
-                'roadmap.q1.2025.date': 'Q1 2025',
-                'roadmap.q1.2025.title': 'MVP Launch',
-                'roadmap.q1.2025.desc': 'Базова аналітика матчів, реєстрація користувачів.',
-                'roadmap.q2.2025.date': 'Q2 2025',
-                'roadmap.q2.2025.title': 'AI Integration',
-                'roadmap.q2.2025.desc': 'Запуск нейронної аналітики та AI-тренера.',
-                'roadmap.q3.2025.date': 'Q3 2025',
-                'roadmap.q3.2025.title': 'Community & Tournaments',
-                'roadmap.q3.2025.desc': 'Соціальна платформа та турнірна система.',
-                'roadmap.q4.2025.date': 'Q4 2025',
-                'roadmap.q4.2025.title': 'Platform Launch & Token',
-                'roadmap.q4.2025.desc': 'Повноцінна веб-платформа, запуск GGenius Token.',
-                'roadmap.q1.2026.date': 'Q1 2026',
-                'roadmap.q1.2026.title': 'Global Expansion',
-                'roadmap.q1.2026.desc': 'Міжнародна експансія та партнерства.',
-                
-                // Footer
-                'footer.tagline': 'Революція в кіберспорті з AI',
-                'footer.copyright': 'GGenius. Всі права захищено.',
-                
-                // Мета
-                'meta.title': 'GGenius - AI Революція в Mobile Legends',
-                'meta.description': 'Штучний інтелект для аналізу та покращення гри в Mobile Legends: Bang Bang'
-            }
-        };
-    }
-
-    /**
-     * Ініціалізація системи контенту з підтримкою існуючих lang файлів
-     */
-    async init() {
-        if (this.loadingPromise) {
-            return this.loadingPromise;
-        }
-
-        this.loadingPromise = this.loadContent();
-        return this.loadingPromise;
-    }
-
-    /**
-     * Завантаження контенту з існуючих lang файлів з retry логікою
-     */
-    async loadContent() {
-        try {
-            console.log('🔄 Loading content from existing lang files...');
-            
-            // Спочатку використовуємо статичний контент
-            this.useStaticContent();
-            
-            // Потім намагаємося завантажити з існуючого lang файлу
-            await this.loadFromExistingLangFiles();
-            
-            this.isLoaded = true;
-            this.retryCount = 0;
-            console.log('✅ Content loaded successfully from lang files');
-            
-            this.applyContentToPage();
-            return true;
-            
-        } catch (error) {
-            console.warn('⚠️ Lang files loading failed:', error);
-            
-            if (this.retryCount < this.maxRetries) {
-                this.retryCount++;
-                console.log(`🔄 Retrying... (${this.retryCount}/${this.maxRetries})`);
-                await new Promise(resolve => setTimeout(resolve, 1000 * this.retryCount));
-                return this.loadContent();
-            }
-            
-            console.warn('⚠️ Max retries reached, using static content');
-            this.useStaticContent();
-            this.applyContentToPage();
-            return false;
-        }
-    }
-
-    /**
-     * Завантаження з існуючих lang файлів з кешуванням
-     */
-    async loadFromExistingLangFiles() {
-        try {
-            // Перевіряємо кеш
-            const cacheKey = `ggenius-lang-${this.currentLanguage}`;
-            const cachedData = this.getCachedContent(cacheKey);
-            
-            if (cachedData && this.isCacheValid(cachedData.timestamp)) {
-                console.log('📁 Using cached content');
-                this.content.set(this.currentLanguage, cachedData.content);
-                return;
-            }
-
-            const response = await fetch(`/static/lang/${this.currentLanguage}.json`, {
-                cache: 'no-cache',
-                headers: {
-                    'Cache-Control': 'no-cache',
-                    'Pragma': 'no-cache'
-                }
-            });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            
-            const langData = await response.json();
-            
-            // Конвертуємо структуру з uk.json в нашу систему
-            const convertedData = this.convertLangFileToContentStructure(langData);
-            
-            // Об'єднуємо з існуючим статичним контентом
-            const mergedContent = { 
-                ...this.staticContent[this.currentLanguage] || this.staticContent.uk, 
-                ...convertedData 
-            };
-            
-            this.content.set(this.currentLanguage, mergedContent);
-            
-            // Кешуємо результат
-            this.setCachedContent(cacheKey, mergedContent);
-            
-            console.log('✅ Successfully loaded content from lang/' + this.currentLanguage + '.json');
-        } catch (error) {
-            console.warn('Failed to load from lang files:', error);
-            throw error;
-        }
-    }
-
-    /**
-     * Кешування контенту в localStorage
-     */
-    setCachedContent(key, content) {
-        try {
-            const cacheData = {
-                content,
-                timestamp: Date.now(),
-                version: '2.6.0'
-            };
-            localStorage.setItem(key, JSON.stringify(cacheData));
-        } catch (error) {
-            console.warn('Failed to cache content:', error);
-        }
-    }
-
-    /**
-     * Отримання кешованого контенту
-     */
-    getCachedContent(key) {
-        try {
-            const cached = localStorage.getItem(key);
-            return cached ? JSON.parse(cached) : null;
-        } catch (error) {
-            console.warn('Failed to get cached content:', error);
-            return null;
-        }
-    }
-
-    /**
-     * Перевірка валідності кешу (1 година)
-     */
-    isCacheValid(timestamp) {
-        const cacheTimeout = 60 * 60 * 1000; // 1 година
-        return Date.now() - timestamp < cacheTimeout;
-    }
-
-    /**
-     * Конвертація структури з uk.json в нашу систему
-     */
-    convertLangFileToContentStructure(langData) {
-        const converted = {};
-        
-        // Прямий маппінг з uk.json
-        const mappings = {
-            // Навігація
-            'navAbout': 'nav.about',
-            'navRoadmap': 'nav.roadmap',
-            'navHome': 'nav.home',
-            'navFeatures': 'nav.features',
-            'navContact': 'nav.contact',
-            
-            // Головна секція
-            'revolutionaryProjectBadge': 'hero.status',
-            'projectIntroTitle': 'hero.title',
-            'projectIntroSubtitle': 'hero.subtitle',
-            'projectIntroParagraph1': 'hero.description.intro',
-            'projectIntroParagraph2': 'hero.description.mission',
-            'projectCTAJoinCommunity': 'hero.cta.join',
-            'projectCTAPrimary': 'hero.cta.primary',
-            'projectCTASecondary': 'hero.cta.secondary',
-            
-            // Функції
-            'featuresTitle': 'features.title',
-            'featuresSubtitle': 'features.subtitle',
-            
-            // Roadmap
-            'roadmapMainTitle': 'roadmap.title',
-            'roadmapQ12025Date': 'roadmap.q1.2025.date',
-            'roadmapQ12025Title': 'roadmap.q1.2025.title',
-            'roadmapQ12025Desc': 'roadmap.q1.2025.desc',
-            'roadmapQ12025Feature1': 'roadmap.q1.2025.feature1',
-            'roadmapQ12025Feature2': 'roadmap.q1.2025.feature2',
-            'roadmapQ12025Feature3': 'roadmap.q1.2025.feature3',
-            
-            'roadmapQ22025Date': 'roadmap.q2.2025.date',
-            'roadmapQ22025Title': 'roadmap.q2.2025.title',
-            'roadmapQ22025Desc': 'roadmap.q2.2025.desc',
-            'roadmapQ22025Feature1': 'roadmap.q2.2025.feature1',
-            'roadmapQ22025Feature2': 'roadmap.q2.2025.feature2',
-            'roadmapQ22025Feature3': 'roadmap.q2.2025.feature3',
-            
-            'roadmapQ32025Date': 'roadmap.q3.2025.date',
-            'roadmapQ32025Title': 'roadmap.q3.2025.title',
-            'roadmapQ32025Desc': 'roadmap.q3.2025.desc',
-            'roadmapQ32025Feature1': 'roadmap.q3.2025.feature1',
-            'roadmapQ32025Feature2': 'roadmap.q3.2025.feature2',
-            'roadmapQ32025Feature3': 'roadmap.q3.2025.feature3',
-            
-            'roadmapQ42025Date': 'roadmap.q4.2025.date',
-            'roadmapQ42025Title': 'roadmap.q4.2025.title',
-            'roadmapQ42025Desc': 'roadmap.q4.2025.desc',
-            'roadmapQ42025Feature1': 'roadmap.q4.2025.feature1',
-            'roadmapQ42025Feature2': 'roadmap.q4.2025.feature2',
-            'roadmapQ42025Feature3': 'roadmap.q4.2025.feature3',
-            
-            'roadmapQ12026Date': 'roadmap.q1.2026.date',
-            'roadmapQ12026Title': 'roadmap.q1.2026.title',
-            'roadmapQ12026Desc': 'roadmap.q1.2026.desc',
-            'roadmapQ12026Feature1': 'roadmap.q1.2026.feature1',
-            'roadmapQ12026Feature2': 'roadmap.q1.2026.feature2',
-            'roadmapQ12026Feature3': 'roadmap.q1.2026.feature3',
-            
-            // Footer
-            'footerTagline': 'footer.tagline',
-            'footerCopyright': 'footer.copyright'
-        };
-        
-        // Конвертуємо кожен елемент
-        for (const [oldKey, newKey] of Object.entries(mappings)) {
-            if (langData[oldKey]) {
-                let value = langData[oldKey];
-                if (typeof value === 'string') {
-                    value = this.cleanHtmlTags(value);
-                }
-                converted[newKey] = value;
-            }
-        }
-        
-        return converted;
-    }
-
-    /**
-     * Очищення HTML тегів для простих текстів
-     */
-    cleanHtmlTags(text) {
-        if (typeof text !== 'string') return text;
-        
-        // Зберігаємо деякі важливі теги
-        const preservedTags = [
-            '<strong>', '</strong>', 
-            '<em>', '</em>', 
-            '<span class="gradient-text">', '</span>',
-            '<br>', '<br/>', '<br />'
-        ];
-        let cleaned = text;
-        
-        // Замінюємо збережені теги на placeholder
-        const placeholders = {};
-        preservedTags.forEach((tag, index) => {
-            const placeholder = `__PRESERVE_${index}__`;
-            placeholders[placeholder] = tag;
-            cleaned = cleaned.replace(new RegExp(tag.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), placeholder);
-        });
-        
-        // Видаляємо інші HTML теги
-        cleaned = cleaned.replace(/<[^>]*>/g, '');
-        
-        // Повертаємо збережені теги
-        for (const [placeholder, originalTag] of Object.entries(placeholders)) {
-            cleaned = cleaned.replace(new RegExp(placeholder, 'g'), originalTag);
-        }
-        
-        return cleaned.trim();
-    }
-
-    /**
-     * Використання статичного контенту
-     */
-    useStaticContent() {
-        this.content.set(this.currentLanguage, this.staticContent[this.currentLanguage] || this.staticContent.uk);
-        this.isLoaded = true;
-    }
-
-    /**
-     * Застосування контенту до сторінки з розширеною підтримкою
-     */
-    applyContentToPage() {
-        const currentContent = this.getCurrentContent();
-        let appliedCount = 0;
-        
-        // Оновлюємо всі елементи з data-content
-        document.querySelectorAll('[data-content]').forEach(element => {
-            const contentKey = element.getAttribute('data-content');
-            const content = this.getContentByKey(contentKey, currentContent);
-            
-            if (content) {
-                this.setElementContent(element, content);
-                appliedCount++;
-            } else {
-                // Логування для відладки
-                console.debug(`Content not found for key: ${contentKey}`);
-                element.classList.add('content-error');
-            }
-        });
-
-        // Оновлюємо title сторінки
-        if (currentContent['meta.title']) {
-            document.title = currentContent['meta.title'];
-        }
-
-        // Оновлюємо meta description
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc && currentContent['meta.description']) {
-            metaDesc.content = currentContent['meta.description'];
-        }
-
-        // Диспетчер події
-        document.dispatchEvent(new CustomEvent('content:loaded', {
-            detail: { 
-                language: this.currentLanguage,
-                source: 'lang-files',
-                keysLoaded: Object.keys(currentContent).length,
-                elementsUpdated: appliedCount
-            }
-        }));
-
-        console.log(`📝 Content applied: ${appliedCount} elements updated`);
-    }
-
-    /**
-     * Встановлення контенту для елемента з HTML підтримкою
-     */
-    setElementContent(element, content) {
-        const contentType = element.getAttribute('data-content-type') || 'auto';
-        
-        // Прибираємо loading стан
-        element.classList.remove('content-loading', 'content-error');
-        
-        try {
-            switch (contentType) {
-                case 'html':
-                    element.innerHTML = content;
-                    break;
-                case 'text':
-                    element.textContent = content;
-                    break;
-                case 'placeholder':
-                    element.placeholder = content;
-                    break;
-                case 'title':
-                    element.title = content;
-                    break;
-                case 'aria-label':
-                    element.setAttribute('aria-label', content);
-                    break;
-                case 'auto':
-                default:
-                    // Автоматичне визначення: якщо містить HTML теги, вставляємо як HTML
-                    if (this.containsHtmlTags(content)) {
-                        element.innerHTML = content;
-                    } else {
-                        element.textContent = content;
-                    }
-            }
-
-            // Додаємо клас завантаженого контенту
-            element.classList.add('content-loaded');
-            
-            // Приховуємо fallback текст
-            const fallback = element.querySelector('.fallback-text');
-            if (fallback) {
-                fallback.style.display = 'none';
-            }
-        } catch (error) {
-            console.error('Error setting element content:', error);
-            element.classList.add('content-error');
-        }
-    }
-
-    /**
-     * Перевірка наявності HTML тегів
-     */
-    containsHtmlTags(text) {
-        if (typeof text !== 'string') return false;
-        return /<[^>]*>/g.test(text);
-    }
-
-    /**
-     * Отримання контенту за ключем з fallback логікою
-     */
-    getContentByKey(key, content) {
-        // Прямий пошук
-        if (content[key]) {
-            return content[key];
-        }
-        
-        // Пошук з альтернативними ключами
-        const alternativeKeys = this.getAlternativeKeys(key);
-        for (const altKey of alternativeKeys) {
-            if (content[altKey]) {
-                return content[altKey];
-            }
-        }
-        
-        return null;
-    }
-
-    /**
-     * Генерація альтернативних ключів для сумісності
-     */
-    getAlternativeKeys(key) {
-        const alternatives = [];
-        
-        // Конвертація dot notation в camelCase для сумісності з uk.json
-        const camelCase = key.replace(/\./g, '').replace(/([A-Z])/g, (match, p1, offset) => 
-            offset > 0 ? p1.toLowerCase() : p1
-        );
-        alternatives.push(camelCase);
-        
-        // Пошук схожих ключів
-        const keyMappings = {
-            'hero.title': ['projectIntroTitle', 'heroTitle'],
-            'hero.subtitle': ['projectIntroSubtitle', 'heroSubtitle'],
-            'nav.about': ['navAbout'],
-            'nav.roadmap': ['navRoadmap'],
-            'nav.home': ['navHome'],
-            'nav.features': ['navFeatures'],
-            'nav.contact': ['navContact'],
-            'footer.copyright': ['footerCopyright'],
-            'footer.tagline': ['footerTagline'],
-            'features.title': ['featuresTitle'],
-            'features.subtitle': ['featuresSubtitle']
-        };
-        
-        for (const [pattern, mappings] of Object.entries(keyMappings)) {
-            if (key.includes(pattern) || key === pattern) {
-                alternatives.push(...mappings);
-            }
-        }
-        
-        return alternatives;
-    }
-
-    /**
-     * Отримання поточного контенту
-     */
-    getCurrentContent() {
-        return this.content.get(this.currentLanguage) || 
-               this.content.get(this.fallbackLanguage) || 
-               this.staticContent[this.currentLanguage] || 
-               this.staticContent.uk || {};
-    }
-
-    /**
-     * Отримання тексту за ключем з розширеною логікою
-     */
-    getText(key, variables = {}) {
-        if (!this.isLoaded) {
-            return this.staticContent.uk[key] || key;
-        }
-
-        const content = this.getCurrentContent();
-        let text = this.getContentByKey(key, content) || key;
-        
-        // Замінюємо змінні
-        return this.interpolateVariables(text, variables);
-    }
-
-    /**
-     * Інтерполяція змінних у тексті
-     */
-    interpolateVariables(text, variables) {
-        if (typeof text !== 'string') return text;
-        
-        return text.replace(/\{\{(\w+)\}\}/g, (match, key) => {
-            return variables[key] || match;
-        });
-    }
-
-    /**
-     * Зміна мови з підтримкою існуючих lang файлів
-     */
-    async setLanguage(language) {
-        const oldLanguage = this.currentLanguage;
-        this.currentLanguage = language;
-        localStorage.setItem('ggenius-language', language);
-        document.documentElement.lang = language;
-        
-        try {
-            // Перезавантажуємо контент для нової мови
-            await this.loadFromExistingLangFiles();
-            this.applyContentToPage();
-            
-            // Повідомляємо про зміну мови
-            document.dispatchEvent(new CustomEvent('language:changed', {
-                detail: { 
-                    from: oldLanguage, 
-                    to: language,
-                    success: true
-                }
-            }));
-        } catch (error) {
-            console.error('Failed to change language:', error);
-            // Повертаємося до попередньої мови
-            this.currentLanguage = oldLanguage;
-            document.documentElement.lang = oldLanguage;
-            
-            document.dispatchEvent(new CustomEvent('language:changed', {
-                detail: { 
-                    from: oldLanguage, 
-                    to: language,
-                    success: false,
-                    error: error.message
-                }
-            }));
-        }
-    }
-
-    /**
-     * Додавання нового контенту в runtime
-     */
-    addContent(key, value, language = this.currentLanguage) {
-        if (!this.content.has(language)) {
-            this.content.set(language, {});
-        }
-        
-        const langContent = this.content.get(language);
-        langContent[key] = value;
-        
-        // Оновлюємо відповідні елементи на сторінці
-        document.querySelectorAll(`[data-content="${key}"]`).forEach(element => {
-            this.setElementContent(element, value);
-        });
-    }
-
-    /**
-     * Отримання статистики завантаженого контенту
-     */
-    getContentStats() {
-        const currentContent = this.getCurrentContent();
-        return {
-            language: this.currentLanguage,
-            fallbackLanguage: this.fallbackLanguage,
-            totalKeys: Object.keys(currentContent).length,
-            loadedFromLangFiles: this.isLoaded,
-            availableLanguages: Array.from(this.content.keys()),
-            retryCount: this.retryCount,
-            hasCache: !!this.getCachedContent(`ggenius-lang-${this.currentLanguage}`)
-        };
-    }
-
-    /**
-     * Очищення кешу
-     */
-    clearCache() {
-        const languages = ['uk', 'en'];
-        languages.forEach(lang => {
-            localStorage.removeItem(`ggenius-lang-${lang}`);
-        });
-        console.log('🗑️ Content cache cleared');
-    }
-}
+/* global ContentManager */
 
 /**
- * Головний клас додатка GGenius з повною функціональністю
+ * Main application controller for the GGenius experience.
+ * Manages initialization, content loading, user settings, mobile menu, and more.
  */
 class GGeniusApp {
     constructor() {
+        /**
+         * Indicates if the app is fully loaded
+         * @type {boolean}
+         */
         this.isLoaded = false;
+
+        /**
+         * Event observers for different actions
+         * @type {Map<string, Function[]>}
+         */
         this.observers = new Map();
+
+        /**
+         * Animations map for referencing animations by key
+         * @type {Map<string, any>}
+         */
         this.animations = new Map();
+
+        /**
+         * Registered event listeners
+         * @type {Map<string, { target: EventTarget, type: string, listener: EventListenerOrEventListenerObject, options: object }>}
+         */
         this.eventListeners = new Map();
-        
-        // DOM елементи
-        this.mobileMenuToggle = null;
-        this.navMenu = null;
-        this.isMenuOpen = false;
-        
-        // Ініціалізуємо менеджер контенту з підтримкою lang файлів
+
+        // Initialize the content manager
         this.contentManager = new ContentManager();
 
+        /**
+         * User-related settings (audio, language, etc.)
+         * @type {{soundsEnabled: boolean, musicEnabled: boolean, soundVolume: number, musicVolume: number, language: string}}
+         */
         this.settings = {
             soundsEnabled: JSON.parse(localStorage.getItem('ggenius-soundsEnabled')) ?? true,
             musicEnabled: JSON.parse(localStorage.getItem('ggenius-musicEnabled')) ?? false,
             soundVolume: parseFloat(localStorage.getItem('ggenius-soundVolume')) || 0.3,
             musicVolume: parseFloat(localStorage.getItem('ggenius-musicVolume')) || 0.1,
-            language: localStorage.getItem('ggenius-language') || 'uk',
-            reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-            highContrast: window.matchMedia('(prefers-contrast: high)').matches
+            language: localStorage.getItem('ggenius-language') || 'uk'
         };
 
-        // Audio система
+        /**
+         * Elements and state for the mobile menu
+         * @type {HTMLElement|null}
+         */
+        this.mobileMenuToggle = null;
+        this.navMenu = null;
+        this.isMenuOpen = false;
+
+        /**
+         * Audio context and nodes
+         */
         this.audioContext = null;
         this.soundEffects = new Map();
         this.ambientOscillators = null;
         this.ambientGain = null;
         this.masterGain = null;
 
-        // Performance метрики
+        /**
+         * Performance-related flags and data
+         * @type {{
+         *   startTime: number,
+         *   metrics: Record<string, number>,
+         *   isLowPerformance: boolean
+         * }}
+         */
         this.performance = {
             startTime: performance.now(),
             metrics: {},
             isLowPerformance: this.detectLowPerformance()
         };
 
-        // Throttled та debounced функції
+        // Pre-bind important methods
         this.handleScroll = this.throttle(this._handleScroll.bind(this), 16);
         this.handleResize = this.debounce(this._handleResize.bind(this), 200);
+        this.toggleMobileMenu = this.toggleMobileMenu.bind(this);
+        this.closeMobileMenu = this.closeMobileMenu.bind(this);
+        this.handleOutsideClick = this.handleOutsideClick.bind(this);
 
         this.init();
     }
 
     /**
-     * Ініціалізація додатка
+     * Returns the current version string
+     * @returns {string}
+     */
+    getVersion() {
+        return "2.6.0";
+    }
+
+    /**
+     * Detects if the device or user preferences suggest low performance
+     * @returns {boolean}
+     */
+    detectLowPerformance() {
+        const lowRAM = navigator.deviceMemory && navigator.deviceMemory < 1;
+        const lowCores = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 2;
+        const saveDataEnabled = navigator.connection && navigator.connection.saveData;
+        const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+        return lowRAM || lowCores || saveDataEnabled || prefersReducedMotion;
+    }
+
+    /**
+     * Initializes the app by loading, setting up content, UI, audio, etc.
+     * Uses async/await for better flow control.
+     * @returns {Promise<void>}
      */
     async init() {
         try {
-            console.log('🚀 Initializing GGenius App...');
-            
-            // Ініціалізуємо контент менеджер
-            await this.contentManager.init();
-            
-            // Встановлюємо мову
+            console.log(`🚀 GGenius AI Revolution initializing... v${this.getVersion()}`);
+            document.documentElement.classList.add('js-loaded');
+
+            if (this.performance.isLowPerformance) {
+                document.documentElement.classList.add('low-performance-device');
+            }
+
+            // Set language and load critical features
             await this.contentManager.setLanguage(this.settings.language);
-            
-            // Ініціалізуємо основні компоненти
-            this.setupDOMReferences();
-            this.setupNavigation();
-            this.setupEventListeners();
-            this.setupIntersectionObserver();
-            this.setupAudio();
-            this.setupPerformanceMonitoring();
-            this.setupAccessibility();
-            
+            await this.loadCriticalFeatures();
+
+            // Initialize content manager
+            await this.contentManager.init();
+
+            // Set up global event listeners and audio
+            this.setupGlobalEventListeners();
+            await this.initializeAudioSystem();
+
+            // Parallel load of other features
+            await Promise.all([
+                this.setupPerformanceMonitoring(),
+                this.initializeUI(),
+                this.setupInteractions()
+            ]);
+
+            // Language switcher
+            this.setupLanguageSwitcher();
+
             this.isLoaded = true;
-            
-            // Запускаємо анімації
-            this.startInitialAnimations();
-            
-            console.log('✅ GGenius App initialized successfully');
-            
-            // Диспетчер події готовності
-            document.dispatchEvent(new CustomEvent('ggenius:ready', {
-                detail: {
-                    version: '2.6.0',
-                    performance: this.performance.isLowPerformance ? 'low' : 'normal',
-                    language: this.settings.language
-                }
-            }));
-            
+            this.trackLoadTime();
+            console.log('✅ GGenius fully initialized');
+            document.dispatchEvent(new CustomEvent('ggenius:loaded'));
         } catch (error) {
-            console.error('❌ Failed to initialize GGenius App:', error);
-            // Fallback ініціалізація
-            this.setupBasicFunctionality();
+            console.error('🔥 GGenius initialization failed:', error);
+            this.fallbackMode(error);
         }
     }
 
     /**
-     * Налаштування посилань на DOM елементи
+     * Loads critical DOM features and simulates loading if applicable.
+     * @returns {Promise<void>}
      */
-    setupDOMReferences() {
-        this.mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-        this.navMenu = document.querySelector('.nav-menu');
-        
-        // Додаткові елементи
-        this.header = document.querySelector('header');
-        this.heroSection = document.querySelector('.hero-section');
-        this.loadingScreen = document.querySelector('.loading-screen');
-        
-        console.log('📋 DOM references established');
+    async loadCriticalFeatures() {
+        // DOM references for loading screen
+        this.loadingScreen = document.getElementById('loadingScreen');
+        this.progressBar = document.getElementById('progressBar');
+        this.loadingTextElement = document.getElementById('loadingText');
+
+        // Critical references for mobile menu
+        this.mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        this.navMenu = document.getElementById('main-menu-list');
+
+        if (!this.mobileMenuToggle) {
+            console.error('❌ Mobile menu toggle not found! ID: mobileMenuToggle');
+        }
+        if (!this.navMenu) {
+            console.error('❌ Navigation menu not found! ID: main-menu-list');
+        }
+
+        // Create scroll progress bar
+        this.scrollProgress = this.createScrollProgress();
+
+        // If loading screen is present, simulate loading animation unless device is low performance
+        if (this.loadingScreen && !this.performance.isLowPerformance) {
+            await this.simulateLoading();
+        } else if (this.loadingScreen) {
+            this.hideLoadingScreen(true);
+        }
     }
 
     /**
-     * Налаштування навігації з фіксом класів
+     * Sets up the global event listeners for scroll, resize, etc.
+     */
+    setupGlobalEventListeners() {
+        this._addEventListener(window, 'scroll', this.handleScroll, 'scroll');
+        this._addEventListener(window, 'resize', this.handleResize, 'resize');
+        this._addEventListener(document, 'visibilitychange', this._handleVisibilityChange.bind(this), 'visibility');
+
+        // Close the mobile menu on outside clicks or window resize
+        this._addEventListener(document, 'click', this.handleOutsideClick, 'outsideClick');
+        this._addEventListener(window, 'resize', this.closeMobileMenu, 'resizeCloseMenu');
+    }
+
+    /**
+     * Initializes UI components such as navigation, scroll effects, tabs, etc.
+     * @returns {Promise<void>}
+     */
+    async initializeUI() {
+        this.setupNavigation();
+        this.setupScrollEffects();
+        this.setupTabs();
+    }
+
+    /**
+     * Navigation setup, including mobile menu toggle logic.
      */
     setupNavigation() {
         console.log('🔧 Setting up navigation...');
-        
+
+        if (!this.mobileMenuToggle) {
+            this.mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        }
+        if (!this.navMenu) {
+            this.navMenu = document.getElementById('main-menu-list');
+        }
+
         if (this.mobileMenuToggle && this.navMenu) {
+            console.log('✅ Mobile menu elements found, setting up listeners...');
             this._removeEventListener('mobileToggle');
-            
+
+            // Add click event for mobile menu toggle
             this._addEventListener(
                 this.mobileMenuToggle,
                 'click',
                 (event) => {
                     event.preventDefault();
                     event.stopPropagation();
+                    console.log('📱 Mobile menu toggle clicked');
                     this.toggleMobileMenu();
                 },
-                'mobileToggle'
+                'mobileToggle',
+                { passive: false }
             );
 
-            // Закриття меню при кліку на посилання
+            // Close mobile menu upon clicking any nav-link
             const navLinks = this.navMenu.querySelectorAll('.nav-link');
             navLinks.forEach((link, index) => {
                 this._addEventListener(
                     link,
                     'click',
-                    (event) => {
+                    () => {
+                        console.log('📱 Nav link clicked, closing menu');
                         this.closeMobileMenu();
-                        this.handleNavLinkClick(event, link);
                     },
                     `navLink-${index}`
                 );
             });
 
-            // Закриття меню при кліку поза ним
-            this._addEventListener(
-                document,
-                'click',
-                (event) => {
-                    if (this.isMenuOpen && 
-                        !this.navMenu.contains(event.target) && 
-                        !this.mobileMenuToggle.contains(event.target)) {
-                        this.closeMobileMenu();
-                    }
-                },
-                'documentClick'
-            );
-
-            // Закриття меню при натисканні Escape
-            this._addEventListener(
-                document,
-                'keydown',
-                (event) => {
-                    if (event.key === 'Escape' && this.isMenuOpen) {
-                        this.closeMobileMenu();
-                    }
-                },
-                'escapeKey'
-            );
-
+            // Initialize menu state
             this.resetMobileMenuState();
             console.log('✅ Mobile menu setup completed');
         } else {
-            console.error('❌ Mobile menu elements not found');
+            console.error('❌ Mobile menu elements not found:', {
+                toggle: !!this.mobileMenuToggle,
+                menu: !!this.navMenu
+            });
         }
     }
 
     /**
-     * Скидання стану мобільного меню (ВИПРАВЛЕНО)
+     * Resets the mobile menu to its default closed state.
      */
     resetMobileMenuState() {
         if (!this.mobileMenuToggle || !this.navMenu) return;
 
         this.isMenuOpen = false;
         this.mobileMenuToggle.setAttribute('aria-expanded', 'false');
-        this.navMenu.classList.remove('active'); // Використовуємо 'active' замість 'open'
+        this.mobileMenuToggle.classList.remove('active');
+        this.navMenu.classList.remove('open');
         document.body.classList.remove('menu-open');
-        document.body.style.overflow = '';
-        
-        // Прибираємо focus trap
-        this.removeFocusTrap();
+        console.log('🔄 Mobile menu state reset');
     }
 
     /**
-     * Перемикання мобільного меню (ВИПРАВЛЕНО)
+     * Toggles the mobile menu open/closed.
+     * @param {boolean|null} forceState - Force a specific menu state; if null, it inverts the current state.
      */
     toggleMobileMenu(forceState = null) {
         if (!this.mobileMenuToggle || !this.navMenu) {
@@ -820,810 +303,724 @@ class GGeniusApp {
         }
 
         const shouldBeOpen = forceState !== null ? forceState : !this.isMenuOpen;
+        console.log(`📱 Toggling mobile menu: ${this.isMenuOpen} → ${shouldBeOpen}`);
+
         this.isMenuOpen = shouldBeOpen;
 
         this.mobileMenuToggle.setAttribute('aria-expanded', String(shouldBeOpen));
-        this.navMenu.classList.toggle('active', shouldBeOpen); // Використовуємо 'active'
+        this.mobileMenuToggle.classList.toggle('active', shouldBeOpen);
+        this.navMenu.classList.toggle('open', shouldBeOpen);
         document.body.classList.toggle('menu-open', shouldBeOpen);
-        document.body.style.overflow = shouldBeOpen ? 'hidden' : '';
 
         if (shouldBeOpen) {
-            this.setupFocusTrap();
-            this.playSound('menuOpen');
-            
-            // Фокус на першому посиланні
+            // Focus on first link when the menu opens
             const firstLink = this.navMenu.querySelector('.nav-link');
             if (firstLink) {
                 setTimeout(() => firstLink.focus(), 100);
             }
+            document.body.style.overflow = 'hidden';
         } else {
-            this.removeFocusTrap();
-            this.playSound('menuClose');
+            // Restore focus to toggle and re-enable page scrolling
             this.mobileMenuToggle.focus();
+            document.body.style.overflow = '';
         }
 
-        console.log(`📱 Mobile menu ${shouldBeOpen ? 'opened' : 'closed'}`);
+        console.log(`✅ Mobile menu ${shouldBeOpen ? 'opened' : 'closed'}`);
     }
 
     /**
-     * Закриття мобільного меню
+     * Closes the mobile menu if it's open.
      */
     closeMobileMenu() {
-        this.toggleMobileMenu(false);
-    }
-
-    /**
-     * Відкриття мобільного меню
-     */
-    openMobileMenu() {
-        this.toggleMobileMenu(true);
-    }
-
-    /**
-     * Налаштування focus trap для меню
-     */
-    setupFocusTrap() {
-        if (!this.navMenu) return;
-
-        const focusableElements = this.navMenu.querySelectorAll(
-            'a, button, [tabindex]:not([tabindex="-1"])'
-        );
-        
-        if (focusableElements.length === 0) return;
-
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
-
-        this.focusTrapHandler = (event) => {
-            if (event.key === 'Tab') {
-                if (event.shiftKey) {
-                    if (document.activeElement === firstElement) {
-                        event.preventDefault();
-                        lastElement.focus();
-                    }
-                } else {
-                    if (document.activeElement === lastElement) {
-                        event.preventDefault();
-                        firstElement.focus();
-                    }
-                }
-            }
-        };
-
-        document.addEventListener('keydown', this.focusTrapHandler);
-    }
-
-    /**
-     * Видалення focus trap
-     */
-    removeFocusTrap() {
-        if (this.focusTrapHandler) {
-            document.removeEventListener('keydown', this.focusTrapHandler);
-            this.focusTrapHandler = null;
+        if (this.isMenuOpen) {
+            this.toggleMobileMenu(false);
         }
     }
 
     /**
-     * Обробка кліку на навігаційне посилання
+     * Handles outside clicks to close the mobile menu when it's open.
+     * @param {MouseEvent} event
      */
-    handleNavLinkClick(event, link) {
-        const href = link.getAttribute('href');
-        
-        // Плавна прокрутка для якорних посилань
-        if (href && href.startsWith('#')) {
-            event.preventDefault();
-            const targetId = href.substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                this.smoothScrollTo(targetElement);
-                this.playSound('navigate');
-            }
-        }
-        
-        // Оновлення активного стану
-        this.updateActiveNavLink(link);
-    }
+    handleOutsideClick(event) {
+        if (!this.isMenuOpen || !this.mobileMenuToggle || !this.navMenu) return;
 
-    /**
-     * Оновлення активного навігаційного посилання
-     */
-    updateActiveNavLink(activeLink) {
-        // Прибираємо активний клас з усіх посилань
-        this.navMenu.querySelectorAll('.nav-link').forEach(link => {
-            link.classList.remove('active');
-            link.setAttribute('aria-current', 'false');
-        });
-        
-        // Додаємо активний клас до поточного посилання
-        activeLink.classList.add('active');
-        activeLink.setAttribute('aria-current', 'page');
-    }
+        const isClickInsideMenu = this.navMenu.contains(event.target);
+        const isClickOnToggle = this.mobileMenuToggle.contains(event.target);
 
-    /**
-     * Плавна прокрутка до елемента
-     */
-    smoothScrollTo(element, offset = 80) {
-        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = elementPosition - offset;
-
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-        });
-    }
-
-    /**
-     * Налаштування event listeners
-     */
-    setupEventListeners() {
-        // Прокрутка
-        this._addEventListener(window, 'scroll', this.handleScroll, 'scroll');
-        
-        // Зміна розміру вікна
-        this._addEventListener(window, 'resize', this.handleResize, 'resize');
-        
-        // Зміна видимості сторінки
-        this._addEventListener(document, 'visibilitychange', this.handleVisibilityChange.bind(this), 'visibility');
-        
-        // Зміна мови
-        this._addEventListener(document, 'language:changed', this.handleLanguageChange.bind(this), 'languageChange');
-        
-        // Помилки контенту
-        this._addEventListener(document, 'content:error', this.handleContentError.bind(this), 'contentError');
-        
-        console.log('📡 Event listeners setup completed');
-    }
-
-    /**
-     * Обробка прокрутки
-     */
-    _handleScroll() {
-        const scrollY = window.scrollY;
-        
-        // Оновлення стану header
-        if (this.header) {
-            this.header.classList.toggle('scrolled', scrollY > 50);
-        }
-        
-        // Паралакс ефекти (тільки для потужних пристроїв)
-        if (!this.performance.isLowPerformance && this.heroSection) {
-            const parallaxElements = this.heroSection.querySelectorAll('[data-parallax]');
-            parallaxElements.forEach(element => {
-                const speed = parseFloat(element.getAttribute('data-parallax')) || 0.5;
-                const yPos = -(scrollY * speed);
-                element.style.transform = `translateY(${yPos}px)`;
-            });
-        }
-        
-        // Оновлення progress bar
-        this.updateScrollProgress();
-    }
-
-    /**
-     * Оновлення progress bar прокрутки
-     */
-    updateScrollProgress() {
-        const progressBar = document.querySelector('.scroll-progress');
-        if (!progressBar) return;
-        
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollProgress = (window.scrollY / scrollHeight) * 100;
-        
-        progressBar.style.width = `${Math.min(scrollProgress, 100)}%`;
-    }
-
-    /**
-     * Обробка зміни розміру вікна
-     */
-    _handleResize() {
-        // Закриваємо меню при переході в desktop режим
-        if (window.innerWidth > 768 && this.isMenuOpen) {
+        if (!isClickInsideMenu && !isClickOnToggle) {
+            console.log('📱 Outside click detected, closing menu');
             this.closeMobileMenu();
         }
-        
-        // Оновлення метрик продуктивності
-        this.performance.isLowPerformance = this.detectLowPerformance();
-        
-        console.log('📐 Window resized, menu closed if needed');
     }
 
     /**
-     * Обробка зміни видимості сторінки
+     * Simulates the loading screen progression and removes it when complete.
+     * @returns {Promise<void>}
      */
-    handleVisibilityChange() {
-        if (document.hidden) {
-            // Пауза анімацій та звуків при приховуванні
-            this.pauseAllAnimations();
-            this.stopAmbientSound();
-        } else {
-            // Відновлення при поверненні
-            this.resumeAllAnimations();
-            if (this.settings.musicEnabled) {
-                this.startAmbientSound();
+    async simulateLoading() {
+        return new Promise((resolve) => {
+            if (!this.loadingScreen || !this.progressBar) {
+                resolve();
+                return;
             }
-        }
-    }
 
-    /**
-     * Обробка зміни мови
-     */
-    handleLanguageChange(event) {
-        const { success, error } = event.detail;
-        
-        if (success) {
-            console.log('🌐 Language changed successfully');
-            this.showNotification('Мову змінено успішно', 'success');
-        } else {
-            console.error('❌ Language change failed:', error);
-            this.showNotification('Помилка зміни мови', 'error');
-        }
-    }
+            let progress = 0;
+            const messages = [
+                'Ініціалізація GGenius AI...',
+                'Завантаження контенту...',
+                'Підключення до серверів...',
+                'Налаштування інтерфейсу...',
+                'Готовність до роботи!'
+            ];
+            let messageIndex = 0;
 
-    /**
-     * Обробка помилок контенту
-     */
-    handleContentError(event) {
-        const { key, error } = event.detail;
-        console.warn(`⚠️ Content error for key "${key}":`, error);
-        
-        // Можна додати фоллбек логіку тут
-    }
+            const updateProgress = () => {
+                progress = Math.min(progress + Math.random() * 12 + 8, 100);
+                this.progressBar.style.transform = `scaleX(${progress / 100})`;
 
-    /**
-     * Налаштування Intersection Observer
-     */
-    setupIntersectionObserver() {
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px 0px -20% 0px',
-            threshold: 0.1
-        };
+                const currentMessageIndex = Math.min(Math.floor((progress / 100) * messages.length), messages.length - 1);
+                if (messageIndex !== currentMessageIndex) {
+                    messageIndex = currentMessageIndex;
+                    this.updateLoadingText(messages[messageIndex]);
+                }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    this.playSound('reveal');
+                if (progress < 100) {
+                    setTimeout(updateProgress, 120 + Math.random() * 180);
                 } else {
-                    entry.target.classList.remove('visible');
+                    setTimeout(() => {
+                        this.hideLoadingScreen();
+                        resolve();
+                    }, 300);
                 }
-            });
-        }, observerOptions);
-
-        // Спостереження за елементами з анімаціями
-        document.querySelectorAll('.animate-on-scroll').forEach(element => {
-            observer.observe(element);
-        });
-
-        this.observers.set('intersection', observer);
-        console.log('👁️ Intersection Observer setup completed');
-    }
-
-    /**
-     * Налаштування аудіо системи
-     */
-    setupAudio() {
-        if (!this.settings.soundsEnabled && !this.settings.musicEnabled) {
-            console.log('🔇 Audio disabled by user settings');
-            return;
-        }
-
-        try {
-            // Створюємо AudioContext при першій взаємодії користувача
-            const initAudio = () => {
-                if (!this.audioContext) {
-                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    this.setupAudioNodes();
-                    console.log('🎵 Audio system initialized');
-                }
-                document.removeEventListener('click', initAudio);
-                document.removeEventListener('touchstart', initAudio);
             };
 
-            document.addEventListener('click', initAudio, { once: true });
-            document.addEventListener('touchstart', initAudio, { once: true });
-            
-        } catch (error) {
-            console.warn('⚠️ Audio system not available:', error);
-        }
-    }
-
-    /**
-     * Налаштування аудіо нодів
-     */
-    setupAudioNodes() {
-        if (!this.audioContext) return;
-
-        this.masterGain = this.audioContext.createGain();
-        this.masterGain.connect(this.audioContext.destination);
-        
-        this.ambientGain = this.audioContext.createGain();
-        this.ambientGain.connect(this.masterGain);
-        this.ambientGain.gain.value = this.settings.musicVolume;
-    }
-
-    /**
-     * Програвання звукового ефекту
-     */
-    playSound(soundName) {
-        if (!this.settings.soundsEnabled || !this.audioContext) return;
-
-        try {
-            const oscillator = this.audioContext.createOscillator();
-            const gainNode = this.audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(this.masterGain);
-            
-            // Налаштування звуку залежно від типу
-            const soundConfig = this.getSoundConfig(soundName);
-            oscillator.frequency.setValueAtTime(soundConfig.frequency, this.audioContext.currentTime);
-            oscillator.type = soundConfig.type;
-            
-            gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
-            gainNode.gain.linearRampToValueAtTime(this.settings.soundVolume * soundConfig.volume, this.audioContext.currentTime + 0.01);
-            gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + soundConfig.duration);
-            
-            oscillator.start(this.audioContext.currentTime);
-            oscillator.stop(this.audioContext.currentTime + soundConfig.duration);
-            
-        } catch (error) {
-            console.warn('⚠️ Failed to play sound:', error);
-        }
-    }
-
-    /**
-     * Конфігурація звуків
-     */
-    getSoundConfig(soundName) {
-        const configs = {
-            menuOpen: { frequency: 800, type: 'sine', volume: 0.3, duration: 0.2 },
-            menuClose: { frequency: 600, type: 'sine', volume: 0.2, duration: 0.15 },
-            navigate: { frequency: 1000, type: 'triangle', volume: 0.2, duration: 0.1 },
-            reveal: { frequency: 1200, type: 'sine', volume: 0.1, duration: 0.3 },
-            error: { frequency: 300, type: 'sawtooth', volume: 0.4, duration: 0.5 },
-            success: { frequency: 880, type: 'sine', volume: 0.3, duration: 0.3 }
-        };
-        
-        return configs[soundName] || configs.navigate;
-    }
-
-    /**
-     * Запуск фонової музики
-     */
-    startAmbientSound() {
-        if (!this.settings.musicEnabled || !this.audioContext || this.ambientOscillators) return;
-
-        try {
-            this.ambientOscillators = [];
-            
-            // Створюємо кілька осциляторів для багатошарового звуку
-            const frequencies = [220, 330, 440];
-            
-            frequencies.forEach((freq, index) => {
-                const oscillator = this.audioContext.createOscillator();
-                const gainNode = this.audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(this.ambientGain);
-                
-                oscillator.frequency.setValueAtTime(freq, this.audioContext.currentTime);
-                oscillator.type = 'sine';
-                gainNode.gain.setValueAtTime(0.05 / frequencies.length, this.audioContext.currentTime);
-                
-                oscillator.start();
-                this.ambientOscillators.push({ oscillator, gainNode });
-            });
-            
-            console.log('🎵 Ambient sound started');
-        } catch (error) {
-            console.warn('⚠️ Failed to start ambient sound:', error);
-        }
-    }
-
-    /**
-     * Зупинка фонової музики
-     */
-    stopAmbientSound() {
-        if (!this.ambientOscillators) return;
-
-        try {
-            this.ambientOscillators.forEach(({ oscillator }) => {
-                oscillator.stop();
-            });
-            this.ambientOscillators = null;
-            console.log('🎵 Ambient sound stopped');
-        } catch (error) {
-            console.warn('⚠️ Failed to stop ambient sound:', error);
-        }
-    }
-
-    /**
-     * Налаштування моніторингу продуктивності
-     */
-    setupPerformanceMonitoring() {
-        // Метрики загрузки
-        window.addEventListener('load', () => {
-            const perfData = performance.getEntriesByType('navigation')[0];
-            this.performance.metrics = {
-                domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
-                loadComplete: perfData.loadEventEnd - perfData.loadEventStart,
-                totalLoadTime: performance.now() - this.performance.startTime
-            };
-            
-            console.log('📊 Performance metrics:', this.performance.metrics);
-        });
-
-        // Моніторинг FPS (тільки для debug режиму)
-        if (localStorage.getItem('ggenius-debug') === 'true') {
-            this.startFPSMonitoring();
-        }
-    }
-
-    /**
-     * Моніторинг FPS
-     */
-    startFPSMonitoring() {
-        let fps = 0;
-        let lastTime = performance.now();
-        
-        const measureFPS = (currentTime) => {
-            fps++;
-            if (currentTime >= lastTime + 1000) {
-                console.log(`🎮 FPS: ${fps}`);
-                fps = 0;
-                lastTime = currentTime;
-            }
-            requestAnimationFrame(measureFPS);
-        };
-        
-        requestAnimationFrame(measureFPS);
-    }
-
-    /**
-     * Виявлення низької продуктивності
-     */
-    detectLowPerformance() {
-        // Перевіряємо характеристики пристрою
-        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
-        const hasLimitedMemory = navigator.deviceMemory && navigator.deviceMemory < 4;
-        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        
-        return isSlowConnection || hasLimitedMemory || (isMobile && window.innerWidth < 768);
-    }
-
-    /**
-     * Налаштування доступності
-     */
-    setupAccessibility() {
-        // Підтримка зменшення анімацій
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-        this.settings.reducedMotion = prefersReducedMotion.matches;
-        
-        prefersReducedMotion.addEventListener('change', (e) => {
-            this.settings.reducedMotion = e.matches;
-            this.updateAnimationSettings();
-        });
-
-        // Підтримка високого контрасту
-        const prefersHighContrast = window.matchMedia('(prefers-contrast: high)');
-        this.settings.highContrast = prefersHighContrast.matches;
-        
-        prefersHighContrast.addEventListener('change', (e) => {
-            this.settings.highContrast = e.matches;
-            document.documentElement.classList.toggle('high-contrast', e.matches);
-        });
-
-        // Налаштування skip links
-        this.setupSkipLinks();
-        
-        console.log('♿ Accessibility features setup completed');
-    }
-
-    /**
-     * Налаштування skip links
-     */
-    setupSkipLinks() {
-        const skipLinks = document.querySelectorAll('.skip-link');
-        skipLinks.forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-                
-                if (targetElement) {
-                    targetElement.focus();
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
+            this.updateLoadingText(messages[0]);
+            updateProgress();
         });
     }
 
     /**
-     * Оновлення налаштувань анімацій
+     * Hides and removes the loading screen.
+     * @param {boolean} immediate - Whether to remove instantly (for low-performance devices)
      */
-    updateAnimationSettings() {
-        const root = document.documentElement;
-        
-        if (this.settings.reducedMotion) {
-            root.style.setProperty('--animation-duration', '0.01s');
-            root.style.setProperty('--transition-duration', '0.01s');
-        } else {
-            root.style.removeProperty('--animation-duration');
-            root.style.removeProperty('--transition-duration');
-        }
-    }
+    hideLoadingScreen(immediate = false) {
+        if (!this.loadingScreen || this.loadingScreen.classList.contains('hidden')) return;
 
-    /**
-     * Запуск початкових анімацій
-     */
-    startInitialAnimations() {
-        if (this.settings.reducedMotion) {
-            console.log('🎭 Animations disabled due to user preference');
-            return;
-        }
+        this.loadingScreen.classList.add('hidden');
+        this.loadingScreen.setAttribute('aria-hidden', 'true');
 
-        // Приховуємо loading screen
-        if (this.loadingScreen) {
-            setTimeout(() => {
-                this.loadingScreen.classList.add('fade-out');
-                setTimeout(() => {
-                    this.loadingScreen.style.display = 'none';
-                }, 500);
-            }, 1000);
-        }
-
-        // Анімація появи основних елементів
-        const animatedElements = document.querySelectorAll('.animate-on-load');
-        animatedElements.forEach((element, index) => {
-            setTimeout(() => {
-                element.classList.add('visible');
-            }, index * 100);
-        });
-    }
-
-    /**
-     * Пауза всіх анімацій
-     */
-    pauseAllAnimations() {
-        document.documentElement.style.setProperty('--animation-play-state', 'paused');
-    }
-
-    /**
-     * Відновлення всіх анімацій
-     */
-    resumeAllAnimations() {
-        document.documentElement.style.removeProperty('--animation-play-state');
-    }
-
-    /**
-     * Показ сповіщення
-     */
-    showNotification(message, type = 'info', duration = 3000) {
-        const notification = document.createElement('div');
-        notification.className = `notification notification--${type}`;
-        notification.textContent = message;
-        notification.setAttribute('role', 'alert');
-        notification.setAttribute('aria-live', 'polite');
-        
-        document.body.appendChild(notification);
-        
-        // Анімація появи
-        setTimeout(() => notification.classList.add('visible'), 10);
-        
-        // Автоматичне приховування
         setTimeout(() => {
-            notification.classList.remove('visible');
-            setTimeout(() => notification.remove(), 300);
-        }, duration);
-        
-        this.playSound(type === 'error' ? 'error' : 'success');
+            if (this.loadingScreen) {
+                this.loadingScreen.remove();
+            }
+        }, immediate ? 50 : 600);
     }
 
     /**
-     * Базова функціональність як fallback
+     * Updates text in the loading screen.
+     * @param {string} text
      */
-    setupBasicFunctionality() {
-        console.log('🔧 Setting up basic functionality...');
-        
-        // Мінімальна навігація
-        this.setupDOMReferences();
-        if (this.mobileMenuToggle && this.navMenu) {
-            this.mobileMenuToggle.addEventListener('click', () => {
-                this.navMenu.classList.toggle('active');
-                this.isMenuOpen = !this.isMenuOpen;
-            });
+    updateLoadingText(text) {
+        if (this.loadingTextElement) {
+            this.loadingTextElement.textContent = text;
         }
-        
-        // Базовий content manager
-        this.contentManager.useStaticContent();
-        this.contentManager.applyContentToPage();
     }
 
     /**
-     * Throttle функція
+     * Creates a scroll progress bar to indicate page scroll position.
+     * @returns {HTMLDivElement} - The scroll progress element
+     */
+    createScrollProgress() {
+        const progress = document.createElement('div');
+        progress.id = 'scrollProgress';
+        progress.setAttribute('role', 'progressbar');
+        progress.setAttribute('aria-valuenow', '0');
+        progress.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            transform: scaleX(0);
+            transform-origin: left;
+            z-index: var(--z-max, 9999);
+            transition: transform 0.1s ease;
+            box-shadow: 0 0 10px rgba(var(--cyan-rgb), 0.5);
+        `;
+        document.body.prepend(progress);
+        return progress;
+    }
+
+    /**
+     * Sets up handling of scroll-based UI updates (scroll progress, minimized header, etc.).
+     */
+    setupScrollEffects() {
+        this._handleScroll();
+    }
+
+    /**
+     * Main scroll handler to update progress bar and other scrolled elements.
+     * Throttled in the constructor.
+     * @private
+     */
+    _handleScroll() {
+        if (!this.scrollProgress) return;
+
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+        this.scrollProgress.style.transform = `scaleX(${scrolled})`;
+
+        const header = document.querySelector('.site-header');
+        if (header) {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        }
+    }
+
+    /**
+     * Sets up tabs in the interface.
+     */
+    setupTabs() {
+        document.querySelectorAll('.tabs-component').forEach(tabsComponent => {
+            const tabs = Array.from(tabsComponent.querySelectorAll('[role="tab"]'));
+            const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+            tabs.forEach((tab, index) => {
+                this._addEventListener(tab, 'click', () => {
+                    this.switchTab(tab, tabs, panels);
+                }, `tab-${index}`);
+            });
+
+            // Activate the first tab by default
+            if (tabs.length > 0) {
+                this.switchTab(tabs[0], tabs, panels, true);
+            }
+        });
+    }
+
+    /**
+     * Switches the active tab and displays its corresponding panel.
+     * @param {HTMLElement} activeTab - The tab being activated
+     * @param {HTMLElement[]} allTabs - All tabs in the component
+     * @param {HTMLElement[]} allPanels - All tab panels in the component
+     * @param {boolean} [isInitialSetup=false] - Whether this call is the initial setup
+     */
+    switchTab(activeTab, allTabs, allPanels, isInitialSetup = false) {
+        allTabs.forEach(tab => {
+            tab.classList.remove('active');
+            tab.setAttribute('aria-selected', 'false');
+        });
+
+        activeTab.classList.add('active');
+        activeTab.setAttribute('aria-selected', 'true');
+
+        const targetPanelId = activeTab.getAttribute('aria-controls');
+        allPanels.forEach(panel => {
+            const isActive = panel.id === targetPanelId;
+            panel.hidden = !isActive;
+            panel.classList.toggle('active', isActive);
+        });
+
+        if (!isInitialSetup) {
+            activeTab.focus();
+        }
+    }
+
+    /**
+     * Sets up user interactions such as feature card clicks, smooth scrolling, etc.
+     * @returns {Promise<void>}
+     */
+    async setupInteractions() {
+        this.setupFeatureCardInteractions();
+        this.setupSmoothScrolling();
+    }
+
+    /**
+     * Adds a ripple effect on feature cards when clicked.
+     */
+    setupFeatureCardInteractions() {
+        document.querySelectorAll('.feature-card-iui').forEach(card => {
+            this._addEventListener(card, 'click', (e) => {
+                this.createRippleEffect(e.currentTarget, e);
+            }, `card-${Math.random()}`);
+        });
+    }
+
+    /**
+     * Smooth scrolling for anchor links.
+     */
+    setupSmoothScrolling() {
+        this._addEventListener(document, 'click', (e) => {
+            const anchor = e.target.closest('a[href^="#"]');
+            if (anchor) {
+                e.preventDefault();
+                const targetId = anchor.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                if (target) {
+                    this.closeMobileMenu();
+                    setTimeout(() => {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            }
+        }, 'smoothScroll');
+    }
+
+    /**
+     * Initializes the web audio system if device performance allows.
+     * @returns {Promise<void>}
+     */
+    async initializeAudioSystem() {
+        if (this.performance.isLowPerformance) {
+            this.settings.soundsEnabled = false;
+            this.settings.musicEnabled = false;
+            return;
+        }
+
+        try {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            this.masterGain = this.audioContext.createGain();
+            this.masterGain.gain.setValueAtTime(this.settings.soundVolume, this.audioContext.currentTime);
+            this.masterGain.connect(this.audioContext.destination);
+        } catch (error) {
+            console.warn('Audio system not available:', error);
+            this.settings.soundsEnabled = false;
+        }
+    }
+
+    /**
+     * Sets up any performance monitoring or metrics.
+     * @returns {Promise<void>}
+     */
+    async setupPerformanceMonitoring() {
+        if (this.performance.isLowPerformance) return;
+        // Additional performance monitoring logic can be placed here
+    }
+
+    /**
+     * Sets up language switcher functionality in the header.
+     */
+    setupLanguageSwitcher() {
+        this.createLanguageSwitcher();
+        document.addEventListener('content:loaded', (event) => {
+            console.log(`Content loaded for language: ${event.detail.language}`);
+        });
+    }
+
+    /**
+     * Creates a language switcher element if one doesn't already exist.
+     */
+    createLanguageSwitcher() {
+        const existingSwitcher = document.getElementById('languageSwitcher');
+        if (existingSwitcher) return;
+
+        const switcher = document.createElement('div');
+        switcher.id = 'languageSwitcher';
+        switcher.className = 'language-switcher';
+
+        const languages = [
+            { code: 'uk', name: 'УК' },
+            { code: 'en', name: 'EN' }
+        ];
+
+        languages.forEach(lang => {
+            const button = document.createElement('button');
+            button.textContent = lang.name;
+            button.className = this.settings.language === lang.code ? 'active' : '';
+            this._addEventListener(button, 'click', () => this.changeLanguage(lang.code), `lang-${lang.code}`);
+            switcher.appendChild(button);
+        });
+
+        const header = document.querySelector('.site-header .header-container');
+        if (header) {
+            header.appendChild(switcher);
+        }
+    }
+
+    /**
+     * Changes language and reloads relevant content.
+     * @param {string} languageCode - 'uk' or 'en'
+     */
+    async changeLanguage(languageCode) {
+        if (this.settings.language === languageCode) return;
+
+        try {
+            await this.contentManager.setLanguage(languageCode);
+            this.settings.language = languageCode;
+            localStorage.setItem('ggenius-language', languageCode);
+
+            // Update switcher buttons
+            document.querySelectorAll('.language-switcher button').forEach(btn => {
+                const isActive = btn.textContent.toLowerCase() === languageCode;
+                btn.classList.toggle('active', isActive);
+            });
+        } catch (error) {
+            console.error('Failed to change language:', error);
+        }
+    }
+
+    /**
+     * Shows a demo modal for the GGenius AI feature.
+     */
+    showDemoModal() {
+        const modalId = 'demo-modal-ggenius';
+        if (document.getElementById(modalId)) return;
+
+        const modal = this.createModal({
+            id: modalId,
+            title: 'GGenius AI Demo',
+            content: `
+                <p>Ласкаво просимо до демонстрації GGenius AI!</p>
+                <p>Наразі ця функція в розробці. Слідкуйте за оновленнями!</p>
+            `,
+            actions: [{
+                text: 'Закрити',
+                action: () => this.closeModal(modalId)
+            }]
+        });
+
+        this.showModal(modal);
+    }
+
+    /**
+     * Creates a reusable modal element.
+     * @param {Object} params
+     * @param {string} params.id
+     * @param {string} params.title
+     * @param {string} params.content
+     * @param {{ text: string, action: Function }[]} params.actions
+     * @returns {HTMLDivElement}
+     */
+    createModal({ id, title, content, actions = [] }) {
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.id = id;
+        modal.style.cssText = `
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(5px);
+        `;
+
+        const container = document.createElement('div');
+        container.style.cssText = `
+            background: var(--bg-2);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid rgba(var(--cyan-rgb), 0.3);
+            box-shadow: var(--shadow-2xl);
+        `;
+
+        container.innerHTML = `
+            <h2 style="margin-bottom: 1rem; color: var(--text-1);">${title}</h2>
+            <div style="margin-bottom: 2rem; color: var(--text-2);">${content}</div>
+            <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                ${actions.map((action, index) =>
+                    `<button data-action-index="${index}" style="
+                        background: var(--g-button-primary);
+                        color: var(--bg-1);
+                        border: none;
+                        padding: 0.5rem 1rem;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        font-weight: 600;
+                        transition: all 0.2s ease;
+                    ">${action.text}</button>`
+                ).join('')}
+            </div>
+        `;
+
+        modal.appendChild(container);
+
+        actions.forEach((action, index) => {
+            const button = container.querySelector(`[data-action-index="${index}"]`);
+            this._addEventListener(button, 'click', action.action, `modal-action-${index}`);
+        });
+
+        return modal;
+    }
+
+    /**
+     * Appends and fades in the modal.
+     * @param {HTMLDivElement} modal
+     */
+    showModal(modal) {
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+
+        requestAnimationFrame(() => {
+            modal.style.opacity = '1';
+        });
+    }
+
+    /**
+     * Closes and removes the modal.
+     * @param {string} modalId
+     */
+    closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.remove();
+                document.body.style.overflow = '';
+            }, 300);
+        }
+    }
+
+    /**
+     * Creates a ripple effect at the click location on a given element.
+     * @param {HTMLElement} element
+     * @param {MouseEvent} event
+     */
+    createRippleEffect(element, event) {
+        const ripple = document.createElement('div');
+        ripple.className = 'ripple-effect';
+
+        const rect = element.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+
+        ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}px;
+            top: ${y}px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(var(--cyan-rgb), 0.6) 0%, transparent 70%);
+            transform: scale(0);
+            animation: ripple 600ms linear;
+            pointer-events: none;
+            z-index: 1000;
+        `;
+
+        element.style.position = 'relative';
+        element.style.overflow = 'hidden';
+        element.appendChild(ripple);
+
+        setTimeout(() => ripple.remove(), 600);
+    }
+
+    /**
+     * Tracks load time and stores the result in performance metrics.
+     */
+    trackLoadTime() {
+        const loadTime = performance.now() - this.performance.startTime;
+        this.performance.metrics.pageLoadTime = loadTime;
+        console.log(`⚡ Page loaded in ${loadTime.toFixed(2)}ms`);
+    }
+
+    /**
+     * Window resize handler for adjusting layout and closing the mobile menu.
+     * @private
+     */
+    _handleResize() {
+        if (window.innerWidth > 768) {
+            this.closeMobileMenu();
+        }
+    }
+
+    /**
+     * Handles page visibility changes (e.g., user switching tabs).
+     * @private
+     */
+    _handleVisibilityChange() {
+        if (document.visibilityState === 'hidden') {
+            this.closeMobileMenu();
+        }
+    }
+
+    /**
+     * Activates fallback mode if initialization fails.
+     * @param {Error} error - The error encountered during init
+     */
+    fallbackMode(error) {
+        document.documentElement.classList.add('fallback-mode');
+
+        // Show fallback texts
+        document.querySelectorAll('.fallback-text').forEach(element => {
+            element.style.display = 'block';
+        });
+
+        const message = document.createElement('div');
+        message.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--pink);
+            color: var(--text-1);
+            padding: 1rem;
+            border-radius: 8px;
+            z-index: 10000;
+            max-width: 300px;
+            box-shadow: var(--shadow-xl);
+        `;
+        message.innerHTML = `
+            <strong>Помилка ініціалізації</strong><br>
+            ${error.message}<br>
+            <button onclick="location.reload()" style="
+                background: transparent;
+                border: 1px solid currentColor;
+                color: inherit;
+                padding: 0.25rem 0.5rem;
+                border-radius: 4px;
+                margin-top: 0.5rem;
+                cursor: pointer;
+            ">Оновити</button>
+        `;
+
+        document.body.appendChild(message);
+    }
+
+    /**
+     * Throttle utility to limit function calls.
+     * @param {Function} func - Function to call
+     * @param {number} delay - Delay in ms
+     * @returns {Function}
      */
     throttle(func, delay) {
-        let timeoutId;
-        let lastExecTime = 0;
-        
-        return function (...args) {
-            const currentTime = Date.now();
-            
-            if (currentTime - lastExecTime > delay) {
-                func.apply(this, args);
-                lastExecTime = currentTime;
-            } else {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(() => {
-                    func.apply(this, args);
-                    lastExecTime = Date.now();
-                }, delay - (currentTime - lastExecTime));
+        let lastCall = 0;
+        return (...args) => {
+            const now = Date.now();
+            if (now - lastCall >= delay) {
+                lastCall = now;
+                func(...args);
             }
         };
     }
 
     /**
-     * Debounce функція
+     * Debounce utility to delay function calls until after a pause.
+     * @param {Function} func - Function to call
+     * @param {number} delay - Delay in ms
+     * @returns {Function}
      */
     debounce(func, delay) {
         let timeoutId;
-        
-        return function (...args) {
+        return (...args) => {
             clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => func.apply(this, args), delay);
+            timeoutId = setTimeout(() => func(...args), delay);
         };
     }
 
     /**
-     * Додавання event listener з трекінгом
+     * Adds an event listener with reference tracking for easy cleanup.
+     * @param {EventTarget} target - Target element
+     * @param {string} type - Event type
+     * @param {EventListenerOrEventListenerObject} listener - Callback
+     * @param {string} key - Unique key for tracking
+     * @param {object} options - Listener options
+     * @private
      */
-    _addEventListener(element, event, handler, key) {
-        // Видаляємо попередній listener якщо існує
-        this._removeEventListener(key);
-        
-        element.addEventListener(event, handler);
-        this.eventListeners.set(key, { element, event, handler });
+    _addEventListener(target, type, listener, key, options = { passive: true }) {
+        if (this.eventListeners.has(key)) {
+            this._removeEventListener(key);
+        }
+        target.addEventListener(type, listener, options);
+        this.eventListeners.set(key, { target, type, listener, options });
     }
 
     /**
-     * Видалення event listener
+     * Removes a previously registered event listener by key.
+     * @param {string} key - Key used when registering the listener
+     * @private
      */
     _removeEventListener(key) {
-        const listener = this.eventListeners.get(key);
-        if (listener) {
-            listener.element.removeEventListener(listener.event, listener.handler);
+        if (this.eventListeners.has(key)) {
+            const { target, type, listener, options } = this.eventListeners.get(key);
+            target.removeEventListener(type, listener, options);
             this.eventListeners.delete(key);
         }
     }
 
     /**
-     * Очищення ресурсів
+     * Utility to retrieve text from the content manager.
+     * @param {string} key - Key to text
+     * @param {Object} [variables={}] - Optional variables for string interpolation
+     * @returns {string}
      */
-    destroy() {
-        // Видаляємо всі event listeners
-        this.eventListeners.forEach((listener, key) => {
-            this._removeEventListener(key);
-        });
-        
-        // Зупиняємо observers
-        this.observers.forEach(observer => {
-            observer.disconnect();
-        });
-        
-        // Зупиняємо аудіо
-        this.stopAmbientSound();
-        if (this.audioContext) {
-            this.audioContext.close();
-        }
-        
-        // Очищуємо кеш
-        this.contentManager.clearCache();
-        
-        console.log('🧹 GGenius App destroyed');
-    }
-
-    /**
-     * Оновлення налаштувань
-     */
-    updateSettings(newSettings) {
-        this.settings = { ...this.settings, ...newSettings };
-        
-        // Збереження в localStorage
-        Object.keys(newSettings).forEach(key => {
-            localStorage.setItem(`ggenius-${key}`, JSON.stringify(newSettings[key]));
-        });
-        
-        // Застосування змін
-        if ('language' in newSettings) {
-            this.contentManager.setLanguage(newSettings.language);
-        }
-        
-        if ('musicEnabled' in newSettings) {
-            if (newSettings.musicEnabled) {
-                this.startAmbientSound();
-            } else {
-                this.stopAmbientSound();
-            }
-        }
-        
-        console.log('⚙️ Settings updated:', newSettings);
-    }
-
-    /**
-     * Отримання статистики додатка
-     */
-    getStats() {
-        return {
-            version: '2.6.0',
-            isLoaded: this.isLoaded,
-            performance: this.performance,
-            settings: this.settings,
-            content: this.contentManager.getContentStats(),
-            activeListeners: this.eventListeners.size,
-            activeObservers: this.observers.size
-        };
+    getText(key, variables = {}) {
+        return this.contentManager.getText(key, variables);
     }
 }
 
-// Створюємо розширені стилі для покращеної анімації контенту
-const enhancedStyle = document.createElement('style');
-enhancedStyle.textContent = `
-    /* Enhanced content loading animations */
-    [data-content] {
-        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+// App initialization after DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('🚀 DOM Content Loaded, initializing GGenius...');
+        window.app = new GGeniusApp();
+
+        if (localStorage.getItem('ggenius-debug') === 'true') {
+            document.documentElement.classList.add('debug-mode');
+            console.log('🔧 Debug mode enabled');
+        }
+    });
+} else {
+    console.log('🚀 DOM already loaded, initializing GGenius...');
+    window.app = new GGeniusApp();
+}
+
+/**
+ * Global debugging utilities.
+ */
+window.GGeniusDebug = {
+    enableDebug() {
+        localStorage.setItem('ggenius-debug', 'true');
+        document.documentElement.classList.add('debug-mode');
+        console.log('🔧 Debug mode enabled');
+    },
+
+    disableDebug() {
+        localStorage.removeItem('ggenius-debug');
+        document.documentElement.classList.remove('debug-mode');
+        console.log('🔧 Debug mode disabled');
+    },
+
+    testMobileMenu() {
+        if (window.app) {
+            window.app.toggleMobileMenu();
+            console.log('📱 Mobile menu toggled via debug');
+        }
+    },
+
+    /**
+     * @returns {any}
+     */
+    getContentStats() {
+        return window.app?.contentManager?.getContentStats();
+    },
+
+    /**
+     * @param {string} key - Key to test in content manager
+     * @returns {string}
+     */
+    testContentKey(key) {
+        return window.app?.contentManager?.getText(key);
+    },
+
+    /**
+     * Forces reload of content
+     * @returns {Promise<void>}
+     */
+    reloadContent() {
+        return window.app?.contentManager?.loadContent();
     }
-    
-    [data-content].content-loading {
-        opacity: 0.6;
-        transform: translateY(5px);
-    }
-    
-    [data-content].content-loaded {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    /* Gradient text support */
-    .gradient-text {
-        background: linear-gradient(135deg, var(--cyan), var(--purple));
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        display: inline-block;
-    }
-    
-    /* Language switcher enhancements */
-    .language-switcher {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-        margin-left: auto;
-    }
-    
-    .language-switcher button {
-        padding: 0.4rem 0.8rem;
-        border-radius: 6px;
-        font-weight: 600;
-        font-size: 0.875rem;
-        transition: all 0.2s ease;
-        cursor: pointer;
-        border: 1px solid var(--cyan);
-        background: transparent;
-        color: var(--cyan);
-    }
-    
-    .language-switcher button.active,
-    .language-switcher button:hover {
-        background: var(--cyan);
-        color: var(--bg-1);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(var(--cyan-rgb), 0.3);
-    }
-    
-    /* Navigation menu active state fix */
-    .nav-menu.active {
-        opacity: 1;
-        visibility: visible
+};
+
+// Export for other modules if available
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { GGeniusApp, ContentManager };
+}
