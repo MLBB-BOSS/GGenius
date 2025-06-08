@@ -23,20 +23,35 @@
         <li><a href="#main-content" class="skip-link">Перейти до основного контенту</a></li>
     </ul>
 
-    <!-- Header Navigation -->
+    <!-- 🔧 ВИПРАВЛЕНИЙ HEADER -->
     <header class="site-header" id="site-header">
         <div class="header-container">
-            <a href="#hero" class="header-logo">GGenius</a>
+            <!-- Логотип з gradient ефектом -->
+            <a href="#hero" class="header-logo" aria-label="GGenius головна сторінка">
+                GGenius
+            </a>
             
-            <nav class="header-nav" aria-label="Головна навігація">
-                <a href="#hero">Головна</a>
-                <a href="#how-it-works">Як це працює</a>
-                <a href="#roadmap">Roadmap</a>
-                <a href="#contact">Контакти</a>
+            <!-- Мобільна навігація -->
+            <nav class="header-nav" id="header-nav" aria-label="Головна навігація">
+                <ul>
+                    <li><a href="#hero" class="nav-link active">Головна</a></li>
+                    <li><a href="#how-it-works" class="nav-link">Як це працює</a></li>
+                    <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
+                    <li><a href="#contact" class="nav-link">Контакти</a></li>
+                </ul>
             </nav>
             
-            <button class="mobile-menu-toggle" aria-label="Відкрити меню">
-                ☰
+            <!-- Burger Menu Button -->
+            <button 
+                class="mobile-menu-toggle" 
+                id="mobile-menu-toggle"
+                aria-label="Відкрити меню"
+                aria-expanded="false"
+                aria-controls="header-nav"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
     </header>
