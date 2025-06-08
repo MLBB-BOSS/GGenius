@@ -253,7 +253,7 @@ class StatsManager {
             successfulActions: 0,
             sessionCount: 0,
             totalTime: 0,
-            cardExpansions: 0 // Додано статистику для розширень карток
+            cardExpansions: 0
         };
     }
 
@@ -908,10 +908,6 @@ class AICardsHub {
         }
     }
 
-    /** 
-     * Розширення картки з повною функціональністю
-     * @param {HTMLElement} cardElement - Елемент картки для розширення
-     */
     expandCard(cardElement) {
         if (this.state.expandedCard) {
             this.closeExpandedCard();
@@ -976,10 +972,6 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Створення кнопки закриття з правильними обробниками
-     * @returns {HTMLElement} Кнопка закриття
-     */
     createCloseButton() {
         const closeButton = document.createElement('button');
         closeButton.className = 'close-card';
@@ -1002,10 +994,6 @@ class AICardsHub {
         return closeButton;
     }
 
-    /**
-     * Налаштування обробників закриття
-     * @param {HTMLElement} cardElement - Розширена картка
-     */
     setupCloseHandlers(cardElement) {
         this.escapeHandler = (event) => {
             if (event.key === 'Escape' && this.state.expandedCard === cardElement) {
@@ -1025,9 +1013,6 @@ class AICardsHub {
         this.elements.overlay.addEventListener('click', this.overlayClickHandler);
     }
 
-    /**
-     * Закриття розширеної картки з анімацією
-     */
     async closeExpandedCard() {
         if (!this.state.expandedCard) {
             return;
@@ -1059,10 +1044,6 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Очищення стану розширеної картки
-     * @param {HTMLElement} cardElement - Картка для очищення
-     */
     cleanupExpandedCard(cardElement) {
         try {
             cardElement.classList.remove('expanded', 'closing');
@@ -1116,10 +1097,6 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Налаштування focus trap для accessibility
-     * @param {HTMLElement} cardElement - Розширена картка
-     */
     setupFocusTrap(cardElement) {
         const focusableElements = this.getFocusableElements(cardElement);
         
@@ -1149,10 +1126,6 @@ class AICardsHub {
         cardElement.addEventListener('keydown', this.focusTrapHandler);
     }
 
-    /**
-     * Очищення focus trap
-     * @param {HTMLElement} cardElement - Картка
-     */
     cleanupFocusTrap(cardElement) {
         if (this.focusTrapHandler) {
             cardElement.removeEventListener('keydown', this.focusTrapHandler);
@@ -1160,11 +1133,6 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Отримання фокусних елементів
-     * @param {HTMLElement} container - Контейнер для пошуку
-     * @returns {HTMLElement[]} Масив фокусних елементів
-     */
     getFocusableElements(container) {
         const focusableSelectors = [
             'button:not([disabled])',
@@ -1185,20 +1153,11 @@ class AICardsHub {
             });
     }
 
-    /**
-     * Отримання першого фокусного елемента
-     * @param {HTMLElement} container - Контейнер
-     * @returns {HTMLElement|null} Перший фокусний елемент
-     */
     getFirstFocusableElement(container) {
         const focusableElements = this.getFocusableElements(container);
         return focusableElements.length > 0 ? focusableElements[0] : null;
     }
 
-    /**
-     * Виправлений обробник подвійного кліку
-     * @param {Event} event - Подія кліку
-     */
     handleCardDoubleClick(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -1218,10 +1177,6 @@ class AICardsHub {
         this.expandCard(card);
     }
 
-    /**
-     * Покращений обробник глобальних клавіш
-     * @param {KeyboardEvent} event - Подія клавіатури
-     */
     handleGlobalKeys(event) {
         if (event.key === 'Escape' && this.state.expandedCard) {
             event.preventDefault();
@@ -1449,174 +1404,3 @@ window.addEventListener('beforeunload', () => {
         window.aiCardsHub.cleanup();
     }
 });
-
-/**
- * ДОДАТКОВІ ПОКРАЩЕННЯ ТА HELPER МЕТОДИ
- */
-
-handleCardClick = Utils.debounce(async (event) => {
-    const card = event.target.closest('.ai-card');
-    if (!card) return;
-
-    const cardId = card.dataset.cardId;
-    const cardState = this.state.cards.get(cardId);
-
-    if (!cardState) return;
-
-    // Перевіряємо різні типи кліків
-    const actionButton = event.target.closest('.action-button');
-    const closeButton = event.target.closest('.close-card');
-    const overlay = event.target.closest('.card-overlay');
-
-    if (closeButton) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.closeExpandedCard();
-        return;
-    }
-
-    if (overlay && event.target === overlay) {
-        event.preventDefault();
-        this.closeExpandedCard();
-        return;
-    }
-
-    if (actionButton) {
-        event.preventDefault();
-        event.stopPropagation();
-        await this.handleActionClick(actionButton, cardState);
-        return;
-    }
-
-    // Flip картки тільки якщо не розширена
-    if (!card.classList.contains('expanded')) {
-        await this.flipCard(card, cardState);
-    }
-}, 150);
-
-/**
- * Покращення accessibility announcements
- */
-announceToScreenReader(message, priority = 'polite') {
-    const announcer = document.getElementById('sr-announcements');
-    if (!announcer) return;
-
-    // Очищаємо попереднє повідомлення
-    announcer.textContent = '';
-    
-    // Встановлюємо пріоритет
-    announcer.setAttribute('aria-live', priority);
-    
-    // Додаємо нове повідомлення з затримкою для кращого зчитування
-    setTimeout(() => {
-        announcer.textContent = message;
-    }, 100);
-
-    // Очищаємо через деякий час
-    setTimeout(() => {
-        announcer.textContent = '';
-        announcer.setAttribute('aria-live', 'polite');
-    }, 3000);
-}
-
-/**
- * Перевірка та виправлення DOM структури
- */
-validateAndFixDOM() {
-    // Перевіряємо overlay
-    if (!this.elements.overlay) {
-        console.warn('🔧 Створюємо відсутній overlay');
-        this.elements.overlay = this.getOrCreateOverlay();
-    }
-
-    // Перевіряємо z-index змінні в CSS
-    const computedStyle = getComputedStyle(document.documentElement);
-    const overlayZIndex = computedStyle.getPropertyValue('--z-card-overlay');
-    
-    if (!overlayZIndex) {
-        console.warn('🔧 Встановлюємо відсутні CSS змінні');
-        document.documentElement.style.setProperty('--z-card-overlay', '1499');
-        document.documentElement.style.setProperty('--z-card-expanded', '1500');
-    }
-
-    // Перевіряємо критичні стилі
-    this.ensureCriticalStyles();
-}
-
-/**
- * Забезпечення критичних стилів
- */
-ensureCriticalStyles() {
-    if (!document.getElementById('cards-hub-critical-styles')) {
-        const criticalStyles = document.createElement('style');
-        criticalStyles.id = 'cards-hub-critical-styles';
-        criticalStyles.textContent = `
-            .card-overlay.active { z-index: 1499 !important; }
-            .ai-card.expanded { z-index: 1500 !important; }
-            .close-card { z-index: 1501 !important; }
-            body.modal-open { overflow: hidden !important; }
-        `;
-        document.head.appendChild(criticalStyles);
-    }
-}
-
-/**
- * Діагностика та самовиправлення
- */
-async runDiagnostics() {
-    console.log('🔍 Запуск діагностики AI Cards Hub...');
-    
-    const issues = [];
-    
-    // Перевірка DOM елементів
-    if (!this.elements.overlay) issues.push('Відсутній overlay');
-    if (!this.elements.grid) issues.push('Відсутня сітка карток');
-    
-    // Перевірка CSS змінних
-    const style = getComputedStyle(document.documentElement);
-    if (!style.getPropertyValue('--z-card-overlay')) {
-        issues.push('Відсутні CSS zmінні z-index');
-    }
-    
-    // Перевірка event listeners
-    if (!this.eventManager || this.eventManager.listeners.size === 0) {
-        issues.push('Відсутні event listeners');
-    }
-    
-    if (issues.length > 0) {
-        console.warn('⚠️ Виявлені проблеми:', issues);
-        this.autoFix();
-    } else {
-        console.log('✅ Діагностика пройшла успішно');
-    }
-    
-    return issues;
-}
-
-/**
- * Автоматичне виправлення проблем
- */
-autoFix() {
-    console.log('🔧 Автоматичне виправлення...');
-    
-    try {
-        this.validateAndFixDOM();
-        this.ensureCriticalStyles();
-        
-        // Повторна ініціалізація якщо потрібно
-        if (!this.state.isInitialized) {
-            this.init();
-        }
-        
-        console.log('✅ Автоматичне виправлення завершено');
-    } catch (error) {
-        console.error('❌ Помилка автоматичного виправлення:', error);
-    }
-}
-
-// Додаємо автодіагностику при ініціалізації
-const originalInit = AICardsHub.prototype.init;
-AICardsHub.prototype.init = async function() {
-    await originalInit.call(this);
-    await this.runDiagnostics();
-};
