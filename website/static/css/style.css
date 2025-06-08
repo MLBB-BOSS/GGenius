@@ -172,7 +172,7 @@ body {
     display: flex;
     flex-direction: column;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
-    max-width: 100vw; /* Додано для запобігання переповненню */
+    max-width: 100vw;
 }
 
 main {
@@ -1921,7 +1921,7 @@ p {
 /* Дорожня карта (Roadmap) */
 .roadmap {
     background: var(--g-bg);
-    position: بتنrelative;
+    position: relative;
 }
 
 .roadmap-timeline {
@@ -2448,7 +2448,8 @@ p {
     /* Корекція геройської секції */
     .project-intro-card {
         max-width: 100%;
-        padding: var(--s-l);
+        padding: var(--s-m);
+        max-height: clamp(400px, 80vh, 600px);
     }
 
     .project-title {
@@ -2460,8 +2461,25 @@ p {
     }
 
     .cta-button {
-        width: 100%;
+        padding: var(--s-s) var(--s-l);
         font-size: var(--t-base);
+        min-height: 3rem;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .cta-button.community-cta {
+        padding: var(--s-m) var(--s-xl);
+        font-size: var(--t-l);
+        min-height: 3.5rem;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .project-motto-badge {
+        padding: var(--s-s) var(--s-l);
+        font-size: var(--t-base);
+        max-width: 300px;
     }
 
     /* Корекція заголовків секцій */
