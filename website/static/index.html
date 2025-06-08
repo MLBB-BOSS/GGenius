@@ -276,6 +276,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- 🔧 ВИПРАВЛЕНА ПІДКАЗКА - тепер з автоматичним приховуванням -->
                 <div class="demo-hint" id="demo-hint">
                     <div class="hint-content">
                         <span class="hint-icon">💡</span>
@@ -390,7 +391,7 @@
     <script src="/static/js/enhancements.js" defer></script>
     <script src="/static/js/ai-cards-hub.js" defer></script>
     
-    <!-- Ініціалізація -->
+    <!-- 🔧 ВИПРАВЛЕНА ІНІЦІАЛІЗАЦІЯ -->
     <script>
         window.GGenius = window.GGenius || {};
         
@@ -405,18 +406,41 @@
             // Ініціалізація теми
             initializeTheme();
             
-            // Показати підказку через 2 секунди
-            setTimeout(() => {
+            // 🔧 ВИПРАВЛЕНО: Підказка з автоматичним закриттям
+            let hintTimeout;
+            let hintCloseTimeout;
+            
+            // Показати підказку через 3 секунди
+            hintTimeout = setTimeout(() => {
                 const hint = document.getElementById('demo-hint');
-                if (hint) hint.classList.add('show');
-            }, 2000);
+                if (hint && !sessionStorage.getItem('ggenius-hint-dismissed')) {
+                    hint.classList.add('show');
+                    
+                    // Автоматично приховати через 8 секунд
+                    hintCloseTimeout = setTimeout(() => {
+                        hint.classList.remove('show');
+                        sessionStorage.setItem('ggenius-hint-dismissed', 'true');
+                    }, 8000);
+                }
+            }, 3000);
 
             // Плавний скролінг для навігації
             document.querySelectorAll('.header-nav a').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     const targetId = link.getAttribute('href').substring(1);
-                    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Закрити підказку при навігації
+                        const hint = document.getElementById('demo-hint');
+                        if (hint && hint.classList.contains('show')) {
+                            hint.classList.remove('show');
+                            clearTimeout(hintCloseTimeout);
+                            sessionStorage.setItem('ggenius-hint-dismissed', 'true');
+                        }
+                    }
                 });
             });
 
@@ -430,6 +454,16 @@
                     mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
                     headerNav.classList.toggle('active');
                     mobileMenuOverlay.classList.toggle('active');
+                    
+                    // Закрити підказку при відкритті меню
+                    if (!isExpanded) {
+                        const hint = document.getElementById('demo-hint');
+                        if (hint && hint.classList.contains('show')) {
+                            hint.classList.remove('show');
+                            clearTimeout(hintCloseTimeout);
+                            sessionStorage.setItem('ggenius-hint-dismissed', 'true');
+                        }
+                    }
                 });
                 mobileMenuOverlay.addEventListener('click', () => {
                     mobileMenuToggle.setAttribute('aria-expanded', 'false');
@@ -463,14 +497,35 @@
                 });
             }
 
-            // Закриття підказки
+            // 🔧 ВИПРАВЛЕНО: Закриття підказки
             const hintClose = document.querySelector('.hint-close');
             if (hintClose) {
-                hintClose.addEventListener('click', () => {
+                hintClose.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     const demoHint = document.getElementById('demo-hint');
-                    if (demoHint) demoHint.classList.remove('show');
+                    if (demoHint) {
+                        demoHint.classList.remove('show');
+                        clearTimeout(hintTimeout);
+                        clearTimeout(hintCloseTimeout);
+                        sessionStorage.setItem('ggenius-hint-dismissed', 'true');
+                    }
                 });
             }
+
+            // Закриття підказки при скролі
+            let scrollTimer;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => {
+                    const hint = document.getElementById('demo-hint');
+                    if (hint && hint.classList.contains('show')) {
+                        hint.classList.remove('show');
+                        clearTimeout(hintCloseTimeout);
+                        sessionStorage.setItem('ggenius-hint-dismissed', 'true');
+                    }
+                }, 100);
+            }, { passive: true });
         });
         
         function initializeTheme() {
