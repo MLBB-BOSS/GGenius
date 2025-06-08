@@ -1,36 +1,32 @@
 <!DOCTYPE html>
-<html lang="uk" class="theme-dark">
+<html lang="uk" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="GGenius - революційна AI-платформа для кіберспорту. Аналітика матчів, турніри, тренування.">
+    <meta name="keywords" content="кіберспорт, eSports, AI аналітика, турніри, штучний інтелект, тренування, ігри">
+    <meta name="author" content="GGenius Team">
+    <meta name="robots" content="index, follow, max-image-preview:large">
     <title data-content="meta.title">GGenius - AI Революція в Mobile Legends</title>
-    <meta name="description" data-content="meta.description" content="Штучний інтелект для аналізу та покращення гри в Mobile Legends: Bang Bang">
     
-    <!-- Styles -->
+    <!-- CSS -->
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/content-loading.css">
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="/static/data/content-uk.json" as="fetch" crossorigin>
-    <link rel="preload" href="/static/data/content-en.json" as="fetch" crossorigin>
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-    <!-- Skip Links for Accessibility -->
-    <ul class="skip-links">
-        <li><a href="#main-content" class="skip-link">Перейти до основного контенту</a></li>
-        <li><a href="#main-navigation" class="skip-link">Перейти до навігації</a></li>
-    </ul>
-
     <!-- Loading Screen -->
     <div id="loadingScreen" class="loading-screen" aria-hidden="false">
         <div class="loading-content">
             <div class="loading-logo">
-                <span data-content="header.logo" class="fallback-text">GGenius</span>
+                <span class="fallback-text">GGenius</span>
             </div>
             <div class="loading-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                 <div id="progressBar" class="loading-progress"></div>
             </div>
-            <p id="loadingText" class="loading-text" data-content="loading.initializing">Ініціалізація GGenius AI...</p>
+            <p id="loadingText" class="loading-text">Ініціалізація GGenius AI...</p>
         </div>
     </div>
 
@@ -43,13 +39,13 @@
                 </span>
             </a>
 
-            <nav class="main-navigation" id="main-navigation" role="navigation" aria-label="Основна навігація">
+            <nav class="main-navigation" id="main-navigation" role="navigation">
                 <button 
                     id="mobileMenuToggle" 
                     class="mobile-menu-toggle" 
                     aria-expanded="false" 
                     aria-controls="main-menu-list"
-                    aria-label="Відкрити меню навігації"
+                    aria-label="Відкрити меню"
                 >
                     <span class="hamburger-line line-1"></span>
                     <span class="hamburger-line line-2"></span>
@@ -58,22 +54,22 @@
 
                 <ul id="main-menu-list" class="nav-menu" role="menubar">
                     <li role="none">
-                        <a href="#hero" class="nav-link active" role="menuitem" data-content="header.navigation.home">
+                        <a href="#hero" class="nav-link active" role="menuitem" data-content="nav.home">
                             <span class="fallback-text">Головна</span>
                         </a>
                     </li>
                     <li role="none">
-                        <a href="#features" class="nav-link" role="menuitem" data-content="header.navigation.features">
+                        <a href="#features" class="nav-link" role="menuitem" data-content="nav.features">
                             <span class="fallback-text">Функції</span>
                         </a>
                     </li>
                     <li role="none">
-                        <a href="#about" class="nav-link" role="menuitem" data-content="header.navigation.about">
+                        <a href="#about" class="nav-link" role="menuitem" data-content="nav.about">
                             <span class="fallback-text">Про нас</span>
                         </a>
                     </li>
                     <li role="none">
-                        <a href="#contact" class="nav-link" role="menuitem" data-content="header.navigation.contact">
+                        <a href="#contact" class="nav-link" role="menuitem" data-content="nav.contact">
                             <span class="fallback-text">Контакти</span>
                         </a>
                     </li>
@@ -91,7 +87,9 @@
                     <!-- Status Badge -->
                     <div class="project-status-badge">
                         <span class="status-icon">🚀</span>
-                        <span data-content="hero.status" class="fallback-text">В розробці</span>
+                        <span data-content="hero.status">
+                            <span class="fallback-text">В розробці</span>
+                        </span>
                     </div>
 
                     <!-- Project Brand -->
@@ -113,53 +111,6 @@
                                 Вітаємо у майбутньому кіберспорту! GGenius - це передова платформа штучного інтелекту, створена спеціально для Mobile Legends: Bang Bang.
                             </span>
                         </p>
-                        <p class="mission-paragraph" data-content="hero.description.mission">
-                            <span class="fallback-text">
-                                Наша місія - революціонізувати спосіб, яким гравці аналізують, навчаються та покращують свою гру за допомогою передових AI технологій.
-                            </span>
-                        </p>
-                    </div>
-
-                    <!-- Goals -->
-                    <div class="project-goals">
-                        <h2 class="goals-title" data-content="hero.goals.title">
-                            <span class="fallback-text">Наші цілі</span>
-                        </h2>
-                        <div class="goals-grid">
-                            <div class="goal-item">
-                                <div class="goal-icon">🎯</div>
-                                <div class="goal-content">
-                                    <h4 data-content="hero.goals.items.0.title">
-                                        <span class="fallback-text">Точний аналіз</span>
-                                    </h4>
-                                    <p data-content="hero.goals.items.0.description">
-                                        <span class="fallback-text">Глибокий аналіз ігрових моментів та стратегій</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="goal-item">
-                                <div class="goal-icon">📈</div>
-                                <div class="goal-content">
-                                    <h4 data-content="hero.goals.items.1.title">
-                                        <span class="fallback-text">Покращення навичок</span>
-                                    </h4>
-                                    <p data-content="hero.goals.items.1.description">
-                                        <span class="fallback-text">Персоналізовані рекомендації для росту</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="goal-item">
-                                <div class="goal-icon">🤖</div>
-                                <div class="goal-content">
-                                    <h4 data-content="hero.goals.items.2.title">
-                                        <span class="fallback-text">AI асистент</span>
-                                    </h4>
-                                    <p data-content="hero.goals.items.2.description">
-                                        <span class="fallback-text">Розумний помічник для кожного гравця</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- CTA Buttons -->
@@ -168,13 +119,17 @@
                             <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
-                            <span data-content="hero.cta.primary" class="fallback-text">Спробувати демо</span>
+                            <span data-content="hero.cta.primary">
+                                <span class="fallback-text">Спробувати демо</span>
+                            </span>
                         </button>
                         <a href="#features" class="cta-button secondary-cta">
                             <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                             </svg>
-                            <span data-content="hero.cta.secondary" class="fallback-text">Дізнатися більше</span>
+                            <span data-content="hero.cta.secondary">
+                                <span class="fallback-text">Дізнатися більше</span>
+                            </span>
                         </a>
                     </div>
                 </div>
@@ -196,9 +151,6 @@
                     <h2 id="features-title" class="section-title-iui text-gradient" data-content="features.title">
                         <span class="fallback-text">Можливості AI</span>
                     </h2>
-                    <p class="section-subtitle" data-content="features.subtitle">
-                        <span class="fallback-text">Передові технології для вашого успіху</span>
-                    </p>
                 </div>
 
                 <!-- Feature Categories Tabs -->
@@ -208,7 +160,6 @@
                         class="category-tab" 
                         aria-selected="true" 
                         aria-controls="analysis-panel"
-                        data-content="features.categories.analysis"
                     >
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
@@ -220,7 +171,6 @@
                         class="category-tab" 
                         aria-selected="false" 
                         aria-controls="coaching-panel"
-                        data-content="features.categories.coaching"
                     >
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
@@ -232,7 +182,6 @@
                         class="category-tab" 
                         aria-selected="false" 
                         aria-controls="prediction-panel"
-                        data-content="features.categories.prediction"
                     >
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -245,22 +194,57 @@
                 <div id="analysis-panel" class="features-grid-iui tab-content active" role="tabpanel">
                     <div class="feature-card-iui">
                         <div class="feature-icon">📊</div>
-                        <h3 data-content="features.items.analysis.0.title">
+                        <h3>
                             <span class="fallback-text">Аналіз матчів</span>
                         </h3>
-                        <p data-content="features.items.analysis.0.description">
+                        <p>
                             <span class="fallback-text">Детальний розбір кожного матчу з AI рекомендаціями</span>
                         </p>
                     </div>
-                    <!-- Більше карток... -->
+                    
+                    <div class="feature-card-iui">
+                        <div class="feature-icon">🎮</div>
+                        <h3>
+                            <span class="fallback-text">Аналіз героїв</span>
+                        </h3>
+                        <p>
+                            <span class="fallback-text">Глибоке вивчення механік та оптимальних білдів</span>
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card-iui">
+                        <div class="feature-icon">📈</div>
+                        <h3>
+                            <span class="fallback-text">Статистика прогресу</span>
+                        </h3>
+                        <p>
+                            <span class="fallback-text">Відстеження покращень та досягнень</span>
+                        </p>
+                    </div>
                 </div>
 
                 <div id="coaching-panel" class="features-grid-iui tab-content" role="tabpanel" hidden>
-                    <!-- Контент для навчання -->
+                    <div class="feature-card-iui">
+                        <div class="feature-icon">🎓</div>
+                        <h3>
+                            <span class="fallback-text">Персональні уроки</span>
+                        </h3>
+                        <p>
+                            <span class="fallback-text">AI тренер адаптує навчання під ваш стиль гри</span>
+                        </p>
+                    </div>
                 </div>
 
                 <div id="prediction-panel" class="features-grid-iui tab-content" role="tabpanel" hidden>
-                    <!-- Контент для прогнозів -->
+                    <div class="feature-card-iui">
+                        <div class="feature-icon">🔮</div>
+                        <h3>
+                            <span class="fallback-text">Прогноз матчів</span>
+                        </h3>
+                        <p>
+                            <span class="fallback-text">AI передбачає результати з високою точністю</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -269,14 +253,13 @@
     <!-- Footer -->
     <footer class="site-footer" role="contentinfo">
         <div class="container">
-            <p data-content="footer.copyright">
+            <p>
                 <span class="fallback-text">© 2024 GGenius. Всі права захищені.</span>
             </p>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="/static/js/content-manager.js"></script>
-    <script src="/static/js/enhancements-updated.js"></script>
+    <script src="/static/js/enhancements.js"></script>
 </body>
 </html>
