@@ -1,0 +1,146 @@
+/* Content Loading States */
+[data-content] {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+[data-content].content-loaded {
+    opacity: 1;
+}
+
+[data-content]:empty {
+    min-height: 1em;
+    background: linear-gradient(90deg, 
+        rgba(var(--text-3-rgb), 0.1) 25%, 
+        rgba(var(--text-3-rgb), 0.2) 50%, 
+        rgba(var(--text-3-rgb), 0.1) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--r-s);
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Fallback content visibility */
+.fallback-text {
+    display: none;
+}
+
+body.content-loading .fallback-text {
+    display: block;
+}
+
+/* Error states */
+.content-error {
+    color: var(--pink);
+    font-style: italic;
+}
+
+.content-error::before {
+    content: "⚠️ ";
+}
+
+/* Loading indicator */
+.content-loading-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--g1);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: var(--z-max);
+}
+
+.content-loading-indicator.active {
+    animation: loadingProgress 2s ease-in-out;
+}
+
+@keyframes loadingProgress {
+    0% {
+        transform: scaleX(0);
+    }
+    50% {
+        transform: scaleX(0.7);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+/* Language switcher */
+.language-switcher {
+    display: flex;
+    gap: var(--s-xs);
+    align-items: center;
+}
+
+.language-switcher button {
+    background: transparent;
+    border: 1px solid var(--text-3);
+    color: var(--text-2);
+    padding: var(--s-xs) var(--s-s);
+    border-radius: var(--r-s);
+    cursor: pointer;
+    transition: all var(--trans-fast);
+    font-size: var(--t-xs);
+    text-transform: uppercase;
+}
+
+.language-switcher button:hover,
+.language-switcher button.active {
+    background: var(--cyan);
+    color: var(--bg-1);
+    border-color: var(--cyan);
+}
+
+/* Responsive text sizing */
+@media (max-width: 768px) {
+    [data-content].mobile-small {
+        font-size: 0.9em;
+    }
+    
+    [data-content].mobile-hidden {
+        display: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    [data-content]:empty {
+        background: repeating-linear-gradient(
+            90deg,
+            currentColor 0,
+            currentColor 1px,
+            transparent 1px,
+            transparent 8px
+        );
+        opacity: 0.3;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    [data-content] {
+        transition: none;
+    }
+    
+    [data-content]:empty {
+        animation: none;
+        background: rgba(var(--text-3-rgb), 0.2);
+    }
+    
+    .content-loading-indicator {
+        animation: none;
+    }
+}
