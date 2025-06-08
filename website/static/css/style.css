@@ -38,7 +38,7 @@
     --g2: linear-gradient(135deg, var(--cyan) 0%, var(--electric) 50%, var(--pink) 100%);
     --g3: linear-gradient(135deg, var(--blue) 0%, #4a90e2 100%);
     --g-bg: linear-gradient(145deg, var(--bg-1) 0%, #0d1014 50%, #080a0c 100%);
-    --g-bg-mobile: var(--bg-1);
+    --g-bg-mobile: var(--bg-1); /* Статичний фон для мобільних */
     --g-success: linear-gradient(135deg, var(--green), var(--cyan));
     --g-error: linear-gradient(135deg, var(--pink), var(--yellow));
     --g-card: linear-gradient(145deg, rgba(var(--bg-2-rgb), 0.8), rgba(var(--bg-3-rgb), 0.6));
@@ -107,8 +107,9 @@
     --z-normal: 1;
     --z-high: 10;
     --z-sticky: 100;
-    --z-header: 1000;
-    --z-modal: 2000;
+    --z-header: 200;
+    --z-mobile-menu: 300;
+    --z-modal: 1000;
     --z-max: 9999;
 }
 
@@ -141,6 +142,7 @@ body {
     line-height: 1.6;
     color: var(--text-1);
     background: var(--g-bg);
+    /* Видалено background-attachment: fixed для вирішення проблем скролінгу */
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
@@ -166,6 +168,7 @@ body::before {
     background: linear-gradient(145deg, #0a0c0f 0%, #0d1014 50%, #080a0c 100%);
     z-index: var(--z-bg);
     pointer-events: none;
+    /* Видалено на мобільних для кращої продуктивності */
 }
 
 @media (max-width: 768px) {
@@ -174,61 +177,52 @@ body::before {
     }
 }
 
-/* 🔧 ВИПРАВЛЕНИЙ HEADER - Головна проблема */
+/* ВИПРАВЛЕНА Header Navigation */
 .site-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    width: 100%;
     height: var(--header-h);
-    background: rgba(var(--bg-1-rgb), 0.98);
+    z-index: var(--z-header);
+    background: rgba(var(--bg-1-rgb), 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(var(--text-1-rgb), 0.05);
-    z-index: var(--z-header);
+    border-bottom: 1px solid rgba(var(--text-1-rgb), 0.1);
     transition: all var(--trans);
-    /* ВАЖЛИВО: Забезпечення правильного відображення */
-    display: flex;
-    align-items: center;
 }
 
 .site-header.scrolled {
-    background: rgba(var(--bg-1-rgb), 0.99);
-    border-bottom-color: rgba(var(--cyan-rgb), 0.1);
+    background: rgba(var(--bg-1-rgb), 0.98);
     box-shadow: var(--shadow-lg);
+    border-bottom-color: rgba(var(--cyan-rgb), 0.2);
 }
 
 .header-container {
-    width: 100%;
-    max-width: var(--container);
-    margin: 0 auto;
-    padding: 0 clamp(1rem, 4vw, 2rem);
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100%;
-    position: relative;
+    padding: 0 clamp(1rem, 4vw, 2rem);
+    max-width: var(--container);
+    margin: 0 auto;
+    width: 100%;
 }
 
-/* 🎨 СТИЛІЗОВАНИЙ ЛОГОТИП */
 .header-logo {
     font-size: var(--t-xl);
-    font-weight: 900;
+    font-weight: 800;
     font-family: var(--f1);
-    text-decoration: none;
     background: var(--g1);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent;
-    letter-spacing: -0.02em;
-    transition: all var(--trans);
-    position: relative;
+    text-decoration: none;
     z-index: var(--z-high);
+    position: relative;
 }
 
-/* Fallback для браузерів без підтримки background-clip */
+/* Fallback для браузерів без підтримки background-clip: text */
 @supports not (-webkit-background-clip: text) {
     .header-logo {
         color: var(--cyan);
@@ -236,174 +230,75 @@ body::before {
     }
 }
 
-.header-logo:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 8px rgba(var(--cyan-rgb), 0.3));
-}
-
-/* 📱 МОБІЛЬНА НАВІГАЦІЯ - ПРИХОВАНО ПО ЗАМОВЧУВАННЮ */
+/* Desktop Navigation */
 .header-nav {
-    display: none; /* Приховано на мобільних по замовчуванню */
-    position: fixed;
-    top: var(--header-h);
-    left: 0;
-    right: 0;
-    background: rgba(var(--bg-1-rgb), 0.98);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(var(--text-1-rgb), 0.1);
-    padding: var(--s-l);
-    transform: translateY(-100%);
-    opacity: 0;
-    visibility: hidden;
-    transition: all var(--trans);
-    z-index: calc(var(--z-header) - 1);
-    max-height: calc(100vh - var(--header-h));
-    overflow-y: auto;
-}
-
-.header-nav.open {
-    display: block;
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-}
-
-.header-nav ul {
-    list-style: none;
     display: flex;
-    flex-direction: column;
-    gap: var(--s-m);
-    margin: 0;
-    padding: 0;
+    align-items: center;
+    gap: var(--s-l);
+    list-style: none;
 }
 
 .header-nav a {
     color: var(--text-2);
     text-decoration: none;
     font-weight: 500;
-    font-size: var(--t-l);
-    padding: var(--s-s) var(--s-m);
-    border-radius: var(--r-m);
+    font-size: var(--t-s);
     transition: all var(--trans);
-    display: block;
-    text-align: center;
     position: relative;
-    background: rgba(var(--bg-2-rgb), 0.3);
-    border: 1px solid rgba(var(--text-1-rgb), 0.05);
+    padding: var(--s-xs) var(--s-s);
+    border-radius: var(--r-s);
 }
 
 .header-nav a:hover,
-.header-nav a.active {
+.header-nav a:focus {
     color: var(--cyan);
     background: rgba(var(--cyan-rgb), 0.1);
-    border-color: rgba(var(--cyan-rgb), 0.2);
-    transform: translateY(-1px);
 }
 
 .header-nav a::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
     height: 2px;
     background: var(--g1);
     transition: width var(--trans);
-    border-radius: 1px;
 }
 
 .header-nav a:hover::after,
 .header-nav a.active::after {
-    width: 80%;
+    width: 20px;
 }
 
-/* 🍔 BURGER MENU BUTTON */
+/* Mobile Menu Toggle */
 .mobile-menu-toggle {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 32px;
-    height: 32px;
+    display: none;
     background: none;
     border: none;
+    color: var(--text-1);
+    font-size: var(--t-xl);
     cursor: pointer;
-    position: relative;
+    padding: var(--s-xs);
+    border-radius: var(--r-s);
+    transition: all var(--trans);
     z-index: var(--z-high);
-    transition: all var(--trans);
-    padding: 0;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
 }
 
-.mobile-menu-toggle:hover {
-    transform: scale(1.1);
+.mobile-menu-toggle:hover,
+.mobile-menu-toggle:focus {
+    background: rgba(var(--cyan-rgb), 0.1);
+    color: var(--cyan);
 }
 
-.mobile-menu-toggle span {
-    display: block;
-    width: 20px;
-    height: 2px;
-    background: var(--text-1);
-    transition: all var(--trans);
-    transform-origin: center;
-    border-radius: 1px;
-    margin: 2px 0;
-}
-
-.mobile-menu-toggle.active span:nth-child(1) {
-    transform: translateY(6px) rotate(45deg);
-    background: var(--cyan);
-}
-
-.mobile-menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-    transform: scaleX(0);
-}
-
-.mobile-menu-toggle.active span:nth-child(3) {
-    transform: translateY(-6px) rotate(-45deg);
-    background: var(--cyan);
-}
-
-/* 💻 DESKTOP НАВІГАЦІЯ */
-@media (min-width: 769px) {
-    .mobile-menu-toggle {
-        display: none;
-    }
-
-    .header-nav {
-        display: flex !important;
-        position: static;
-        background: none;
-        backdrop-filter: none;
-        border: none;
-        padding: 0;
-        transform: none;
-        opacity: 1;
-        visibility: visible;
-        max-height: none;
-        overflow: visible;
-    }
-
-    .header-nav ul {
-        flex-direction: row;
-        gap: var(--s-l);
-    }
-
-    .header-nav a {
-        font-size: var(--t-s);
-        padding: var(--s-xs) var(--s-s);
-        background: none;
-        border: none;
-        text-align: left;
-    }
-
-    .header-nav a:hover,
-    .header-nav a.active {
-        background: rgba(var(--cyan-rgb), 0.05);
-        transform: none;
-    }
+.mobile-menu-toggle:active {
+    transform: scale(0.95);
 }
 
 /* Skip Links для доступності */
@@ -449,9 +344,9 @@ body::before {
     padding-bottom: clamp(var(--s-3xl), 8vw, var(--s-4xl));
 }
 
-/* 🔧 КОМПЕНСАЦІЯ ДЛЯ FIXED HEADER */
-main {
-    padding-top: var(--header-h);
+/* Компенсація для fixed header */
+.section-padding:first-child {
+    padding-top: calc(var(--header-h) + clamp(var(--s-3xl), 8vw, var(--s-4xl)));
 }
 
 .section-title-iui {
@@ -507,7 +402,7 @@ main {
     overflow: hidden;
 }
 
-/* Головна картка (Project Intro Card) */
+/* Головна картка (Project Intro Card) - ВИПРАВЛЕНО */
 .project-intro-card {
     background: var(--g-card);
     background: linear-gradient(145deg, rgba(20, 24, 30, 0.95), rgba(37, 42, 50, 0.85));
@@ -523,6 +418,7 @@ main {
     position: relative;
     z-index: var(--z-normal);
     width: 100%;
+    /* ВИДАЛЕНО: animation: heroCardFloat для усунення плавання */
 }
 
 /* Project Motto Badge - ЗМЕНШЕНІ ЕФЕКТИ СЯЙВА */
@@ -541,6 +437,7 @@ main {
     text-transform: none;
     letter-spacing: 0.02em;
     margin-bottom: var(--s-xl);
+    /* ЗМЕНШЕНІ ЕФЕКТИ СЯЙВА */
     box-shadow: 0 0 8px rgba(0, 255, 136, 0.2), 0 4px 12px rgba(0, 255, 136, 0.1);
     animation: mottoGlowSubtle 4s ease-in-out infinite alternate;
     position: relative;
@@ -552,6 +449,7 @@ main {
 
 .project-motto-badge .motto-icon {
     font-size: 1.2em;
+    /* ВИДАЛЕНО: filter: drop-shadow для зменшення ефектів */
 }
 
 .project-motto-badge .motto-text {
@@ -560,6 +458,7 @@ main {
     text-overflow: ellipsis;
 }
 
+/* ЗМЕНШЕНА анімація сяйва */
 @keyframes mottoGlowSubtle {
     0% { 
         box-shadow: 0 0 8px rgba(0, 255, 136, 0.2), 0 4px 12px rgba(0, 255, 136, 0.1);
@@ -585,6 +484,7 @@ main {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: var(--s-2xl);
+    /* ЗМЕНШЕНІ ЕФЕКТИ */
     box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
     animation: badgePulseSubtle 3s ease-in-out infinite;
 }
@@ -667,6 +567,7 @@ main {
     font-weight: 800;
     letter-spacing: 0.02em;
     text-transform: uppercase;
+    /* ЗМЕНШЕНІ ЕФЕКТИ СЯЙВА */
     box-shadow: var(--shadow-lg), 0 0 15px rgba(0, 255, 136, 0.2);
 }
 
@@ -718,12 +619,14 @@ main {
     color: var(--cyan);
     margin-bottom: var(--s-m);
     font-family: var(--f1);
+    /* ЗМЕНШЕНО: text-shadow */
     text-shadow: 0 0 5px rgba(var(--cyan-rgb), 0.3);
 }
 
 .step-icon {
     font-size: var(--t-4xl);
     margin-bottom: var(--s-s);
+    /* ВИДАЛЕНО: filter: drop-shadow */
 }
 
 .step-title {
@@ -817,6 +720,7 @@ main {
     align-items: center;
     justify-content: center;
     font-size: 12px;
+    /* ЗМЕНШЕНО: box-shadow */
     box-shadow: 0 0 5px rgba(var(--cyan-rgb), 0.4);
     border: 2px solid var(--bg-1);
 }
@@ -908,16 +812,95 @@ main {
     display: inline !important;
 }
 
-/* 📱 АДАПТИВНІСТЬ */
+/* MOBILE NAVIGATION - ПОВНІСТЮ ПЕРЕПИСАНО */
 @media (max-width: 768px) {
     .header-container {
         padding: 0 var(--s-s);
     }
 
-    .header-logo {
-        font-size: var(--t-l);
+    /* Приховати desktop навігацію */
+    .header-nav {
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        right: 0;
+        background: rgba(var(--bg-1-rgb), 0.98);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        border-bottom: 1px solid rgba(var(--text-1-rgb), 0.1);
+        padding: var(--s-l);
+        z-index: var(--z-mobile-menu);
+        
+        /* Приховано за замовчуванням */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: all var(--trans);
+        
+        /* Вертикальна навігація */
+        flex-direction: column;
+        gap: var(--s-m);
+        align-items: stretch;
     }
 
+    /* Показати мобільне меню коли відкрите */
+    .header-nav.mobile-menu-open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .header-nav a {
+        padding: var(--s-s) var(--s-m);
+        border-radius: var(--r-m);
+        text-align: center;
+        font-size: var(--t-base);
+        display: block;
+        border: 1px solid transparent;
+        transition: all var(--trans);
+    }
+
+    .header-nav a:hover,
+    .header-nav a:focus {
+        background: rgba(var(--cyan-rgb), 0.15);
+        border-color: rgba(var(--cyan-rgb), 0.3);
+        color: var(--cyan);
+    }
+
+    .header-nav a::after {
+        display: none;
+    }
+
+    /* Показати mobile toggle */
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    /* Анімація іконки гамбургера */
+    .mobile-menu-toggle.active {
+        transform: rotate(90deg);
+    }
+
+    /* Overlay для закриття меню */
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(var(--bg-1-rgb), 0.5);
+        z-index: calc(var(--z-mobile-menu) - 1);
+        opacity: 0;
+        visibility: hidden;
+        transition: all var(--trans);
+    }
+
+    .mobile-menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Решта мобільних стилів */
     body {
         font-size: var(--t-s);
     }
@@ -932,6 +915,10 @@ main {
         padding-bottom: var(--s-2xl);
     }
 
+    .section-padding:first-child {
+        padding-top: calc(var(--header-h) + var(--s-2xl));
+    }
+
     .section-title-iui {
         font-size: var(--t-3xl);
         margin-bottom: var(--s-l);
@@ -943,7 +930,7 @@ main {
     }
 
     .project-intro-hero {
-        min-height: calc(100vh - var(--header-h));
+        min-height: 100vh;
         padding: var(--s-l) 0;
     }
 
@@ -1048,6 +1035,10 @@ main {
         padding: 0 var(--s-xs);
     }
 
+    .header-logo {
+        font-size: var(--t-l);
+    }
+
     .container {
         padding-left: var(--s-xs);
         padding-right: var(--s-xs);
@@ -1101,6 +1092,23 @@ main {
     .timeline-marker {
         animation: none;
     }
+
+    .header-nav {
+        transition: none;
+    }
+
+    .mobile-menu-overlay {
+        transition: none;
+    }
+}
+
+/* Debug mode стилі */
+.debug-mode * {
+    outline: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.debug-mode .container {
+    outline: 2px solid rgba(0, 255, 0, 0.5);
 }
 
 /* Performance optimizations */
@@ -1108,7 +1116,8 @@ main {
 .step-card,
 .timeline-item,
 .cta-button,
-.site-header {
+.site-header,
+.header-nav {
     will-change: transform;
     contain: layout style paint;
 }
@@ -1122,6 +1131,10 @@ main {
     .step-card:hover,
     .timeline-item:hover {
         transform: none;
+    }
+
+    .header-nav a:hover {
+        background: none;
     }
 }
 
