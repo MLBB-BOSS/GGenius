@@ -3,37 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="GGenius - революційна AI-платформа для кіберспорту. Аналітика матчів, турніри, тренування.">
-    <title data-content="meta.title">GGenius - AI Революція в Mobile Legends</title>
+    <meta name="description" content="GGenius - революційна AI-платформа для кіберспорту. AI Cards Hub з інтерактивними картками.">
+    <title data-content="meta.title">GGenius - AI Cards Hub Revolution</title>
     
     <!-- CSS -->
     <link rel="stylesheet" href="/static/css/style.css">
     
     <!-- Preload критичних ресурсів -->
     <link rel="preload" href="/static/js/enhancements.js" as="script">
+    <link rel="preload" href="/static/js/ai-cards-hub.js" as="script">
     
     <!-- PWA метатеги -->
     <meta name="theme-color" content="#00d4ff">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Prefetch для покращення UX -->
+    <link rel="prefetch" href="/api/cards">
 </head>
 <body>
     <!-- Skip Links для доступності -->
     <ul class="skip-links" aria-label="Швидка навігація">
         <li><a href="#main-content" class="skip-link">Перейти до основного контенту</a></li>
+        <li><a href="#ai-cards-hub" class="skip-link">Перейти до AI Cards Hub</a></li>
     </ul>
 
-    <!-- Header Navigation - ВИПРАВЛЕНА СТРУКТУРА -->
+    <!-- Header Navigation - РОЗШИРЕНА СТРУКТУРА -->
     <header class="site-header" id="site-header">
         <div class="header-container">
-            <a href="#hero" class="header-logo">GGenius</a>
+            <a href="#hero" class="header-logo">
+                <span class="logo-text">🧠 GGenius</span>
+                <span class="logo-subtitle">AI Hub</span>
+            </a>
             
             <nav class="header-nav" id="header-nav" aria-label="Головна навігація">
                 <a href="#hero">Головна</a>
                 <a href="#how-it-works">Як це працює</a>
+                <a href="#ai-cards-hub">AI Cards Hub</a>
                 <a href="#roadmap">Roadmap</a>
                 <a href="#contact">Контакти</a>
             </nav>
+            
+            <!-- Додаткові кнопки в хедері -->
+            <div class="header-actions">
+                <button 
+                    class="theme-toggle-btn" 
+                    id="theme-toggle"
+                    aria-label="Перемкнути тему"
+                    title="Перемкнути тему"
+                >
+                    🌙
+                </button>
+                
+                <button 
+                    class="cards-hub-quick-access" 
+                    id="cards-hub-toggle"
+                    aria-label="Швидкий доступ до Cards Hub"
+                    title="Відкрити Cards Hub"
+                >
+                    🎮
+                </button>
+            </div>
             
             <button 
                 class="mobile-menu-toggle" 
@@ -53,7 +83,7 @@
     <!-- Main Content -->
     <main id="main-content">
         
-        <!-- Hero Section -->
+        <!-- Hero Section - РОЗШИРЕНИЙ -->
         <section id="hero" class="project-intro-hero section-padding" aria-labelledby="hero-title">
             <div class="container">
                 <div class="project-intro-card">
@@ -61,7 +91,7 @@
                     <div class="project-status-badge">
                         <span class="status-icon">🚀</span>
                         <span data-content="hero.status">
-                            <span class="fallback-text">В РОЗРОБЦІ</span>
+                            <span class="fallback-text">AI CARDS HUB LIVE</span>
                         </span>
                     </div>
 
@@ -69,38 +99,85 @@
                     <div class="project-motto-badge">
                         <span class="motto-icon">⚡</span>
                         <span class="motto-text">
-                            <strong>GGenius</strong> — твій успіх — наша місія!
+                            <strong>GGenius</strong> — твій AI-помічник у кіберспорті!
                         </span>
                     </div>
 
                     <!-- Brand Section -->
                     <div class="project-brand">
                         <h1 id="hero-title" class="project-title" data-content="hero.title">
-                            <span class="fallback-text">GGenius AI</span>
+                            <span class="fallback-text">GGenius AI Cards Hub</span>
                         </h1>
+                        <div class="hero-subtitle">
+                            🃏 Інтерактивні AI-картки з flip-анімаціями та drag'n'drop
+                        </div>
                     </div>
 
                     <!-- Description -->
                     <div class="project-description">
                         <p class="intro-paragraph" data-content="hero.description.intro">
                             <span class="fallback-text">
-                                Вітаємо у майбутньому кіберспорту! GGenius - це передова платформа штучного інтелекту, створена спеціально для Mobile Legends: Bang Bang.
+                                Революційний інтерфейс для кіберспортивної спільноти MLBB! 
+                                AI Cards Hub - це інтерактивна система карток, які живуть, 
+                                реагують на дотик та надають персоналізовані AI-поради.
                             </span>
                         </p>
+                        
+                        <!-- Додаємо статистику у Hero -->
+                        <div class="hero-stats">
+                            <div class="hero-stat">
+                                <span class="stat-number" data-animate-count="24">0</span>
+                                <span class="stat-label">AI Карток</span>
+                            </div>
+                            <div class="hero-stat">
+                                <span class="stat-number" data-animate-count="156">0</span>
+                                <span class="stat-label">Взаємодій</span>
+                            </div>
+                            <div class="hero-stat">
+                                <span class="stat-number" data-animate-count="92">0</span>
+                                <span class="stat-label">% Точності</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- CTA Section -->
+                    <!-- CTA Section - РОЗШИРЕНИЙ -->
                     <div class="project-cta">
+                        <a href="#ai-cards-hub" class="cta-button primary-cta" data-content="hero.cta.cards">
+                            <span class="fallback-text">Спробувати Cards Hub</span>
+                            <span class="icon">🎯</span>
+                        </a>
                         <a href="#roadmap" class="cta-button community-cta" data-content="hero.cta.join">
                             <span class="fallback-text">Приєднатися до спільноти</span>
                             <span class="icon">🎮</span>
                         </a>
                     </div>
+
+                    <!-- Швидкий доступ до карток в Hero -->
+                    <div class="hero-cards-preview">
+                        <div class="cards-preview-container">
+                            <div class="preview-card card-type-guides" data-card-type="guides">
+                                <div class="preview-icon">🎯</div>
+                                <span class="preview-label">Гайди</span>
+                            </div>
+                            <div class="preview-card card-type-tournaments" data-card-type="tournaments">
+                                <div class="preview-icon">⚔️</div>
+                                <span class="preview-label">Турніри</span>
+                            </div>
+                            <div class="preview-card card-type-team-finder" data-card-type="team-finder">
+                                <div class="preview-icon">💬</div>
+                                <span class="preview-label">Команда</span>
+                            </div>
+                            <div class="preview-card card-type-analytics" data-card-type="analytics">
+                                <div class="preview-icon">📊</div>
+                                <span class="preview-label">Аналітика</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- How It Works Section -->
+        <!-- How It Works Section - БЕЗ ЗМІН -->
         <section id="how-it-works" class="how-it-works section-padding" aria-labelledby="how-title">
             <div class="container">
                 <div class="section-header">
@@ -156,7 +233,175 @@
             </div>
         </section>
 
-        <!-- Roadmap Section -->
+        <!-- 🔥 AI CARDS HUB REVOLUTION SECTION - НОВА СЕКЦІЯ -->
+        <section id="ai-cards-hub" class="ai-cards-hub-section section-padding" aria-labelledby="cards-hub-title">
+            <div class="container">
+                <!-- Заголовок секції -->
+                <div class="section-header">
+                    <h2 id="cards-hub-title" class="section-title-iui text-gradient">
+                        🔥 AI Cards Hub Revolution
+                    </h2>
+                    <p class="section-subtitle">
+                        Інтерактивні AI-картки з особистістю та інтелектом
+                    </p>
+                    <div class="section-description">
+                        <p>
+                            Це не просто інтерфейс — це <strong>живі AI-модулі</strong>, які:
+                            перевертаються як гральні карти, реагують на дотик, 
+                            мають лицьову та зворотну сторону, та надають персоналізовані поради.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Controls Panel -->
+                <div class="cards-hub-controls">
+                    <div class="controls-left">
+                        <button class="control-btn" id="cards-refresh" aria-label="Оновити картки">
+                            🔄 Оновити
+                        </button>
+                        <button class="control-btn" id="cards-shuffle" aria-label="Перемішати картки">
+                            🎲 Shuffle
+                        </button>
+                        <button class="control-btn" id="cards-reset" aria-label="Скинути позиції">
+                            ↩️ Reset
+                        </button>
+                    </div>
+                    
+                    <div class="controls-center">
+                        <div class="cards-counter">
+                            <span id="active-cards-count">4</span> активних карток
+                        </div>
+                    </div>
+                    
+                    <div class="controls-right">
+                        <div class="view-mode-toggle">
+                            <button class="view-mode-btn active" data-view="grid" aria-label="Сітка">
+                                ⊞
+                            </button>
+                            <button class="view-mode-btn" data-view="list" aria-label="Список">
+                                ≡
+                            </button>
+                        </div>
+                        
+                        <button class="control-btn" id="cards-fullscreen" aria-label="На весь екран">
+                            ⛶ Fullscreen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI Cards Container -->
+                <div class="ai-cards-container" id="ai-cards-container">
+                    <!-- Loading State -->
+                    <div class="cards-loading-state" id="cards-loading">
+                        <div class="loading-animation">
+                            <div class="loading-card"></div>
+                            <div class="loading-card"></div>
+                            <div class="loading-card"></div>
+                            <div class="loading-card"></div>
+                        </div>
+                        <p class="loading-text">Завантаження AI карток...</p>
+                    </div>
+
+                    <!-- Cards Hub Grid -->
+                    <div class="cards-hub-grid" id="cards-hub-grid">
+                        <!-- Картки будуть додані динамічно через JavaScript -->
+                    </div>
+
+                    <!-- Empty State -->
+                    <div class="cards-empty-state" id="cards-empty" style="display: none;">
+                        <div class="empty-icon">🃏</div>
+                        <h3>Картки ще не завантажені</h3>
+                        <p>Натисніть "Оновити" щоб завантажити AI картки</p>
+                        <button class="cta-button" onclick="window.aiCardsHub?.loadCards()">
+                            Завантажити картки
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Workspace Zones - Drag & Drop Area -->
+                <div class="workspace-section">
+                    <h3 class="workspace-title">
+                        🎮 Робоча область
+                        <span class="workspace-subtitle">Перетягуйте картки для організації</span>
+                    </h3>
+                    
+                    <div class="workspace-grid">
+                        <div class="drop-zone" data-zone="active" id="zone-active">
+                            <div class="zone-header">
+                                <span class="zone-icon">⚡</span>
+                                <span class="zone-title">Активні</span>
+                                <span class="zone-count">0</span>
+                            </div>
+                            <div class="zone-content">
+                                <p class="zone-placeholder">Перетягніть картки сюди</p>
+                            </div>
+                        </div>
+                        
+                        <div class="drop-zone" data-zone="favorites" id="zone-favorites">
+                            <div class="zone-header">
+                                <span class="zone-icon">⭐</span>
+                                <span class="zone-title">Улюблені</span>
+                                <span class="zone-count">0</span>
+                            </div>
+                            <div class="zone-content">
+                                <p class="zone-placeholder">Ваші улюблені AI-модулі</p>
+                            </div>
+                        </div>
+                        
+                        <div class="drop-zone" data-zone="archive" id="zone-archive">
+                            <div class="zone-header">
+                                <span class="zone-icon">📦</span>
+                                <span class="zone-title">Архів</span>
+                                <span class="zone-count">0</span>
+                            </div>
+                            <div class="zone-content">
+                                <p class="zone-placeholder">Неактивні картки</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cards Statistics -->
+                <div class="cards-statistics">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">🔄</div>
+                            <div class="stat-value" id="total-flips">0</div>
+                            <div class="stat-label">Перевертань</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">🤖</div>
+                            <div class="stat-value" id="ai-interactions">0</div>
+                            <div class="stat-label">AI Взаємодій</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">⏱️</div>
+                            <div class="stat-value" id="session-time">0:00</div>
+                            <div class="stat-label">Час сесії</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-value" id="success-rate">0%</div>
+                            <div class="stat-label">Успішність</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Demo Hint -->
+                <div class="demo-hint" id="demo-hint">
+                    <div class="hint-content">
+                        <span class="hint-icon">💡</span>
+                        <span class="hint-text">Клікніть на картку щоб перевернути • Подвійний клік для розширення</span>
+                        <button class="hint-close" aria-label="Закрити підказку">×</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap Section - БЕЗ ЗМІН -->
         <section id="roadmap" class="roadmap section-padding" aria-labelledby="roadmap-title">
             <div class="container">
                 <div class="section-header">
@@ -197,16 +442,16 @@
                                 <span class="fallback-text">Q2 2025</span>
                             </div>
                             <h3 class="timeline-title" data-content="roadmap.q2.2025.title">
-                                <span class="fallback-text">AI Integration</span>
+                                <span class="fallback-text">AI Cards Hub Launch</span>
                             </h3>
                             <p class="timeline-description" data-content="roadmap.q2.2025.desc">
-                                <span class="fallback-text">Запуск нейронної аналітики та AI-тренера.</span>
+                                <span class="fallback-text">Запуск революційного AI Cards Hub з flip-анімаціями.</span>
                             </p>
                             <div class="timeline-progress">
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 65%"></div>
+                                    <div class="progress-fill" style="width: 75%"></div>
                                 </div>
-                                <span class="progress-text">65% - В процесі</span>
+                                <span class="progress-text">75% - Майже готово!</span>
                             </div>
                         </div>
                     </div>
@@ -279,7 +524,77 @@
 
     </main>
 
-    <!-- Scripts -->
+    <!-- Floating Cards Hub Button -->
+    <button class="floating-cards-hub" id="floating-cards-hub" aria-label="Швидкий доступ до Cards Hub">
+        <span class="floating-icon">🎮</span>
+        <span class="floating-text">Cards Hub</span>
+    </button>
+
+    <!-- Card Overlay для розширених карток -->
+    <div class="card-overlay" id="card-overlay" aria-hidden="true"></div>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notification-container" aria-live="polite"></div>
+
+    <!-- Scripts - РОЗШИРЕНИЙ -->
     <script src="/static/js/enhancements.js" defer></script>
+    <script src="/static/js/ai-cards-hub.js" defer></script>
+    
+    <!-- Ініціалізація -->
+    <script>
+        // Глобальні змінні
+        window.GGenius = window.GGenius || {};
+        
+        // Ініціалізація після завантаження DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🔥 GGenius AI Cards Hub Revolution ініціалізовано!');
+            
+            // Ініціалізація статистики в Hero
+            if (typeof animateCounters === 'function') {
+                animateCounters();
+            }
+            
+            // Ініціалізація теми
+            initializeTheme();
+            
+            // Показати підказку через 2 секунди
+            setTimeout(() => {
+                const hint = document.getElementById('demo-hint');
+                if (hint) {
+                    hint.classList.add('show');
+                }
+            }, 2000);
+        });
+        
+        // Функція ініціалізації теми
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('ggenius-theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        }
+        
+        // Анімація лічильників
+        function animateCounters() {
+            const counters = document.querySelectorAll('[data-animate-count]');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.dataset.animateCount);
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 16);
+            });
+        }
+    </script>
 </body>
 </html>
