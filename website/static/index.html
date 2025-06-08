@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="GGenius - революційна AI-платформа для кіберспорту. Аналітика матчів, турніри, тренування.">
-    <title data-content="meta.title">GGenius - AI Революція в Mobile Legends</title>
+    <meta name="keywords" content="GGenius, AI, кіберспорт, Mobile Legends, аналітика, тренування, турніри">
+    <title data-content="meta.title">GGenius - Революційна AI-платформа для Mobile Legends</title>
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="GGenius - Революційна AI-платформа для Mobile Legends">
+    <meta property="og:description" content="GGenius - революційна AI-платформа для кіберспорту. Аналітика матчів, турніри, тренування.">
+    <meta property="og:image" content="/static/images/ggenius-logo.png">
+    <meta property="og:url" content="https://www.ggenius.com">
+    <meta property="og:type" content="website">
     
     <!-- CSS -->
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <!-- Loading Screen -->
+    <!-- Loading Screen with Animation -->
     <div id="loadingScreen" class="loading-screen" aria-hidden="false">
         <div class="loading-content">
             <div class="loading-logo">
@@ -23,10 +31,11 @@
         </div>
     </div>
 
-    <!-- Site Header -->
+    <!-- Site Header with Logo Image -->
     <header class="site-header" role="banner">
         <div class="header-container container">
             <a href="#main-content" class="header-logo-link">
+                <img src="/static/images/ggenius-logo.png" alt="GGenius Logo" class="header-logo-image">
                 <span class="header-logo-text" data-content="header.logo">
                     <span class="fallback-text">GGenius</span>
                 </span>
@@ -48,21 +57,34 @@
                 <ul id="main-menu-list" class="nav-menu" role="menubar">
                     <li role="none">
                         <a href="#hero" class="nav-link active" role="menuitem" data-content="nav.home">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                            </svg>
                             <span class="fallback-text">Головна</span>
                         </a>
                     </li>
                     <li role="none">
                         <a href="#features" class="nav-link" role="menuitem" data-content="features.title">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
                             <span class="fallback-text">Функції</span>
                         </a>
                     </li>
                     <li role="none">
                         <a href="#about" class="nav-link" role="menuitem" data-content="nav.about">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                <path d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"/>
+                            </svg>
                             <span class="fallback-text">Про проєкт</span>
                         </a>
                     </li>
                     <li role="none">
                         <a href="#roadmap" class="nav-link" role="menuitem" data-content="nav.roadmap">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                            </svg>
                             <span class="fallback-text">Roadmap</span>
                         </a>
                     </li>
@@ -73,8 +95,8 @@
 
     <!-- Main Content -->
     <main id="main-content" role="main">
-        <!-- Hero Section -->
-        <section id="hero" class="project-intro-hero section-padding">
+        <!-- Hero Section with Background Image -->
+        <section id="hero" class="project-intro-hero section-padding" style="background-image: url('/static/images/hero-background.jpg'); background-size: cover; background-position: center;">
             <div class="container">
                 <div class="project-intro-card">
                     <!-- Status Badge -->
@@ -109,7 +131,7 @@
                         </p>
                     </div>
 
-                    <!-- CTA Buttons -->
+                    <!-- CTA Buttons with Hover Animations -->
                     <div class="project-cta">
                         <button type="button" class="cta-button primary-cta" onclick="app.showDemoModal()">
                             <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
@@ -137,7 +159,7 @@
             </div>
         </section>
 
-        <!-- Features Section -->
+        <!-- Features Section with Tab Animations -->
         <section id="features" class="features-section-iui enhanced section-padding">
             <div class="container">
                 <div class="section-header">
@@ -149,9 +171,9 @@
                     </p>
                 </div>
 
-                <!-- Feature Categories Tabs -->
-                <div class="feature-categories tabs-component" role="tablist">
-                    <button role="tab" class="category-tab" aria-selected="true" aria-controls="analysis-panel">
+                <!-- Feature Categories Tabs with Keyboard Accessibility -->
+                <div class="feature-categories tabs-component" role="tablist" aria-label="Категорії функцій">
+                    <button role="tab" class="category-tab" aria-selected="true" aria-controls="analysis-panel" tabindex="0">
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
                         </svg>
@@ -159,7 +181,7 @@
                             <span class="fallback-text">Аналіз</span>
                         </span>
                     </button>
-                    <button role="tab" class="category-tab" aria-selected="false" aria-controls="coaching-panel">
+                    <button role="tab" class="category-tab" aria-selected="false" aria-controls="coaching-panel" tabindex="0">
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
                         </svg>
@@ -167,7 +189,7 @@
                             <span class="fallback-text">Навчання</span>
                         </span>
                     </button>
-                    <button role="tab" class="category-tab" aria-selected="false" aria-controls="prediction-panel">
+                    <button role="tab" class="category-tab" aria-selected="false" aria-controls="prediction-panel" tabindex="0">
                         <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
@@ -177,8 +199,8 @@
                     </button>
                 </div>
 
-                <!-- Feature Panels -->
-                <div id="analysis-panel" class="features-grid-iui tab-content active" role="tabpanel">
+                <!-- Feature Panels with Transitions -->
+                <div id="analysis-panel" class="features-grid-iui tab-content active" role="tabpanel" aria-labelledby="analysis-tab">
                     <div class="feature-card-iui">
                         <div class="feature-icon">📊</div>
                         <h3><span class="fallback-text">Аналіз матчів</span></h3>
@@ -198,7 +220,7 @@
                     </div>
                 </div>
 
-                <div id="coaching-panel" class="features-grid-iui tab-content" role="tabpanel" hidden>
+                <div id="coaching-panel" class="features-grid-iui tab-content" role="tabpanel" aria-labelledby="coaching-tab" hidden>
                     <div class="feature-card-iui">
                         <div class="feature-icon">🎓</div>
                         <h3><span class="fallback-text">Персональні уроки</span></h3>
@@ -206,7 +228,7 @@
                     </div>
                 </div>
 
-                <div id="prediction-panel" class="features-grid-iui tab-content" role="tabpanel" hidden>
+                <div id="prediction-panel" class="features-grid-iui tab-content" role="tabpanel" aria-labelledby="prediction-tab" hidden>
                     <div class="feature-card-iui">
                         <div class="feature-icon">🔮</div>
                         <h3><span class="fallback-text">Прогноз матчів</span></h3>
@@ -216,7 +238,7 @@
             </div>
         </section>
 
-        <!-- Roadmap Section -->
+        <!-- Roadmap Section with Progress Indicators -->
         <section id="roadmap" class="roadmap-section section-padding">
             <div class="container">
                 <h2 class="section-title-iui text-gradient" data-content="roadmap.title">
@@ -246,6 +268,7 @@
                                 <span class="fallback-text">Basic Statistics Dashboard</span>
                             </li>
                         </ul>
+                        <div class="progress-bar" style="width: 50%; background: var(--g1);"></div>
                     </div>
                     
                     <!-- Q2 2025 -->
@@ -270,29 +293,47 @@
                                 <span class="fallback-text">Computer Vision Integration</span>
                             </li>
                         </ul>
+                        <div class="progress-bar" style="width: 30%; background: var(--g1);"></div>
                     </div>
-                    
-                    <!-- Додаткові квартали... -->
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer with Social Links -->
     <footer class="site-footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <p class="footer-tagline" data-content="footer.tagline">
                     <span class="fallback-text">Революція в кіберспорті з AI</span>
                 </p>
+                <div class="social-links">
+                    <a href="https://twitter.com/ggenius" target="_blank" rel="noopener" aria-label="Twitter">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05A4.28 4.28 0 0 0 16.5 4.5c-2.36 0-4.28 1.92-4.28 4.28 0 .33.04.66.11.97-3.56-.18-6.73-1.89-8.84-4.48a4.28 4.28 0 0 0 1.33 5.71 4.26 4.26 0 0 1-1.94-.53v.05c0 2.08 1.48 3.81 3.44 4.21a4.28 4.28 0 0 1-1.93.07c.54 1.68 2.11 2.9 3.97 2.94A8.56 8.56 0 0 1 3 18.66a12.08 12.08 0 0 0 6.55 1.92c7.86 0 12.15-6.51 12.15-12.15 0-.18 0-.37-.01-.55.83-.6 1.55-1.35 2.12-2.2l-.35-.15z"/>
+                        </svg>
+                    </a>
+                    <a href="https://facebook.com/ggenius" target="_blank" rel="noopener" aria-label="Facebook">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22 12.07c0-5.52-4.48-10-10-10s-10 4.48-10 10c0 4.99 3.66 9.12 8.44 9.88v-6.99h-2.54v-2.89h2.54v-2.2c0-2.51 1.49-3.9 3.78-3.9 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.89h-2.34v6.99c4.78-.76 8.44-4.89 8.44-9.88z"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/ggenius" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.16c3.2 0 3.58.01 4.84.07 1.17.06 1.97.24 2.43.4.61.22 1.06.47 1.54.95s.73.93.95 1.54c.16.46.34 1.26.4 2.43.06 1.26.07 1.64.07 4.84s-.01 3.58-.07 4.84c-.06 1.17-.24 1.97-.4 2.43-.22.61-.47 1.06-.95 1.54s-.93.73-1.54.95c-.46.16-1.26.34-2.43.4-1.26.06-1.64.07-4.84.07s-3.58-.01-4.84-.07c-1.17-.06-1.97-.24-2.43-.4-.61-.22-1.06-.47-1.54-.95s-.73-.93-.95-1.54c-.16-.46-.34-1.26-.4-2.43-.06-1.26-.07-1.64-.07-4.84s.01-3.58.07-4.84c.06-1.17.24-1.97.4-2.43.22-.61.47-1.06.95-1.54s.93-.73 1.54-.95c.46-.16 1.26-.34 2.43-.4 1.26-.06 1.64-.07 4.84-.07zm0-2.16c-3.25 0-3.66.01-4.94.07-1.28.06-2.16.26-2.93.56-.8.3-1.48.7-2.16 1.38s-1.08 1.36-1.38 2.16c-.3.77-.5 1.65-.56 2.93-.06 1.28-.07 1.69-.07 4.94s.01 3.66.07 4.94c.06 1.28.26 2.16.56 2.93.3.8.7 1.48 1.38 2.16s1.36 1.08 2.16 1.38c.77.3 1.65.5 2.93.56 1.28.06 1.69.07 4.94.07s3.66-.01 4.94-.07c1.28-.06 2.16-.26 2.93-.56.8-.3 1.48-.7 2.16-1.38s1.08-1.36 1.38-2.16c.3-.77.5-1.65.56-2.93.06-1.28.07-1.69.07-4.94s-.01-3.66-.07-4.94c-.06-1.28-.26-2.16-.56-2.93-.3-.8-.7-1.48-1.38-2.16s-1.36-1.08-2.16-1.38c-.77-.3-1.65-.5-2.93-.56-1.28-.06-1.69-.07-4.94-.07z"/>
+                            <path d="M12 5.84c-3.37 0-6.16 2.79-6.16 6.16s2.79 6.16 6.16 6.16 6.16-2.79 6.16-6.16-2.79-6.16-6.16-6.16zm0 10.16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+                            <circle cx="18.41" cy="5.59" r="1.44"/>
+                        </svg>
+                    </a>
+                </div>
                 <p class="footer-copyright" data-content="footer.copyright">
-                    <span class="fallback-text">GGenius. Всі права захищено.</span>
+                    <span class="fallback-text">© 2025 GGenius. Всі права захищено.</span>
                 </p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="/static/js/enhancements.js"></script>
+    <!-- Scripts with Defer Attribute -->
+    <script src="/static/js/enhancements.js" defer></script>
 </body>
 </html>
