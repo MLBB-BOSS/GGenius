@@ -1,9 +1,9 @@
 /* 
  * GGenius - AI Revolution in Mobile Legends: Bang Bang
- * Professional CSS Framework v2.6.0
+ * Professional CSS Framework v2.7.0 - COMPLETE EDITION
  * Optimized for performance, accessibility, and modern web standards
  * @author MLBB-BOSS/GGenius Team
- * @version 2.6.0
+ * @version 2.7.0 - FINAL COMPLETE
  */
 
 /* ===============================================
@@ -70,7 +70,7 @@
     --t-5xl: clamp(3rem, 2.5rem + 2.5vw, 4.5rem);
 
     /* Layout & Spacing - 8px Grid System */
-    --container: min(1000px, 100vw - 2rem); /* Зменшено з 1200px для компактності */
+    --container: min(1200px, 100vw - 2rem);
     --header-h: 4.5rem; /* 72px */
     --s-xs: 0.5rem; /* 8px */
     --s-s: 1rem; /* 16px */
@@ -407,6 +407,20 @@ p {
     outline-offset: 4px;
 }
 
+.header-logo-image {
+    height: 2.5rem;
+    width: auto;
+    margin-right: var(--s-s);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: all var(--trans);
+}
+
+.header-logo-link:hover .header-logo-image,
+.header-logo-link:focus-visible .header-logo-image {
+    filter: drop-shadow(0 4px 8px rgba(var(--cyan-rgb), 0.4)) brightness(1.1);
+    transform: scale(1.05);
+}
+
 .header-logo-text {
     font-family: var(--f1);
     font-size: clamp(1.75rem, 4vw, 2.25rem);
@@ -463,6 +477,9 @@ p {
     white-space: nowrap;
     overflow: hidden;
     isolation: isolate;
+    display: flex;
+    align-items: center;
+    gap: var(--s-xs);
 }
 
 .nav-link::before {
@@ -511,6 +528,17 @@ p {
 .nav-link:focus-visible {
     outline: 2px solid var(--cyan);
     outline-offset: 2px;
+}
+
+.nav-link .icon {
+    width: 1.2em;
+    height: 1.2em;
+    transition: transform var(--trans);
+}
+
+.nav-link:hover .icon,
+.nav-link:focus-visible .icon {
+    transform: scale(1.1) rotate(5deg);
 }
 
 /* ===============================================
@@ -611,7 +639,7 @@ p {
 }
 
 /* ===============================================
-   PROJECT HERO - Optimized Layout
+   PROJECT HERO - Enhanced with Motto Badge
    =============================================== */
 .project-intro-hero {
     background: var(--g-bg);
@@ -621,10 +649,10 @@ p {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background-image: url('/static/images/hero-background.jpg'); /* Додано фонове зображення */
+    background-image: url('/static/images/hero-background.jpg');
     background-size: cover;
     background-position: center;
-    background-color: var(--bg-1); /* Резервний фон */
+    background-attachment: fixed;
 }
 
 .project-intro-card {
@@ -632,20 +660,16 @@ p {
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     border-radius: var(--r-3xl);
-    padding: clamp(var(--s-xl), 4vw, var(--s-2xl)); /* Оптимізовано відступи */
+    padding: clamp(var(--s-xl), 6vw, var(--s-3xl));
     box-shadow: var(--shadow-2xl), 
                 inset 0 1px 0 rgba(var(--text-1-rgb), 0.1);
     border: 1px solid rgba(var(--text-1-rgb), 0.1);
-    max-width: 48rem; /* Зменшено ширину для компактності */
+    max-width: 56rem;
     margin: 0 auto;
     text-align: center;
     position: relative;
     z-index: var(--z-normal);
     animation: heroCardFloat 6s ease-in-out infinite;
-    min-height: 80vh; /* Додано мінімальну висоту */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 @keyframes heroCardFloat {
@@ -653,12 +677,93 @@ p {
     50% { transform: translateY(-10px) rotate(0.5deg); }
 }
 
+/* ===============================================
+   NEW MOTTO BADGE - Revolutionary Component
+   =============================================== */
+.project-motto-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-s);
+    background: linear-gradient(135deg, rgba(var(--green-rgb), 0.15), rgba(var(--cyan-rgb), 0.1));
+    border: 2px solid rgba(var(--green-rgb), 0.3);
+    color: var(--green);
+    padding: var(--s-m) var(--s-xl);
+    border-radius: var(--r-full);
+    font-size: var(--t-l);
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    margin-bottom: var(--s-xl);
+    box-shadow: var(--shadow-glow), 0 4px 20px rgba(var(--green-rgb), 0.2);
+    animation: mottoGlow 4s ease-in-out infinite alternate;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.project-motto-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(var(--green-rgb), 0.3), 
+        transparent
+    );
+    transform: skewX(-25deg);
+    animation: mottoShimmer 3s ease-in-out infinite;
+}
+
+@keyframes mottoGlow {
+    0% { 
+        box-shadow: var(--shadow-glow), 0 4px 20px rgba(var(--green-rgb), 0.2);
+        border-color: rgba(var(--green-rgb), 0.3);
+    }
+    100% { 
+        box-shadow: var(--shadow-glow-hover), 0 6px 30px rgba(var(--green-rgb), 0.4);
+        border-color: rgba(var(--green-rgb), 0.5);
+    }
+}
+
+@keyframes mottoShimmer {
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
+}
+
+.motto-icon {
+    font-size: 1.5em;
+    animation: mottoIconFloat 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+@keyframes mottoIconFloat {
+    0%, 100% { transform: translateY(0px) rotate(-3deg); }
+    50% { transform: translateY(-5px) rotate(3deg); }
+}
+
+.motto-text {
+    line-height: 1.3;
+    text-shadow: 0 0 10px rgba(var(--green-rgb), 0.5);
+}
+
+.motto-text strong {
+    background: linear-gradient(135deg, var(--green), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
 .project-status-badge {
     display: inline-flex;
     align-items: center;
     gap: var(--s-xs);
-    background: linear-gradient(135deg, rgba(var(--cyan-rgb), 0.2), rgba(var(--purple-rgb), 0.1));
-    border: 1px solid rgba(var(--cyan-rgb), 0.3);
+    background: linear-gradient(135deg, rgba(var(--cyan-rgb), 0.25), rgba(var(--purple-rgb), 0.15));
+    border: 2px solid rgba(var(--cyan-rgb), 0.4);
     color: var(--cyan);
     padding: var(--s-xs) var(--s-l);
     border-radius: var(--r-full);
@@ -713,6 +818,7 @@ p {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 600;
+    position: relative;
 }
 
 .project-description {
@@ -748,7 +854,7 @@ p {
 }
 
 /* ===============================================
-   CTA BUTTONS - Single Button Optimized
+   CTA BUTTONS - Enhanced Single Button Design
    =============================================== */
 .project-cta {
     display: flex;
@@ -811,27 +917,40 @@ p {
     outline-offset: 3px;
 }
 
+/* Community CTA - The ONLY Button */
 .cta-button.community-cta {
-    background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+    background: linear-gradient(135deg, var(--green) 0%, var(--cyan) 100%);
     color: var(--bg-1);
-    font-size: var(--t-xl); /* Збільшено розмір тексту */
+    font-size: var(--t-xl);
     padding: var(--s-l) var(--s-3xl);
     border-radius: var(--r-2xl);
-    font-weight: 800; /* Зроблено жирнішим */
+    font-weight: 800;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    box-shadow: var(--shadow-xl), 0 0 30px rgba(var(--purple-rgb), 0.4);
-    border: 2px solid transparent;
+    box-shadow: var(--shadow-xl), 0 0 30px rgba(var(--green-rgb), 0.4);
     position: relative;
     overflow: hidden;
     transition: all var(--trans);
     min-height: 4rem;
 }
 
+.cta-button.community-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--cyan) 0%, var(--green) 100%);
+    opacity: 0;
+    transition: opacity var(--trans);
+    border-radius: inherit;
+}
+
 .cta-button.community-cta:hover {
-    border-color: var(--yellow); /* Жовта рамка при наведенні */
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-xl), 0 0 20px rgba(var(--yellow-rgb), 0.4);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: var(--shadow-2xl), 0 0 40px rgba(var(--green-rgb), 0.6);
+}
+
+.cta-button.community-cta:hover::before {
+    opacity: 1;
 }
 
 .cta-button.community-cta:active {
@@ -855,8 +974,12 @@ p {
     z-index: 1;
 }
 
-/* Приховуємо зайві кнопки */
-.cta-button:not(.community-cta) {
+/* Hide other buttons - show only community CTA */
+.cta-button:not(.community-cta):not(.tertiary-cta) {
+    display: none;
+}
+
+.cta-button.tertiary-cta {
     display: none;
 }
 
@@ -941,7 +1064,7 @@ p {
     position: absolute;
     width: 4px;
     height: 4px;
-    background: var(--electric);
+    background: var(--cyan);
     border-radius: 50%;
     animation: particleFloat 4s ease-in-out infinite;
     box-shadow: 0 0 10px currentColor;
@@ -1207,7 +1330,7 @@ p {
 }
 
 /* ===============================================
-   COMMUNITY SECTION - Optimized Styling
+   COMMUNITY SECTION
    =============================================== */
 .community-section {
     background: linear-gradient(135deg, 
@@ -1244,14 +1367,13 @@ p {
 }
 
 .community-content p {
-    font-size: var(--t-xl); /* Збільшено розмір тексту */
-    font-weight: 700; /* Зроблено жирнішим */
-    color: var(--text-1);
-    margin: 0 0 var(--s-m); /* Переміщено текст вгору */
+    font-size: var(--t-xl);
+    color: var(--text-2);
+    margin: 0;
 }
 
 /* ===============================================
-   ROADMAP SECTION - Optimized Spacing
+   ROADMAP SECTION
    =============================================== */
 .roadmap-section {
     background: var(--g-bg);
@@ -1262,14 +1384,13 @@ p {
 .roadmap-timeline {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-    gap: var(--s-l); /* Зменшено відступи */
+    gap: var(--s-2xl);
     position: relative;
-    padding: var(--s-xl) 0; /* Оптимізовано висоту */
 }
 
 .roadmap-quarter-block {
     background: var(--g-card);
-    padding: var(--s-xl); /* Зменшено відступи */
+    padding: var(--s-2xl);
     border-radius: var(--r-2xl);
     border: 1px solid rgba(var(--text-1-rgb), 0.1);
     box-shadow: var(--shadow-lg);
@@ -1279,7 +1400,6 @@ p {
     isolation: isolate;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    min-height: 200px; /* Оптимізовано висоту */
 }
 
 .roadmap-quarter-block::before {
@@ -1356,6 +1476,33 @@ p {
     border-left-color: var(--green);
 }
 
+.progress-bar {
+    height: 4px;
+    background: var(--g1);
+    border-radius: var(--r-full);
+    margin-top: var(--s-l);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.3), 
+        transparent
+    );
+    transform: translateX(-100%);
+    animation: progressShimmer 2s ease-in-out infinite;
+}
+
+@keyframes progressShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
 /* ===============================================
    FOOTER
    =============================================== */
@@ -1398,6 +1545,38 @@ p {
     font-size: var(--t-s);
     color: var(--text-3);
     margin-bottom: 0;
+}
+
+.social-links {
+    display: flex;
+    gap: var(--s-m);
+    align-items: center;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background: rgba(var(--bg-2-rgb), 0.8);
+    border-radius: var(--r-l);
+    color: var(--text-2);
+    transition: all var(--trans);
+    border: 1px solid rgba(var(--text-1-rgb), 0.1);
+}
+
+.social-links a:hover {
+    color: var(--cyan);
+    background: rgba(var(--cyan-rgb), 0.1);
+    border-color: var(--cyan);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+.social-links a .icon {
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 /* ===============================================
@@ -1460,193 +1639,10 @@ p {
 }
 
 /* ===============================================
-   LOADING SCREEN
+   LOADING SCREEN - CRITICAL FIXES
    =============================================== */
 .loading-screen {
     position: fixed;
     inset: 0;
     background: var(--g-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: calc(var(--z-max) + 1);
-    transition: opacity var(--trans-slow);
-}
-
-.loading-screen.hidden {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-out;
-}
-
-.loading-content {
-    text-align: center;
-    max-width: 20rem;
-    width: 100%;
-    padding: var(--s-xl);
-}
-
-.loading-logo {
-    font-family: var(--f1);
-    font-size: var(--t-4xl);
-    font-weight: 900;
-    background: var(--g1);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: var(--s-xl);
-    animation: logoGlow 2s ease-in-out infinite alternate;
-}
-
-@keyframes logoGlow {
-    0% { filter: brightness(1) drop-shadow(0 0 5px rgba(var(--cyan-rgb), 0.3)); }
-    100% { filter: brightness(1.2) drop-shadow(0 0 15px rgba(var(--cyan-rgb), 0.6)); }
-}
-
-.loading-bar {
-    background: rgba(var(--text-1-rgb), 0.1);
-    border-radius: var(--r-full);
-    height: 4px;
-    overflow: hidden;
-    margin-bottom: var(--s-l);
-    position: relative;
-}
-
-.loading-progress {
-    background: var(--g1);
-    height: 100%;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-    border-radius: inherit;
-    box-shadow: 0 0 10px rgba(var(--cyan-rgb), 0.5);
-}
-
-.loading-text {
-    font-size: var(--t-base);
-    color: var(--text-2);
-    margin: 0;
-    opacity: 0.8;
-    animation: textFade 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes textFade {
-    0% { opacity: 0.6; }
-    100% { opacity: 1; }
-}
-
-/* ===============================================
-   MOBILE RESPONSIVE DESIGN
-   =============================================== */
-@media (max-width: 768px) {
-    :root {
-        --s-xl: 2rem;
-        --s-2xl: 3rem;
-        --s-3xl: 4rem;
-        --s-4xl: 5rem;
-    }
-    
-    .mobile-menu-toggle {
-        display: flex;
-    }
-    
-    .nav-menu {
-        position: fixed;
-        top: var(--header-h);
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(var(--bg-1-rgb), 0.98);
-        backdrop-filter: blur(25px);
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: stretch;
-        padding: var(--s-2xl);
-        gap: var(--s-m);
-        transform: translateX(-100%);
-        transition: transform var(--trans-slow);
-        overflow-y: auto;
-        z-index: var(--z-modal);
-    }
-
-    .nav-menu.active {
-        transform: translateX(0);
-    }
-    
-    .nav-link {
-        font-size: var(--t-l);
-        padding: var(--s-m) 0;
-        text-align: center;
-        border-radius: var(--r-m);
-    }
-
-    .header-logo-text {
-        font-size: clamp(1.5rem, 3.5vw, 2rem);
-    }
-
-    .project-title {
-        font-size: var(--t-4xl);
-    }
-
-    .project-subtitle {
-        font-size: var(--t-xl);
-    }
-
-    .project-intro-card {
-        padding: var(--s-xl);
-        min-height: 70vh; /* Адаптивна висота для мобільних */
-    }
-
-    .section-title-iui {
-        font-size: var(--t-3xl);
-    }
-
-    .section-subtitle {
-        font-size: var(--t-l);
-    }
-
-    .features-grid-iui {
-        grid-template-columns: 1fr;
-    }
-
-    .roadmap-timeline {
-        grid-template-columns: 1fr;
-    }
-
-    .cta-button {
-        width: 100%;
-        justify-content: center;
-        padding: var(--s-s) var(--s-xl);
-    }
-
-    .cta-button.community-cta {
-        padding: var(--s-m) var(--s-2xl);
-        font-size: var(--t-l);
-    }
-
-    .feature-categories {
-        grid-template-columns: 1fr;
-    }
-
-    .category-tab {
-        padding: var(--s-m) var(--s-l);
-    }
-}
-
-/* ===============================================
-   REDUCED MOTION PREFERENCE
-   =============================================== */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation: none !important;
-        transition: none !important;
-    }
-
-    .cta-button:hover,
-    .feature-card-iui:hover,
-    .roadmap-quarter-block:hover,
-    .nav-link:hover,
-    .category-tab:hover {
-        transform: none;
-    }
-}
+    display: flex
