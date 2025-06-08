@@ -1,920 +1,317 @@
-/* 
- * GGenius - AI Revolution in Mobile Legends: Bang Bang
- * Professional CSS Framework v2.6.0
- * Optimized for performance, accessibility, and modern web standards
- * @author MLBB-BOSS/GGenius Team
- * @version 2.6.0
- */
-
-/* ===============================================
-   CORE THEME VARIABLES - Enhanced Professional
-   =============================================== */
-:root {
-    /* Core Color Palette - Cyberpunk AI Theme */
-    --bg-1: #0a0c0f;
-    --bg-2: #14181e;
-    --bg-3: #252a32;
-    --surface: #1a1d23;
-    --text-1: #ffffff;
-    --text-2: #b0c4de;
-    --text-3: #8899a6;
-    --blue: #007bff;
-    --yellow: #ffc107;
-    --cyan: #00d4ff;
-    --purple: #a55eea;
-    --green: #00ff88;
-    --pink: #ff073a;
-    --electric: #bf00ff;
-    --matrix: #39ff14;
-
-    /* RGB Versions for rgba() Functions */
-    --bg-1-rgb: 10, 12, 15;
-    --bg-2-rgb: 20, 24, 30;
-    --bg-3-rgb: 37, 42, 50;
-    --surface-rgb: 26, 29, 35;
-    --text-1-rgb: 255, 255, 255;
-    --text-2-rgb: 176, 196, 222;
-    --text-3-rgb: 136, 153, 166;
-    --blue-rgb: 0, 123, 255;
-    --yellow-rgb: 255, 193, 7;
-    --cyan-rgb: 0, 212, 255;
-    --purple-rgb: 165, 94, 234;
-    --green-rgb: 0, 255, 136;
-    --pink-rgb: 255, 7, 58;
-    --electric-rgb: 191, 0, 255;
-
-    /* Professional Gradient System */
-    --g1: linear-gradient(135deg, var(--cyan), var(--purple));
-    --g2: linear-gradient(135deg, var(--cyan) 0%, var(--electric) 50%, var(--pink) 100%);
-    --g3: linear-gradient(135deg, var(--blue) 0%, #4a90e2 100%);
-    --g-bg: linear-gradient(145deg, var(--bg-1) 0%, #0d1014 50%, #080a0c 100%);
-    --g-success: linear-gradient(135deg, var(--green), var(--cyan));
-    --g-error: linear-gradient(135deg, var(--pink), var(--yellow));
-    --g-card: linear-gradient(145deg, rgba(var(--bg-2-rgb), 0.8), rgba(var(--bg-3-rgb), 0.6));
-    --g-button-primary: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
-    --g-button-secondary: linear-gradient(135deg, transparent 0%, rgba(var(--cyan-rgb), 0.1) 100%);
-
-    /* Typography Scale - Perfect 1.25 Ratio */
-    --f1: 'Exo 2', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    --f2: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    --f-mono: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+<!DOCTYPE html>
+<html lang="uk" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="GGenius - революційна AI-платформа для кіберспорту. Аналітика матчів, турніри, тренування.">
+    <meta name="keywords" content="GGenius, AI, кіберспорт, Mobile Legends, аналітика, тренування, турніри">
+    <title data-content="meta.title">GGenius - Революційна AI-платформа для Mobile Legends</title>
     
-    --t-xs: clamp(0.75rem, 0.69rem + 0.31vw, 0.875rem);
-    --t-s: clamp(0.875rem, 0.81rem + 0.33vw, 1rem);
-    --t-base: clamp(1rem, 0.93rem + 0.36vw, 1.125rem);
-    --t-l: clamp(1.125rem, 1.04rem + 0.42vw, 1.375rem);
-    --t-xl: clamp(1.25rem, 1.15rem + 0.52vw, 1.625rem);
-    --t-2xl: clamp(1.5rem, 1.36rem + 0.71vw, 2rem);
-    --t-3xl: clamp(2rem, 1.75rem + 1.25vw, 2.75rem);
-    --t-4xl: clamp(2.5rem, 2.14rem + 1.79vw, 3.5rem);
-    --t-5xl: clamp(3rem, 2.5rem + 2.5vw, 4.5rem);
-
-    /* Layout & Spacing - 8px Grid System */
-    --container: min(1000px, 100vw - 2rem); /* Зменшено з 1200px для компактності */
-    --header-h: 4.5rem; /* 72px */
-    --s-xs: 0.5rem; /* 8px */
-    --s-s: 1rem; /* 16px */
-    --s-m: 1.5rem; /* 24px */
-    --s-l: 2rem; /* 32px */
-    --s-xl: 3rem; /* 48px */
-    --s-2xl: 4rem; /* 64px */
-    --s-3xl: 6rem; /* 96px */
-    --s-4xl: 8rem; /* 128px */
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="GGenius - Революційна AI-платформа для Mobile Legends">
+    <meta property="og:description" content="GGenius - революційна AI-платформа для кіберспорту. Аналітика матчів, турніри, тренування.">
+    <meta property="og:image" content="/static/images/ggenius-logo.png">
+    <meta property="og:url" content="https://www.ggenius.com">
+    <meta property="og:type" content="website">
     
-    /* Border Radius System */
-    --r-xs: 4px;
-    --r-s: 6px;
-    --r-m: 8px;
-    --r-l: 12px;
-    --r-xl: 16px;
-    --r-2xl: 24px;
-    --r-3xl: 32px;
-    --r-full: 9999px;
-
-    /* Professional Shadow System */
-    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    --shadow-glow: 0 0 20px rgba(var(--cyan-rgb), 0.3);
-    --shadow-glow-hover: 0 0 25px rgba(var(--cyan-rgb), 0.5), 0 0 35px rgba(var(--purple-rgb), 0.3);
-    --shadow-glow-active: 0 0 15px rgba(var(--cyan-rgb), 0.4), 0 0 25px rgba(var(--purple-rgb), 0.2);
-
-    /* Transition System */
-    --trans-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    --trans: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    --trans-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
-    --trans-elastic: 600ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    --trans-bounce: 400ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
-
-    /* Z-index Scale */
-    --z-bg: -1;
-    --z-normal: 1;
-    --z-high: 10;
-    --z-sticky: 100;
-    --z-modal: 1000;
-    --z-max: 9999;
-    
-    /* Animation Variables */
-    --line-spacing: 7px;
-}
-
-/* ===============================================
-   LIGHT THEME SUPPORT
-   =============================================== */
-html.theme-light {
-    --bg-1: #fafafa;
-    --bg-2: #f5f5f5;
-    --bg-3: #eeeeee;
-    --surface: #ffffff;
-    --text-1: #1a1a1a;
-    --text-2: #4a4a4a;
-    --text-3: #6a6a6a;
-    --g-bg: linear-gradient(145deg, #fafafa 0%, #f5f5f5 50%, #eeeeee 100%);
-    --shadow-glow: 0 0 20px rgba(var(--blue-rgb), 0.15);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-    --shadow-glow-hover: 0 0 25px rgba(var(--blue-rgb), 0.25), 0 0 35px rgba(var(--purple-rgb), 0.1);
-    --shadow-glow-active: 0 0 15px rgba(var(--blue-rgb), 0.2), 0 0 25px rgba(var(--purple-rgb), 0.05);
-}
-
-@media (prefers-color-scheme: light) {
-    html:not(.theme-dark) {
-        --bg-1: #fafafa;
-        --bg-2: #f5f5f5;
-        --bg-3: #eeeeee;
-        --surface: #ffffff;
-        --text-1: #1a1a1a;
-        --text-2: #4a4a4a;
-        --text-3: #6a6a6a;
-        --g-bg: linear-gradient(145deg, #fafafa 0%, #f5f5f5 50%, #eeeeee 100%);
-        --shadow-glow: 0 0 20px rgba(var(--blue-rgb), 0.15);
-        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-        --shadow-glow-hover: 0 0 25px rgba(var(--blue-rgb), 0.25), 0 0 35px rgba(var(--purple-rgb), 0.1);
-        --shadow-glow-active: 0 0 15px rgba(var(--blue-rgb), 0.2), 0 0 25px rgba(var(--purple-rgb), 0.05);
-    }
-}
-
-/* ===============================================
-   PERFORMANCE-OPTIMIZED RESET
-   =============================================== */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
-}
-
-html {
-    scroll-behavior: smooth;
-    height: 100%;
-    font-size: 100%;
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%;
-    scroll-padding-top: var(--header-h);
-}
-
-body {
-    font-family: var(--f2);
-    background: var(--g-bg);
-    color: var(--text-1);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
-    padding-top: var(--header-h);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
-}
-
-main {
-    flex-grow: 1;
-    isolation: isolate;
-}
-
-/* Background Animation */
-body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: var(--z-bg);
-    pointer-events: none;
-    background: radial-gradient(circle at 50% 50%, rgba(var(--purple-rgb), 0.08), transparent 50%);
-    animation: pulse-bg 15s infinite ease-in-out alternate;
-}
-
-@keyframes pulse-bg {
-    0% { opacity: 0.8; transform: scale(1); }
-    100% { opacity: 1; transform: scale(1.05); }
-}
-
-/* ===============================================
-   ACCESSIBILITY & UTILITIES
-   =============================================== */
-.skip-links {
-    list-style: none;
-    position: absolute;
-    top: -200px;
-    left: var(--s-s);
-    z-index: var(--z-max);
-    display: flex;
-    gap: var(--s-s);
-    transition: top var(--trans);
-}
-
-.skip-links:focus-within {
-    top: var(--s-s);
-}
-
-.skip-link {
-    display: inline-block;
-    background: var(--cyan);
-    color: var(--bg-1);
-    padding: var(--s-s) var(--s-l);
-    text-decoration: none;
-    border-radius: var(--r-m);
-    font-weight: 600;
-    transition: all var(--trans-fast);
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-    box-shadow: var(--shadow-lg);
-}
-
-.skip-link:focus {
-    outline-color: var(--yellow);
-    transform: scale(1.05);
-    background-color: var(--yellow);
-    color: var(--bg-1);
-}
-
-.visually-hidden {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
-}
-
-/* ===============================================
-   CONTAINER & TYPOGRAPHY
-   =============================================== */
-.container {
-    width: 100%;
-    max-width: var(--container);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: clamp(1rem, 4vw, 2rem);
-    padding-right: clamp(1rem, 4vw, 2rem);
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--f1);
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--text-1);
-    margin-bottom: var(--s-m);
-    text-wrap: balance;
-    letter-spacing: -0.02em;
-}
-
-h1 { 
-    font-size: var(--t-5xl); 
-    font-weight: 800;
-    line-height: 1.1;
-}
-h2 { 
-    font-size: var(--t-4xl); 
-    font-weight: 700;
-    line-height: 1.15;
-}
-h3 { 
-    font-size: var(--t-3xl); 
-    font-weight: 600;
-}
-h4 { 
-    font-size: var(--t-2xl); 
-    font-weight: 600;
-}
-h5 { 
-    font-size: var(--t-xl); 
-    font-weight: 500;
-}
-h6 { 
-    font-size: var(--t-l); 
-    font-weight: 500;
-}
-
-p {
-    margin-bottom: var(--s-m);
-    color: var(--text-2);
-    font-size: var(--t-base);
-    line-height: 1.7;
-    text-wrap: pretty;
-}
-
-.section-padding {
-    padding-top: clamp(var(--s-3xl), 8vw, var(--s-4xl));
-    padding-bottom: clamp(var(--s-3xl), 8vw, var(--s-4xl));
-}
-
-.section-title-iui {
-    font-size: var(--t-4xl);
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: var(--s-2xl);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    line-height: 1.1;
-}
-
-.section-title-iui.text-gradient {
-    background: var(--g1);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    padding-bottom: 0.1em;
-}
-
-.section-subtitle {
-    font-size: var(--t-xl);
-    color: var(--text-2);
-    text-align: center;
-    max-width: 42rem;
-    margin: 0 auto var(--s-2xl);
-    line-height: 1.6;
-    font-weight: 400;
-}
-
-.section-header {
-    margin-bottom: var(--s-3xl);
-    text-align: center;
-}
-
-/* ===============================================
-   SITE HEADER - Enhanced Professional
-   =============================================== */
-.site-header {
-    background: rgba(var(--bg-1-rgb), 0.9);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(var(--text-1-rgb), 0.05);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: var(--z-sticky);
-    height: var(--header-h);
-    display: flex;
-    align-items: center;
-    transition: all var(--trans);
-    will-change: transform, background-color;
-}
-
-.site-header.scrolled {
-    background: rgba(var(--bg-1-rgb), 0.95);
-    box-shadow: var(--shadow-lg);
-    border-bottom-color: rgba(var(--text-1-rgb), 0.1);
-}
-
-.site-header.header-hidden {
-    transform: translateY(-100%);
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    gap: var(--s-l);
-}
-
-.header-logo-link {
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    padding: var(--s-s) 0;
-    transition: all var(--trans-fast);
-    border-radius: var(--r-m);
-    outline-offset: 4px;
-}
-
-.header-logo-text {
-    font-family: var(--f1);
-    font-size: clamp(1.75rem, 4vw, 2.25rem);
-    font-weight: 900;
-    background: var(--g1);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: all var(--trans);
-    line-height: 1;
-    letter-spacing: -0.02em;
-}
-
-.header-logo-link:hover .header-logo-text,
-.header-logo-link:focus-visible .header-logo-text {
-    filter: brightness(1.25) drop-shadow(0 0 8px rgba(var(--cyan-rgb), 0.6));
-    transform: scale(1.02);
-}
-
-.header-logo-link:focus-visible {
-    outline: 2px solid var(--cyan);
-    outline-offset: 4px;
-}
-
-/* ===============================================
-   NAVIGATION - Enhanced Mobile Support
-   =============================================== */
-.main-navigation {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: var(--s-l);
-}
-
-.nav-menu {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: var(--s-xs);
-    margin: 0;
-    padding: 0;
-}
-
-.nav-link {
-    font-family: var(--f2);
-    font-weight: 500;
-    font-size: var(--t-s);
-    color: var(--text-2);
-    text-decoration: none;
-    padding: var(--s-s) var(--s-m);
-    border-radius: var(--r-l);
-    position: relative;
-    transition: all var(--trans);
-    white-space: nowrap;
-    overflow: hidden;
-    isolation: isolate;
-}
-
-.nav-link::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(var(--cyan-rgb), 0.1), rgba(var(--purple-rgb), 0.05));
-    border-radius: inherit;
-    opacity: 0;
-    transition: opacity var(--trans);
-    z-index: -1;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 80%;
-    height: 2px;
-    background: var(--g1);
-    border-radius: 1px;
-    transition: transform var(--trans-fast);
-}
-
-.nav-link:hover,
-.nav-link:focus-visible,
-.nav-link.active {
-    color: var(--text-1);
-    transform: translateY(-1px);
-}
-
-.nav-link:hover::before,
-.nav-link:focus-visible::before,
-.nav-link.active::before {
-    opacity: 1;
-}
-
-.nav-link:hover::after,
-.nav-link:focus-visible::after,
-.nav-link.active::after {
-    transform: translateX(-50%) scaleX(1);
-}
-
-.nav-link:focus-visible {
-    outline: 2px solid var(--cyan);
-    outline-offset: 2px;
-}
-
-/* ===============================================
-   MOBILE MENU - Professional Implementation
-   =============================================== */
-.mobile-menu-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 3rem;
-    height: 3rem;
-    background: rgba(var(--bg-2-rgb), 0.8);
-    border: 2px solid rgba(var(--cyan-rgb), 0.3);
-    cursor: pointer;
-    padding: 0;
-    border-radius: var(--r-l);
-    transition: all var(--trans);
-    z-index: calc(var(--z-modal) + 1);
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow-md);
-}
-
-@media (max-width: 768px) {
-    .mobile-menu-toggle {
-        display: flex;
-    }
-    
-    .nav-menu {
-        display: none;
-    }
-    
-    .mobile-menu-toggle.active + .nav-menu {
-        display: flex;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        left: 0;
-        flex-direction: column;
-        background: rgba(var(--bg-1-rgb), 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 0 0 var(--r-l) var(--r-l);
-        padding: var(--s-m);
-        box-shadow: var(--shadow-lg);
-        border: 1px solid rgba(var(--text-1-rgb), 0.1);
-        z-index: var(--z-modal);
-    }
-}
-
-.mobile-menu-toggle::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(var(--cyan-rgb), 0.1), rgba(var(--purple-rgb), 0.05));
-    opacity: 0;
-    transition: opacity var(--trans-fast);
-    border-radius: inherit;
-}
-
-.mobile-menu-toggle:hover,
-.mobile-menu-toggle:focus-visible {
-    border-color: var(--cyan);
-    box-shadow: var(--shadow-lg), 0 0 20px rgba(var(--cyan-rgb), 0.3);
-    transform: scale(1.05);
-}
-
-.mobile-menu-toggle:hover::before,
-.mobile-menu-toggle:focus-visible::before {
-    opacity: 1;
-}
-
-.mobile-menu-toggle:focus-visible {
-    outline: 3px solid var(--cyan);
-    outline-offset: 3px;
-}
-
-.mobile-menu-toggle:active {
-    transform: scale(0.95);
-    box-shadow: var(--shadow-sm);
-}
-
-.hamburger-line {
-    display: block;
-    width: 1.75rem;
-    height: 3px;
-    background: var(--text-1);
-    transition: all 500ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    border-radius: 2px;
-    margin: 0;
-    transform-origin: center;
-    position: relative;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-.hamburger-line:nth-child(1) {
-    transform: translateY(-6px);
-}
-
-.hamburger-line:nth-child(2) {
-    transform: translateY(0);
-}
-
-.hamburger-line:nth-child(3) {
-    transform: translateY(6px);
-}
-
-.mobile-menu-toggle.active .hamburger-line:nth-child(1) {
-    transform: translateY(0) rotate(45deg);
-    background: var(--cyan);
-    box-shadow: 0 0 8px rgba(var(--cyan-rgb), 0.6);
-}
-
-.mobile-menu-toggle.active .hamburger-line:nth-child(2) {
-    opacity: 0;
-    transform: scaleX(0);
-}
-
-.mobile-menu-toggle.active .hamburger-line:nth-child(3) {
-    transform: translateY(0) rotate(-45deg);
-    background: var(--cyan);
-    box-shadow: 0 0 8px rgba(var(--cyan-rgb), 0.6);
-}
-
-/* ===============================================
-   PROJECT HERO - Optimized Layout
-   =============================================== */
-.project-intro-hero {
-    background: var(--g-bg);
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    background-image: url('/static/images/hero-background.jpg'); /* Додано фонове зображення */
-    background-size: cover;
-    background-position: center;
-    background-color: var(--bg-1); /* Резервний фон */
-}
-
-.project-intro-card {
-    background: var(--g-card);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    border-radius: var(--r-3xl);
-    padding: clamp(var(--s-xl), 4vw, var(--s-2xl)); /* Оптимізовано відступи */
-    box-shadow: var(--shadow-2xl), 
-                inset 0 1px 0 rgba(var(--text-1-rgb), 0.1);
-    border: 1px solid rgba(var(--text-1-rgb), 0.1);
-    max-width: 48rem; /* Зменшено ширину для компактності */
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-    z-index: var(--z-normal);
-    animation: heroCardFloat 6s ease-in-out infinite;
-    min-height: 80vh; /* Додано мінімальну висоту */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-@keyframes heroCardFloat {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(0.5deg); }
-}
-
-.project-status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--s-xs);
-    background: linear-gradient(135deg, rgba(var(--cyan-rgb), 0.2), rgba(var(--purple-rgb), 0.1));
-    border: 1px solid rgba(var(--cyan-rgb), 0.3);
-    color: var(--cyan);
-    padding: var(--s-xs) var(--s-l);
-    border-radius: var(--r-full);
-    font-size: var(--t-xs);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: var(--s-2xl);
-    box-shadow: var(--shadow-glow);
-    animation: badgePulse 3s ease-in-out infinite;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-@keyframes badgePulse {
-    0%, 100% { box-shadow: var(--shadow-glow); }
-    50% { box-shadow: var(--shadow-glow-hover); }
-}
-
-.project-status-badge .status-icon {
-    font-size: 1.1em;
-    animation: rocketFloat 2s ease-in-out infinite;
-}
-
-@keyframes rocketFloat {
-    0%, 100% { transform: translateY(0px) rotate(-5deg); }
-    50% { transform: translateY(-3px) rotate(5deg); }
-}
-
-.project-brand {
-    margin-bottom: var(--s-2xl);
-}
-
-.project-title {
-    font-size: var(--t-5xl);
-    font-weight: 900;
-    color: var(--text-1);
-    margin-bottom: var(--s-s);
-    letter-spacing: -0.03em;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.project-subtitle {
-    font-size: var(--t-2xl);
-    color: var(--text-2);
-    font-weight: 500;
-    line-height: 1.4;
-    margin-bottom: 0;
-}
-
-.project-subtitle .gradient-text {
-    background: var(--g1);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 600;
-}
-
-.project-description {
-    margin-bottom: var(--s-2xl);
-    max-width: 48rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.project-description p {
-    font-size: var(--t-l);
-    line-height: 1.7;
-    color: var(--text-2);
-    margin-bottom: var(--s-l);
-}
-
-.project-description .intro-paragraph {
-    font-size: var(--t-xl);
-    font-weight: 400;
-    text-align: center;
-}
-
-.project-description .mission-paragraph {
-    font-size: var(--t-l);
-    font-weight: 600;
-    color: var(--text-1);
-    text-align: center;
-    padding: var(--s-l);
-    background: linear-gradient(135deg, rgba(var(--green-rgb), 0.1), rgba(var(--cyan-rgb), 0.05));
-    border-radius: var(--r-xl);
-    border: 1px solid rgba(var(--green-rgb), 0.2);
-    margin-top: var(--s-l);
-}
-
-/* ===============================================
-   CTA BUTTONS - Single Button Optimized
-   =============================================== */
-.project-cta {
-    display: flex;
-    gap: var(--s-m);
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.cta-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--s-s);
-    padding: var(--s-m) var(--s-2xl);
-    font-size: var(--t-l);
-    font-weight: 600;
-    border-radius: var(--r-xl);
-    text-decoration: none;
-    cursor: pointer;
-    transition: all var(--trans);
-    border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-    min-height: 3.5rem;
-    font-family: var(--f1);
-    letter-spacing: 0.02em;
-    will-change: transform;
-}
-
-.cta-button::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: inherit;
-    border-radius: inherit;
-    opacity: 0;
-    transition: opacity var(--trans);
-    filter: brightness(1.2);
-    z-index: -1;
-}
-
-.cta-button:hover::before {
-    opacity: 0.1;
-}
-
-.cta-button .icon {
-    width: 1.25em;
-    height: 1.25em;
-    transition: all var(--trans-fast);
-}
-
-.cta-button:hover .icon {
-    transform: scale(1.1) rotate(5deg);
-}
-
-.cta-button:focus-visible {
-    outline: 3px solid var(--cyan);
-    outline-offset: 3px;
-}
-
-.community-cta {
-    background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
-    color: var(--bg-1);
-    font-size: var(--t-xl); /* Збільшено розмір тексту */
-    padding: var(--s-l) var(--s-3xl);
-    border-radius: var(--r-2xl);
-    font-weight: 800; /* Зроблено жирнішим */
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    box-shadow: var(--shadow-xl), 0 0 30px rgba(var(--purple-rgb), 0.4);
-    border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
-    transition: all var(--trans);
-    min-height: 4rem;
-}
-
-.community-cta:hover {
-    border-color: var(--yellow); /* Жовта рамка при наведенні */
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-xl), 0 0 20px rgba(var(--yellow-rgb), 0.4);
-}
-
-.community-cta:active {
-    transform: translateY(-2px) scale(1.02);
-}
-
-.community-cta .icon {
-    width: 1.5em;
-    height: 1.5em;
-    transition: all var(--trans);
-    position: relative;
-    z-index: 1;
-}
-
-.community-cta:hover .icon {
-    transform: scale(1.2) rotate(10deg);
-}
-
-.community-cta span {
-    position: relative;
-    z-index: 1;
-}
-
-/* ===============================================
-   FEATURES SECTION - Enhanced Interactive
-   =============================================== */
-.features-section-iui {
-    background: linear-gradient(135deg, 
-        rgba(var(--bg-1-rgb), 0.95) 0%, 
-        rgba(var(--bg-2-rgb), 0.9) 50%, 
-        rgba(var(--bg-1-rgb), 0.95) 100%
-    );
-    border-top: 1px solid rgba(var(--text-1-rgb), 0.05);
-    border-bottom: 1px solid rgba(var(--text-1-rgb), 0.05);
-    position: relative;
-    isolation: isolate;
-    text-align: center;
-}
-
-.feature-categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-m);
-    justify-content: center;
-    margin-bottom: var(--s-2xl);
-}
-
-.category-tab {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--s-xs);
-    padding: var(--s-s) var(--s-l);
-    background: transparent;
-    color: var(--text-2);
-    border: 1px solid rgba(var(--text-1-rgb), 0.1);
-    border-radius: var(--r-full);
-    cursor: pointer;
-    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Loading Screen with Animation -->
+    <div id="loadingScreen" class="loading-screen" aria-hidden="false">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <span class="fallback-text">GGenius</span>
+            </div>
+            <div class="loading-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div id="progressBar" class="loading-progress"></div>
+            </div>
+            <p id="loadingText" class="loading-text">Ініціалізація GGenius AI...</p>
+        </div>
+    </div>
+
+    <!-- Site Header with Logo Image -->
+    <header class="site-header" role="banner">
+        <div class="header-container container">
+            <a href="#main-content" class="header-logo-link">
+                <img src="/static/images/ggenius-logo.png" alt="GGenius Logo" class="header-logo-image">
+                <span class="header-logo-text" data-content="header.logo">
+                    <span class="fallback-text">GGenius</span>
+                </span>
+            </a>
+
+            <nav class="main-navigation" role="navigation">
+                <button 
+                    id="mobileMenuToggle" 
+                    class="mobile-menu-toggle" 
+                    aria-expanded="false" 
+                    aria-controls="main-menu-list"
+                    aria-label="Відкрити меню"
+                >
+                    <span class="hamburger-line line-1"></span>
+                    <span class="hamburger-line line-2"></span>
+                    <span class="hamburger-line line-3"></span>
+                </button>
+
+                <ul id="main-menu-list" class="nav-menu" role="menubar">
+                    <li role="none">
+                        <a href="#hero" class="nav-link active" role="menuitem" data-content="nav.home">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                            </svg>
+                            <span class="fallback-text">Головна</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#features" class="nav-link" role="menuitem" data-content="features.title">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <span class="fallback-text">Функції</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#about" class="nav-link" role="menuitem" data-content="nav.about">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                <path d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"/>
+                            </svg>
+                            <span class="fallback-text">Про проєкт</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#roadmap" class="nav-link" role="menuitem" data-content="nav.roadmap">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                            </svg>
+                            <span class="fallback-text">Roadmap</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        <!-- Hero Section with Background Image and Fallback -->
+        <section id="hero" class="project-intro-hero section-padding" style="background-color: var(--bg-1);">
+            <div class="container">
+                <div class="project-intro-card">
+                    <!-- Status Badge -->
+                    <div class="project-status-badge">
+                        <span class="status-icon">🚀</span>
+                        <span data-content="hero.status" data-content-type="html">
+                            <span class="fallback-text">В РОЗРОБЦІ</span>
+                        </span>
+                    </div>
+
+                    <!-- Project Brand -->
+                    <div class="project-brand">
+                        <h1 class="project-title" data-content="hero.title">
+                            <span class="fallback-text">GGenius AI</span>
+                        </h1>
+                        <p class="project-subtitle" data-content="hero.subtitle" data-content-type="html">
+                            <span class="fallback-text">
+                                <span class="gradient-text">Революція штучного інтелекту</span> в Mobile Legends
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="project-description">
+                        <p class="intro-paragraph" data-content="hero.description.intro">
+                            <span class="fallback-text">
+                                Вітаємо у майбутньому кіберспорту! GGenius - це передова платформа штучного інтелекту, створена спеціально для Mobile Legends: Bang Bang.
+                            </span>
+                        </p>
+                        <p class="mission-paragraph" data-content="hero.description.mission" data-content-type="html">
+                            <span class="fallback-text">🚀 GGenius — твій успіх — наша місія!</span>
+                        </p>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="project-cta">
+                        <a href="#community" class="cta-button community-cta">
+                            <span data-content="hero.cta.join">
+                                <span class="fallback-text">Приєднатися до спільноти</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section-iui enhanced section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title-iui text-gradient" data-content="features.title">
+                        <span class="fallback-text">МОЖЛИВОСТІ AI</span>
+                    </h2>
+                    <p class="section-subtitle" data-content="features.subtitle">
+                        <span class="fallback-text">Передові технології для вашого успіху</span>
+                    </p>
+                </div>
+
+                <!-- Feature Categories Tabs -->
+                <div class="feature-categories tabs-component" role="tablist" aria-label="Категорії функцій">
+                    <button role="tab" class="category-tab active" aria-selected="true" aria-controls="analysis-panel" id="analysis-tab" tabindex="0">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                        <span data-content="features.categories.analysis">
+                            <span class="fallback-text">АНАЛІЗ</span>
+                        </span>
+                    </button>
+                    <button role="tab" class="category-tab" aria-selected="false" aria-controls="coaching-panel" id="coaching-tab" tabindex="0">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                        </svg>
+                        <span data-content="features.categories.coaching">
+                            <span class="fallback-text">НАВЧАННЯ</span>
+                        </span>
+                    </button>
+                    <button role="tab" class="category-tab prediction-tab" aria-selected="false" aria-controls="prediction-panel" id="prediction-tab" tabindex="0">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <span data-content="features.categories.prediction">
+                            <span class="fallback-text">ПРОГНОЗИ</span>
+                        </span>
+                    </button>
+                </div>
+
+                <!-- Feature Panels -->
+                <div id="analysis-panel" class="features-grid-iui tab-content active" role="tabpanel" aria-labelledby="analysis-tab">
+                    <div class="feature-card-iui">
+                        <div class="feature-icon">📊</div>
+                        <h3><span class="fallback-text">Аналіз матчів</span></h3>
+                        <p><span class="fallback-text">Детальний розбір кожного матчу з AI рекомендаціями</span></p>
+                    </div>
+                    <div class="feature-card-iui">
+                        <div class="feature-icon">🎮</div>
+                        <h3><span class="fallback-text">Аналіз героїв</span></h3>
+                        <p><span class="fallback-text">Глибоке вивчення механік та оптимальних білдів</span></p>
+                    </div>
+                    <div class="feature-card-iui">
+                        <div class="feature-icon">📈</div>
+                        <h3><span class="fallback-text">Статистика прогресу</span></h3>
+                        <p><span class="fallback-text">Відстеження покращень та досягнень</span></p>
+                    </div>
+                </div>
+
+                <div id="coaching-panel" class="features-grid-iui tab-content" role="tabpanel" aria-labelledby="coaching-tab" hidden>
+                    <div class="feature-card-iui">
+                        <div class="feature-icon">🎓</div>
+                        <h3><span class="fallback-text">Персональні уроки</span></h3>
+                        <p><span class="fallback-text">AI тренер адаптує навчання під ваш стиль гри</span></p>
+                    </div>
+                </div>
+
+                <div id="prediction-panel" class="features-grid-iui tab-content" role="tabpanel" aria-labelledby="prediction-tab" hidden>
+                    <div class="feature-card-iui">
+                        <div class="feature-icon">🔮</div>
+                        <h3><span class="fallback-text">Прогноз матчів</span></h3>
+                        <p><span class="fallback-text">AI передбачає результати з високою точністю</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap Section -->
+        <section id="roadmap" class="roadmap-section section-padding">
+            <div class="container">
+                <h2 class="section-title-iui text-gradient" data-content="roadmap.title">
+                    <span class="fallback-text">Roadmap</span>
+                </h2>
+                <div class="roadmap-timeline">
+                    <div class="roadmap-quarter-block">
+                        <div class="quarter-date" data-content="roadmap.q1.2025.date">
+                            <span class="fallback-text">Q1 2025</span>
+                        </div>
+                        <h3 data-content="roadmap.q1.2025.title">
+                            <span class="fallback-text">MVP Launch</span>
+                        </h3>
+                        <p data-content="roadmap.q1.2025.desc">
+                            <span class="fallback-text">Базова аналітика матчів, реєстрація користувачів.</span>
+                        </p>
+                        <ul class="feature-list">
+                            <li data-content="roadmap.q1.2025.feature1">
+                                <span class="fallback-text">Match Analytics Engine</span>
+                            </li>
+                            <li data-content="roadmap.q1.2025.feature2">
+                                <span class="fallback-text">User Registration System</span>
+                            </li>
+                            <li data-content="roadmap.q1.2025.feature3">
+                                <span class="fallback-text">Basic Statistics Dashboard</span>
+                            </li>
+                        </ul>
+                        <div class="progress-bar" style="width: 50%; background: var(--g1);"></div>
+                    </div>
+                    <div class="roadmap-quarter-block">
+                        <div class="quarter-date" data-content="roadmap.q2.2025.date">
+                            <span class="fallback-text">Q2 2025</span>
+                        </div>
+                        <h3 data-content="roadmap.q2.2025.title">
+                            <span class="fallback-text">AI Integration</span>
+                        </h3>
+                        <p data-content="roadmap.q2.2025.desc">
+                            <span class="fallback-text">Запуск нейронної аналітики та AI-тренера.</span>
+                        </p>
+                        <ul class="feature-list">
+                            <li data-content="roadmap.q2.2025.feature1">
+                                <span class="fallback-text">Neural Network Analysis</span>
+                            </li>
+                            <li data-content="roadmap.q2.2025.feature2">
+                                <span class="fallback-text">AI Personal Trainer</span>
+                            </li>
+                            <li data-content="roadmap.q2.2025.feature3">
+                                <span class="fallback-text">Computer Vision Integration</span>
+                            </li>
+                        </ul>
+                        <div class="progress-bar" style="width: 30%; background: var(--g1);"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer with Social Links -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-tagline" data-content="footer.tagline">
+                    <span class="fallback-text">Революція в кіберспорті з AI</span>
+                </p>
+                <div class="social-links">
+                    <a href="https://twitter.com/ggenius" target="_blank" rel="noopener" aria-label="Twitter">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05A4.28 4.28 0 0 0 16.5 4.5c-2.36 0-4.28 1.92-4.28 4.28 0 .33.04.66.11.97-3.56-.18-6.73-1.89-8.84-4.48-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.52 8.52 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06A12.04 12.04 0 0 0 8.12 21c7.88 0 12.21-6.54 12.21-12.21 0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                        </svg>
+                    </a>
+                    <a href="https://facebook.com/ggenius" target="_blank" rel="noopener" aria-label="Facebook">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22 12.07c0-5.52-4.48-10-10-10s-10 4.48-10 10c0 4.99 3.66 9.12 8.44 9.88v-6.99h-2.54v-2.89h2.54v-2.2c0-2.51 1.49-3.9 3.78-3.9 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.89h-2.33v6.99C18.34 21.19 22 17.06 22 12.07z"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/ggenius" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.16c3.2 0 3.58.01 4.84.07 1.17.06 1.97.24 2.43.4.61.22 1.06.47 1.54.95s.73.93.95 1.54c.16.46.34 1.26.4 2.43.06 1.26.07 1.64.07 4.84s-.01 3.58-.07 4.84c-.06 1.17-.24 1.97-.4 2.43-.22.61-.47 1.06-.95 1.54s-.93.73-1.54.95c-.46.16-1.26.34-2.43.4-1.26.06-1.64.07-4.84.07s-3.58-.01-4.84-.07c-1.17-.06-1.97-.24-2.43-.4-.61-.22-1.06-.47-1.54-.95s-.73-.93-.95-1.54c-.16-.46-.34-1.26-.4-2.43-.06-1.26-.07-1.64-.07-4.84s.01-3.58.07-4.84c.06-1.17.24-1.97.4-2.43.22-.61.47-1.06.95-1.54s.93-.73 1.54-.95c.46-.16 1.26-.34 2.43-.4 1.26-.06 1.64-.07 4.84-.07"/>
+                            <path d="M12 5.84c-3.37 0-6.16 2.79-6.16 6.16s2.79 6.16 6.16 6.16 6.16-2.79 6.16-6.16-2.79-6.16-6.16-6.16zm0 10.16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+                            <circle cx="18.41" cy="5.59" r="1.44"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="footer-copyright" data-content="footer.copyright">
+                    <span class="fallback-text">© 2025 GGenius. Всі права захищено.</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts with Defer Attribute -->
+    <script src="/static/js/enhancements.js" defer></script>
+</body>
+</html>
