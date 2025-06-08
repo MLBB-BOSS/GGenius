@@ -1,277 +1,570 @@
 /**
- * GGenius Enhanced Interactive Experience - Fixed Mobile Menu
- * @file Enhancements for GGenius website interface.
- * @version 2.6.1 - Mobile Menu Fix & Hero Redesign (Optimized)
- *
- * @description
- * This file contains the GGeniusApp class which handles the interactive UI,
- * mobile menu, performance checks, language switching, and global event listeners.
- * It also includes several utility functions (throttle, debounce, ripple effects, modals).
- *
- * The following optimizations and changes have been made:
- * 1. Added JSDoc-style docstrings for clarity and maintainability.
- * 2. Minor performance improvements to scroll handling and event listeners.
- * 3. Additional checks and console logs for debugging and error handling.
+ * GGenius Enhanced Interactive Experience with Content Management
+ * Performance-optimized ES2023+ JavaScript for cyberpunk AI platform
+ * @version 2.7.0 // ВИПРАВЛЕНО: Loading screen та ContentManager
+ * @author GGenius Team
  */
 
-/* global ContentManager */
+/**
+ * Content Management System - Enhanced для роботи з існуючими lang файлами
+ */
+class ContentManager {
+    constructor() {
+        this.content = new Map();
+        this.currentLanguage = 'uk';
+        this.fallbackLanguage = 'en';
+        this.isLoaded = false;
+        this.loadingPromise = null;
+        this.retryCount = 0;
+        this.maxRetries = 2; // Зменшено для швидшого fallback
+        
+        // Розширений статичний контент з наявного uk.json
+        this.staticContent = {
+            'uk': {
+                // Навігація
+                'header.logo': 'GGenius',
+                'nav.about': 'Про проєкт',
+                'nav.roadmap': 'Roadmap',
+                'nav.home': 'Головна',
+                'nav.features': 'Функції',
+                'nav.contact': 'Контакти',
+                
+                // Головна секція
+                'hero.status': 'В РОЗРОБЦІ',
+                'hero.title': 'GGenius AI',
+                'hero.subtitle': 'Революція штучного інтелекту в Mobile Legends',
+                'hero.description.intro': 'Вітаємо у майбутньому кіберспорту! GGenius - це передова платформа штучного інтелекту, створена спеціально для Mobile Legends: Bang Bang.',
+                'hero.description.mission': '🚀 GGenius — твій успіх — наша місія!',
+                'hero.cta.primary': 'Спробувати демо',
+                'hero.cta.secondary': 'Дізнатися більше',
+                'hero.cta.join': 'Приєднатися до спільноти',
+                
+                // Функції
+                'features.title': 'МОЖЛИВОСТІ AI',
+                'features.subtitle': 'Передові технології для вашого успіху',
+                'features.categories.analysis': 'Аналіз',
+                'features.categories.coaching': 'Навчання', 
+                'features.categories.prediction': 'Прогнози',
+                
+                // Roadmap
+                'roadmap.title': 'Roadmap',
+                'roadmap.q1.2025.date': 'Q1 2025',
+                'roadmap.q1.2025.title': 'MVP Launch',
+                'roadmap.q1.2025.desc': 'Базова аналітика матчів, реєстрація користувачів.',
+                'roadmap.q2.2025.date': 'Q2 2025',
+                'roadmap.q2.2025.title': 'AI Integration',
+                'roadmap.q2.2025.desc': 'Запуск нейронної аналітики та AI-тренера.',
+                'roadmap.q3.2025.date': 'Q3 2025',
+                'roadmap.q3.2025.title': 'Community & Tournaments',
+                'roadmap.q3.2025.desc': 'Соціальна платформа та турнірна система.',
+                'roadmap.q4.2025.date': 'Q4 2025',
+                'roadmap.q4.2025.title': 'Platform Launch & Token',
+                'roadmap.q4.2025.desc': 'Повноцінна веб-платформа, запуск GGenius Token.',
+                'roadmap.q1.2026.date': 'Q1 2026',
+                'roadmap.q1.2026.title': 'Global Expansion',
+                'roadmap.q1.2026.desc': 'Міжнародна експансія та партнерства.',
+                
+                // Footer
+                'footer.tagline': 'Революція в кіберспорті з AI',
+                'footer.copyright': 'GGenius. Всі права захищено.',
+                
+                // Мета
+                'meta.title': 'GGenius - AI Революція в Mobile Legends',
+                'meta.description': 'Штучний інтелект для аналізу та покращення гри в Mobile Legends: Bang Bang'
+            }
+        };
+    }
+
+    /**
+     * Ініціалізація системи контенту з ШВИДКИМ fallback
+     */
+    async init() {
+        if (this.loadingPromise) {
+            return this.loadingPromise;
+        }
+
+        this.loadingPromise = this.loadContentWithTimeout();
+        return this.loadingPromise;
+    }
+
+    /**
+     * Завантаження контенту з timeout для швидкого fallback
+     */
+    async loadContentWithTimeout() {
+        try {
+            console.log('🔄 Loading content with fast fallback...');
+            
+            // Спочатку використовуємо статичний контент
+            this.useStaticContent();
+            
+            // Намагаємося завантажити з існуючого lang файлу з timeout
+            const timeoutPromise = new Promise((_, reject) => {
+                setTimeout(() => reject(new Error('Content loading timeout')), 3000); // 3 секунди timeout
+            });
+            
+            try {
+                await Promise.race([
+                    this.loadFromExistingLangFiles(),
+                    timeoutPromise
+                ]);
+            } catch (error) {
+                console.warn('⚠️ Lang files loading failed or timed out, using static:', error.message);
+                // Продовжуємо зі статичним контентом
+            }
+            
+            this.isLoaded = true;
+            this.retryCount = 0;
+            console.log('✅ Content loaded successfully');
+            
+            this.applyContentToPage();
+            return true;
+            
+        } catch (error) {
+            console.warn('⚠️ Content loading failed, using static:', error);
+            this.useStaticContent();
+            this.applyContentToPage();
+            return false;
+        }
+    }
+
+    /**
+     * Завантаження з існуючих lang файлів БЕЗ кешування для простоти
+     */
+    async loadFromExistingLangFiles() {
+        try {
+            const response = await fetch(`/static/lang/${this.currentLanguage}.json`, {
+                cache: 'no-cache',
+                signal: AbortSignal.timeout ? AbortSignal.timeout(2000) : undefined // 2 секунди timeout для fetch
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const langData = await response.json();
+            
+            // Конвертуємо структуру
+            const convertedData = this.convertLangFileToContentStructure(langData);
+            
+            // Об'єднуємо з існуючим статичним контентом
+            const mergedContent = { 
+                ...this.staticContent[this.currentLanguage] || this.staticContent.uk, 
+                ...convertedData 
+            };
+            
+            this.content.set(this.currentLanguage, mergedContent);
+            
+            console.log('✅ Successfully loaded content from lang/' + this.currentLanguage + '.json');
+        } catch (error) {
+            console.warn('Failed to load from lang files:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Конвертація структури з uk.json в нашу систему (спрощена версія)
+     */
+    convertLangFileToContentStructure(langData) {
+        const converted = {};
+        
+        // Базовий маппінг з uk.json
+        const mappings = {
+            'navAbout': 'nav.about',
+            'navRoadmap': 'nav.roadmap',
+            'navHome': 'nav.home',
+            'projectIntroTitle': 'hero.title',
+            'projectIntroSubtitle': 'hero.subtitle',
+            'footerTagline': 'footer.tagline',
+            'footerCopyright': 'footer.copyright'
+        };
+        
+        // Конвертуємо кожен елемент
+        for (const [oldKey, newKey] of Object.entries(mappings)) {
+            if (langData[oldKey]) {
+                let value = langData[oldKey];
+                if (typeof value === 'string') {
+                    // Простий cleanup HTML тегів
+                    value = value.replace(/<[^>]*>/g, '').trim();
+                }
+                converted[newKey] = value;
+            }
+        }
+        
+        return converted;
+    }
+
+    /**
+     * Використання статичного контенту
+     */
+    useStaticContent() {
+        this.content.set(this.currentLanguage, this.staticContent[this.currentLanguage] || this.staticContent.uk);
+        this.isLoaded = true;
+    }
+
+    /**
+     * Застосування контенту до сторінки з кращою обробкою помилок
+     */
+    applyContentToPage() {
+        const currentContent = this.getCurrentContent();
+        let appliedCount = 0;
+        
+        try {
+            // Оновлюємо всі елементи з data-content
+            document.querySelectorAll('[data-content]').forEach(element => {
+                const contentKey = element.getAttribute('data-content');
+                const content = this.getContentByKey(contentKey, currentContent);
+                
+                if (content) {
+                    this.setElementContent(element, content);
+                    appliedCount++;
+                } else {
+                    // Показуємо fallback текст
+                    const fallback = element.querySelector('.fallback-text');
+                    if (fallback) {
+                        fallback.style.display = 'inline';
+                    }
+                    console.debug(`Content not found for key: ${contentKey}`);
+                }
+            });
+
+            // Оновлюємо title сторінки
+            if (currentContent['meta.title']) {
+                document.title = currentContent['meta.title'];
+            }
+
+            // Диспетчер події
+            document.dispatchEvent(new CustomEvent('content:loaded', {
+                detail: { 
+                    language: this.currentLanguage,
+                    source: 'content-manager',
+                    keysLoaded: Object.keys(currentContent).length,
+                    elementsUpdated: appliedCount
+                }
+            }));
+
+            console.log(`📝 Content applied: ${appliedCount} elements updated`);
+        } catch (error) {
+            console.error('❌ Error applying content to page:', error);
+            // Показуємо всі fallback тексти
+            document.querySelectorAll('.fallback-text').forEach(fallback => {
+                fallback.style.display = 'inline';
+            });
+        }
+    }
+
+    /**
+     * Встановлення контенту для елемента
+     */
+    setElementContent(element, content) {
+        const contentType = element.getAttribute('data-content-type') || 'auto';
+        
+        try {
+            switch (contentType) {
+                case 'html':
+                    element.innerHTML = content;
+                    break;
+                case 'text':
+                    element.textContent = content;
+                    break;
+                case 'auto':
+                default:
+                    element.textContent = content;
+            }
+
+            // Приховуємо fallback текст
+            const fallback = element.querySelector('.fallback-text');
+            if (fallback) {
+                fallback.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Error setting element content:', error);
+            // Показуємо fallback
+            const fallback = element.querySelector('.fallback-text');
+            if (fallback) {
+                fallback.style.display = 'inline';
+            }
+        }
+    }
+
+    /**
+     * Отримання контенту за ключем
+     */
+    getContentByKey(key, content) {
+        // Прямий пошук
+        if (content[key]) {
+            return content[key];
+        }
+        
+        // Альтернативні ключі
+        const alternatives = {
+            'features.title': 'Функції',
+            'nav.home': 'Головна',
+            'nav.about': 'Про проєкт',
+            'nav.roadmap': 'Roadmap'
+        };
+        
+        return alternatives[key] || null;
+    }
+
+    /**
+     * Отримання поточного контенту
+     */
+    getCurrentContent() {
+        return this.content.get(this.currentLanguage) || 
+               this.content.get(this.fallbackLanguage) || 
+               this.staticContent[this.currentLanguage] || 
+               this.staticContent.uk || {};
+    }
+
+    /**
+     * Отримання тексту за ключем
+     */
+    getText(key, variables = {}) {
+        if (!this.isLoaded) {
+            return this.staticContent.uk[key] || key;
+        }
+
+        const content = this.getCurrentContent();
+        let text = this.getContentByKey(key, content) || key;
+        
+        return text;
+    }
+
+    /**
+     * Зміна мови
+     */
+    async setLanguage(language) {
+        const oldLanguage = this.currentLanguage;
+        this.currentLanguage = language;
+        localStorage.setItem('ggenius-language', language);
+        document.documentElement.lang = language;
+        
+        try {
+            await this.loadFromExistingLangFiles();
+            this.applyContentToPage();
+        } catch (error) {
+            console.warn('Failed to change language, using static content:', error);
+            this.useStaticContent();
+            this.applyContentToPage();
+        }
+    }
+
+    /**
+     * Отримання статистики
+     */
+    getContentStats() {
+        const currentContent = this.getCurrentContent();
+        return {
+            language: this.currentLanguage,
+            fallbackLanguage: this.fallbackLanguage,
+            totalKeys: Object.keys(currentContent).length,
+            loadedFromLangFiles: this.isLoaded,
+            retryCount: this.retryCount
+        };
+    }
+}
 
 /**
- * Main application controller for the GGenius experience.
- * Manages initialization, content loading, user settings, mobile menu, and more.
+ * Головний клас додатка GGenius з ВИПРАВЛЕНИМ завантаженням
  */
 class GGeniusApp {
     constructor() {
-        /**
-         * Indicates if the app is fully loaded
-         * @type {boolean}
-         */
         this.isLoaded = false;
-
-        /**
-         * Event observers for different actions
-         * @type {Map<string, Function[]>}
-         */
         this.observers = new Map();
-
-        /**
-         * Animations map for referencing animations by key
-         * @type {Map<string, any>}
-         */
         this.animations = new Map();
-
-        /**
-         * Registered event listeners
-         * @type {Map<string, { target: EventTarget, type: string, listener: EventListenerOrEventListenerObject, options: object }>}
-         */
         this.eventListeners = new Map();
-
-        // Initialize the content manager
-        this.contentManager = new ContentManager();
-
-        /**
-         * User-related settings (audio, language, etc.)
-         * @type {{soundsEnabled: boolean, musicEnabled: boolean, soundVolume: number, musicVolume: number, language: string}}
-         */
-        this.settings = {
-            soundsEnabled: JSON.parse(localStorage.getItem('ggenius-soundsEnabled')) ?? true,
-            musicEnabled: JSON.parse(localStorage.getItem('ggenius-musicEnabled')) ?? false,
-            soundVolume: parseFloat(localStorage.getItem('ggenius-soundVolume')) || 0.3,
-            musicVolume: parseFloat(localStorage.getItem('ggenius-musicVolume')) || 0.1,
-            language: localStorage.getItem('ggenius-language') || 'uk'
-        };
-
-        /**
-         * Elements and state for the mobile menu
-         * @type {HTMLElement|null}
-         */
+        
+        // DOM елементи
         this.mobileMenuToggle = null;
         this.navMenu = null;
         this.isMenuOpen = false;
+        this.loadingScreen = null;
+        this.progressBar = null;
+        this.loadingTextElement = null;
+        
+        // Ініціалізуємо менеджер контенту
+        this.contentManager = new ContentManager();
 
-        /**
-         * Audio context and nodes
-         */
-        this.audioContext = null;
-        this.soundEffects = new Map();
-        this.ambientOscillators = null;
-        this.ambientGain = null;
-        this.masterGain = null;
+        this.settings = {
+            soundsEnabled: JSON.parse(localStorage.getItem('ggenius-soundsEnabled')) ?? false, // Вимкнено за замовчуванням
+            musicEnabled: JSON.parse(localStorage.getItem('ggenius-musicEnabled')) ?? false,
+            language: localStorage.getItem('ggenius-language') || 'uk',
+            reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        };
 
-        /**
-         * Performance-related flags and data
-         * @type {{
-         *   startTime: number,
-         *   metrics: Record<string, number>,
-         *   isLowPerformance: boolean
-         * }}
-         */
+        // Performance метрики
         this.performance = {
             startTime: performance.now(),
             metrics: {},
             isLowPerformance: this.detectLowPerformance()
         };
 
-        // Pre-bind important methods
+        // Throttled та debounced функції
         this.handleScroll = this.throttle(this._handleScroll.bind(this), 16);
         this.handleResize = this.debounce(this._handleResize.bind(this), 200);
-        this.toggleMobileMenu = this.toggleMobileMenu.bind(this);
-        this.closeMobileMenu = this.closeMobileMenu.bind(this);
-        this.handleOutsideClick = this.handleOutsideClick.bind(this);
 
+        // Швидка ініціалізація
         this.init();
     }
 
     /**
-     * Returns the current version string
-     * @returns {string}
-     */
-    getVersion() {
-        return "2.6.0";
-    }
-
-    /**
-     * Detects if the device or user preferences suggest low performance
-     * @returns {boolean}
-     */
-    detectLowPerformance() {
-        const lowRAM = navigator.deviceMemory && navigator.deviceMemory < 1;
-        const lowCores = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 2;
-        const saveDataEnabled = navigator.connection && navigator.connection.saveData;
-        const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-        return lowRAM || lowCores || saveDataEnabled || prefersReducedMotion;
-    }
-
-    /**
-     * Initializes the app by loading, setting up content, UI, audio, etc.
-     * Uses async/await for better flow control.
-     * @returns {Promise<void>}
+     * ВИПРАВЛЕНА ініціалізація з кращою обробкою помилок та швидким fallback
      */
     async init() {
         try {
-            console.log(`🚀 GGenius AI Revolution initializing... v${this.getVersion()}`);
-            document.documentElement.classList.add('js-loaded');
-
-            if (this.performance.isLowPerformance) {
-                document.documentElement.classList.add('low-performance-device');
+            console.log('🚀 Initializing GGenius App...');
+            
+            // Швидке налаштування DOM
+            this.setupDOMReferences();
+            
+            // Ініціалізуємо контент менеджер з timeout
+            const initTimeout = new Promise((_, reject) => {
+                setTimeout(() => reject(new Error('Initialization timeout')), 5000); // 5 секунд для повної ініціалізації
+            });
+            
+            try {
+                await Promise.race([
+                    this.contentManager.init(),
+                    initTimeout
+                ]);
+            } catch (error) {
+                console.warn('⚠️ Content manager init failed or timed out:', error.message);
+                // Продовжуємо з базовою функціональністю
+                this.contentManager.useStaticContent();
+                this.contentManager.applyContentToPage();
             }
-
-            // Set language and load critical features
-            await this.contentManager.setLanguage(this.settings.language);
-            await this.loadCriticalFeatures();
-
-            // Initialize content manager
-            await this.contentManager.init();
-
-            // Set up global event listeners and audio
-            this.setupGlobalEventListeners();
-            await this.initializeAudioSystem();
-
-            // Parallel load of other features
-            await Promise.all([
-                this.setupPerformanceMonitoring(),
-                this.initializeUI(),
-                this.setupInteractions()
-            ]);
-
-            // Language switcher
-            this.setupLanguageSwitcher();
-
+            
+            // Основні компоненти
+            this.setupNavigation();
+            this.setupEventListeners();
+            
+            // Приховуємо loading screen ЗАВЖДИ після ініціалізації
+            this.hideLoadingScreen();
+            
             this.isLoaded = true;
-            this.trackLoadTime();
-            console.log('✅ GGenius fully initialized');
-            document.dispatchEvent(new CustomEvent('ggenius:loaded'));
+            
+            console.log('✅ GGenius App initialized successfully');
+            
+            // Диспетчер події готовності
+            document.dispatchEvent(new CustomEvent('ggenius:ready', {
+                detail: {
+                    version: '2.7.0',
+                    performance: this.performance.isLowPerformance ? 'low' : 'normal',
+                    language: this.settings.language
+                }
+            }));
+            
         } catch (error) {
-            console.error('🔥 GGenius initialization failed:', error);
+            console.error('❌ Failed to initialize GGenius App:', error);
+            // ОБОВ'ЯЗКОВО приховуємо loading screen навіть при помилці
+            this.hideLoadingScreen();
             this.fallbackMode(error);
         }
     }
 
     /**
-     * Loads critical DOM features and simulates loading if applicable.
-     * @returns {Promise<void>}
+     * Налаштування посилань на DOM елементи
      */
-    async loadCriticalFeatures() {
-        // DOM references for loading screen
+    setupDOMReferences() {
+        // Loading screen elements
         this.loadingScreen = document.getElementById('loadingScreen');
         this.progressBar = document.getElementById('progressBar');
         this.loadingTextElement = document.getElementById('loadingText');
-
-        // Critical references for mobile menu
+        
+        // Navigation elements
         this.mobileMenuToggle = document.getElementById('mobileMenuToggle');
         this.navMenu = document.getElementById('main-menu-list');
-
-        if (!this.mobileMenuToggle) {
-            console.error('❌ Mobile menu toggle not found! ID: mobileMenuToggle');
-        }
-        if (!this.navMenu) {
-            console.error('❌ Navigation menu not found! ID: main-menu-list');
-        }
-
-        // Create scroll progress bar
-        this.scrollProgress = this.createScrollProgress();
-
-        // If loading screen is present, simulate loading animation unless device is low performance
-        if (this.loadingScreen && !this.performance.isLowPerformance) {
-            await this.simulateLoading();
-        } else if (this.loadingScreen) {
-            this.hideLoadingScreen(true);
-        }
+        
+        // Додаткові елементи
+        this.header = document.querySelector('.site-header');
+        
+        console.log('📋 DOM references established:', {
+            loadingScreen: !!this.loadingScreen,
+            mobileMenuToggle: !!this.mobileMenuToggle,
+            navMenu: !!this.navMenu
+        });
     }
 
     /**
-     * Sets up the global event listeners for scroll, resize, etc.
+     * ВИПРАВЛЕНЕ приховування loading screen
      */
-    setupGlobalEventListeners() {
-        this._addEventListener(window, 'scroll', this.handleScroll, 'scroll');
-        this._addEventListener(window, 'resize', this.handleResize, 'resize');
-        this._addEventListener(document, 'visibilitychange', this._handleVisibilityChange.bind(this), 'visibility');
+    hideLoadingScreen() {
+        if (!this.loadingScreen) {
+            console.log('ℹ️ Loading screen not found, skipping hide');
+            return;
+        }
 
-        // Close the mobile menu on outside clicks or window resize
-        this._addEventListener(document, 'click', this.handleOutsideClick, 'outsideClick');
-        this._addEventListener(window, 'resize', this.closeMobileMenu, 'resizeCloseMenu');
+        try {
+            this.loadingScreen.classList.add('hidden');
+            this.loadingScreen.setAttribute('aria-hidden', 'true');
+            
+            // Видаляємо через короткий час
+            setTimeout(() => {
+                if (this.loadingScreen && this.loadingScreen.parentNode) {
+                    this.loadingScreen.remove();
+                    console.log('✅ Loading screen removed');
+                }
+            }, 300);
+        } catch (error) {
+            console.error('❌ Error hiding loading screen:', error);
+            // Форсуємо видалення
+            if (this.loadingScreen && this.loadingScreen.parentNode) {
+                this.loadingScreen.style.display = 'none';
+            }
+        }
     }
 
     /**
-     * Initializes UI components such as navigation, scroll effects, tabs, etc.
-     * @returns {Promise<void>}
-     */
-    async initializeUI() {
-        this.setupNavigation();
-        this.setupScrollEffects();
-        this.setupTabs();
-    }
-
-    /**
-     * Navigation setup, including mobile menu toggle logic.
+     * Налаштування навігації з ВИПРАВЛЕННЯМ мобільного меню
      */
     setupNavigation() {
         console.log('🔧 Setting up navigation...');
-
-        if (!this.mobileMenuToggle) {
-            this.mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        }
-        if (!this.navMenu) {
-            this.navMenu = document.getElementById('main-menu-list');
-        }
-
+        
         if (this.mobileMenuToggle && this.navMenu) {
-            console.log('✅ Mobile menu elements found, setting up listeners...');
             this._removeEventListener('mobileToggle');
-
-            // Add click event for mobile menu toggle
+            
             this._addEventListener(
                 this.mobileMenuToggle,
                 'click',
                 (event) => {
                     event.preventDefault();
                     event.stopPropagation();
-                    console.log('📱 Mobile menu toggle clicked');
                     this.toggleMobileMenu();
                 },
-                'mobileToggle',
-                { passive: false }
+                'mobileToggle'
             );
 
-            // Close mobile menu upon clicking any nav-link
+            // Закриття меню при кліку на посилання
             const navLinks = this.navMenu.querySelectorAll('.nav-link');
             navLinks.forEach((link, index) => {
                 this._addEventListener(
                     link,
                     'click',
                     () => {
-                        console.log('📱 Nav link clicked, closing menu');
                         this.closeMobileMenu();
                     },
                     `navLink-${index}`
                 );
             });
 
-            // Initialize menu state
+            // Закриття меню при кліку поза ним
+            this._addEventListener(
+                document,
+                'click',
+                (event) => {
+                    if (this.isMenuOpen && 
+                        !this.navMenu.contains(event.target) && 
+                        !this.mobileMenuToggle.contains(event.target)) {
+                        this.closeMobileMenu();
+                    }
+                },
+                'documentClick'
+            );
+
             this.resetMobileMenuState();
             console.log('✅ Mobile menu setup completed');
         } else {
-            console.error('❌ Mobile menu elements not found:', {
+            console.warn('⚠️ Mobile menu elements not found:', {
                 toggle: !!this.mobileMenuToggle,
                 menu: !!this.navMenu
             });
@@ -279,22 +572,20 @@ class GGeniusApp {
     }
 
     /**
-     * Resets the mobile menu to its default closed state.
+     * Скидання стану мобільного меню
      */
     resetMobileMenuState() {
         if (!this.mobileMenuToggle || !this.navMenu) return;
 
         this.isMenuOpen = false;
         this.mobileMenuToggle.setAttribute('aria-expanded', 'false');
-        this.mobileMenuToggle.classList.remove('active');
-        this.navMenu.classList.remove('open');
+        this.navMenu.classList.remove('active', 'open'); // Видаляємо обидва класи
         document.body.classList.remove('menu-open');
-        console.log('🔄 Mobile menu state reset');
+        document.body.style.overflow = '';
     }
 
     /**
-     * Toggles the mobile menu open/closed.
-     * @param {boolean|null} forceState - Force a specific menu state; if null, it inverts the current state.
+     * Перемикання мобільного меню з ПРАВИЛЬНИМИ класами
      */
     toggleMobileMenu(forceState = null) {
         if (!this.mobileMenuToggle || !this.navMenu) {
@@ -303,593 +594,151 @@ class GGeniusApp {
         }
 
         const shouldBeOpen = forceState !== null ? forceState : !this.isMenuOpen;
-        console.log(`📱 Toggling mobile menu: ${this.isMenuOpen} → ${shouldBeOpen}`);
-
         this.isMenuOpen = shouldBeOpen;
 
         this.mobileMenuToggle.setAttribute('aria-expanded', String(shouldBeOpen));
         this.mobileMenuToggle.classList.toggle('active', shouldBeOpen);
-        this.navMenu.classList.toggle('open', shouldBeOpen);
+        this.navMenu.classList.toggle('active', shouldBeOpen); // Використовуємо 'active' відповідно до CSS
         document.body.classList.toggle('menu-open', shouldBeOpen);
+        document.body.style.overflow = shouldBeOpen ? 'hidden' : '';
 
         if (shouldBeOpen) {
-            // Focus on first link when the menu opens
             const firstLink = this.navMenu.querySelector('.nav-link');
             if (firstLink) {
                 setTimeout(() => firstLink.focus(), 100);
             }
-            document.body.style.overflow = 'hidden';
         } else {
-            // Restore focus to toggle and re-enable page scrolling
             this.mobileMenuToggle.focus();
-            document.body.style.overflow = '';
         }
 
-        console.log(`✅ Mobile menu ${shouldBeOpen ? 'opened' : 'closed'}`);
+        console.log(`📱 Mobile menu ${shouldBeOpen ? 'opened' : 'closed'}`);
     }
 
     /**
-     * Closes the mobile menu if it's open.
+     * Закриття мобільного меню
      */
     closeMobileMenu() {
-        if (this.isMenuOpen) {
-            this.toggleMobileMenu(false);
-        }
+        this.toggleMobileMenu(false);
     }
 
     /**
-     * Handles outside clicks to close the mobile menu when it's open.
-     * @param {MouseEvent} event
+     * Налаштування event listeners
      */
-    handleOutsideClick(event) {
-        if (!this.isMenuOpen || !this.mobileMenuToggle || !this.navMenu) return;
-
-        const isClickInsideMenu = this.navMenu.contains(event.target);
-        const isClickOnToggle = this.mobileMenuToggle.contains(event.target);
-
-        if (!isClickInsideMenu && !isClickOnToggle) {
-            console.log('📱 Outside click detected, closing menu');
-            this.closeMobileMenu();
-        }
+    setupEventListeners() {
+        // Прокрутка
+        this._addEventListener(window, 'scroll', this.handleScroll, 'scroll');
+        
+        // Зміна розміру вікна
+        this._addEventListener(window, 'resize', this.handleResize, 'resize');
+        
+        // Зміна видимості сторінки
+        this._addEventListener(document, 'visibilitychange', this.handleVisibilityChange.bind(this), 'visibility');
+        
+        console.log('📡 Event listeners setup completed');
     }
 
     /**
-     * Simulates the loading screen progression and removes it when complete.
-     * @returns {Promise<void>}
-     */
-    async simulateLoading() {
-        return new Promise((resolve) => {
-            if (!this.loadingScreen || !this.progressBar) {
-                resolve();
-                return;
-            }
-
-            let progress = 0;
-            const messages = [
-                'Ініціалізація GGenius AI...',
-                'Завантаження контенту...',
-                'Підключення до серверів...',
-                'Налаштування інтерфейсу...',
-                'Готовність до роботи!'
-            ];
-            let messageIndex = 0;
-
-            const updateProgress = () => {
-                progress = Math.min(progress + Math.random() * 12 + 8, 100);
-                this.progressBar.style.transform = `scaleX(${progress / 100})`;
-
-                const currentMessageIndex = Math.min(Math.floor((progress / 100) * messages.length), messages.length - 1);
-                if (messageIndex !== currentMessageIndex) {
-                    messageIndex = currentMessageIndex;
-                    this.updateLoadingText(messages[messageIndex]);
-                }
-
-                if (progress < 100) {
-                    setTimeout(updateProgress, 120 + Math.random() * 180);
-                } else {
-                    setTimeout(() => {
-                        this.hideLoadingScreen();
-                        resolve();
-                    }, 300);
-                }
-            };
-
-            this.updateLoadingText(messages[0]);
-            updateProgress();
-        });
-    }
-
-    /**
-     * Hides and removes the loading screen.
-     * @param {boolean} immediate - Whether to remove instantly (for low-performance devices)
-     */
-    hideLoadingScreen(immediate = false) {
-        if (!this.loadingScreen || this.loadingScreen.classList.contains('hidden')) return;
-
-        this.loadingScreen.classList.add('hidden');
-        this.loadingScreen.setAttribute('aria-hidden', 'true');
-
-        setTimeout(() => {
-            if (this.loadingScreen) {
-                this.loadingScreen.remove();
-            }
-        }, immediate ? 50 : 600);
-    }
-
-    /**
-     * Updates text in the loading screen.
-     * @param {string} text
-     */
-    updateLoadingText(text) {
-        if (this.loadingTextElement) {
-            this.loadingTextElement.textContent = text;
-        }
-    }
-
-    /**
-     * Creates a scroll progress bar to indicate page scroll position.
-     * @returns {HTMLDivElement} - The scroll progress element
-     */
-    createScrollProgress() {
-        const progress = document.createElement('div');
-        progress.id = 'scrollProgress';
-        progress.setAttribute('role', 'progressbar');
-        progress.setAttribute('aria-valuenow', '0');
-        progress.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--cyan), var(--purple));
-            transform: scaleX(0);
-            transform-origin: left;
-            z-index: var(--z-max, 9999);
-            transition: transform 0.1s ease;
-            box-shadow: 0 0 10px rgba(var(--cyan-rgb), 0.5);
-        `;
-        document.body.prepend(progress);
-        return progress;
-    }
-
-    /**
-     * Sets up handling of scroll-based UI updates (scroll progress, minimized header, etc.).
-     */
-    setupScrollEffects() {
-        this._handleScroll();
-    }
-
-    /**
-     * Main scroll handler to update progress bar and other scrolled elements.
-     * Throttled in the constructor.
-     * @private
+     * Обробка прокрутки
      */
     _handleScroll() {
-        if (!this.scrollProgress) return;
-
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const scrolled = Math.max(0, Math.min(1, window.scrollY / maxScroll));
-        this.scrollProgress.style.transform = `scaleX(${scrolled})`;
-
-        const header = document.querySelector('.site-header');
-        if (header) {
-            header.classList.toggle('scrolled', window.scrollY > 50);
+        // Оновлення стану header
+        if (this.header) {
+            this.header.classList.toggle('scrolled', window.scrollY > 50);
         }
     }
 
     /**
-     * Sets up tabs in the interface.
-     */
-    setupTabs() {
-        document.querySelectorAll('.tabs-component').forEach(tabsComponent => {
-            const tabs = Array.from(tabsComponent.querySelectorAll('[role="tab"]'));
-            const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
-
-            tabs.forEach((tab, index) => {
-                this._addEventListener(tab, 'click', () => {
-                    this.switchTab(tab, tabs, panels);
-                }, `tab-${index}`);
-            });
-
-            // Activate the first tab by default
-            if (tabs.length > 0) {
-                this.switchTab(tabs[0], tabs, panels, true);
-            }
-        });
-    }
-
-    /**
-     * Switches the active tab and displays its corresponding panel.
-     * @param {HTMLElement} activeTab - The tab being activated
-     * @param {HTMLElement[]} allTabs - All tabs in the component
-     * @param {HTMLElement[]} allPanels - All tab panels in the component
-     * @param {boolean} [isInitialSetup=false] - Whether this call is the initial setup
-     */
-    switchTab(activeTab, allTabs, allPanels, isInitialSetup = false) {
-        allTabs.forEach(tab => {
-            tab.classList.remove('active');
-            tab.setAttribute('aria-selected', 'false');
-        });
-
-        activeTab.classList.add('active');
-        activeTab.setAttribute('aria-selected', 'true');
-
-        const targetPanelId = activeTab.getAttribute('aria-controls');
-        allPanels.forEach(panel => {
-            const isActive = panel.id === targetPanelId;
-            panel.hidden = !isActive;
-            panel.classList.toggle('active', isActive);
-        });
-
-        if (!isInitialSetup) {
-            activeTab.focus();
-        }
-    }
-
-    /**
-     * Sets up user interactions such as feature card clicks, smooth scrolling, etc.
-     * @returns {Promise<void>}
-     */
-    async setupInteractions() {
-        this.setupFeatureCardInteractions();
-        this.setupSmoothScrolling();
-    }
-
-    /**
-     * Adds a ripple effect on feature cards when clicked.
-     */
-    setupFeatureCardInteractions() {
-        document.querySelectorAll('.feature-card-iui').forEach(card => {
-            this._addEventListener(card, 'click', (e) => {
-                this.createRippleEffect(e.currentTarget, e);
-            }, `card-${Math.random()}`);
-        });
-    }
-
-    /**
-     * Smooth scrolling for anchor links.
-     */
-    setupSmoothScrolling() {
-        this._addEventListener(document, 'click', (e) => {
-            const anchor = e.target.closest('a[href^="#"]');
-            if (anchor) {
-                e.preventDefault();
-                const targetId = anchor.getAttribute('href').substring(1);
-                const target = document.getElementById(targetId);
-                if (target) {
-                    this.closeMobileMenu();
-                    setTimeout(() => {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 100);
-                }
-            }
-        }, 'smoothScroll');
-    }
-
-    /**
-     * Initializes the web audio system if device performance allows.
-     * @returns {Promise<void>}
-     */
-    async initializeAudioSystem() {
-        if (this.performance.isLowPerformance) {
-            this.settings.soundsEnabled = false;
-            this.settings.musicEnabled = false;
-            return;
-        }
-
-        try {
-            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            this.masterGain = this.audioContext.createGain();
-            this.masterGain.gain.setValueAtTime(this.settings.soundVolume, this.audioContext.currentTime);
-            this.masterGain.connect(this.audioContext.destination);
-        } catch (error) {
-            console.warn('Audio system not available:', error);
-            this.settings.soundsEnabled = false;
-        }
-    }
-
-    /**
-     * Sets up any performance monitoring or metrics.
-     * @returns {Promise<void>}
-     */
-    async setupPerformanceMonitoring() {
-        if (this.performance.isLowPerformance) return;
-        // Additional performance monitoring logic can be placed here
-    }
-
-    /**
-     * Sets up language switcher functionality in the header.
-     */
-    setupLanguageSwitcher() {
-        this.createLanguageSwitcher();
-        document.addEventListener('content:loaded', (event) => {
-            console.log(`Content loaded for language: ${event.detail.language}`);
-        });
-    }
-
-    /**
-     * Creates a language switcher element if one doesn't already exist.
-     */
-    createLanguageSwitcher() {
-        const existingSwitcher = document.getElementById('languageSwitcher');
-        if (existingSwitcher) return;
-
-        const switcher = document.createElement('div');
-        switcher.id = 'languageSwitcher';
-        switcher.className = 'language-switcher';
-
-        const languages = [
-            { code: 'uk', name: 'УК' },
-            { code: 'en', name: 'EN' }
-        ];
-
-        languages.forEach(lang => {
-            const button = document.createElement('button');
-            button.textContent = lang.name;
-            button.className = this.settings.language === lang.code ? 'active' : '';
-            this._addEventListener(button, 'click', () => this.changeLanguage(lang.code), `lang-${lang.code}`);
-            switcher.appendChild(button);
-        });
-
-        const header = document.querySelector('.site-header .header-container');
-        if (header) {
-            header.appendChild(switcher);
-        }
-    }
-
-    /**
-     * Changes language and reloads relevant content.
-     * @param {string} languageCode - 'uk' or 'en'
-     */
-    async changeLanguage(languageCode) {
-        if (this.settings.language === languageCode) return;
-
-        try {
-            await this.contentManager.setLanguage(languageCode);
-            this.settings.language = languageCode;
-            localStorage.setItem('ggenius-language', languageCode);
-
-            // Update switcher buttons
-            document.querySelectorAll('.language-switcher button').forEach(btn => {
-                const isActive = btn.textContent.toLowerCase() === languageCode;
-                btn.classList.toggle('active', isActive);
-            });
-        } catch (error) {
-            console.error('Failed to change language:', error);
-        }
-    }
-
-    /**
-     * Shows a demo modal for the GGenius AI feature.
-     */
-    showDemoModal() {
-        const modalId = 'demo-modal-ggenius';
-        if (document.getElementById(modalId)) return;
-
-        const modal = this.createModal({
-            id: modalId,
-            title: 'GGenius AI Demo',
-            content: `
-                <p>Ласкаво просимо до демонстрації GGenius AI!</p>
-                <p>Наразі ця функція в розробці. Слідкуйте за оновленнями!</p>
-            `,
-            actions: [{
-                text: 'Закрити',
-                action: () => this.closeModal(modalId)
-            }]
-        });
-
-        this.showModal(modal);
-    }
-
-    /**
-     * Creates a reusable modal element.
-     * @param {Object} params
-     * @param {string} params.id
-     * @param {string} params.title
-     * @param {string} params.content
-     * @param {{ text: string, action: Function }[]} params.actions
-     * @returns {HTMLDivElement}
-     */
-    createModal({ id, title, content, actions = [] }) {
-        const modal = document.createElement('div');
-        modal.className = 'modal-overlay';
-        modal.id = id;
-        modal.style.cssText = `
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(5px);
-        `;
-
-        const container = document.createElement('div');
-        container.style.cssText = `
-            background: var(--bg-2);
-            border-radius: 12px;
-            padding: 2rem;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            border: 1px solid rgba(var(--cyan-rgb), 0.3);
-            box-shadow: var(--shadow-2xl);
-        `;
-
-        container.innerHTML = `
-            <h2 style="margin-bottom: 1rem; color: var(--text-1);">${title}</h2>
-            <div style="margin-bottom: 2rem; color: var(--text-2);">${content}</div>
-            <div style="display: flex; gap: 1rem; justify-content: flex-end;">
-                ${actions.map((action, index) =>
-                    `<button data-action-index="${index}" style="
-                        background: var(--g-button-primary);
-                        color: var(--bg-1);
-                        border: none;
-                        padding: 0.5rem 1rem;
-                        border-radius: 6px;
-                        cursor: pointer;
-                        font-weight: 600;
-                        transition: all 0.2s ease;
-                    ">${action.text}</button>`
-                ).join('')}
-            </div>
-        `;
-
-        modal.appendChild(container);
-
-        actions.forEach((action, index) => {
-            const button = container.querySelector(`[data-action-index="${index}"]`);
-            this._addEventListener(button, 'click', action.action, `modal-action-${index}`);
-        });
-
-        return modal;
-    }
-
-    /**
-     * Appends and fades in the modal.
-     * @param {HTMLDivElement} modal
-     */
-    showModal(modal) {
-        document.body.appendChild(modal);
-        document.body.style.overflow = 'hidden';
-
-        requestAnimationFrame(() => {
-            modal.style.opacity = '1';
-        });
-    }
-
-    /**
-     * Closes and removes the modal.
-     * @param {string} modalId
-     */
-    closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.opacity = '0';
-            setTimeout(() => {
-                modal.remove();
-                document.body.style.overflow = '';
-            }, 300);
-        }
-    }
-
-    /**
-     * Creates a ripple effect at the click location on a given element.
-     * @param {HTMLElement} element
-     * @param {MouseEvent} event
-     */
-    createRippleEffect(element, event) {
-        const ripple = document.createElement('div');
-        ripple.className = 'ripple-effect';
-
-        const rect = element.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = event.clientX - rect.left - size / 2;
-        const y = event.clientY - rect.top - size / 2;
-
-        ripple.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            left: ${x}px;
-            top: ${y}px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(var(--cyan-rgb), 0.6) 0%, transparent 70%);
-            transform: scale(0);
-            animation: ripple 600ms linear;
-            pointer-events: none;
-            z-index: 1000;
-        `;
-
-        element.style.position = 'relative';
-        element.style.overflow = 'hidden';
-        element.appendChild(ripple);
-
-        setTimeout(() => ripple.remove(), 600);
-    }
-
-    /**
-     * Tracks load time and stores the result in performance metrics.
-     */
-    trackLoadTime() {
-        const loadTime = performance.now() - this.performance.startTime;
-        this.performance.metrics.pageLoadTime = loadTime;
-        console.log(`⚡ Page loaded in ${loadTime.toFixed(2)}ms`);
-    }
-
-    /**
-     * Window resize handler for adjusting layout and closing the mobile menu.
-     * @private
+     * Обробка зміни розміру вікна
      */
     _handleResize() {
-        if (window.innerWidth > 768) {
+        // Закриваємо меню при переході в desktop режим
+        if (window.innerWidth > 768 && this.isMenuOpen) {
             this.closeMobileMenu();
         }
     }
 
     /**
-     * Handles page visibility changes (e.g., user switching tabs).
-     * @private
+     * Обробка зміни видимості сторінки
      */
-    _handleVisibilityChange() {
-        if (document.visibilityState === 'hidden') {
+    handleVisibilityChange() {
+        if (document.hidden && this.isMenuOpen) {
             this.closeMobileMenu();
         }
     }
 
     /**
-     * Activates fallback mode if initialization fails.
-     * @param {Error} error - The error encountered during init
+     * Виявлення низької продуктивності
+     */
+    detectLowPerformance() {
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
+        const hasLimitedMemory = navigator.deviceMemory && navigator.deviceMemory < 2;
+        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        return isSlowConnection || hasLimitedMemory || (isMobile && window.innerWidth < 768);
+    }
+
+    /**
+     * ПОКРАЩЕНИЙ fallback режим
      */
     fallbackMode(error) {
+        console.log('🔧 Entering fallback mode...');
+        
+        // Завжди приховуємо loading screen
+        this.hideLoadingScreen();
+        
         document.documentElement.classList.add('fallback-mode');
 
-        // Show fallback texts
+        // Показуємо всі fallback тексти
         document.querySelectorAll('.fallback-text').forEach(element => {
-            element.style.display = 'block';
+            element.style.display = 'inline';
         });
 
-        const message = document.createElement('div');
-        message.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--pink);
-            color: var(--text-1);
-            padding: 1rem;
-            border-radius: 8px;
-            z-index: 10000;
-            max-width: 300px;
-            box-shadow: var(--shadow-xl);
-        `;
-        message.innerHTML = `
-            <strong>Помилка ініціалізації</strong><br>
-            ${error.message}<br>
-            <button onclick="location.reload()" style="
-                background: transparent;
-                border: 1px solid currentColor;
-                color: inherit;
-                padding: 0.25rem 0.5rem;
-                border-radius: 4px;
-                margin-top: 0.5rem;
-                cursor: pointer;
-            ">Оновити</button>
-        `;
+        // Базова навігація
+        if (this.mobileMenuToggle && this.navMenu) {
+            this.mobileMenuToggle.addEventListener('click', () => {
+                this.navMenu.classList.toggle('active');
+                this.isMenuOpen = !this.isMenuOpen;
+                this.mobileMenuToggle.classList.toggle('active', this.isMenuOpen);
+            });
+        }
 
-        document.body.appendChild(message);
+        // Показуємо повідомлення про помилку тільки в режимі розробки
+        if (localStorage.getItem('ggenius-debug') === 'true') {
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--pink, #ff073a);
+                color: white;
+                padding: 1rem;
+                border-radius: 8px;
+                z-index: 10000;
+                max-width: 300px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            `;
+            message.innerHTML = `
+                <strong>Режим fallback</strong><br>
+                ${error.message}<br>
+                <button onclick="location.reload()" style="
+                    background: transparent;
+                    border: 1px solid currentColor;
+                    color: inherit;
+                    padding: 0.25rem 0.5rem;
+                    border-radius: 4px;
+                    margin-top: 0.5rem;
+                    cursor: pointer;
+                ">Оновити</button>
+            `;
+            document.body.appendChild(message);
+        }
+        
+        console.log('✅ Fallback mode activated');
     }
 
     /**
-     * Throttle utility to limit function calls.
-     * @param {Function} func - Function to call
-     * @param {number} delay - Delay in ms
-     * @returns {Function}
+     * Throttle utility
      */
     throttle(func, delay) {
         let lastCall = 0;
@@ -903,10 +752,7 @@ class GGeniusApp {
     }
 
     /**
-     * Debounce utility to delay function calls until after a pause.
-     * @param {Function} func - Function to call
-     * @param {number} delay - Delay in ms
-     * @returns {Function}
+     * Debounce utility
      */
     debounce(func, delay) {
         let timeoutId;
@@ -917,13 +763,7 @@ class GGeniusApp {
     }
 
     /**
-     * Adds an event listener with reference tracking for easy cleanup.
-     * @param {EventTarget} target - Target element
-     * @param {string} type - Event type
-     * @param {EventListenerOrEventListenerObject} listener - Callback
-     * @param {string} key - Unique key for tracking
-     * @param {object} options - Listener options
-     * @private
+     * Додавання event listener з трекінгом
      */
     _addEventListener(target, type, listener, key, options = { passive: true }) {
         if (this.eventListeners.has(key)) {
@@ -934,9 +774,7 @@ class GGeniusApp {
     }
 
     /**
-     * Removes a previously registered event listener by key.
-     * @param {string} key - Key used when registering the listener
-     * @private
+     * Видалення event listener
      */
     _removeEventListener(key) {
         if (this.eventListeners.has(key)) {
@@ -947,21 +785,131 @@ class GGeniusApp {
     }
 
     /**
-     * Utility to retrieve text from the content manager.
-     * @param {string} key - Key to text
-     * @param {Object} [variables={}] - Optional variables for string interpolation
-     * @returns {string}
+     * Отримання тексту з content manager
      */
     getText(key, variables = {}) {
         return this.contentManager.getText(key, variables);
     }
+
+    /**
+     * Очищення ресурсів
+     */
+    destroy() {
+        // Видаляємо всі event listeners
+        this.eventListeners.forEach((listener, key) => {
+            this._removeEventListener(key);
+        });
+        
+        // Зупиняємо observers
+        this.observers.forEach(observer => {
+            observer.disconnect();
+        });
+        
+        console.log('🧹 GGenius App destroyed');
+    }
 }
 
-// App initialization after DOM is ready
+// Додаємо стилі для loading screen
+const loadingStyles = document.createElement('style');
+loadingStyles.textContent = `
+    .loading-screen {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(145deg, var(--bg-1, #0a0c0f) 0%, #0d1014 50%, #080a0c 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    
+    .loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+    
+    .loading-content {
+        text-align: center;
+        color: var(--text-1, #ffffff);
+        max-width: 400px;
+        padding: 2rem;
+    }
+    
+    .loading-logo {
+        font-family: var(--f1, system-ui);
+        font-size: 3rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--cyan, #00d4ff), var(--purple, #a55eea));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 2rem;
+        animation: logoGlow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes logoGlow {
+        0% { filter: brightness(1) drop-shadow(0 0 10px rgba(0, 212, 255, 0.3)); }
+        100% { filter: brightness(1.2) drop-shadow(0 0 20px rgba(0, 212, 255, 0.6)); }
+    }
+    
+    .loading-bar {
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+    }
+    
+    .loading-progress {
+        height: 100%;
+        background: linear-gradient(90deg, var(--cyan, #00d4ff), var(--purple, #a55eea));
+        border-radius: 2px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+        animation: progressGlow 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes progressGlow {
+        0%, 100% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
+        50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.8); }
+    }
+    
+    .loading-text {
+        font-size: 1rem;
+        color: var(--text-2, #b0c4de);
+        margin: 0;
+        animation: textFade 2s ease-in-out infinite;
+    }
+    
+    @keyframes textFade {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 1; }
+    }
+    
+    /* Fallback mode styles */
+    .fallback-mode .fallback-text {
+        display: inline !important;
+    }
+    
+    .fallback-mode [data-content] {
+        opacity: 1;
+    }
+`;
+
+document.head.appendChild(loadingStyles);
+
+// ВИПРАВЛЕНА ініціалізація з кращим таймінгом
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         console.log('🚀 DOM Content Loaded, initializing GGenius...');
-        window.app = new GGeniusApp();
+        
+        // Невелика затримка для забезпечення завантаження всіх ресурсів
+        setTimeout(() => {
+            window.app = new GGeniusApp();
+        }, 100);
 
         if (localStorage.getItem('ggenius-debug') === 'true') {
             document.documentElement.classList.add('debug-mode');
@@ -973,54 +921,46 @@ if (document.readyState === 'loading') {
     window.app = new GGeniusApp();
 }
 
-/**
- * Global debugging utilities.
- */
+// Глобальні утиліти для розробки
 window.GGeniusDebug = {
     enableDebug() {
         localStorage.setItem('ggenius-debug', 'true');
         document.documentElement.classList.add('debug-mode');
         console.log('🔧 Debug mode enabled');
     },
-
+    
     disableDebug() {
         localStorage.removeItem('ggenius-debug');
         document.documentElement.classList.remove('debug-mode');
         console.log('🔧 Debug mode disabled');
     },
-
-    testMobileMenu() {
+    
+    hideLoadingScreen() {
         if (window.app) {
-            window.app.toggleMobileMenu();
-            console.log('📱 Mobile menu toggled via debug');
+            window.app.hideLoadingScreen();
         }
     },
-
-    /**
-     * @returns {any}
-     */
+    
+    toggleMobileMenu() {
+        if (window.app) {
+            window.app.toggleMobileMenu();
+        }
+    },
+    
     getContentStats() {
         return window.app?.contentManager?.getContentStats();
     },
-
-    /**
-     * @param {string} key - Key to test in content manager
-     * @returns {string}
-     */
+    
     testContentKey(key) {
         return window.app?.contentManager?.getText(key);
     },
-
-    /**
-     * Forces reload of content
-     * @returns {Promise<void>}
-     */
-    reloadContent() {
-        return window.app?.contentManager?.loadContent();
+    
+    forceReload() {
+        location.reload();
     }
 };
 
-// Export for other modules if available
+// Експорт для використання в інших модулях
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { GGeniusApp, ContentManager };
 }
