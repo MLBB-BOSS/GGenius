@@ -1,0 +1,112 @@
+/* Error Message Styles */
+.error-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg-2);
+    border: 2px solid var(--pink);
+    border-radius: var(--r-l);
+    padding: var(--s-xl);
+    max-width: 500px;
+    z-index: var(--z-modal);
+    box-shadow: var(--shadow-lg);
+}
+
+.error-content h2 {
+    color: var(--pink);
+    margin-bottom: var(--s-m);
+}
+
+.error-content code {
+    background: var(--bg-3);
+    padding: var(--s-xs) var(--s-s);
+    border-radius: var(--r-s);
+    font-family: monospace;
+    color: var(--yellow);
+}
+
+.retry-button {
+    background: var(--blue);
+    color: var(--text-1);
+    border: none;
+    padding: var(--s-s) var(--s-l);
+    border-radius: var(--r-m);
+    cursor: pointer;
+    margin-top: var(--s-m);
+    transition: all var(--trans-fast);
+}
+
+.retry-button:hover {
+    background: color-mix(in srgb, var(--blue) 80%, white);
+    transform: translateY(-2px);
+}
+
+/* Fallback mode styles */
+.fallback-mode {
+    filter: sepia(0.3);
+}
+
+.fallback-mode::before {
+    content: "⚠️ Режим сумісності";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--yellow);
+    color: var(--bg-1);
+    text-align: center;
+    padding: var(--s-xs);
+    font-weight: bold;
+    z-index: var(--z-max);
+}
+
+/* Toast notifications */
+.toast {
+    position: fixed;
+    bottom: var(--s-l);
+    right: var(--s-l);
+    background: var(--bg-2);
+    color: var(--text-1);
+    padding: var(--s-m) var(--s-l);
+    border-radius: var(--r-m);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(100%);
+    transition: transform var(--trans);
+    z-index: var(--z-modal);
+    border-left: 4px solid var(--blue);
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast.toast-success {
+    border-left-color: var(--green);
+}
+
+.toast.toast-error {
+    border-left-color: var(--pink);
+}
+
+.toast.toast-warning {
+    border-left-color: var(--yellow);
+}
+
+#toast-container-ggenius {
+    position: fixed;
+    bottom: var(--s-l);
+    right: var(--s-l);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-s);
+    z-index: var(--z-modal);
+    pointer-events: none;
+}
+
+#toast-container-ggenius .toast {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    pointer-events: all;
+}
