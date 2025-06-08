@@ -1,20 +1,165 @@
 /**
- * GGenius Enhanced Interactive Experience - Fixed Mobile Menu
- * @version 2.6.0 - Mobile Menu Fix & Hero Redesign
+ * GGenius Enhanced Interactive Experience - FIXED Loading Screen
+ * @version 2.7.0 - Critical Loading Screen Fix
+ * Fixes: Infinite loading, mobile blocking, auto-hide timeout
  */
 
-// ... (попередній код ContentManager залишається без змін) ...
+/**
+ * Content Manager for dynamic language support
+ */
+class ContentManager {
+    constructor() {
+        this.currentLanguage = 'uk';
+        this.content = {};
+        this.fallbackContent = {
+            uk: {
+                'meta.title': 'GGenius - AI Революція в Mobile Legends',
+                'header.logo': 'GGenius',
+                'nav.home': 'Головна',
+                'nav.about': 'Про проєкт',
+                'nav.roadmap': 'Roadmap',
+                'hero.title': 'GGenius AI',
+                'hero.subtitle': '<span class="gradient-text">Революція штучного інтелекту</span> в Mobile Legends',
+                'hero.status': 'В РОЗРОБЦІ',
+                'hero.description.intro': 'Вітаємо у майбутньому кіберспорту! GGenius - це передова платформа штучного інтелекту, створена спеціально для Mobile Legends: Bang Bang.',
+                'hero.description.mission': '🚀 <strong>GGenius</strong> — твій успіх — наша місія!',
+                'hero.cta.primary': 'Спробувати демо',
+                'hero.cta.secondary': 'Дізнатися більше',
+                'hero.cta.join': 'Приєднатися до спільноти',
+                'features.title': 'МОЖЛИВОСТІ AI',
+                'features.subtitle': 'Передові технології для вашого успіху',
+                'features.categories.analysis': 'Аналіз',
+                'features.categories.coaching': 'Навчання',
+                'features.categories.prediction': 'Прогнози',
+                'roadmap.title': 'Roadmap',
+                'roadmap.q1.2025.date': 'Q1 2025',
+                'roadmap.q1.2025.title': 'MVP Launch',
+                'roadmap.q1.2025.desc': 'Базова аналітика матчів, реєстрація користувачів.',
+                'roadmap.q1.2025.feature1': 'Match Analytics Engine',
+                'roadmap.q1.2025.feature2': 'User Registration System',
+                'roadmap.q1.2025.feature3': 'Basic Statistics Dashboard',
+                'roadmap.q2.2025.date': 'Q2 2025',
+                'roadmap.q2.2025.title': 'AI Integration',
+                'roadmap.q2.2025.desc': 'Запуск нейронної аналітики та AI-тренера.',
+                'roadmap.q2.2025.feature1': 'Neural Network Analysis',
+                'roadmap.q2.2025.feature2': 'AI Personal Trainer',
+                'roadmap.q2.2025.feature3': 'Computer Vision Integration',
+                'footer.tagline': 'Революція в кіберспорті з AI',
+                'footer.copyright': '© 2025 GGenius. Всі права захищено.'
+            },
+            en: {
+                'meta.title': 'GGenius - AI Revolution in Mobile Legends',
+                'header.logo': 'GGenius',
+                'nav.home': 'Home',
+                'nav.about': 'About',
+                'nav.roadmap': 'Roadmap',
+                'hero.title': 'GGenius AI',
+                'hero.subtitle': '<span class="gradient-text">Artificial Intelligence Revolution</span> in Mobile Legends',
+                'hero.status': 'IN DEVELOPMENT',
+                'hero.description.intro': 'Welcome to the future of esports! GGenius is an advanced AI platform created specifically for Mobile Legends: Bang Bang.',
+                'hero.description.mission': '🚀 <strong>GGenius</strong> — your success is our mission!',
+                'hero.cta.primary': 'Try Demo',
+                'hero.cta.secondary': 'Learn More',
+                'hero.cta.join': 'Join Community',
+                'features.title': 'AI CAPABILITIES',
+                'features.subtitle': 'Advanced technologies for your success',
+                'features.categories.analysis': 'Analysis',
+                'features.categories.coaching': 'Training',
+                'features.categories.prediction': 'Predictions',
+                'roadmap.title': 'Roadmap',
+                'footer.tagline': 'Revolution in esports with AI',
+                'footer.copyright': '© 2025 GGenius. All rights reserved.'
+            }
+        };
+        this.isLoaded = false;
+    }
 
+    async init() {
+        try {
+            this.content = this.fallbackContent;
+            this.isLoaded = true;
+            await this.updateContent();
+            console.log('✅ ContentManager initialized successfully');
+        } catch (error) {
+            console.warn('⚠️ ContentManager fallback mode:', error);
+            this.content = this.fallbackContent;
+            this.isLoaded = true;
+        }
+    }
+
+    async setLanguage(languageCode) {
+        if (this.currentLanguage === languageCode) return;
+        
+        this.currentLanguage = languageCode;
+        await this.updateContent();
+        
+        document.dispatchEvent(new CustomEvent('content:loaded', {
+            detail: { language: languageCode }
+        }));
+    }
+
+    async updateContent() {
+        if (!this.isLoaded) return;
+
+        const elements = document.querySelectorAll('[data-content]');
+        elements.forEach(element => {
+            const key = element.getAttribute('data-content');
+            const contentType = element.getAttribute('data-content-type') || 'text';
+            const content = this.getText(key);
+            
+            if (content && content !== key) {
+                if (contentType === 'html') {
+                    element.innerHTML = content;
+                } else {
+                    element.textContent = content;
+                }
+                element.classList.add('content-loaded');
+            }
+        });
+    }
+
+    getText(key, variables = {}) {
+        const content = this.content[this.currentLanguage]?.[key] || 
+                       this.content.uk?.[key] || 
+                       key;
+        
+        return Object.keys(variables).reduce((text, variable) => {
+            return text.replace(new RegExp(`{${variable}}`, 'g'), variables[variable]);
+        }, content);
+    }
+
+    getContentStats() {
+        return {
+            currentLanguage: this.currentLanguage,
+            loadedKeys: Object.keys(this.content[this.currentLanguage] || {}),
+            isLoaded: this.isLoaded
+        };
+    }
+
+    async loadContent() {
+        return this.init();
+    }
+}
+
+/**
+ * Main GGenius Application Class - FIXED VERSION
+ */
 class GGeniusApp {
     constructor() {
         this.isLoaded = false;
+        this.loadingStartTime = performance.now();
+        this.maxLoadingTime = 8000; // Максимум 8 секунд
+        this.minimumLoadingTime = 2000; // Мінімум 2 секунди
+        this.forceHideTimeout = null;
+        this.contentLoadTimeout = null;
+        
+        // Managers and systems
+        this.contentManager = new ContentManager();
         this.observers = new Map();
         this.animations = new Map();
         this.eventListeners = new Map();
-        
-        // Ініціалізуємо менеджер контенту
-        this.contentManager = new ContentManager();
 
+        // Settings
         this.settings = {
             soundsEnabled: JSON.parse(localStorage.getItem('ggenius-soundsEnabled')) ?? true,
             musicEnabled: JSON.parse(localStorage.getItem('ggenius-musicEnabled')) ?? false,
@@ -23,36 +168,36 @@ class GGeniusApp {
             language: localStorage.getItem('ggenius-language') || 'uk'
         };
 
-        // Mobile menu elements - критично для роботи меню
+        // Mobile menu elements
         this.mobileMenuToggle = null;
         this.navMenu = null;
         this.isMenuOpen = false;
 
-        this.audioContext = null;
-        this.soundEffects = new Map();
-        this.ambientOscillators = null;
-        this.ambientGain = null;
-        this.masterGain = null;
+        // Loading screen elements
+        this.loadingScreen = null;
+        this.progressBar = null;
+        this.loadingTextElement = null;
 
+        // Performance tracking
         this.performance = {
             startTime: performance.now(),
             metrics: {},
             isLowPerformance: this.detectLowPerformance()
         };
 
+        // Bind methods
         this.handleScroll = this.throttle(this._handleScroll.bind(this), 16);
         this.handleResize = this.debounce(this._handleResize.bind(this), 200);
-
-        // Прив'язуємо методи до контексту для правильної роботи
         this.toggleMobileMenu = this.toggleMobileMenu.bind(this);
         this.closeMobileMenu = this.closeMobileMenu.bind(this);
         this.handleOutsideClick = this.handleOutsideClick.bind(this);
+        this.forceHideLoading = this.forceHideLoading.bind(this);
 
         this.init();
     }
 
     getVersion() {
-        return "2.6.0";
+        return "2.7.0";
     }
 
     detectLowPerformance() {
@@ -67,39 +212,43 @@ class GGeniusApp {
         try {
             console.log(`🚀 GGenius AI Revolution initializing... v${this.getVersion()}`);
             
+            // Встановлюємо CSS клас для JS
             document.documentElement.classList.add('js-loaded');
             
+            // Додаємо клас для слабких пристроїв
             if (this.performance.isLowPerformance) {
                 document.documentElement.classList.add('low-performance-device');
+                this.maxLoadingTime = 5000; // Скорочуємо час для слабких пристроїв
+                this.minimumLoadingTime = 1000;
             }
 
-            // Встановлюємо мову
-            await this.contentManager.setLanguage(this.settings.language);
-            
-            // Завантажуємо критичні функції ПЕРШИМИ
-            await this.loadCriticalFeatures();
-            
-            // Ініціалізуємо контент
-            await this.contentManager.init();
-            
-            // Налаштовуємо глобальні обробники подій
-            this.setupGlobalEventListeners();
-            
-            // Ініціалізуємо аудіо систему
-            await this.initializeAudioSystem();
+            // КРИТИЧНО: Встановлюємо таймаут безпеки для loading screen
+            this.setupLoadingScreenSafety();
 
-            // Паралельно запускаємо інші системи
-            await Promise.all([
-                this.setupPerformanceMonitoring(),
-                this.initializeUI(),
-                this.setupInteractions()
-            ]);
+            // Завантажуємо критичні елементи
+            await this.loadCriticalElements();
+            
+            // Ініціалізуємо контент менеджер
+            await this.contentManager.init();
+
+            // Налаштовуємо інтерфейс
+            this.setupGlobalEventListeners();
+            await this.initializeUI();
+            await this.setupInteractions();
 
             // Налаштовуємо перемикач мови
             this.setupLanguageSwitcher();
 
+            // Показуємо завантаження (якщо потрібно)
+            if (this.loadingScreen && !this.performance.isLowPerformance) {
+                await this.simulateLoading();
+            } else {
+                this.hideLoadingScreen(true);
+            }
+
             this.isLoaded = true;
             this.trackLoadTime();
+            
             console.log('✅ GGenius fully initialized');
             document.dispatchEvent(new CustomEvent('ggenius:loaded'));
             
@@ -109,200 +258,86 @@ class GGeniusApp {
         }
     }
 
-    async loadCriticalFeatures() {
-        // Завантажуємо критичні елементи DOM
+    /**
+     * КРИТИЧНО: Налаштування безпеки loading screen
+     */
+    setupLoadingScreenSafety() {
+        // Абсолютний таймаут - завжди приховує loading screen
+        this.forceHideTimeout = setTimeout(() => {
+            console.warn('⚠️ Force hiding loading screen due to timeout');
+            this.forceHideLoading();
+        }, this.maxLoadingTime);
+
+        // Резервний таймаут для контенту
+        this.contentLoadTimeout = setTimeout(() => {
+            console.warn('⚠️ Content load timeout, showing fallback');
+            this.showFallbackContent();
+        }, this.maxLoadingTime / 2);
+
+        // Слухач для сховання при помилці
+        window.addEventListener('error', () => {
+            console.error('❌ Page error detected, hiding loading screen');
+            this.forceHideLoading();
+        });
+
+        // Слухач для сховання при завантаженні
+        window.addEventListener('load', () => {
+            console.log('✅ Window loaded, hiding loading screen');
+            setTimeout(() => this.forceHideLoading(), this.minimumLoadingTime);
+        });
+    }
+
+    /**
+     * Примусове приховування loading screen
+     */
+    forceHideLoading() {
+        if (this.forceHideTimeout) {
+            clearTimeout(this.forceHideTimeout);
+            this.forceHideTimeout = null;
+        }
+        
+        if (this.contentLoadTimeout) {
+            clearTimeout(this.contentLoadTimeout);
+            this.contentLoadTimeout = null;
+        }
+
+        this.hideLoadingScreen(true);
+    }
+
+    /**
+     * Показ fallback контенту
+     */
+    showFallbackContent() {
+        document.querySelectorAll('.fallback-text').forEach(element => {
+            element.style.display = 'block';
+        });
+        
+        document.documentElement.classList.add('fallback-mode');
+    }
+
+    async loadCriticalElements() {
+        // Завантажуємо loading screen елементи
         this.loadingScreen = document.getElementById('loadingScreen');
         this.progressBar = document.getElementById('progressBar');
         this.loadingTextElement = document.getElementById('loadingText');
         
-        // КРИТИЧНО: ініціалізуємо мобільне меню
+        // Завантажуємо мобільне меню
         this.mobileMenuToggle = document.getElementById('mobileMenuToggle');
         this.navMenu = document.getElementById('main-menu-list');
         
-        // Перевіряємо наявність елементів меню
-        if (!this.mobileMenuToggle) {
-            console.error('❌ Mobile menu toggle not found! ID: mobileMenuToggle');
-        }
-        if (!this.navMenu) {
-            console.error('❌ Navigation menu not found! ID: main-menu-list');
-        }
-
+        // Створюємо scroll progress bar
         this.scrollProgress = this.createScrollProgress();
 
-        // Симуляція завантаження тільки якщо екран завантаження присутній
-        if (this.loadingScreen && !this.performance.isLowPerformance) {
-            await this.simulateLoading();
-        } else if (this.loadingScreen) {
-            this.hideLoadingScreen(true);
-        }
-    }
-
-    setupGlobalEventListeners() {
-        // Основні обробники подій
-        this._addEventListener(window, 'scroll', this.handleScroll, 'scroll');
-        this._addEventListener(window, 'resize', this.handleResize, 'resize');
-        this._addEventListener(document, 'visibilitychange', this._handleVisibilityChange.bind(this), 'visibility');
-        
-        // Обробники для закриття меню при кліку поза ним
-        this._addEventListener(document, 'click', this.handleOutsideClick, 'outsideClick');
-        this._addEventListener(window, 'resize', this.closeMobileMenu, 'resizeCloseMenu');
-    }
-
-    async initializeUI() {
-        // Налаштовуємо навігацію (включаючи мобільне меню)
-        this.setupNavigation();
-        
-        // Налаштовуємо ефекти прокрутки
-        this.setupScrollEffects();
-        
-        // Налаштовуємо вкладки
-        this.setupTabs();
-    }
-
-    /**
-     * Налаштування навігації з виправленим мобільним меню
-     */
-    setupNavigation() {
-        console.log('🔧 Setting up navigation...');
-        
-        // Перевіряємо наявність елементів
+        // Перевіряємо наявність критичних елементів
         if (!this.mobileMenuToggle) {
-            this.mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            console.error('❌ Mobile menu toggle not found!');
         }
         if (!this.navMenu) {
-            this.navMenu = document.getElementById('main-menu-list');
+            console.error('❌ Navigation menu not found!');
         }
 
-        if (this.mobileMenuToggle && this.navMenu) {
-            console.log('✅ Mobile menu elements found, setting up listeners...');
-            
-            // Видаляємо попередні обробники (якщо були)
-            this._removeEventListener('mobileToggle');
-            
-            // Додаємо новий обробник
-            this._addEventListener(
-                this.mobileMenuToggle, 
-                'click', 
-                (event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    console.log('📱 Mobile menu toggle clicked');
-                    this.toggleMobileMenu();
-                }, 
-                'mobileToggle',
-                { passive: false }
-            );
-
-            // Додаємо обробники для закриття меню при кліку на посилання
-            const navLinks = this.navMenu.querySelectorAll('.nav-link');
-            navLinks.forEach((link, index) => {
-                this._addEventListener(
-                    link,
-                    'click',
-                    () => {
-                        console.log('📱 Nav link clicked, closing menu');
-                        this.closeMobileMenu();
-                    },
-                    `navLink-${index}`
-                );
-            });
-
-            // Ініціалізуємо початковий стан
-            this.resetMobileMenuState();
-            
-            console.log('✅ Mobile menu setup completed');
-        } else {
-            console.error('❌ Mobile menu elements not found:', {
-                toggle: !!this.mobileMenuToggle,
-                menu: !!this.navMenu
-            });
-        }
+        console.log('✅ Critical elements loaded');
     }
-
-    /**
-     * Скидання стану мобільного меню
-     */
-    resetMobileMenuState() {
-        if (!this.mobileMenuToggle || !this.navMenu) return;
-
-        this.isMenuOpen = false;
-        this.mobileMenuToggle.setAttribute('aria-expanded', 'false');
-        this.mobileMenuToggle.classList.remove('active');
-        this.navMenu.classList.remove('open');
-        document.body.classList.remove('menu-open');
-        
-        console.log('🔄 Mobile menu state reset');
-    }
-
-    /**
-     * Перемикання мобільного меню
-     */
-    toggleMobileMenu(forceState = null) {
-        if (!this.mobileMenuToggle || !this.navMenu) {
-            console.error('❌ Cannot toggle menu: elements not found');
-            return;
-        }
-
-        // Визначаємо новий стан
-        const shouldBeOpen = forceState !== null ? forceState : !this.isMenuOpen;
-        
-        console.log(`📱 Toggling mobile menu: ${this.isMenuOpen} → ${shouldBeOpen}`);
-        
-        this.isMenuOpen = shouldBeOpen;
-        
-        // Оновлюємо атрибути та класи
-        this.mobileMenuToggle.setAttribute('aria-expanded', String(shouldBeOpen));
-        this.mobileMenuToggle.classList.toggle('active', shouldBeOpen);
-        this.navMenu.classList.toggle('open', shouldBeOpen);
-        document.body.classList.toggle('menu-open', shouldBeOpen);
-        
-        // Керуємо фокусом
-        if (shouldBeOpen) {
-            // Фокус на першому елементі меню
-            const firstLink = this.navMenu.querySelector('.nav-link');
-            if (firstLink) {
-                setTimeout(() => firstLink.focus(), 100);
-            }
-        } else {
-            // Повертаємо фокус на кнопку меню
-            this.mobileMenuToggle.focus();
-        }
-
-        // Запобігаємо прокрутці фону при відкритому меню
-        if (shouldBeOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-
-        console.log(`✅ Mobile menu ${shouldBeOpen ? 'opened' : 'closed'}`);
-    }
-
-    /**
-     * Закриття мобільного меню
-     */
-    closeMobileMenu() {
-        if (this.isMenuOpen) {
-            this.toggleMobileMenu(false);
-        }
-    }
-
-    /**
-     * Обробка кліків поза меню
-     */
-    handleOutsideClick(event) {
-        if (!this.isMenuOpen || !this.mobileMenuToggle || !this.navMenu) return;
-
-        const isClickInsideMenu = this.navMenu.contains(event.target);
-        const isClickOnToggle = this.mobileMenuToggle.contains(event.target);
-        
-        if (!isClickInsideMenu && !isClickOnToggle) {
-            console.log('📱 Outside click detected, closing menu');
-            this.closeMobileMenu();
-        }
-    }
-
-    // ... (решта методів залишається без змін, але додаємо кілька важливих) ...
 
     async simulateLoading() {
         return new Promise((resolve) => {
@@ -314,54 +349,218 @@ class GGeniusApp {
             let progress = 0;
             const messages = [
                 'Ініціалізація GGenius AI...',
-                'Завантаження контенту...',
-                'Підключення до серверів...',
-                'Налаштування інтерфейсу...',
-                'Готовність до роботи!'
+                'Завантаження інтерфейсу...',
+                'Підключення до систем...',
+                'Налаштування функцій...',
+                'Останні приготування...',
+                'Готово!'
             ];
             let messageIndex = 0;
 
             const updateProgress = () => {
-                progress = Math.min(progress + Math.random() * 12 + 8, 100);
-                this.progressBar.style.transform = `scaleX(${progress / 100})`;
+                const increment = Math.random() * 15 + 5; // 5-20% за раз
+                progress = Math.min(progress + increment, 100);
+                
+                if (this.progressBar) {
+                    this.progressBar.style.transform = `scaleX(${progress / 100})`;
+                }
 
-                const currentMessageIndex = Math.min(Math.floor((progress / 100) * messages.length), messages.length - 1);
+                // Оновлюємо повідомлення
+                const currentMessageIndex = Math.min(
+                    Math.floor((progress / 100) * messages.length), 
+                    messages.length - 1
+                );
+                
                 if (messageIndex !== currentMessageIndex) {
                     messageIndex = currentMessageIndex;
                     this.updateLoadingText(messages[messageIndex]);
                 }
 
                 if (progress < 100) {
-                    setTimeout(updateProgress, 120 + Math.random() * 180);
+                    const delay = this.performance.isLowPerformance ? 100 : 150;
+                    setTimeout(updateProgress, delay + Math.random() * 100);
                 } else {
+                    // Переконуємося, що мінімальний час пройшов
+                    const elapsed = performance.now() - this.loadingStartTime;
+                    const remainingTime = Math.max(0, this.minimumLoadingTime - elapsed);
+                    
                     setTimeout(() => {
                         this.hideLoadingScreen();
                         resolve();
-                    }, 300);
+                    }, remainingTime);
                 }
             };
             
             this.updateLoadingText(messages[0]);
-            updateProgress();
+            setTimeout(updateProgress, 100); // Невелика затримка перед початком
         });
     }
 
     hideLoadingScreen(immediate = false) {
-        if (!this.loadingScreen || this.loadingScreen.classList.contains('hidden')) return;
+        if (!this.loadingScreen || this.loadingScreen.classList.contains('hidden')) {
+            return;
+        }
         
+        console.log('🎯 Hiding loading screen...');
+        
+        // Очищаємо таймаути
+        if (this.forceHideTimeout) {
+            clearTimeout(this.forceHideTimeout);
+            this.forceHideTimeout = null;
+        }
+        
+        if (this.contentLoadTimeout) {
+            clearTimeout(this.contentLoadTimeout);
+            this.contentLoadTimeout = null;
+        }
+
+        // Приховуємо loading screen
         this.loadingScreen.classList.add('hidden');
         this.loadingScreen.setAttribute('aria-hidden', 'true');
         
+        // Відновлюємо прокрутку body
+        document.body.style.overflow = '';
+        
+        // Видаляємо елемент з DOM
+        const removeDelay = immediate ? 100 : 600;
         setTimeout(() => {
-            if (this.loadingScreen) {
+            if (this.loadingScreen && this.loadingScreen.parentNode) {
                 this.loadingScreen.remove();
+                this.loadingScreen = null;
             }
-        }, immediate ? 50 : 600);
+        }, removeDelay);
+
+        console.log('✅ Loading screen hidden successfully');
     }
 
     updateLoadingText(text) {
         if (this.loadingTextElement) {
             this.loadingTextElement.textContent = text;
+        }
+    }
+
+    setupGlobalEventListeners() {
+        // Основні обробники подій
+        this._addEventListener(window, 'scroll', this.handleScroll, 'scroll');
+        this._addEventListener(window, 'resize', this.handleResize, 'resize');
+        this._addEventListener(document, 'visibilitychange', this._handleVisibilityChange.bind(this), 'visibility');
+        
+        // Обробники для мобільного меню
+        this._addEventListener(document, 'click', this.handleOutsideClick, 'outsideClick');
+        this._addEventListener(window, 'resize', this.closeMobileMenu, 'resizeCloseMenu');
+
+        // Обробники клавіатури
+        this._addEventListener(document, 'keydown', this._handleKeyDown.bind(this), 'keydown');
+    }
+
+    _handleKeyDown(event) {
+        // ESC закриває мобільне меню
+        if (event.key === 'Escape' && this.isMenuOpen) {
+            this.closeMobileMenu();
+        }
+    }
+
+    async initializeUI() {
+        this.setupNavigation();
+        this.setupScrollEffects();
+        this.setupTabs();
+        console.log('✅ UI initialized');
+    }
+
+    setupNavigation() {
+        console.log('🔧 Setting up navigation...');
+        
+        if (this.mobileMenuToggle && this.navMenu) {
+            // Видаляємо попередні обробники
+            this._removeEventListener('mobileToggle');
+            
+            // Додаємо новий обробник
+            this._addEventListener(
+                this.mobileMenuToggle, 
+                'click', 
+                (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.toggleMobileMenu();
+                }, 
+                'mobileToggle'
+            );
+
+            // Додаємо обробники для навігаційних посилань
+            const navLinks = this.navMenu.querySelectorAll('.nav-link');
+            navLinks.forEach((link, index) => {
+                this._addEventListener(
+                    link,
+                    'click',
+                    () => this.closeMobileMenu(),
+                    `navLink-${index}`
+                );
+            });
+
+            this.resetMobileMenuState();
+            console.log('✅ Mobile menu setup completed');
+        } else {
+            console.error('❌ Mobile menu elements not found');
+        }
+    }
+
+    resetMobileMenuState() {
+        if (!this.mobileMenuToggle || !this.navMenu) return;
+
+        this.isMenuOpen = false;
+        this.mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        this.mobileMenuToggle.classList.remove('active');
+        this.navMenu.classList.remove('open');
+        document.body.classList.remove('menu-open');
+        document.body.style.overflow = '';
+    }
+
+    toggleMobileMenu(forceState = null) {
+        if (!this.mobileMenuToggle || !this.navMenu) {
+            console.error('❌ Cannot toggle menu: elements not found');
+            return;
+        }
+
+        const shouldBeOpen = forceState !== null ? forceState : !this.isMenuOpen;
+        
+        this.isMenuOpen = shouldBeOpen;
+        
+        // Оновлюємо атрибути та класи
+        this.mobileMenuToggle.setAttribute('aria-expanded', String(shouldBeOpen));
+        this.mobileMenuToggle.classList.toggle('active', shouldBeOpen);
+        this.navMenu.classList.toggle('open', shouldBeOpen);
+        document.body.classList.toggle('menu-open', shouldBeOpen);
+        
+        // Керуємо прокруткою
+        document.body.style.overflow = shouldBeOpen ? 'hidden' : '';
+
+        // Керуємо фокусом
+        if (shouldBeOpen) {
+            const firstLink = this.navMenu.querySelector('.nav-link');
+            if (firstLink) {
+                setTimeout(() => firstLink.focus(), 100);
+            }
+        } else {
+            this.mobileMenuToggle.focus();
+        }
+
+        console.log(`📱 Mobile menu ${shouldBeOpen ? 'opened' : 'closed'}`);
+    }
+
+    closeMobileMenu() {
+        if (this.isMenuOpen) {
+            this.toggleMobileMenu(false);
+        }
+    }
+
+    handleOutsideClick(event) {
+        if (!this.isMenuOpen || !this.mobileMenuToggle || !this.navMenu) return;
+
+        const isClickInsideMenu = this.navMenu.contains(event.target);
+        const isClickOnToggle = this.mobileMenuToggle.contains(event.target);
+        
+        if (!isClickInsideMenu && !isClickOnToggle) {
+            this.closeMobileMenu();
         }
     }
 
@@ -397,7 +596,7 @@ class GGeniusApp {
         const scrollPercentage = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
         this.scrollProgress.style.transform = `scaleX(${Math.max(0, Math.min(1, scrollPercentage))})`;
         
-        // Додатково: приховуємо/показуємо header при прокрутці
+        // Приховуємо/показуємо header при прокрутці
         const header = document.querySelector('.site-header');
         if (header) {
             const scrolled = window.scrollY > 50;
@@ -416,7 +615,6 @@ class GGeniusApp {
                 }, `tab-${index}`);
             });
             
-            // Активуємо перший таб
             if (tabs.length > 0) {
                 this.switchTab(tabs[0], tabs, panels, true);
             }
@@ -464,7 +662,6 @@ class GGeniusApp {
                 const targetId = anchor.getAttribute('href').substring(1);
                 const target = document.getElementById(targetId);
                 if (target) {
-                    // Закриваємо мобільне меню перед прокруткою
                     this.closeMobileMenu();
                     setTimeout(() => {
                         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -472,31 +669,6 @@ class GGeniusApp {
                 }
             }
         }, 'smoothScroll');
-    }
-
-    // ... (решта методів ContentManager і utility функції залишаються без змін) ...
-
-    async initializeAudioSystem() {
-        if (this.performance.isLowPerformance) {
-            this.settings.soundsEnabled = false;
-            this.settings.musicEnabled = false;
-            return;
-        }
-
-        try {
-            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            this.masterGain = this.audioContext.createGain();
-            this.masterGain.gain.setValueAtTime(this.settings.soundVolume, this.audioContext.currentTime);
-            this.masterGain.connect(this.audioContext.destination);
-        } catch (error) {
-            console.warn('Audio system not available:', error);
-            this.settings.soundsEnabled = false;
-        }
-    }
-
-    async setupPerformanceMonitoring() {
-        if (this.performance.isLowPerformance) return;
-        // Моніторинг продуктивності
     }
 
     setupLanguageSwitcher() {
@@ -543,7 +715,6 @@ class GGeniusApp {
             this.settings.language = languageCode;
             localStorage.setItem('ggenius-language', languageCode);
             
-            // Оновлюємо кнопки
             document.querySelectorAll('.language-switcher button').forEach(btn => {
                 const isActive = btn.textContent.toLowerCase() === languageCode;
                 btn.classList.toggle('active', isActive);
@@ -691,7 +862,6 @@ class GGeniusApp {
     }
 
     _handleResize() {
-        // При зміні розміру вікна закриваємо мобільне меню
         if (window.innerWidth > 768) {
             this.closeMobileMenu();
         }
@@ -699,18 +869,16 @@ class GGeniusApp {
 
     _handleVisibilityChange() {
         if (document.visibilityState === 'hidden') {
-            // Закриваємо меню при переході в фон
             this.closeMobileMenu();
         }
     }
 
     fallbackMode(error) {
-        document.documentElement.classList.add('fallback-mode');
+        // Примусово приховуємо loading screen
+        this.forceHideLoading();
         
-        // Показуємо всі fallback елементи
-        document.querySelectorAll('.fallback-text').forEach(element => {
-            element.style.display = 'block';
-        });
+        document.documentElement.classList.add('fallback-mode');
+        this.showFallbackContent();
         
         const message = document.createElement('div');
         message.style.cssText = `
@@ -742,6 +910,7 @@ class GGeniusApp {
         document.body.appendChild(message);
     }
 
+    // Utility methods
     throttle(func, delay) {
         let lastCall = 0;
         return (...args) => {
@@ -783,24 +952,65 @@ class GGeniusApp {
     }
 }
 
-// Ініціалізація з розширеною підтримкою відладки
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('🚀 DOM Content Loaded, initializing GGenius...');
+// Ініціалізація з покращеною обробкою помилок
+function initializeGGenius() {
+    try {
+        console.log('🚀 Starting GGenius initialization...');
         window.app = new GGeniusApp();
         
-        // Debug mode для розробки
+        // Debug mode
         if (localStorage.getItem('ggenius-debug') === 'true') {
             document.documentElement.classList.add('debug-mode');
             console.log('🔧 Debug mode enabled');
         }
-    });
-} else {
-    console.log('🚀 DOM already loaded, initializing GGenius...');
-    window.app = new GGeniusApp();
+    } catch (error) {
+        console.error('💥 Fatal initialization error:', error);
+        
+        // Екстремальний fallback
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+                loadingScreen.remove();
+            }
+            document.body.style.overflow = '';
+            
+            const errorMessage = document.createElement('div');
+            errorMessage.innerHTML = `
+                <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                            background: var(--bg-2); padding: 2rem; border-radius: 12px; 
+                            border: 2px solid var(--pink); color: var(--text-1); 
+                            text-align: center; z-index: 10000; max-width: 400px;">
+                    <h3 style="color: var(--pink); margin-bottom: 1rem;">⚠️ Помилка завантаження</h3>
+                    <p style="margin-bottom: 1rem;">GGenius не може завантажитися.</p>
+                    <button onclick="location.reload()" style="
+                        background: var(--cyan); color: var(--bg-1); border: none; 
+                        padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                        🔄 Перезавантажити
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(errorMessage);
+        }, 1000);
+    }
 }
 
-// Глобальні утиліти для розробки
+// Запуск з множинними точками входу
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeGGenius);
+} else {
+    // DOM вже завантажений
+    initializeGGenius();
+}
+
+// Резервний запуск через window.onload
+window.addEventListener('load', () => {
+    if (!window.app) {
+        console.warn('⚠️ Backup initialization triggered');
+        initializeGGenius();
+    }
+});
+
+// Глобальні утиліти для розробки та відладки
 window.GGeniusDebug = {
     enableDebug() {
         localStorage.setItem('ggenius-debug', 'true');
@@ -812,6 +1022,13 @@ window.GGeniusDebug = {
         localStorage.removeItem('ggenius-debug');
         document.documentElement.classList.remove('debug-mode');
         console.log('🔧 Debug mode disabled');
+    },
+    
+    forceHideLoading() {
+        if (window.app && window.app.forceHideLoading) {
+            window.app.forceHideLoading();
+            console.log('🎯 Loading screen force hidden via debug');
+        }
     },
     
     testMobileMenu() {
@@ -831,6 +1048,14 @@ window.GGeniusDebug = {
     
     reloadContent() {
         return window.app?.contentManager?.loadContent();
+    },
+    
+    getPerformanceMetrics() {
+        return window.app?.performance;
+    },
+    
+    simulateError() {
+        throw new Error('Debug: Simulated error for testing');
     }
 };
 
