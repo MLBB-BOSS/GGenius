@@ -314,37 +314,66 @@
          * @returns {Promise<void>}
          */
         async function loadTranslations(lang = 'uk') {
+            console.log(`[i18n] Attempting to load translations for: ${lang}`);
             try {
                 const response = await fetch(`lang/${lang}.json?v=${new Date().getTime()}`); // Кеш-бастер
+                console.log(`[i18n] Fetch response status for ${lang}.json: ${response.status}`);
+
                 if (!response.ok) {
-                    console.error(`Помилка завантаження файлу перекладу (${lang}.json): ${response.status} ${response.statusText}`);
+                    console.error(`[i18n] HTTP error! Status: ${response.status} for ${lang}.json. URL: ${response.url}`);
                     document.querySelectorAll('[data-i18n-key]').forEach(el => {
-                        if (!el.innerHTML || el.innerHTML.trim() === '' || el.innerHTML.includes('(Ключ не знайдено)')) { // Перевіряємо, чи не порожній або вже не містить помилку
+                        if (!el.innerHTML || el.innerHTML.trim() === '' || el.innerHTML.includes('(Ключ не знайдено)')) {
                             el.innerHTML = `${el.dataset.i18nKey} (Невдале завантаження)`;
                         }
                     });
                     return;
                 }
+                
                 const translations = await response.json();
+                console.log('[i18n] Translations loaded and parsed successfully:', translations);
 
                 document.querySelectorAll('[data-i18n-key]').forEach(el => {
                     const key = el.dataset.i18nKey;
+                    // console.log(`[i18n] Processing element with key: '${key}'`, el); // Можна розкоментувати для детального логування кожного елемента
+
                     if (translations[key] !== undefined) {
-                        if (translations[key].trim() === '' && el.dataset.i18nAllowEmpty !== 'true') { // Додано перевірку на порожній рядок
-                            console.warn(`Ключ '${key}' має порожнє значення у ${lang}.json. Встановлено ключ як текст.`);
+                        const translationValue = translations[key];
+                        console.log(`[i18n] Value for key '${key}':`, JSON.stringify(translationValue)); // Логуємо точне значення з JSON
+
+                        if (typeof translationValue === 'string' && translationValue.trim() === '' && el.dataset.i18nAllowEmpty !== 'true') {
+                            console.warn(`[i18n] Key '${key}' has an empty string value in ${lang}.json. Setting key as text.`);
                             el.innerHTML = `${key} (Порожнє значення)`;
                         } else {
-                            el.innerHTML = translations[key];
+                            el.innerHTML = translationValue; // Встановлюємо HTML
+                            // console.log(`[i18n] Element innerHTML for key '${key}' AFTER set:`, el.innerHTML); // Можна розкоментувати
                         }
+                        
+                        // Додаткова перевірка видимості після встановлення innerHTML
+                        const styles = window.getComputedStyle(el);
+                        const textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '');
+                        const hasVisibleText = textNode && textNode.textContent.trim().length > 0;
+
+                        if (styles.display === 'none' || styles.visibility === 'hidden' || parseFloat(styles.opacity) === 0 || parseFloat(styles.fontSize) === 0) {
+                             console.warn(`[i18n] Element for key '${key}' might be styled to be invisible. Display: ${styles.display}, Visibility: ${styles.visibility}, Opacity: ${styles.opacity}, Font-Size: ${styles.fontSize}`);
+                        } else if (el.innerHTML.includes('>') && !hasVisibleText && el.textContent.trim().length > 0 && el.textContent.trim().length < 5) { // Якщо є HTML, але немає текстових вузлів, і є лише короткий контент (ймовірно, емодзі)
+                            console.warn(`[i18n] Element for key '${key}' contains HTML and emojis, but textual part might not be rendering. el.textContent: '${el.textContent.trim()}'`);
+                        }
+
                     } else {
-                        console.warn(`Ключ перекладу не знайдено: '${key}' у файлі ${lang}.json`);
+                        console.warn(`[i18n] Translation key not found: '${key}' in ${lang}.json.`);
                         if (!el.innerHTML || el.innerHTML.trim() === '') { 
                            el.innerHTML = `${key} (Ключ не знайдено)`;
                         }
                     }
                 });
+                console.log('[i18n] All keys processed.');
             } catch (error) {
-                console.error('Не вдалося завантажити або застосувати переклади:', error);
+                // Перевіряємо, чи помилка не через відповідь, що не є JSON
+                if (error instanceof SyntaxError && error.message.includes("JSON.parse")) {
+                     console.error(`[i18n] Failed to parse JSON from lang/${lang}.json. The server might have returned non-JSON content (e.g., HTML error page). Check Network tab.`, error);
+                } else {
+                    console.error('[i18n] Critical error in loadTranslations:', error);
+                }
                 document.querySelectorAll('[data-i18n-key]').forEach(el => {
                      if (!el.innerHTML || el.innerHTML.trim() === '' || el.innerHTML.includes('(Ключ не знайдено)')) {
                         el.innerHTML = `${el.dataset.i18nKey} (Помилка скрипта)`;
