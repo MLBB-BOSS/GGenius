@@ -768,22 +768,24 @@ p {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* ===============================================
+   HERO SUBTITLE REMOVAL - ВИПРАВЛЕНО
+   =============================================== */
 .project-subtitle {
-    font-size: var(--t-2xl);
-    color: var(--text-2);
-    font-weight: 500;
-    line-height: 1.4;
-    margin-bottom: 0;
+    display: none;
 }
 
-.project-subtitle .gradient-text {
-    background: var(--g1);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 600;
-    position: relative;
+/* Альтернативний варіант з анімацією зникнення (опціонально)
+.project-subtitle {
+    opacity: 0;
+    transform: translateY(-20px);
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+    transition: all var(--trans-slow);
+    pointer-events: none;
 }
+*/
 
 .project-description {
     margin-bottom: var(--s-2xl);
@@ -938,6 +940,107 @@ p {
 }
 
 /* ===============================================
+   MOBILE NAVIGATION STYLES - ВИПРАВЛЕНО
+   =============================================== */
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        gap: 0;
+        background: rgba(var(--bg-1-rgb), 0.95);
+        backdrop-filter: blur(20px);
+        padding: var(--s-2xl) var(--s-l);
+        z-index: var(--z-modal);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-100%);
+        transition: all var(--trans-slow);
+        overflow-y: auto;
+        border-top: 1px solid rgba(var(--text-1-rgb), 0.1);
+    }
+
+    /* ВИПРАВЛЕНО: Використовуємо .active замість .open */
+    .nav-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .nav-menu li {
+        width: 100%;
+        border-bottom: 1px solid rgba(var(--text-1-rgb), 0.05);
+    }
+
+    .nav-menu li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-link {
+        display: block;
+        width: 100%;
+        padding: var(--s-l);
+        font-size: var(--t-l);
+        text-align: center;
+        border-radius: var(--r-l);
+        margin-bottom: var(--s-s);
+        transition: all var(--trans);
+    }
+
+    .nav-link:hover,
+    .nav-link:focus-visible {
+        background: rgba(var(--cyan-rgb), 0.1);
+        transform: none;
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+    /* Body lock при відкритому меню */
+    body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Анімація мобільного меню */
+    .nav-menu li {
+        animation: slideInFromTop 0.5s ease-out forwards;
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    .nav-menu.active li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-menu.active li:nth-child(1) { animation-delay: 0.1s; }
+    .nav-menu.active li:nth-child(2) { animation-delay: 0.2s; }
+    .nav-menu.active li:nth-child(3) { animation-delay: 0.3s; }
+    .nav-menu.active li:nth-child(4) { animation-delay: 0.4s; }
+    .nav-menu.active li:nth-child(5) { animation-delay: 0.5s; }
+}
+
+@keyframes slideInFromTop {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===============================================
    DECORATIVE ELEMENTS - Enhanced Cyberpunk
    =============================================== */
 .project-decorations {
@@ -996,158 +1099,350 @@ p {
 .decoration-line.line-1 {
     width: 2px;
     height: 100px;
-    background: linear-gradient(45deg, rgba(var(--cyan-rgb), 0.3), transparent);
-    animation: lineFloat 6s ease-in-out infinite alternate;
+    top: 30%;
+    left: 20%;
 }
 
 .decoration-line.line-2 {
-    width: 2px;
-    height: 80px;
-    background: linear-gradient(45deg, rgba(var(--purple-rgb), 0.3), transparent);
-    animation: lineFloat 6s ease-in-out infinite alternate;
+    width: 100px;
+    height: 2px;
+    bottom: 40%;
+    right: 25%;
+    animation-delay: -3s;
 }
 
 @keyframes lineFloat {
-    0% { transform: translateY(0px) }
-    100% { transform: translateY(-10px) }
+    0% { opacity: 0.3; transform: scale(1) rotate(0deg); }
+    100% { opacity: 0.7; transform: scale(1.1) rotate(5deg); }
 }
-
-/* ... 
-   (Here are where toast styles would typically reside before being truncated) 
-   ...
-*/
 
 /* ===============================================
-   STYLES FOR TOASTS (implied existing styles)
+   SCROLL PROGRESS BAR
    =============================================== */
-/* (No specific code shown for toasts, but we assume it ends here)
-   ...
-   ...
-   ...
-*/
-
-/* ===============================================
-   New Header Styles (Appended Below)
-   =============================================== */
-
-/* Header styles */
-.site-header {
-    position: relative;
-    width: 100%;
-    background: var(--bg-2);
-    z-index: var(--z-modal);
-    box-sizing: border-box;
-    --header-h: 60px; /* Встановлюємо висоту панелі, якщо не визначено */
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--s-m) var(--s-l);
-    max-width: 1200px;
-    margin: 0 auto;
-    height: var(--header-h);
-}
-
-.header-logo-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text-1);
-}
-
-.header-logo-text {
-    font-size: var(--t-l);
-    font-weight: bold;
-    transition: color var(--transition-normal);
-}
-
-.header-logo-text:hover {
-    color: var(--yellow);
-}
-
-.main-navigation {
-    display: flex;
-    align-items: center;
-}
-
-.mobile-menu-toggle {
-    display: none;
-    padding: var(--s-xs) var(--s-s);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: var(--text-1);
-    font-size: var(--t-m);
-    z-index: 10;
-}
-
-.hamburger-line {
-    display: block;
-    width: 25px;
+.scroll-progress {
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    width: 0%;
     height: 3px;
-    background: var(--text-1);
-    margin: 4px 0;
-    transition: transform 0.3s;
+    background: var(--g1);
+    z-index: var(--z-sticky);
+    transition: width 0.1s ease-out;
+    box-shadow: 0 0 10px rgba(var(--cyan-rgb), 0.5);
 }
 
-.mobile-menu-toggle[aria-expanded="true"] .line-1 {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-.mobile-menu-toggle[aria-expanded="true"] .line-2 {
-    opacity: 0;
-}
-.mobile-menu-toggle[aria-expanded="true"] .line-3 {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
-
-.nav-menu {
-    list-style: none;
-    display: flex;
-    gap: var(--s-m);
-    margin: 0;
-    padding: 0;
-}
-
-.nav-link {
+/* ===============================================
+   NOTIFICATION SYSTEM
+   =============================================== */
+.notification {
+    position: fixed;
+    top: calc(var(--header-h) + var(--s-s));
+    right: var(--s-s);
+    background: rgba(var(--bg-2-rgb), 0.95);
     color: var(--text-1);
-    text-decoration: none;
-    padding: var(--s-xs) var(--s-s);
-    transition: color var(--transition-normal);
+    padding: var(--s-m) var(--s-l);
+    border-radius: var(--r-l);
+    box-shadow: var(--shadow-xl);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(var(--text-1-rgb), 0.1);
+    z-index: var(--z-modal);
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all var(--trans);
+    min-width: 300px;
+    max-width: 400px;
 }
 
-.nav-link:hover,
-.nav-link.active {
+.notification.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.notification.notification--success {
+    border-left: 4px solid var(--green);
+    background: linear-gradient(135deg, rgba(var(--green-rgb), 0.1), rgba(var(--bg-2-rgb), 0.95));
+}
+
+.notification.notification--error {
+    border-left: 4px solid var(--pink);
+    background: linear-gradient(135deg, rgba(var(--pink-rgb), 0.1), rgba(var(--bg-2-rgb), 0.95));
+}
+
+.notification.notification--info {
+    border-left: 4px solid var(--cyan);
+    background: linear-gradient(135deg, rgba(var(--cyan-rgb), 0.1), rgba(var(--bg-2-rgb), 0.95));
+}
+
+/* ===============================================
+   ENHANCED CONTENT LOADING ANIMATIONS
+   =============================================== */
+[data-content] {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+[data-content].content-loading {
+    opacity: 0.6;
+    transform: translateY(5px);
+}
+
+[data-content].content-loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[data-content].content-error {
+    color: var(--pink);
+    font-style: italic;
+    opacity: 0.8;
+}
+
+[data-content].content-error::before {
+    content: "⚠️ ";
+}
+
+/* Gradient text support */
+.gradient-text {
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* ===============================================
+   ACCESSIBILITY ENHANCEMENTS
+   =============================================== */
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .gradient-text {
+        -webkit-text-fill-color: var(--cyan);
+        background: none;
+    }
+    
+    .project-subtitle {
+        color: var(--text-1);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .project-intro-card {
+        animation: none;
+    }
+    
+    .project-motto-badge {
+        animation: none;
+    }
+    
+    .decoration-orb,
+    .decoration-line {
+        animation: none;
+    }
+    
+    body::before {
+        animation: none;
+    }
+}
+
+/* Debug mode styles */
+.debug-mode [data-content] {
+    outline: 1px dashed var(--yellow);
+    position: relative;
+}
+
+.debug-mode [data-content]::after {
+    content: attr(data-content);
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 10px;
     color: var(--yellow);
+    background: var(--bg-1);
+    padding: 2px 4px;
+    border-radius: 2px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
 }
 
-/* Мобільна адаптація */
+/* ===============================================
+   PERFORMANCE OPTIMIZATIONS
+   =============================================== */
+/* GPU acceleration for animations */
+.project-intro-card,
+.decoration-orb,
+.project-motto-badge,
+.cta-button,
+.nav-link {
+    will-change: transform;
+}
+
+/* Optimized transforms */
+.nav-menu.active,
+.mobile-menu-toggle.active .hamburger-line {
+    transform: translateZ(0);
+}
+
+/* Content visibility optimization */
+.decoration-orb,
+.decoration-line {
+    content-visibility: auto;
+    contain-intrinsic-size: 200px 200px;
+}
+
+/* ===============================================
+   LOADING SCREEN STYLES
+   =============================================== */
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--g-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: var(--z-max);
+    transition: opacity var(--trans-slow);
+}
+
+.loading-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(var(--cyan-rgb), 0.3);
+    border-top: 3px solid var(--cyan);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===============================================
+   ENHANCED ANIMATION UTILITIES
+   =============================================== */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all var(--trans-slow);
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animate-on-load {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--trans);
+}
+
+.animate-on-load.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===============================================
+   RESPONSIVE TYPOGRAPHY IMPROVEMENTS
+   =============================================== */
 @media (max-width: 768px) {
-    .mobile-menu-toggle {
-        display: block;
-        margin-left: auto;
+    .project-title {
+        font-size: var(--t-4xl);
+        line-height: 1.1;
     }
+    
+    .project-motto-badge {
+        font-size: var(--t-base);
+        padding: var(--s-s) var(--s-l);
+        margin-bottom: var(--s-l);
+    }
+    
+    .motto-icon {
+        font-size: 1.25em;
+    }
+    
+    .project-status-badge {
+        font-size: var(--t-2xs);
+        padding: var(--s-xs) var(--s-m);
+    }
+    
+    .cta-button.community-cta {
+        font-size: var(--t-l);
+        padding: var(--s-m) var(--s-2xl);
+        min-height: 3.5rem;
+    }
+    
+    .project-intro-card {
+        padding: var(--s-xl);
+        border-radius: var(--r-2xl);
+    }
+    
+    .container {
+        padding-left: var(--s-s);
+        padding-right: var(--s-s);
+    }
+}
 
-    .nav-menu {
-        display: none;
-        position: absolute;
-        top: var(--header-h);
-        right: 0;
-        background: var(--bg-2);
+@media (max-width: 480px) {
+    .project-title {
+        font-size: var(--t-3xl);
+    }
+    
+    .project-motto-badge {
+        font-size: var(--t-s);
+        padding: var(--s-xs) var(--s-m);
         flex-direction: column;
-        width: 200px;
-        padding: var(--s-m);
-        border-radius: var(--r-m);
-        box-shadow: var(--shadow-lg);
+        gap: var(--s-xs);
     }
-
-    .nav-menu.open {
-        display: flex;
+    
+    .cta-button.community-cta {
+        font-size: var(--t-base);
+        padding: var(--s-s) var(--s-xl);
     }
+}
 
-    .nav-link {
-        display: block;
-        padding: var(--s-s);
+/* ===============================================
+   PRINT STYLES
+   =============================================== */
+@media print {
+    .site-header,
+    .mobile-menu-toggle,
+    .nav-menu,
+    .project-decorations,
+    .scroll-progress,
+    .notification {
+        display: none !important;
+    }
+    
+    body {
+        padding-top: 0;
+        background: white !important;
+        color: black !important;
+    }
+    
+    .project-intro-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        background: white;
+    }
+    
+    .gradient-text {
+        -webkit-text-fill-color: black;
+        background: none;
     }
 }
