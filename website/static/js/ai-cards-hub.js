@@ -33,6 +33,11 @@ const CONFIG = {
     ACCESSIBILITY: {
         FOCUS_VISIBLE_TIMEOUT: 150,
         ANNOUNCE_DELAY: 100
+    },
+    Z_INDEX: {
+        CARD_OVERLAY: 1499,
+        CARD_EXPANDED: 1500,
+        NOTIFICATION: 2000
     }
 };
 
@@ -40,9 +45,6 @@ const CONFIG = {
  * Утилітарні функції
  */
 class Utils {
-    /**
-     * Debounce функція для оптимізації подій
-     */
     static debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -55,9 +57,6 @@ class Utils {
         };
     }
 
-    /**
-     * Throttle функція для scroll/resize подій
-     */
     static throttle(func, limit) {
         let inThrottle;
         return function executedFunction(...args) {
@@ -69,25 +68,16 @@ class Utils {
         };
     }
 
-    /**
-     * Безпечна затримка
-     */
     static delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    /**
-     * Escape HTML для безпеки
-     */
     static escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
 
-    /**
-     * Перевірка підтримки браузера
-     */
     static checkBrowserSupport() {
         const features = {
             'CSS Transform 3D': 'transform' in document.documentElement.style,
@@ -110,16 +100,10 @@ class Utils {
         return { supported: true, missing: [] };
     }
 
-    /**
-     * Генерація унікального ID
-     */
     static generateId(prefix = 'card') {
         return `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     }
 
-    /**
-     * Отримання даних з sessionStorage
-     */
     static getSessionData(key) {
         try {
             const data = sessionStorage.getItem(key);
@@ -130,9 +114,6 @@ class Utils {
         }
     }
 
-    /**
-     * Збереження даних в sessionStorage
-     */
     static setSessionData(key, data) {
         try {
             sessionStorage.setItem(key, JSON.stringify(data));
@@ -153,9 +134,6 @@ class EventManager {
         this.abortController = new AbortController();
     }
 
-    /**
-     * Додавання обробника подій
-     */
     addEventListener(element, event, handler, options = {}) {
         if (!element || typeof handler !== 'function') {
             console.warn('Невалідні параметри для addEventListener');
@@ -169,16 +147,12 @@ class EventManager {
 
         element.addEventListener(event, handler, finalOptions);
 
-        // Зберігаємо для можливого ручного видалення
         const key = `${element.constructor.name}-${event}-${Date.now()}`;
         this.listeners.set(key, { element, event, handler });
 
         return key;
     }
 
-    /**
-     * Видалення конкретного обробника
-     */
     removeEventListener(key) {
         const listener = this.listeners.get(key);
         if (listener) {
@@ -187,9 +161,6 @@ class EventManager {
         }
     }
 
-    /**
-     * Очищення всіх обробників
-     */
     cleanup() {
         this.abortController.abort();
         this.listeners.clear();
@@ -217,9 +188,6 @@ class NotificationSystem {
         return container;
     }
 
-    /**
-     * Показ нотифікації
-     */
     show(message, type = 'info', duration = 4000) {
         const id = Utils.generateId('notification');
         const notification = this.createNotification(message, type, id);
@@ -227,22 +195,15 @@ class NotificationSystem {
         this.container.appendChild(notification);
         this.notifications.set(id, notification);
 
-        // Анімація появи
         requestAnimationFrame(() => {
             notification.classList.add('show');
         });
 
-        // Автоматичне видалення
-        setTimeout(() => {
-            this.hide(id);
-        }, duration);
+        setTimeout(() => this.hide(id), duration);
 
         return id;
     }
 
-    /**
-     * Створення елемента нотифікації
-     */
     createNotification(message, type, id) {
         const notification = document.createElement('div');
         notification.id = id;
@@ -252,16 +213,12 @@ class NotificationSystem {
             <button class="notification-close" aria-label="Закрити повідомлення">×</button>
         `;
 
-        // Кнопка закриття
         const closeBtn = notification.querySelector('.notification-close');
         closeBtn.addEventListener('click', () => this.hide(id));
 
         return notification;
     }
 
-    /**
-     * Приховування нотифікації
-     */
     hide(id) {
         const notification = this.notifications.get(id);
         if (!notification) return;
@@ -275,9 +232,6 @@ class NotificationSystem {
         }, 300);
     }
 
-    /**
-     * Очищення всіх нотифікацій
-     */
     clear() {
         this.notifications.forEach((_, id) => this.hide(id));
     }
@@ -298,7 +252,8 @@ class StatsManager {
             aiInteractions: 0,
             successfulActions: 0,
             sessionCount: 0,
-            totalTime: 0
+            totalTime: 0,
+            cardExpansions: 0 // Додано статистику для розширень карток
         };
     }
 
@@ -335,8 +290,8 @@ class StatsManager {
         const element = document.getElementById(key.replace(/([A-Z])/g, '-$1').toLowerCase());
         if (element) {
             const value = key === 'successRate' ? this.getSuccessRate() + '%' : 
-                         key === 'sessionTime' ? this.getSessionTime() : 
-                         this.stats[key];
+                          key === 'sessionTime' ? this.getSessionTime() : 
+                          this.stats[key];
             element.textContent = value;
         }
     }
@@ -353,12 +308,10 @@ class StatsManager {
  */
 class AICardsHub {
     constructor() {
-        // Ініціалізація підсистем
         this.eventManager = new EventManager();
         this.notifications = new NotificationSystem();
         this.stats = new StatsManager();
         
-        // Стан системи
         this.state = {
             cards: new Map(),
             expandedCard: null,
@@ -368,63 +321,45 @@ class AICardsHub {
             isInitialized: false
         };
 
-        // DOM елементи
         this.elements = {};
-
-        // Intersection Observer для ледачого завантаження
         this.intersectionObserver = null;
+        this.focusTrapHandler = null;
+        this.escapeHandler = null;
+        this.overlayClickHandler = null;
 
-        // Ініціалізація
         this.init().catch(error => {
             console.error('❌ Критична помилка ініціалізації:', error);
             this.handleCriticalError(error);
         });
     }
 
-    /**
-     * Асинхронна ініціалізація
-     */
     async init() {
         try {
             console.log('🚀 Ініціалізація AI Cards Hub v2.0...');
 
-            // Перевірка підтримки браузера
             const browserCheck = Utils.checkBrowserSupport();
             if (!browserCheck.supported) {
                 this.showFallbackMode(browserCheck.missing);
                 return;
             }
 
-            // Ініціалізація DOM
             this.initializeDOM();
-
-            // Налаштування спостерігачів
             this.setupObservers();
-
-            // Налаштування подій
             this.setupEventListeners();
-
-            // Завантаження карток
             await this.loadCards();
 
-            // Завершення ініціалізації
             this.state.isInitialized = true;
             this.stats.increment('sessionCount');
             
             this.notifications.show('🎮 AI Cards Hub готовий до роботи!', 'success');
             console.log('✅ AI Cards Hub успішно ініціалізовано');
-
         } catch (error) {
             console.error('❌ Помилка ініціалізації:', error);
             throw error;
         }
     }
 
-    /**
-     * Ініціалізація DOM елементів
-     */
     initializeDOM() {
-        // Основні контейнери
         this.elements = {
             container: document.getElementById('ai-cards-container'),
             grid: document.getElementById('cards-hub-grid'),
@@ -434,18 +369,13 @@ class AICardsHub {
             overlay: this.getOrCreateOverlay()
         };
 
-        // Перевірка обов'язкових елементів
         if (!this.elements.container || !this.elements.grid) {
             throw new Error('Відсутні критичні DOM елементи для AI Cards Hub');
         }
 
-        // Налаштування accessibility
         this.setupAccessibility();
     }
 
-    /**
-     * Отримання або створення overlay
-     */
     getOrCreateOverlay() {
         let overlay = document.getElementById('card-overlay');
         if (!overlay) {
@@ -458,9 +388,6 @@ class AICardsHub {
         return overlay;
     }
 
-    /**
-     * Налаштування accessibility
-     */
     setupAccessibility() {
         const { grid } = this.elements;
         
@@ -468,7 +395,6 @@ class AICardsHub {
         grid.setAttribute('aria-label', 'AI Cards Hub - Інтерактивні картки');
         grid.setAttribute('tabindex', '0');
 
-        // Screen reader announcements
         if (!document.getElementById('sr-announcements')) {
             const announcer = document.createElement('div');
             announcer.id = 'sr-announcements';
@@ -479,11 +405,7 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Налаштування спостерігачів
-     */
     setupObservers() {
-        // Intersection Observer для оптимізації
         if ('IntersectionObserver' in window) {
             this.intersectionObserver = new IntersectionObserver(
                 this.handleIntersection.bind(this),
@@ -491,7 +413,6 @@ class AICardsHub {
             );
         }
 
-        // Resize Observer для адаптивності
         if ('ResizeObserver' in window) {
             this.resizeObserver = new ResizeObserver(
                 Utils.throttle(this.handleResize.bind(this), 250)
@@ -500,41 +421,23 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Налаштування обробників подій
-     */
     setupEventListeners() {
-        const { grid, overlay, controls } = this.elements;
+        const { grid, controls } = this.elements;
 
-        // Основні події карток
         this.eventManager.addEventListener(grid, 'click', this.handleCardClick.bind(this));
         this.eventManager.addEventListener(grid, 'dblclick', this.handleCardDoubleClick.bind(this));
         this.eventManager.addEventListener(grid, 'keydown', this.handleKeyNavigation.bind(this));
+        this.eventManager.addEventListener(document, 'keydown', this.handleGlobalKeys.bind(this));
+        this.eventManager.addEventListener(document, 'visibilitychange', this.handleVisibilityChange.bind(this));
+        this.eventManager.addEventListener(window, 'beforeunload', this.saveState.bind(this));
 
-        // Drag & Drop
         this.setupDragAndDrop();
 
-        // Overlay для закриття розширених карток
-        this.eventManager.addEventListener(overlay, 'click', this.closeExpandedCard.bind(this));
-
-        // Глобальні клавіші
-        this.eventManager.addEventListener(document, 'keydown', this.handleGlobalKeys.bind(this));
-
-        // Controls
         if (controls) {
             this.setupControlsEvents();
         }
-
-        // Visibility change для паузи анімацій
-        this.eventManager.addEventListener(document, 'visibilitychange', this.handleVisibilityChange.bind(this));
-
-        // Збереження стану перед закриттям
-        this.eventManager.addEventListener(window, 'beforeunload', this.saveState.bind(this));
     }
 
-    /**
-     * Налаштування подій для контролів
-     */
     setupControlsEvents() {
         const controlActions = {
             'cards-refresh': () => this.refreshCards(),
@@ -550,7 +453,6 @@ class AICardsHub {
             }
         });
 
-        // View mode toggle
         const viewModeButtons = document.querySelectorAll('.view-mode-btn');
         viewModeButtons.forEach(btn => {
             this.eventManager.addEventListener(btn, 'click', (e) => {
@@ -559,9 +461,6 @@ class AICardsHub {
         });
     }
 
-    /**
-     * Налаштування Drag & Drop
-     */
     setupDragAndDrop() {
         let dragState = {
             isDragging: false,
@@ -569,7 +468,6 @@ class AICardsHub {
             currentCard: null
         };
 
-        // Mouse events
         this.eventManager.addEventListener(this.elements.grid, 'mousedown', (e) => {
             const card = e.target.closest('.ai-card');
             if (!card || card.classList.contains('expanded')) return;
@@ -604,13 +502,9 @@ class AICardsHub {
             this.resetDragState(dragState);
         });
 
-        // Touch events
         this.setupTouchDrag(dragState);
     }
 
-    /**
-     * Touch Drag Support
-     */
     setupTouchDrag(dragState) {
         this.eventManager.addEventListener(this.elements.grid, 'touchstart', (e) => {
             const card = e.target.closest('.ai-card');
@@ -650,9 +544,6 @@ class AICardsHub {
         });
     }
 
-    /**
-     * Завантаження карток
-     */
     async loadCards() {
         if (this.state.isLoading) return;
 
@@ -671,9 +562,7 @@ class AICardsHub {
             this.updateCardsCounter(cardsData.length);
             this.hideLoadingState();
 
-            // Screen reader announcement
             this.announceToScreenReader(`Завантажено ${cardsData.length} AI карток`);
-
         } catch (error) {
             console.error('Помилка завантаження карток:', error);
             this.notifications.show('Не вдалося завантажити картки', 'error');
@@ -683,9 +572,6 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Отримання даних карток
-     */
     async fetchCardsData() {
         try {
             const response = await fetch(`${CONFIG.API_BASE}/cards`, {
@@ -698,16 +584,12 @@ class AICardsHub {
             }
 
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-
         } catch (error) {
             console.warn('API недоступний, використовуємо mock дані:', error);
             return this.getMockCardsData();
         }
     }
 
-    /**
-     * Mock дані для розробки
-     */
     getMockCardsData() {
         return [
             {
@@ -753,20 +635,15 @@ class AICardsHub {
         ];
     }
 
-    /**
-     * Рендеринг карток з оптимізацією
-     */
     async renderCards(cardsData) {
         const fragment = document.createDocumentFragment();
         
-        // Очищаємо існуючі картки
         this.clearCards();
 
         for (let i = 0; i < cardsData.length; i++) {
             const cardData = cardsData[i];
             const cardElement = this.createCardElement(cardData, i);
             
-            // Зберігаємо стан картки
             this.state.cards.set(cardData.id, {
                 element: cardElement,
                 data: cardData,
@@ -776,28 +653,21 @@ class AICardsHub {
 
             fragment.appendChild(cardElement);
 
-            // Intersection Observer для ледачого завантаження
             if (this.intersectionObserver) {
                 this.intersectionObserver.observe(cardElement);
             }
         }
 
         this.elements.grid.appendChild(fragment);
-
-        // Запускаємо анімацію появи
         await this.animateCardsEntrance();
     }
 
-    /**
-     * Створення елемента картки
-     */
     createCardElement(cardData, index) {
         const card = document.createElement('div');
         card.className = `ai-card card-type-${cardData.type}`;
         card.dataset.cardId = cardData.id;
         card.style.animationDelay = `${index * CONFIG.ANIMATION.STAGGER_DELAY}ms`;
         
-        // Accessibility
         card.setAttribute('role', 'gridcell');
         card.setAttribute('tabindex', '0');
         card.setAttribute('aria-label', `${cardData.title}: ${cardData.description}`);
@@ -820,9 +690,6 @@ class AICardsHub {
         return card;
     }
 
-    /**
-     * Анімація появи карток
-     */
     async animateCardsEntrance() {
         const cards = this.elements.grid.querySelectorAll('.ai-card');
         
@@ -832,9 +699,6 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Обробка кліку по картці
-     */
     async handleCardClick(event) {
         const card = event.target.closest('.ai-card');
         if (!card) return;
@@ -844,93 +708,70 @@ class AICardsHub {
 
         if (!cardState) return;
 
-        // Обробка кліку по кнопці дії
         const actionButton = event.target.closest('.action-button');
         if (actionButton) {
             await this.handleActionClick(actionButton, cardState);
             return;
         }
 
-        // Обробка кліку по кнопці закриття
         const closeButton = event.target.closest('.close-card');
         if (closeButton) {
             this.closeExpandedCard();
             return;
         }
 
-        // Flip картки
         await this.flipCard(card, cardState);
     }
 
-    /**
-     * Flip анімація картки
-     */
     async flipCard(cardElement, cardState) {
         if (cardElement.classList.contains('expanded') || this.state.isLoading) return;
 
         try {
-            // Оновлюємо статистику
             this.stats.increment('totalFlips');
             
-            // Переключаємо стан
             cardState.isFlipped = !cardState.isFlipped;
             cardElement.classList.toggle('flipped', cardState.isFlipped);
 
-            // Завантаження дій для задньої сторони
             if (cardState.isFlipped && !cardState.actionsLoaded) {
                 await this.loadCardActions(cardElement, cardState);
             }
 
-            // Screen reader announcement
             const status = cardState.isFlipped ? 'перевернута' : 'повернута';
             this.announceToScreenReader(`Картка ${cardState.data.title} ${status}`);
-
         } catch (error) {
             console.error('Помилка flip картки:', error);
             this.notifications.show('Помилка перевертання картки', 'error');
         }
     }
 
-    /**
-     * Завантаження дій для картки
-     */
     async loadCardActions(cardElement, cardState) {
         const actionsContainer = cardElement.querySelector('.card-actions');
         if (!actionsContainer) return;
 
         try {
-            // Показуємо loading
             actionsContainer.innerHTML = '<div class="loading-actions">⏳ Завантаження...</div>';
 
-            // Отримуємо дії з API або mock
             const actions = await this.fetchCardActions(cardState.data.id);
             
-            // Очищаємо контейнер
             actionsContainer.innerHTML = '';
 
-            // Створюємо кнопки дій
             actions.forEach(action => {
                 const button = this.createActionButton(action);
                 actionsContainer.appendChild(button);
             });
 
-            // Додаємо AI response область
             const aiResponse = document.createElement('div');
             aiResponse.className = 'ai-response';
             aiResponse.textContent = 'AI готовий допомогти...';
             actionsContainer.appendChild(aiResponse);
 
             cardState.actionsLoaded = true;
-
         } catch (error) {
             console.error('Помилка завантаження дій:', error);
             actionsContainer.innerHTML = '<div class="error-actions">❌ Помилка завантаження</div>';
         }
     }
 
-    /**
-     * Отримання дій картки
-     */
     async fetchCardActions(cardId) {
         try {
             const response = await fetch(`${CONFIG.API_BASE}/cards/${cardId}/actions`);
@@ -942,13 +783,9 @@ class AICardsHub {
             console.warn('API недоступний для дій, використовуємо mock:', error);
         }
 
-        // Mock дії
         return this.getMockActions(cardId);
     }
 
-    /**
-     * Mock дії для карток
-     */
     getMockActions(cardId) {
         const actionsMap = {
             'guides_card': [
@@ -976,9 +813,6 @@ class AICardsHub {
         return actionsMap[cardId] || [];
     }
 
-    /**
-     * Створення кнопки дії
-     */
     createActionButton(actionData) {
         const button = document.createElement('button');
         button.className = `action-button ${actionData.primary ? 'primary' : ''}`;
@@ -990,29 +824,21 @@ class AICardsHub {
         return button;
     }
 
-    /**
-     * Обробка дій картки
-     */
     async handleActionClick(button, cardState) {
         const action = button.dataset.action;
         const originalText = button.textContent;
 
         try {
-            // UI стан loading
             button.disabled = true;
             button.textContent = '⏳ Обробка...';
 
-            // Виконання дії
             const result = await this.executeAction(action, cardState.data);
 
-            // Оновлення статистики
             this.stats.increment('aiInteractions');
             this.stats.increment('successfulActions');
 
-            // Показ результату
             this.showActionResult(cardState, result);
             this.notifications.show(`Дію "${originalText}" виконано успішно!`, 'success');
-
         } catch (error) {
             console.error('Помилка виконання дії:', error);
             this.notifications.show('Помилка виконання дії', 'error');
@@ -1022,9 +848,6 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Виконання дії
-     */
     async executeAction(action, cardData) {
         try {
             const response = await fetch(`${CONFIG.API_BASE}/cards/${cardData.id}/action`, {
@@ -1040,14 +863,10 @@ class AICardsHub {
             console.warn('API недоступний, mock результат:', error);
         }
 
-        // Mock результат
         await Utils.delay(Math.random() * 1000 + 500);
         return this.getMockActionResult(action, cardData);
     }
 
-    /**
-     * Mock результати дій
-     */
     getMockActionResult(action, cardData) {
         const results = {
             'ai-analysis': {
@@ -1069,9 +888,6 @@ class AICardsHub {
         return results[action] || { type: 'success', message: 'Дію виконано успішно' };
     }
 
-    /**
-     * Показ результату дії
-     */
     showActionResult(cardState, result) {
         const aiResponse = cardState.element.querySelector('.ai-response');
         if (!aiResponse) return;
@@ -1092,11 +908,345 @@ class AICardsHub {
         }
     }
 
-    // === UTILITY METHODS ===
+    /** 
+     * Розширення картки з повною функціональністю
+     * @param {HTMLElement} cardElement - Елемент картки для розширення
+     */
+    expandCard(cardElement) {
+        if (this.state.expandedCard) {
+            this.closeExpandedCard();
+            return;
+        }
+
+        try {
+            console.log('🔍 Розширення картки:', cardElement.dataset.cardId);
+
+            if (!cardElement || cardElement.classList.contains('expanded')) {
+                return;
+            }
+
+            const originalRect = cardElement.getBoundingClientRect();
+            cardElement.dataset.originalPosition = JSON.stringify({
+                top: originalRect.top,
+                left: originalRect.left,
+                width: originalRect.width,
+                height: originalRect.height
+            });
+
+            this.elements.overlay.style.zIndex = CONFIG.Z_INDEX.CARD_OVERLAY;
+            this.elements.overlay.classList.add('active');
+            this.elements.overlay.setAttribute('aria-hidden', 'false');
+
+            document.body.classList.add('modal-open');
+            document.body.style.overflow = 'hidden';
+
+            const closeButton = this.createCloseButton();
+            cardElement.appendChild(closeButton);
+
+            cardElement.classList.add('expanded');
+            cardElement.setAttribute('aria-modal', 'true');
+            cardElement.setAttribute('role', 'dialog');
+            cardElement.setAttribute('aria-labelledby', cardElement.querySelector('.card-title')?.id || 'expanded-card-title');
+            cardElement.style.zIndex = CONFIG.Z_INDEX.CARD_EXPANDED;
+
+            this.state.expandedCard = cardElement;
+
+            this.setupFocusTrap(cardElement);
+            this.setupCloseHandlers(cardElement);
+
+            setTimeout(() => {
+                const firstFocusable = this.getFirstFocusableElement(cardElement);
+                if (firstFocusable) {
+                    firstFocusable.focus();
+                } else {
+                    closeButton.focus();
+                }
+            }, 100);
+
+            const cardTitle = cardElement.querySelector('.card-title')?.textContent || 'картка';
+            this.announceToScreenReader(`${cardTitle} розширена. Натисніть Escape або кнопку закриття для виходу`);
+
+            this.stats.increment('cardExpansions');
+
+            console.log('✅ Картка успішно розширена');
+        } catch (error) {
+            console.error('❌ Помилка розширення картки:', error);
+            this.handleError(error, 'Не вдалося розширити картку');
+            this.cleanupExpandedCard(cardElement);
+        }
+    }
 
     /**
-     * Показ loading стану
+     * Створення кнопки закриття з правильними обробниками
+     * @returns {HTMLElement} Кнопка закриття
      */
+    createCloseButton() {
+        const closeButton = document.createElement('button');
+        closeButton.className = 'close-card';
+        closeButton.innerHTML = '×';
+        closeButton.setAttribute('aria-label', 'Закрити розширену картку');
+        closeButton.setAttribute('title', 'Закрити (Escape)');
+        closeButton.type = 'button';
+
+        const closeHandler = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            this.closeExpandedCard();
+        };
+
+        closeButton.addEventListener('click', closeHandler);
+        closeButton.addEventListener('touchend', closeHandler);
+
+        closeButton._closeHandler = closeHandler;
+
+        return closeButton;
+    }
+
+    /**
+     * Налаштування обробників закриття
+     * @param {HTMLElement} cardElement - Розширена картка
+     */
+    setupCloseHandlers(cardElement) {
+        this.escapeHandler = (event) => {
+            if (event.key === 'Escape' && this.state.expandedCard === cardElement) {
+                event.preventDefault();
+                this.closeExpandedCard();
+            }
+        };
+
+        this.overlayClickHandler = (event) => {
+            if (event.target === this.elements.overlay) {
+                event.preventDefault();
+                this.closeExpandedCard();
+            }
+        };
+
+        document.addEventListener('keydown', this.escapeHandler);
+        this.elements.overlay.addEventListener('click', this.overlayClickHandler);
+    }
+
+    /**
+     * Закриття розширеної картки з анімацією
+     */
+    async closeExpandedCard() {
+        if (!this.state.expandedCard) {
+            return;
+        }
+
+        const cardElement = this.state.expandedCard;
+
+        try {
+            console.log('🔒 Закриття розширеної картки');
+
+            cardElement.classList.add('closing');
+
+            await new Promise(resolve => {
+                const handleAnimationEnd = () => {
+                    cardElement.removeEventListener('animationend', handleAnimationEnd);
+                    resolve();
+                };
+                cardElement.addEventListener('animationend', handleAnimationEnd);
+
+                setTimeout(resolve, 400);
+            });
+
+            this.cleanupExpandedCard(cardElement);
+
+            console.log('✅ Картка успішно закрита');
+        } catch (error) {
+            console.error('❌ Помилка закриття картки:', error);
+            this.cleanupExpandedCard(cardElement);
+        }
+    }
+
+    /**
+     * Очищення стану розширеної картки
+     * @param {HTMLElement} cardElement - Картка для очищення
+     */
+    cleanupExpandedCard(cardElement) {
+        try {
+            cardElement.classList.remove('expanded', 'closing');
+            cardElement.removeAttribute('aria-modal');
+            cardElement.removeAttribute('role');
+            cardElement.removeAttribute('aria-labelledby');
+            cardElement.style.zIndex = '';
+
+            const closeButton = cardElement.querySelector('.close-card');
+            if (closeButton) {
+                if (closeButton._closeHandler) {
+                    closeButton.removeEventListener('click', closeButton._closeHandler);
+                    closeButton.removeEventListener('touchend', closeButton._closeHandler);
+                }
+                closeButton.remove();
+            }
+
+            this.elements.overlay.classList.remove('active');
+            this.elements.overlay.setAttribute('aria-hidden', 'true');
+            this.elements.overlay.style.zIndex = '';
+
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = '';
+
+            if (this.escapeHandler) {
+                document.removeEventListener('keydown', this.escapeHandler);
+                this.escapeHandler = null;
+            }
+
+            if (this.overlayClickHandler) {
+                this.elements.overlay.removeEventListener('click', this.overlayClickHandler);
+                this.overlayClickHandler = null;
+            }
+
+            this.cleanupFocusTrap(cardElement);
+
+            setTimeout(() => {
+                if (cardElement.focus) {
+                    cardElement.focus();
+                }
+            }, 100);
+
+            this.state.expandedCard = null;
+
+            this.announceToScreenReader('Картка закрита');
+        } catch (error) {
+            console.error('❌ Помилка очищення картки:', error);
+            this.state.expandedCard = null;
+            document.body.style.overflow = '';
+            document.body.classList.remove('modal-open');
+        }
+    }
+
+    /**
+     * Налаштування focus trap для accessibility
+     * @param {HTMLElement} cardElement - Розширена картка
+     */
+    setupFocusTrap(cardElement) {
+        const focusableElements = this.getFocusableElements(cardElement);
+        
+        if (focusableElements.length === 0) {
+            return;
+        }
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        this.focusTrapHandler = (event) => {
+            if (event.key !== 'Tab') return;
+
+            if (event.shiftKey) {
+                if (document.activeElement === firstElement) {
+                    event.preventDefault();
+                    lastElement.focus();
+                }
+            } else {
+                if (document.activeElement === lastElement) {
+                    event.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        };
+
+        cardElement.addEventListener('keydown', this.focusTrapHandler);
+    }
+
+    /**
+     * Очищення focus trap
+     * @param {HTMLElement} cardElement - Картка
+     */
+    cleanupFocusTrap(cardElement) {
+        if (this.focusTrapHandler) {
+            cardElement.removeEventListener('keydown', this.focusTrapHandler);
+            this.focusTrapHandler = null;
+        }
+    }
+
+    /**
+     * Отримання фокусних елементів
+     * @param {HTMLElement} container - Контейнер для пошуку
+     * @returns {HTMLElement[]} Масив фокусних елементів
+     */
+    getFocusableElements(container) {
+        const focusableSelectors = [
+            'button:not([disabled])',
+            '[href]',
+            'input:not([disabled])',
+            'select:not([disabled])',
+            'textarea:not([disabled])',
+            '[tabindex]:not([tabindex="-1"])',
+            '[contenteditable="true"]'
+        ];
+
+        return Array.from(container.querySelectorAll(focusableSelectors.join(', ')))
+            .filter(element => {
+                return element.offsetWidth > 0 && 
+                       element.offsetHeight > 0 && 
+                       !element.hidden &&
+                       getComputedStyle(element).visibility !== 'hidden';
+            });
+    }
+
+    /**
+     * Отримання першого фокусного елемента
+     * @param {HTMLElement} container - Контейнер
+     * @returns {HTMLElement|null} Перший фокусний елемент
+     */
+    getFirstFocusableElement(container) {
+        const focusableElements = this.getFocusableElements(container);
+        return focusableElements.length > 0 ? focusableElements[0] : null;
+    }
+
+    /**
+     * Виправлений обробник подвійного кліку
+     * @param {Event} event - Подія кліку
+     */
+    handleCardDoubleClick(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const card = event.target.closest('.ai-card');
+        if (!card || card.classList.contains('expanded')) {
+            return;
+        }
+
+        const actionButton = event.target.closest('.action-button');
+        const closeButton = event.target.closest('.close-card');
+        
+        if (actionButton || closeButton) {
+            return;
+        }
+
+        this.expandCard(card);
+    }
+
+    /**
+     * Покращений обробник глобальних клавіш
+     * @param {KeyboardEvent} event - Подія клавіатури
+     */
+    handleGlobalKeys(event) {
+        if (event.key === 'Escape' && this.state.expandedCard) {
+            event.preventDefault();
+            this.closeExpandedCard();
+            return;
+        }
+
+        if (event.ctrlKey || event.metaKey) {
+            switch (event.key) {
+                case 'r':
+                    if (event.altKey) {
+                        event.preventDefault();
+                        this.refreshCards();
+                    }
+                    break;
+                case 's':
+                    if (event.altKey) {
+                        event.preventDefault();
+                        this.shuffleCards();
+                    }
+                    break;
+            }
+        }
+    }
+
     showLoadingState() {
         if (this.elements.loading) {
             this.elements.loading.style.display = 'flex';
@@ -1106,9 +1256,6 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Приховування loading стану
-     */
     hideLoadingState() {
         if (this.elements.loading) {
             this.elements.loading.style.display = 'none';
@@ -1118,9 +1265,6 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Показ empty стану
-     */
     showEmptyState() {
         this.hideLoadingState();
         if (this.elements.empty) {
@@ -1128,9 +1272,6 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Очищення карток
-     */
     clearCards() {
         this.state.cards.clear();
         if (this.elements.grid) {
@@ -1138,9 +1279,6 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Оновлення лічильника карток
-     */
     updateCardsCounter(count) {
         const counter = document.getElementById('active-cards-count');
         if (counter) {
@@ -1148,9 +1286,6 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Screen reader announcements
-     */
     announceToScreenReader(message) {
         const announcer = document.getElementById('sr-announcements');
         if (announcer) {
@@ -1161,17 +1296,11 @@ class AICardsHub {
         }
     }
 
-    /**
-     * Обробка помилок
-     */
     handleError(error, userMessage) {
         console.error(error);
         this.notifications.show(userMessage || 'Сталася помилка', 'error');
     }
 
-    /**
-     * Критична помилка
-     */
     handleCriticalError(error) {
         console.error('Критична помилка:', error);
         document.body.innerHTML += `
@@ -1189,17 +1318,11 @@ class AICardsHub {
         `;
     }
 
-    /**
-     * Fallback режим для старих браузерів
-     */
     showFallbackMode(missingFeatures) {
         console.warn('Fallback режим активовано. Відсутні функції:', missingFeatures);
         this.notifications.show('Браузер частково підтримується. Деякі функції можуть не працювати.', 'warning');
     }
 
-    /**
-     * Збереження стану
-     */
     saveState() {
         const state = {
             viewMode: this.state.viewMode,
@@ -1211,9 +1334,6 @@ class AICardsHub {
         this.stats.saveStats();
     }
 
-    /**
-     * Очищення ресурсів
-     */
     cleanup() {
         this.eventManager.cleanup();
         if (this.intersectionObserver) {
@@ -1225,34 +1345,9 @@ class AICardsHub {
         this.notifications.clear();
     }
 
-    // === STUB METHODS (для завершення функціональності) ===
-
-    handleCardDoubleClick(event) {
-        const card = event.target.closest('.ai-card');
-        if (card) {
-            this.expandCard(card);
-        }
-    }
-
-    expandCard(card) {
-        console.log('Розширення картки:', card.dataset.cardId);
-        // TODO: Implement card expansion
-    }
-
-    closeExpandedCard() {
-        console.log('Закриття розширеної картки');
-        // TODO: Implement card closing
-    }
-
     handleKeyNavigation(event) {
         console.log('Keyboard navigation:', event.key);
-        // TODO: Implement keyboard navigation
-    }
-
-    handleGlobalKeys(event) {
-        if (event.key === 'Escape' && this.state.expandedCard) {
-            this.closeExpandedCard();
-        }
+        // TODO: Реалізувати клавіатурну навігацію
     }
 
     startDrag(card) {
@@ -1261,13 +1356,13 @@ class AICardsHub {
     }
 
     updateDragPosition(card, event) {
-        // TODO: Update drag position
+        // TODO: Оновлення позиції при перетягуванні
     }
 
     endDrag(card, event) {
         card.classList.remove('dragging');
         this.state.draggedCard = null;
-        // TODO: Handle drop
+        // TODO: Обробка завершення перетягування
     }
 
     resetDragState(dragState) {
@@ -1292,9 +1387,9 @@ class AICardsHub {
 
     handleVisibilityChange() {
         if (document.hidden) {
-            // Pause animations
+            // Призупинити анімації
         } else {
-            // Resume animations
+            // Відновити анімації
         }
     }
 
@@ -1304,7 +1399,7 @@ class AICardsHub {
 
     shuffleCards() {
         console.log('Shuffle cards');
-        // TODO: Implement shuffle
+        // TODO: Реалізувати перемішування карток
     }
 
     resetCards() {
@@ -1324,16 +1419,13 @@ class AICardsHub {
         this.state.viewMode = mode;
         this.elements.grid.className = `cards-hub-grid ${mode}-view`;
         
-        // Update active button
         document.querySelectorAll('.view-mode-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.view === mode);
         });
     }
 }
 
-// === ГЛОБАЛЬНА ІНІЦІАЛІЗАЦІЯ ===
-
-// Export для можливого використання як модуль
+// Глобальна ініціалізація
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { AICardsHub, Utils };
 } else {
@@ -1341,7 +1433,6 @@ if (typeof module !== 'undefined' && module.exports) {
     window.AICardsUtils = Utils;
 }
 
-// Автоматична ініціалізація
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('ai-cards-container')) {
         try {
@@ -1353,7 +1444,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Cleanup при закритті сторінки
 window.addEventListener('beforeunload', () => {
     if (window.aiCardsHub) {
         window.aiCardsHub.cleanup();
