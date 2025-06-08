@@ -2139,3 +2139,488 @@ body::before {
         break-inside: avoid;
     }
 }
+
+/* Продовжуємо з того місця, де файл обривається, додаємо в кінець файлу */
+
+/* =================================================================
+   МОБІЛЬНІ ВИПРАВЛЕННЯ ТА ПОКРАЩЕННЯ UX
+   ================================================================= */
+
+/* 🔧 Виправлення підказки - критично важливо */
+.demo-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: rgba(var(--bg-2-rgb), 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(var(--cyan-rgb), 0.3);
+    border-radius: var(--r-xl);
+    padding: var(--s-m);
+    max-width: calc(100vw - 40px);
+    box-shadow: var(--shadow-xl);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(20px);
+    transition: all var(--trans);
+    pointer-events: none;
+}
+
+.demo-hint.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+    animation: hintPulse 2s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+    0%, 100% { 
+        box-shadow: var(--shadow-xl);
+        border-color: rgba(var(--cyan-rgb), 0.3);
+    }
+    50% { 
+        box-shadow: var(--shadow-xl), 0 0 20px rgba(var(--cyan-rgb), 0.4);
+        border-color: rgba(var(--cyan-rgb), 0.5);
+    }
+}
+
+.hint-content {
+    display: flex;
+    align-items: center;
+    gap: var(--s-s);
+    position: relative;
+}
+
+.hint-icon {
+    font-size: var(--t-l);
+    flex-shrink: 0;
+}
+
+.hint-text {
+    font-size: var(--t-s);
+    color: var(--text-2);
+    line-height: 1.4;
+    flex: 1;
+}
+
+.hint-close {
+    background: none;
+    border: none;
+    color: var(--text-3);
+    font-size: var(--t-l);
+    cursor: pointer;
+    padding: var(--s-xs);
+    border-radius: var(--r-s);
+    transition: all var(--trans);
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hint-close:hover,
+.hint-close:focus {
+    background: rgba(var(--pink-rgb), 0.1);
+    color: var(--pink);
+    transform: scale(1.1);
+}
+
+/* =================================================================
+   МОБІЛЬНА АДАПТАЦІЯ (768px і менше)
+   ================================================================= */
+
+@media (max-width: 768px) {
+    /* 🔧 Header Navigation Mobile - виправлення z-index та позиціонування */
+    .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--header-h);
+        z-index: var(--z-header);
+        background: rgba(var(--bg-1-rgb), 0.98);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(var(--text-1-rgb), 0.1);
+    }
+
+    .header-nav {
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(var(--bg-1-rgb), 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: var(--s-2xl) var(--s-l);
+        gap: var(--s-l);
+        z-index: var(--z-mobile-menu);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-100%);
+        transition: all var(--trans);
+        display: none;
+    }
+
+    .header-nav.active,
+    .header-nav.mobile-menu-open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+        display: flex;
+    }
+
+    .header-nav a {
+        font-size: var(--t-xl);
+        padding: var(--s-m) var(--s-l);
+        border-radius: var(--r-l);
+        text-align: center;
+        border: 1px solid rgba(var(--text-1-rgb), 0.1);
+        background: rgba(var(--bg-2-rgb), 0.5);
+    }
+
+    .mobile-menu-toggle {
+        display: flex !important;
+        z-index: calc(var(--z-mobile-menu) + 1);
+    }
+
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: calc(var(--z-mobile-menu) - 1);
+        opacity: 0;
+        visibility: hidden;
+        transition: all var(--trans);
+    }
+
+    .mobile-menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* 🔧 Секції на мобільному - виправлення відступів */
+    .section-padding {
+        padding-top: var(--s-2xl);
+        padding-bottom: var(--s-2xl);
+    }
+
+    .section-padding:first-child {
+        padding-top: calc(var(--header-h) + var(--s-2xl));
+    }
+
+    .project-intro-card {
+        padding: var(--s-l);
+        margin: var(--s-s);
+        border-radius: var(--r-2xl);
+    }
+
+    .project-title {
+        font-size: var(--t-3xl);
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: var(--t-base);
+        margin-top: var(--s-xs);
+    }
+
+    .hero-stats {
+        gap: var(--s-m);
+        margin: var(--s-l) 0;
+    }
+
+    .project-cta {
+        flex-direction: column;
+        gap: var(--s-s);
+    }
+
+    .cta-button {
+        width: 100%;
+        justify-content: center;
+        padding: var(--s-m) var(--s-l);
+    }
+
+    .cta-button.community-cta {
+        font-size: var(--t-l);
+        padding: var(--s-m) var(--s-xl);
+    }
+
+    .cards-preview-container {
+        gap: var(--s-s);
+        max-width: 100%;
+    }
+
+    .preview-card {
+        min-width: 60px;
+    }
+
+    /* 🔧 Steps grid mobile */
+    .steps-grid {
+        grid-template-columns: 1fr;
+        gap: var(--s-l);
+    }
+
+    .steps-connection {
+        display: none;
+    }
+
+    /* 🔧 Cards hub controls mobile */
+    .cards-hub-controls {
+        flex-direction: column;
+        gap: var(--s-m);
+        padding: var(--s-m);
+    }
+
+    .controls-left,
+    .controls-center,
+    .controls-right {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .controls-center {
+        min-width: auto;
+    }
+
+    .control-btn {
+        min-width: 100px;
+        text-align: center;
+        font-size: var(--t-xs);
+        padding: var(--s-xs) var(--s-s);
+    }
+
+    .view-mode-toggle {
+        gap: var(--s-xs);
+    }
+
+    /* 🔧 Cards grid mobile */
+    .cards-hub-grid {
+        grid-template-columns: 1fr;
+        gap: var(--s-m);
+        padding: var(--s-m) 0;
+    }
+
+    .ai-card {
+        max-width: none;
+        margin: 0 auto;
+    }
+
+    /* 🔧 Workspace mobile */
+    .workspace-grid {
+        grid-template-columns: 1fr;
+        gap: var(--s-m);
+    }
+
+    .workspace-title {
+        font-size: var(--t-l);
+        text-align: center;
+    }
+
+    .workspace-subtitle {
+        display: block;
+        font-size: var(--t-s);
+        margin-top: var(--s-xs);
+    }
+
+    /* 🔧 Stats grid mobile */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--s-m);
+    }
+
+    .stat-card {
+        padding: var(--s-m);
+    }
+
+    /* 🔧 Roadmap mobile */
+    .roadmap-timeline {
+        padding-left: var(--s-m);
+    }
+
+    .timeline-marker {
+        left: calc(-1 * var(--s-m) + var(--s-xs) - 12px);
+    }
+
+    .timeline-item {
+        padding: var(--s-m);
+    }
+
+    .timeline-title {
+        font-size: var(--t-l);
+    }
+
+    /* 🔧 Contact mobile */
+    .contact-content {
+        text-align: center;
+    }
+
+    .contact-content p {
+        margin-bottom: var(--s-m);
+        font-size: var(--t-l);
+    }
+
+    /* 🔧 Demo hint mobile - критично важливе виправлення */
+    .demo-hint {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        transform: none;
+        max-width: none;
+        padding: var(--s-s);
+    }
+
+    .demo-hint.show {
+        transform: translateY(0);
+    }
+
+    .hint-text {
+        font-size: var(--t-xs);
+        line-height: 1.3;
+    }
+
+    /* 🔧 Floating button mobile */
+    .floating-cards-hub {
+        right: 20px;
+        bottom: 80px;
+        width: 60px;
+        height: 60px;
+    }
+
+    .floating-text {
+        display: none;
+    }
+
+    .floating-icon {
+        font-size: var(--t-xl);
+    }
+
+    /* 🔧 Loading states mobile */
+    .cards-loading-state,
+    .cards-empty-state {
+        margin: var(--s-l) 0;
+        padding: var(--s-l);
+        text-align: center;
+    }
+
+    .loading-animation {
+        justify-content: center;
+    }
+}
+
+/* =================================================================
+   ДУЖЕ МАЛЕНЬКІ ЕКРАНИ (480px і менше)
+   ================================================================= */
+
+@media (max-width: 480px) {
+    .container {
+        padding-left: var(--s-s);
+        padding-right: var(--s-s);
+    }
+
+    .header-container {
+        padding: 0 var(--s-s);
+    }
+
+    .logo-text {
+        font-size: var(--t-l);
+    }
+
+    .logo-subtitle {
+        font-size: 10px;
+    }
+
+    .header-actions {
+        gap: var(--s-xs);
+    }
+
+    .theme-toggle-btn,
+    .cards-hub-quick-access {
+        width: 36px;
+        height: 36px;
+        font-size: var(--t-base);
+    }
+
+    .project-intro-card {
+        padding: var(--s-m);
+        margin: var(--s-xs);
+        border-radius: var(--r-l);
+    }
+
+    .section-title-iui {
+        font-size: var(--t-2xl);
+        margin-bottom: var(--s-l);
+    }
+
+    .project-title {
+        font-size: var(--t-2xl);
+    }
+
+    .hero-stats {
+        gap: var(--s-s);
+    }
+
+    .hero-stat {
+        min-width: 60px;
+    }
+
+    .stat-number {
+        font-size: var(--t-xl);
+    }
+
+    .demo-hint {
+        bottom: 5px;
+        left: 5px;
+        right: 5px;
+        padding: var(--s-xs);
+    }
+
+    .hint-text {
+        font-size: 11px;
+    }
+
+    .control-btn {
+        font-size: 11px;
+        padding: var(--s-xs);
+    }
+}
+
+/* =================================================================
+   ЛАНДШАФТНА ОРІЄНТАЦІЯ НА МОБІЛЬНОМУ
+   ================================================================= */
+
+@media (max-width: 768px) and (orientation: landscape) {
+    .project-intro-hero {
+        min-height: 100vh;
+        padding-top: var(--header-h);
+    }
+
+    .demo-hint {
+        bottom: 5px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        max-width: 400px;
+    }
+
+    .demo-hint.show {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .section-padding {
+        padding-top: var(--s-l);
+        padding-bottom: var(--s-l);
+    }
+}
+
+/* =================================================================
+   ДЕСКТОП - ПРИХОВ
