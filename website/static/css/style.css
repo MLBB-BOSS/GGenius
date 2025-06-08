@@ -1642,3 +1642,85 @@ p {
         transition: transform var(--trans-slow);
         overflow-y: auto;
         z-index: var(--z-modal);
+    }
+
+    .nav-menu.active {
+        transform: translateX(0);
+    }
+    
+    .nav-link {
+        font-size: var(--t-l);
+        padding: var(--s-m) 0;
+        text-align: center;
+        border-radius: var(--r-m);
+    }
+
+    .header-logo-text {
+        font-size: clamp(1.5rem, 3.5vw, 2rem);
+    }
+
+    .project-title {
+        font-size: var(--t-4xl);
+    }
+
+    .project-subtitle {
+        font-size: var(--t-xl);
+    }
+
+    .project-intro-card {
+        padding: var(--s-xl);
+    }
+
+    .section-title-iui {
+        font-size: var(--t-3xl);
+    }
+
+    .section-subtitle {
+        font-size: var(--t-l);
+    }
+
+    .features-grid-iui {
+        grid-template-columns: 1fr;
+    }
+
+    .roadmap-timeline {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-button {
+        width: 100%;
+        justify-content: center;
+        padding: var(--s-s) var(--s-xl);
+    }
+
+    .cta-button.community-cta {
+        padding: var(--s-m) var(--s-2xl);
+        font-size: var(--t-l);
+    }
+
+    .feature-categories {
+        grid-template-columns: 1fr;
+    }
+
+    .category-tab {
+        padding: var(--s-m) var(--s-l);
+    }
+}
+
+/* ===============================================
+   REDUCED MOTION PREFERENCE
+   =============================================== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .cta-button:hover,
+    .feature-card-iui:hover,
+    .roadmap-quarter-block:hover,
+    .nav-link:hover,
+    .category-tab:hover {
+        transform: none;
+    }
+}
