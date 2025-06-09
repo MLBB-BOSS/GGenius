@@ -1689,4 +1689,4 @@ class AdvancedPerformanceMonitor {
     destroy() {
         this.isMonitoring = false;
         
-        this
+        //
