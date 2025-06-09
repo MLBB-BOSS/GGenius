@@ -1,0 +1,221 @@
+/* 📱 MOBILE NAVIGATION STYLES - Revolutionary UX */
+
+.ggenius-mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(124, 77, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    height: 60px;
+}
+
+.nav-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-toggle:hover {
+    background: rgba(124, 77, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.nav-toggle:focus {
+    outline: 2px solid #7c4dff;
+    outline-offset: 2px;
+}
+
+.hamburger-line {
+    width: 24px;
+    height: 2px;
+    background: linear-gradient(90deg, #7c4dff, #2196f3);
+    margin: 2px 0;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    border-radius: 2px;
+    transform-origin: center;
+}
+
+.nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #7c4dff, #2196f3, #00bcd4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+}
+
+.nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(124, 77, 255, 0.2);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.nav-menu[aria-hidden="false"] {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 1rem 0;
+}
+
+.nav-list li {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(124, 77, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-link:hover::before {
+    left: 100%;
+}
+
+.nav-link:hover {
+    color: #7c4dff;
+    transform: translateX(8px);
+    background: rgba(124, 77, 255, 0.05);
+}
+
+.nav-link:focus {
+    outline: 2px solid #7c4dff;
+    outline-offset: -2px;
+    background: rgba(124, 77, 255, 0.1);
+}
+
+.nav-link.active {
+    color: #7c4dff;
+    background: rgba(124, 77, 255, 0.1);
+    border-left: 3px solid #7c4dff;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+    .nav-header {
+        padding: 0.75rem 1rem;
+        height: 56px;
+    }
+    
+    .nav-logo {
+        font-size: 1.25rem;
+    }
+    
+    .nav-link {
+        padding: 0.875rem 1.25rem;
+        font-size: 1rem;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .ggenius-mobile-nav {
+        background: #000000;
+        border-bottom-color: #ffffff;
+    }
+    
+    .nav-link {
+        color: #ffffff;
+    }
+    
+    .nav-link:hover,
+    .nav-link.active {
+        color: #ffffff;
+        background: #333333;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .ggenius-mobile-nav,
+    .nav-toggle,
+    .hamburger-line,
+    .nav-menu,
+    .nav-link {
+        transition: none;
+    }
+    
+    .nav-link::before {
+        display: none;
+    }
+}
+
+/* Touch enhancements */
+@media (hover: none) and (pointer: coarse) {
+    .nav-toggle {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .nav-link {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+}
