@@ -1,0 +1,135 @@
+{
+    "name": "GGenius AI Cards Hub",
+    "short_name": "GGenius",
+    "description": "Революційна AI-платформа для кіберспортивної спільноти MLBB",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "theme_color": "#00d4ff",
+    "background_color": "#0f0f23",
+    "lang": "uk",
+    "scope": "/",
+    "categories": ["games", "sports"],
+    "shortcuts": [
+        {
+            "name": "AI Cards Hub",
+            "short_name": "Cards Hub",
+            "description": "Відкрити AI Cards Hub",
+            "url": "/#ai-cards-hub",
+            "icons": [
+                {
+                    "src": "/static/images/icons/shortcut-cards.png",
+                    "sizes": "96x96",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "Аналітика",
+            "short_name": "Analytics",
+            "description": "Переглянути статистику",
+            "url": "/#roadmap",
+            "icons": [
+                {
+                    "src": "/static/images/icons/shortcut-analytics.png",
+                    "sizes": "96x96", 
+                    "type": "image/png"
+                }
+            ]
+        }
+    ],
+    "icons": [
+        {
+            "src": "/static/images/icons/icon-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/static/images/icons/icon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/static/images/icons/icon-128x128.png",
+            "sizes": "128x128",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/static/images/icons/icon-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/static/images/icons/icon-152x152.png",
+            "sizes": "152x152",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/static/images/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/static/images/icons/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/static/images/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable any"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/static/images/screenshots/desktop-cards-hub.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "AI Cards Hub на десктопі"
+        },
+        {
+            "src": "/static/images/screenshots/mobile-cards-hub.png",
+            "sizes": "375x812",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "AI Cards Hub на мобільному"
+        }
+    ],
+    "share_target": {
+        "action": "/share",
+        "method": "POST",
+        "enctype": "multipart/form-data",
+        "params": {
+            "title": "title",
+            "text": "text",
+            "url": "url",
+            "files": [
+                {
+                    "name": "files",
+                    "accept": ["image/*", ".png", ".jpg", ".jpeg", ".gif"]
+                }
+            ]
+        }
+    },
+    "protocol_handlers": [
+        {
+            "protocol": "web+ggenius",
+            "url": "/handle?type=%s"
+        }
+    ],
+    "edge_side_panel": {
+        "preferred_width": 400
+    },
+    "launch_handler": {
+        "client_mode": "navigate-existing"
+    }
+    }
