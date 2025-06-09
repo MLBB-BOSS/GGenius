@@ -1,9 +1,9 @@
 /**
  * AI Cards Hub Revolution - Interactive Card System
- * @version 2.0.0
+ * @version 3.0.0 - GGenius Integration
  * @author MLBB-BOSS  
- * @date 2025-06-08
- * @description Революційна система AI карток з flip-анімаціями та drag'n'drop
+ * @date 2025-06-09
+ * @description Революційна система AI карток інтегрована з GGenius Core
  * 
  * Performance optimized, ES2023 compatible, Mobile-first approach
  */
@@ -11,41 +11,71 @@
 'use strict';
 
 /**
- * Конфігурація системи
+ * 🔧 ІНТЕГРОВАНА КОНФІГУРАЦІЯ - Використовує GGENIUS_CONFIG
  */
-const CONFIG = {
-    API_BASE: '/api',
-    ANIMATION: {
-        FLIP_DURATION: 600,
-        STAGGER_DELAY: 100,
-        HOVER_SCALE: 1.02,
-        DRAG_SCALE: 1.1
-    },
-    INTERACTION: {
-        DRAG_THRESHOLD: 8,
-        DOUBLE_CLICK_DELAY: 300,
-        DEBOUNCE_DELAY: 250
-    },
-    STORAGE: {
-        SESSION_KEY: 'ggenius-cards-hub',
-        STATS_KEY: 'ggenius-stats'
-    },
-    ACCESSIBILITY: {
-        FOCUS_VISIBLE_TIMEOUT: 150,
-        ANNOUNCE_DELAY: 100
-    },
-    Z_INDEX: {
-        CARD_OVERLAY: 1499,
-        CARD_EXPANDED: 1500,
-        NOTIFICATION: 2000
-    }
+const getAICardsConfig = () => {
+    // Використовуємо глобальну конфігурацію або fallback
+    const globalConfig = window.GGENIUS_CONFIG || {};
+    
+    return {
+        // API інтеграція
+        API_BASE: globalConfig.API?.BASE_URL || '/api',
+        
+        // Анімації - синхронізовано з глобальною конфігурацією
+        ANIMATION: {
+            FLIP_DURATION: globalConfig.ANIMATION?.DURATION_SLOW || 600,
+            STAGGER_DELAY: globalConfig.ANIMATION?.STAGGER_DELAY || 100,
+            HOVER_SCALE: 1.02,
+            DRAG_SCALE: 1.1,
+            EASING: globalConfig.ANIMATION?.EASING_SMOOTH || 'cubic-bezier(0.4, 0, 0.2, 1)'
+        },
+        
+        // Взаємодія - синхронізовано
+        INTERACTION: {
+            DRAG_THRESHOLD: globalConfig.INTERACTION?.TOUCH_THRESHOLD || 8,
+            DOUBLE_CLICK_DELAY: globalConfig.INTERACTION?.DOUBLE_TAP_DELAY || 300,
+            DEBOUNCE_DELAY: globalConfig.INTERACTION?.DEBOUNCE_SEARCH || 250
+        },
+        
+        // Зберігання - використовуємо глобальні префікси
+        STORAGE: {
+            SESSION_KEY: (globalConfig.STORAGE?.PREFIX || 'ggenius_v3_') + 'cards-hub',
+            STATS_KEY: (globalConfig.STORAGE?.PREFIX || 'ggenius_v3_') + 'stats'
+        },
+        
+        // Accessibility
+        ACCESSIBILITY: {
+            FOCUS_VISIBLE_TIMEOUT: globalConfig.A11Y?.FOCUS_TIMEOUT || 150,
+            ANNOUNCE_DELAY: globalConfig.A11Y?.ANNOUNCE_DELAY || 100,
+            REDUCED_MOTION: globalConfig.ANIMATION?.REDUCED_MOTION || false
+        },
+        
+        // Z-Index координація
+        Z_INDEX: {
+            CARD_OVERLAY: 1499,
+            CARD_EXPANDED: 1500,
+            NOTIFICATION: 2000
+        }
+    };
 };
 
+// Ініціалізуємо конфігурацію
+const CONFIG = getAICardsConfig();
+
 /**
- * Утилітарні функції
+ * 🔧 АДАПТЕР УТИЛІТ - Використовує GGeniusUtils з fallback
  */
-class Utils {
-    static debounce(func, wait) {
+class AICardsUtils {
+    static get core() {
+        return window.GGeniusUtils || window.GGenius?.utils || null;
+    }
+    
+    static debounce(func, wait, options = {}) {
+        if (this.core) {
+            return this.core.debounce(func, wait, options);
+        }
+        
+        // Fallback реалізація
         let timeout;
         return function executedFunction(...args) {
             const later = () => {
@@ -57,7 +87,12 @@ class Utils {
         };
     }
 
-    static throttle(func, limit) {
+    static throttle(func, limit, options = {}) {
+        if (this.core) {
+            return this.core.throttle(func, limit, options);
+        }
+        
+        // Fallback реалізація
         let inThrottle;
         return function executedFunction(...args) {
             if (!inThrottle) {
@@ -68,14 +103,68 @@ class Utils {
         };
     }
 
-    static delay(ms) {
+    static delay(ms, signal) {
+        if (this.core) {
+            return this.core.delay(ms, signal);
+        }
+        
+        // Fallback реалізація
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    static escapeHtml(text) {
+    static sanitizeHTML(html, options = {}) {
+        if (this.core) {
+            return this.core.sanitizeHTML(html, options);
+        }
+        
+        // Fallback - базове escape
         const div = document.createElement('div');
-        div.textContent = text;
+        div.textContent = html;
         return div.innerHTML;
+    }
+
+    static generateId(prefix = 'card', options = {}) {
+        if (this.core) {
+            return this.core.generateId(prefix, options);
+        }
+        
+        // Fallback реалізація
+        return `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    }
+
+    static addEventListenerSafe(element, type, listener, options = {}) {
+        if (this.core) {
+            return this.core.addEventListenerSafe(element, type, listener, options);
+        }
+        
+        // Fallback - звичайний addEventListener
+        element.addEventListener(type, listener, options);
+        return null;
+    }
+
+    static getDeviceCapabilities() {
+        if (this.core) {
+            return this.core.getDeviceCapabilities();
+        }
+        
+        // Fallback - базова детекція
+        return {
+            performanceTier: 'medium',
+            device: {
+                isMobile: /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+                isTablet: false,
+                isDesktop: true
+            },
+            features: {
+                webGL: !!document.createElement('canvas').getContext('webgl'),
+                intersectionObserver: 'IntersectionObserver' in window,
+                resizeObserver: 'ResizeObserver' in window
+            }
+        };
+    }
+
+    static escapeHtml(text) {
+        return this.sanitizeHTML(text);
     }
 
     static checkBrowserSupport() {
@@ -100,11 +189,12 @@ class Utils {
         return { supported: true, missing: [] };
     }
 
-    static generateId(prefix = 'card') {
-        return `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    }
-
     static getSessionData(key) {
+        if (this.core) {
+            return this.core.getSecureStorage(key.replace(CONFIG.STORAGE.SESSION_KEY, ''));
+        }
+        
+        // Fallback
         try {
             const data = sessionStorage.getItem(key);
             return data ? JSON.parse(data) : null;
@@ -115,6 +205,11 @@ class Utils {
     }
 
     static setSessionData(key, data) {
+        if (this.core) {
+            return this.core.setSecureStorage(key.replace(CONFIG.STORAGE.SESSION_KEY, ''), data);
+        }
+        
+        // Fallback
         try {
             sessionStorage.setItem(key, JSON.stringify(data));
             return true;
@@ -124,6 +219,9 @@ class Utils {
         }
     }
 }
+
+// Backward compatibility
+const Utils = AICardsUtils;
 
 /**
  * Менеджер подій з автоматичним очищенням
@@ -209,7 +307,7 @@ class NotificationSystem {
         notification.id = id;
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
-            <span class="notification-message">${Utils.escapeHtml(message)}</span>
+            <span class="notification-message">${Utils.sanitizeHTML(message)}</span>
             <button class="notification-close" aria-label="Закрити повідомлення">×</button>
         `;
 
@@ -304,10 +402,16 @@ class StatsManager {
 }
 
 /**
- * Основний клас AI Cards Hub
+ * 🎮 РОЗШИРЕНИЙ AI CARDS HUB - З інтеграцією GGenius
  */
 class AICardsHub {
-    constructor() {
+    constructor(options = {}) {
+        // Інтеграційні компоненти
+        this.performanceMonitor = null;
+        this.webWorkerManager = null;
+        this.parentApp = null;
+        
+        // Існуючі компоненти
         this.eventManager = new EventManager();
         this.notifications = new NotificationSystem();
         this.stats = new StatsManager();
@@ -316,9 +420,10 @@ class AICardsHub {
             cards: new Map(),
             expandedCard: null,
             draggedCard: null,
-            viewMode: 'grid',
+            viewMode: options.viewMode || 'grid',
             isLoading: false,
-            isInitialized: false
+            isInitialized: false,
+            integrationMode: !!window.GGenius // Детекція інтеграційного режиму
         };
 
         this.elements = {};
@@ -327,21 +432,78 @@ class AICardsHub {
         this.escapeHandler = null;
         this.overlayClickHandler = null;
 
+        // Автоматична інтеграція з GGenius
+        this.autoIntegrate();
+
         this.init().catch(error => {
             console.error('❌ Критична помилка ініціалізації:', error);
             this.handleCriticalError(error);
         });
     }
 
+    /**
+     * 🔗 АВТОМАТИЧНА ІНТЕГРАЦІЯ З GGENIUS
+     */
+    autoIntegrate() {
+        if (window.GGenius) {
+            this.parentApp = window.GGenius;
+            
+            // Автоматично підключаємо performance monitor
+            if (window.GGenius.performance) {
+                this.setPerformanceMonitor(window.GGenius.performance);
+            }
+            
+            // Автоматично підключаємо web worker manager
+            if (window.GGenius.webWorker) {
+                this.setWebWorkerManager(window.GGenius.webWorker);
+            }
+            
+            console.log('🔗 AI Cards Hub автоматично інтегровано з GGenius');
+        }
+    }
+
+    /**
+     * 📊 ВСТАНОВЛЕННЯ PERFORMANCE MONITOR
+     */
+    setPerformanceMonitor(monitor) {
+        this.performanceMonitor = monitor;
+        console.log('📊 Performance Monitor підключено до AI Cards Hub');
+        
+        // Інтегруємо метрики
+        this.recordMetric = (name, data) => {
+            if (this.performanceMonitor) {
+                this.performanceMonitor.recordMetric(`cards_${name}`, data);
+            }
+        };
+    }
+
+    /**
+     * ⚡ ВСТАНОВЛЕННЯ WEB WORKER MANAGER
+     */
+    setWebWorkerManager(manager) {
+        this.webWorkerManager = manager;
+        console.log('⚡ Web Worker Manager підключено до AI Cards Hub');
+    }
+
+    /**
+     * 🚀 РОЗШИРЕНА ІНІЦІАЛІЗАЦІЯ
+     */
     async init() {
         try {
-            console.log('🚀 Ініціалізація AI Cards Hub v2.0...');
+            console.log('🚀 Ініціалізація AI Cards Hub v3.0 (GGenius Integration)...');
 
-            const browserCheck = Utils.checkBrowserSupport();
+            // Записуємо метрику початку ініціалізації
+            this.recordMetric('initialization_start', { timestamp: performance.now() });
+
+            const browserCheck = AICardsUtils.checkBrowserSupport();
             if (!browserCheck.supported) {
                 this.showFallbackMode(browserCheck.missing);
                 return;
             }
+
+            // Детекція device capabilities через GGenius або fallback
+            const deviceCapabilities = AICardsUtils.getDeviceCapabilities();
+            this.recordMetric('device_capabilities', deviceCapabilities);
 
             this.initializeDOM();
             this.setupObservers();
@@ -351,9 +513,28 @@ class AICardsHub {
             this.state.isInitialized = true;
             this.stats.increment('sessionCount');
             
+            // Записуємо метрику завершення ініціалізації
+            const initTime = performance.now();
+            this.recordMetric('initialization_complete', { 
+                timestamp: initTime,
+                duration: initTime 
+            });
+
+            // Повідомляємо батьківський додаток про готовність
+            if (this.parentApp) {
+                this.parentApp.dispatchEvent('cards:initialized', {
+                    module: 'aiCards',
+                    initTime: initTime
+                });
+            }
+            
             this.notifications.show('🎮 AI Cards Hub готовий до роботи!', 'success');
             console.log('✅ AI Cards Hub успішно ініціалізовано');
         } catch (error) {
+            this.recordMetric('initialization_error', { 
+                error: error.message,
+                stack: error.stack 
+            });
             console.error('❌ Помилка ініціалізації:', error);
             throw error;
         }
@@ -675,11 +856,11 @@ class AICardsHub {
         card.innerHTML = `
             <div class="card-face card-front">
                 <div class="card-icon" aria-hidden="true">${cardData.icon}</div>
-                <div class="card-title">${Utils.escapeHtml(cardData.title)}</div>
-                <div class="card-description">${Utils.escapeHtml(cardData.description)}</div>
+                <div class="card-title">${Utils.sanitizeHTML(cardData.title)}</div>
+                <div class="card-description">${Utils.sanitizeHTML(cardData.description)}</div>
                 <div class="card-status">
                     <div class="status-indicator" aria-label="Статус: ${cardData.status}"></div>
-                    <div class="status-text">${Utils.escapeHtml(cardData.statusText)}</div>
+                    <div class="status-text">${Utils.sanitizeHTML(cardData.statusText)}</div>
                 </div>
             </div>
             <div class="card-face card-back">
@@ -726,19 +907,51 @@ class AICardsHub {
     async flipCard(cardElement, cardState) {
         if (cardElement.classList.contains('expanded') || this.state.isLoading) return;
 
+        const startTime = performance.now();
+
         try {
             this.stats.increment('totalFlips');
+            this.recordMetric('card_flip_start', { 
+                cardId: cardState.data.id,
+                cardType: cardState.data.type 
+            });
             
             cardState.isFlipped = !cardState.isFlipped;
             cardElement.classList.toggle('flipped', cardState.isFlipped);
 
             if (cardState.isFlipped && !cardState.actionsLoaded) {
-                await this.loadCardActions(cardElement, cardState);
+                // Використовуємо web workers для завантаження дій (якщо доступні)
+                if (this.webWorkerManager) {
+                    const actions = await this.webWorkerManager.processAIData({
+                        action: 'loadCardActions',
+                        cardId: cardState.data.id,
+                        cardData: cardState.data
+                    });
+                    
+                    if (actions) {
+                        await this.renderCardActions(cardElement, cardState, actions);
+                    } else {
+                        await this.loadCardActions(cardElement, cardState);
+                    }
+                } else {
+                    await this.loadCardActions(cardElement, cardState);
+                }
             }
+
+            const flipDuration = performance.now() - startTime;
+            this.recordMetric('card_flip_complete', { 
+                cardId: cardState.data.id,
+                duration: flipDuration,
+                isFlipped: cardState.isFlipped 
+            });
 
             const status = cardState.isFlipped ? 'перевернута' : 'повернута';
             this.announceToScreenReader(`Картка ${cardState.data.title} ${status}`);
         } catch (error) {
+            this.recordMetric('card_flip_error', { 
+                cardId: cardState.data.id,
+                error: error.message 
+            });
             console.error('Помилка flip картки:', error);
             this.notifications.show('Помилка перевертання картки', 'error');
         }
@@ -770,6 +983,55 @@ class AICardsHub {
             console.error('Помилка завантаження дій:', error);
             actionsContainer.innerHTML = '<div class="error-actions">❌ Помилка завантаження</div>';
         }
+    }
+
+    async renderCardActions(cardElement, cardState, actions) {
+        const actionsContainer = cardElement.querySelector('.card-actions');
+        if (!actionsContainer) return;
+
+        try {
+            actionsContainer.innerHTML = '';
+
+            actions.forEach(action => {
+                const button = this.createActionButton(action);
+                actionsContainer.appendChild(button);
+            });
+
+            // AI Response з поліпшеною обробкою
+            const aiResponse = document.createElement('div');
+            aiResponse.className = 'ai-response enhanced';
+            aiResponse.innerHTML = `
+                <div class="ai-status">
+                    <span class="ai-indicator">🤖</span>
+                    <span class="ai-text">AI готовий допомогти...</span>
+                </div>
+            `;
+            actionsContainer.appendChild(aiResponse);
+
+            cardState.actionsLoaded = true;
+            
+            // Анімація появи дій
+            await this.animateActionsAppearance(actionsContainer);
+            
+        } catch (error) {
+            console.error('Помилка рендерингу дій:', error);
+            actionsContainer.innerHTML = '<div class="error-actions">❌ Помилка завантаження</div>';
+        }
+    }
+
+    async animateActionsAppearance(container) {
+        const actions = container.querySelectorAll('.action-button');
+        
+        actions.forEach((action, index) => {
+            action.style.opacity = '0';
+            action.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                action.style.transition = `all ${CONFIG.ANIMATION.FLIP_DURATION / 2}ms ${CONFIG.ANIMATION.EASING}`;
+                action.style.opacity = '1';
+                action.style.transform = 'translateY(0)';
+            }, index * 50);
+        });
     }
 
     async fetchCardActions(cardId) {
@@ -850,6 +1112,25 @@ class AICardsHub {
 
     async executeAction(action, cardData) {
         try {
+            // Спробуємо використати web workers для AI обробки
+            if (this.webWorkerManager && action.includes('ai')) {
+                this.recordMetric('action_execution_webworker', { 
+                    action, 
+                    cardId: cardData.id 
+                });
+                
+                const result = await this.webWorkerManager.processAIData({
+                    action: action,
+                    cardData: cardData,
+                    timestamp: Date.now()
+                });
+                
+                if (result) {
+                    return result;
+                }
+            }
+
+            // Fallback на звичайне API
             const response = await fetch(`${CONFIG.API_BASE}/cards/${cardData.id}/action`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1392,7 +1673,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('ai-cards-container')) {
         try {
             window.aiCardsHub = new AICardsHub();
-            console.log('🎮 AI Cards Hub Revolution v2.0 готовий!');
+            console.log('🎮 AI Cards Hub Revolution v3.0 готовий!');
         } catch (error) {
             console.error('❌ Помилка автоініціалізації AI Cards Hub:', error);
         }
