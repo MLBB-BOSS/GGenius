@@ -219,3 +219,260 @@
         align-items: center;
     }
 }
+
+/* 🔧 КОНФЛІКТ RESOLUTION - Додати в кінець файлу */
+
+/* Виправлення конфліктів з існуючим header */
+.site-header {
+    position: relative !important;
+    z-index: 999;
+}
+
+/* Виправлення мобільного меню */
+.mobile-menu-toggle {
+    background: none !important;
+    border: 2px solid transparent !important;
+    border-radius: 8px !important;
+    padding: 8px !important;
+    color: #ffffff !important;
+    font-size: 1.5rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.mobile-menu-toggle:focus,
+.mobile-menu-toggle:hover {
+    border-color: #7c4dff !important;
+    background: rgba(124, 77, 255, 0.1) !important;
+}
+
+/* Виправлення header actions */
+.header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+}
+
+.theme-toggle-btn,
+.cards-hub-quick-access {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 8px !important;
+    border: none !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+}
+
+.theme-toggle-btn:hover,
+.cards-hub-quick-access:hover {
+    background: rgba(124, 77, 255, 0.2) !important;
+    transform: scale(1.05) !important;
+}
+
+/* Виправлення позиціонування logo */
+.header-logo {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-decoration: none !important;
+}
+
+.logo-text {
+    font-size: 1.5rem !important;
+    font-weight: 800 !important;
+    background: linear-gradient(135deg, #7c4dff, #2196f3, #00bcd4) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+.logo-subtitle {
+    font-size: 0.7rem !important;
+    opacity: 0.8 !important;
+    color: #ffffff !important;
+    margin-top: -2px !important;
+}
+
+/* Виправлення мобільного viewport */
+@media (max-width: 768px) {
+    .header-container {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 1rem !important;
+        position: relative !important;
+    }
+    
+    .header-nav {
+        display: none !important;
+    }
+    
+    .header-nav.active {
+        display: flex !important;
+        position: fixed !important;
+        top: 60px !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: rgba(15, 15, 35, 0.95) !important;
+        backdrop-filter: blur(20px) !important;
+        flex-direction: column !important;
+        padding: 2rem 1rem !important;
+        z-index: 998 !important;
+        border-bottom: 1px solid rgba(124, 77, 255, 0.2) !important;
+    }
+    
+    .header-nav.active a {
+        padding: 1rem 0 !important;
+        text-align: center !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .header-nav.active a:hover {
+        color: #7c4dff !important;
+        background: rgba(124, 77, 255, 0.1) !important;
+    }
+    
+    .mobile-menu-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        background: rgba(0, 0, 0, 0.5) !important;
+        z-index: 997 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .mobile-menu-overlay.active {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
+
+/* Виправлення Cards Hub стилів */
+.cards-hub-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 1.5rem !important;
+    padding: 2rem 0 !important;
+}
+
+/* Базові стилі для карток */
+.ai-card {
+    background: linear-gradient(135deg, rgba(15, 15, 35, 0.9), rgba(26, 26, 62, 0.9)) !important;
+    border: 1px solid rgba(124, 77, 255, 0.3) !important;
+    border-radius: 16px !important;
+    padding: 1.5rem !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    position: relative !important;
+    overflow: hidden !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.ai-card::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 3px !important;
+    background: linear-gradient(90deg, #7c4dff, #2196f3, #00bcd4) !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.ai-card:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    border-color: rgba(124, 77, 255, 0.6) !important;
+    box-shadow: 0 20px 40px rgba(124, 77, 255, 0.3) !important;
+}
+
+.ai-card:hover::before {
+    opacity: 1 !important;
+}
+
+.ai-card.flipped {
+    transform: rotateY(180deg) !important;
+}
+
+.card-front,
+.card-back {
+    backface-visibility: hidden !important;
+    transition: transform 0.6s ease !important;
+}
+
+.card-back {
+    transform: rotateY(180deg) !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    padding: 1.5rem !important;
+}
+
+.card-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.card-icon {
+    width: 3rem !important;
+    height: 3rem !important;
+    border-radius: 12px !important;
+    background: linear-gradient(135deg, #7c4dff, #2196f3) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.5rem !important;
+}
+
+.card-title {
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.card-subtitle {
+    font-size: 0.9rem !important;
+    color: #b0b0b0 !important;
+}
+
+.card-content {
+    color: #e0e0e0 !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.card-actions {
+    display: flex !important;
+    gap: 0.5rem !important;
+    flex-wrap: wrap !important;
+}
+
+.card-action {
+    background: rgba(124, 77, 255, 0.2) !important;
+    color: #7c4dff !important;
+    border: 1px solid rgba(124, 77, 255, 0.3) !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 8px !important;
+    font-size: 0.85rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.card-action:hover {
+    background: rgba(124, 77, 255, 0.3) !important;
+    border-color: rgba(124, 77, 255, 0.5) !important;
+    transform: translateY(-1px) !important;
+}
