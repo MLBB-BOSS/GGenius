@@ -1683,10 +1683,1785 @@ class AdvancedPerformanceMonitor {
         };
     }
     
-    /**
-     * Stop monitoring and cleanup
+        /**
+     * ✅ ЗАВЕРШЕНИЙ destroy() МЕТОД
+     * Повне очищення всіх ресурсів та observers
      */
     destroy() {
         this.isMonitoring = false;
         
-        //
+        // Очищення всіх interval та timeout
+        if (this.reportingInterval) {
+            clearInterval(this.reportingInterval);
+            this.reportingInterval = null;
+        }
+        
+        // Disconnect всіх PerformanceObserver
+        for (const [name, observer] of this.observers) {
+            try {
+                observer.disconnect();
+                console.log(`✅ Disconnected ${name} observer`);
+            } catch (error) {
+                console.warn(`⚠️ Failed to disconnect ${name} observer:`, error);
+            }
+        }
+        this.observers.clear();
+        
+        // Очищення metrics з обмеженням пам'яті
+        const essentialMetrics = ['lcp', 'fid', 'cls', 'fcp'];
+        for (const [name, data] of this.metrics) {
+            if (!essentialMetrics.includes(name)) {
+                this.metrics.delete(name);
+            } else {
+                // Зберегти тільки останні 5 записів для критичних метрик
+                const trimmedData = data.slice(-5);
+                this.metrics.set(name, trimmedData);
+            }
+        }
+        
+        // Очищення device info cache
+        this.deviceInfo = null;
+        this.budgets = null;
+        
+        // Фінальний cleanup звіт
+        const finalReport = {
+            timestamp: new Date().toISOString(),
+            sessionDuration: performance.now() - this.sessionStart,
+            totalErrors: this.errorCount,
+            totalWarnings: this.warningCount,
+            status: 'destroyed'
+        };
+        
+        GGeniusUtils.setSecureStorage('perf_monitor_final', finalReport, {
+            expiry: GGENIUS_CONFIG.STORAGE.CACHE_TTL
+        });
+        
+        console.log('🔥 AdvancedPerformanceMonitor destroyed successfully', finalReport);
+    }
+}
+
+/**
+ * 🎮 MOBILE NAVIGATION MANAGER - Revolutionary Mobile UX
+ * Adaptive navigation with gesture support and PWA optimizations
+ */
+class MobileNavigationManager {
+    constructor() {
+        this.isInitialized = false;
+        this.gestureHandler = null;
+        this.navigationState = new Map();
+        this.touchStartX = 0;
+        this.touchStartY = 0;
+        this.touchStartTime = 0;
+        this.isNavigating = false;
+        this.activePanel = null;
+        this.navigationStack = [];
+        this.gestureThresholds = GGENIUS_CONFIG.INTERACTION;
+        
+        // Device capabilities
+        this.deviceCapabilities = GGeniusUtils.getDeviceCapabilities();
+        
+        this.init();
+    }
+    
+    init() {
+        if (this.isInitialized) return;
+        
+        this.createNavigationStructure();
+        this.setupGestureHandlers();
+        this.setupKeyboardNavigation();
+        this.setupAccessibilityFeatures();
+        this.setupPWANavigation();
+        this.bindEvents();
+        
+        this.isInitialized = true;
+        console.log('📱 MobileNavigationManager initialized');
+    }
+    
+    /**
+     * Create responsive navigation structure
+     */
+    createNavigationStructure() {
+        // Remove existing navigation if present
+        const existingNav = document.querySelector('.ggenius-mobile-nav');
+        if (existingNav) {
+            existingNav.remove();
+        }
+        
+        // Create main navigation container
+        const navContainer = document.createElement('nav');
+        navContainer.className = 'ggenius-mobile-nav';
+        navContainer.setAttribute('role', 'navigation');
+        navContainer.setAttribute('aria-label', 'Головна навігація');
+        
+        // Navigation header with hamburger menu
+        const navHeader = document.createElement('div');
+        navHeader.className = 'nav-header';
+        navHeader.innerHTML = `
+            <button class="nav-toggle" aria-label="Відкрити меню" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="nav-logo">
+                <img src="/static/images/ggenius-logo.svg" alt="GGenius" loading="lazy">
+            </div>
+            <div class="nav-actions">
+                <button class="nav-search" aria-label="Пошук">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+                <button class="nav-user" aria-label="Профіль користувача">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </button>
+            </div>
+        `;
+        
+        // Main navigation menu
+        const navMenu = document.createElement('div');
+        navMenu.className = 'nav-menu';
+        navMenu.setAttribute('aria-hidden', 'true');
+        navMenu.innerHTML = `
+            <div class="nav-overlay"></div>
+            <div class="nav-panel">
+                <div class="nav-panel-header">
+                    <h2>Навігація</h2>
+                    <button class="nav-close" aria-label="Закрити меню">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                        </svg>
+                    </button>
+                </div>
+                <ul class="nav-list" role="menu">
+                    <li role="none">
+                        <a href="/" class="nav-link" role="menuitem">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Головна</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/heroes" class="nav-link" role="menuitem">
+                            <span class="nav-icon">⚔️</span>
+                            <span class="nav-text">Герої</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/builds" class="nav-link" role="menuitem">
+                            <span class="nav-icon">🛡️</span>
+                            <span class="nav-text">Білди</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/tier-list" class="nav-link" role="menuitem">
+                            <span class="nav-icon">📊</span>
+                            <span class="nav-text">Тір-лист</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/guides" class="nav-link" role="menuitem">
+                            <span class="nav-icon">📚</span>
+                            <span class="nav-text">Гайди</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/tournaments" class="nav-link" role="menuitem">
+                            <span class="nav-icon">🏆</span>
+                            <span class="nav-text">Турніри</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/community" class="nav-link" role="menuitem">
+                            <span class="nav-icon">👥</span>
+                            <span class="nav-text">Спільнота</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="nav-footer">
+                    <div class="nav-theme-toggle">
+                        <button class="theme-switch" aria-label="Змінити тему">
+                            <span class="theme-icon">🌙</span>
+                            <span class="theme-text">Темна тема</span>
+                        </button>
+                    </div>
+                    <div class="nav-language">
+                        <select class="language-select" aria-label="Вибрати мову">
+                            <option value="uk">🇺🇦 Українська</option>
+                            <option value="en">🇺🇸 English</option>
+                            <option value="ru">🇷🇺 Русский</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Tab bar for bottom navigation
+        const tabBar = document.createElement('div');
+        tabBar.className = 'nav-tab-bar';
+        tabBar.setAttribute('role', 'tablist');
+        tabBar.innerHTML = `
+            <button class="tab-button active" role="tab" aria-selected="true" data-target="home">
+                <span class="tab-icon">🏠</span>
+                <span class="tab-label">Головна</span>
+            </button>
+            <button class="tab-button" role="tab" aria-selected="false" data-target="heroes">
+                <span class="tab-icon">⚔️</span>
+                <span class="tab-label">Герої</span>
+            </button>
+            <button class="tab-button" role="tab" aria-selected="false" data-target="builds">
+                <span class="tab-icon">🛡️</span>
+                <span class="tab-label">Білди</span>
+            </button>
+            <button class="tab-button" role="tab" aria-selected="false" data-target="guides">
+                <span class="tab-icon">📚</span>
+                <span class="tab-label">Гайди</span>
+            </button>
+            <button class="tab-button" role="tab" aria-selected="false" data-target="more">
+                <span class="tab-icon">⋯</span>
+                <span class="tab-label">Ще</span>
+            </button>
+        `;
+        
+        // Assemble navigation
+        navContainer.appendChild(navHeader);
+        navContainer.appendChild(navMenu);
+        navContainer.appendChild(tabBar);
+        
+        // Insert into DOM
+        document.body.appendChild(navContainer);
+        
+        // Add navigation styles
+        this.injectNavigationStyles();
+    }
+    
+    /**
+     * Inject optimized navigation styles
+     */
+    injectNavigationStyles() {
+        const styleId = 'ggenius-nav-styles';
+        if (document.getElementById(styleId)) return;
+        
+        const styles = document.createElement('style');
+        styles.id = styleId;
+        styles.innerHTML = `
+            /* Mobile Navigation Styles */
+            .ggenius-mobile-nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 9999;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            }
+            
+            /* Navigation Header */
+            .nav-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.75rem 1rem;
+                background: rgba(20, 20, 30, 0.95);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                height: 60px;
+                box-sizing: border-box;
+            }
+            
+            .nav-toggle {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: 32px;
+                height: 32px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 4px;
+                border-radius: 6px;
+                transition: background 0.2s ease;
+            }
+            
+            .nav-toggle:hover,
+            .nav-toggle:focus {
+                background: rgba(255, 255, 255, 0.1);
+                outline: none;
+            }
+            
+            .hamburger-line {
+                width: 100%;
+                height: 2px;
+                background: #fff;
+                margin: 2px 0;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                border-radius: 1px;
+            }
+            
+            .nav-toggle.active .hamburger-line:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            
+            .nav-toggle.active .hamburger-line:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .nav-toggle.active .hamburger-line:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+            
+            .nav-logo img {
+                height: 32px;
+                width: auto;
+            }
+            
+            .nav-actions {
+                display: flex;
+                gap: 0.5rem;
+            }
+            
+            .nav-search,
+            .nav-user {
+                width: 40px;
+                height: 40px;
+                border: none;
+                background: rgba(255, 255, 255, 0.1);
+                color: #fff;
+                border-radius: 8px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+            }
+            
+            .nav-search:hover,
+            .nav-user:hover,
+            .nav-search:focus,
+            .nav-user:focus {
+                background: rgba(255, 255, 255, 0.2);
+                transform: scale(1.05);
+                outline: none;
+            }
+            
+            /* Navigation Menu */
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 10000;
+                visibility: hidden;
+                opacity: 0;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            
+            .nav-menu.active {
+                visibility: visible;
+                opacity: 1;
+            }
+            
+            .nav-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(4px);
+            }
+            
+            .nav-panel {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 280px;
+                height: 100%;
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .nav-menu.active .nav-panel {
+                transform: translateX(0);
+            }
+            
+            .nav-panel-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                background: rgba(255, 255, 255, 0.05);
+            }
+            
+            .nav-panel-header h2 {
+                color: #fff;
+                margin: 0;
+                font-size: 1.25rem;
+                font-weight: 600;
+            }
+            
+            .nav-close {
+                width: 32px;
+                height: 32px;
+                border: none;
+                background: rgba(255, 255, 255, 0.1);
+                color: #fff;
+                border-radius: 6px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+            }
+            
+            .nav-close:hover,
+            .nav-close:focus {
+                background: rgba(255, 255, 255, 0.2);
+                outline: none;
+            }
+            
+            .nav-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                flex: 1;
+            }
+            
+            .nav-link {
+                display: flex;
+                align-items: center;
+                padding: 1rem;
+                color: rgba(255, 255, 255, 0.8);
+                text-decoration: none;
+                transition: all 0.2s ease;
+                border-left: 3px solid transparent;
+            }
+            
+            .nav-link:hover,
+            .nav-link:focus {
+                background: rgba(255, 255, 255, 0.1);
+                color: #fff;
+                border-left-color: #00d4ff;
+                outline: none;
+            }
+            
+            .nav-link.active {
+                background: rgba(0, 212, 255, 0.1);
+                color: #00d4ff;
+                border-left-color: #00d4ff;
+            }
+            
+            .nav-icon {
+                font-size: 1.25rem;
+                margin-right: 0.75rem;
+                width: 24px;
+                text-align: center;
+            }
+            
+            .nav-text {
+                font-weight: 500;
+            }
+            
+            .nav-footer {
+                padding: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                background: rgba(0, 0, 0, 0.2);
+            }
+            
+            .nav-theme-toggle {
+                margin-bottom: 1rem;
+            }
+            
+            .theme-switch {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                padding: 0.75rem;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                color: rgba(255, 255, 255, 0.8);
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            
+            .theme-switch:hover,
+            .theme-switch:focus {
+                background: rgba(255, 255, 255, 0.1);
+                color: #fff;
+                outline: none;
+            }
+            
+            .theme-icon {
+                margin-right: 0.5rem;
+            }
+            
+            .language-select {
+                width: 100%;
+                padding: 0.75rem;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                color: rgba(255, 255, 255, 0.8);
+                cursor: pointer;
+            }
+            
+            /* Tab Bar */
+            .nav-tab-bar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                background: rgba(20, 20, 30, 0.95);
+                backdrop-filter: blur(20px);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 0.5rem 0;
+                z-index: 9998;
+            }
+            
+            .tab-button {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 0.5rem;
+                background: none;
+                border: none;
+                color: rgba(255, 255, 255, 0.6);
+                cursor: pointer;
+                transition: all 0.2s ease;
+                min-height: 60px;
+            }
+            
+            .tab-button:hover,
+            .tab-button:focus {
+                color: rgba(255, 255, 255, 0.8);
+                outline: none;
+            }
+            
+            .tab-button.active {
+                color: #00d4ff;
+            }
+            
+            .tab-icon {
+                font-size: 1.25rem;
+                margin-bottom: 0.25rem;
+            }
+            
+            .tab-label {
+                font-size: 0.75rem;
+                font-weight: 500;
+            }
+            
+            /* Responsive Design */
+            @media (max-width: 480px) {
+                .nav-panel {
+                    width: 100%;
+                }
+                
+                .tab-label {
+                    display: none;
+                }
+                
+                .tab-button {
+                    min-height: 50px;
+                }
+            }
+            
+            /* Dark Theme Support */
+            @media (prefers-color-scheme: dark) {
+                .nav-header {
+                    background: rgba(10, 10, 15, 0.95);
+                }
+                
+                .nav-panel {
+                    background: linear-gradient(135deg, #0a0a0f 0%, #0d1421 100%);
+                }
+                
+                .nav-tab-bar {
+                    background: rgba(10, 10, 15, 0.95);
+                }
+            }
+            
+            /* High Contrast Support */
+            @media (prefers-contrast: high) {
+                .nav-header,
+                .nav-panel,
+                .nav-tab-bar {
+                    background: #000;
+                    border-color: #fff;
+                }
+                
+                .nav-link:hover,
+                .nav-link:focus {
+                    background: #333;
+                }
+            }
+            
+            /* Reduced Motion Support */
+            @media (prefers-reduced-motion: reduce) {
+                .nav-menu,
+                .nav-panel,
+                .nav-toggle,
+                .hamburger-line,
+                .nav-link,
+                .tab-button {
+                    transition: none;
+                }
+            }
+        `;
+        
+        document.head.appendChild(styles);
+    }
+    
+    /**
+     * Setup advanced gesture handlers
+     */
+    setupGestureHandlers() {
+        const navPanel = document.querySelector('.nav-panel');
+        const navOverlay = document.querySelector('.nav-overlay');
+        
+        if (!navPanel || !navOverlay) return;
+        
+        // Swipe to open/close navigation
+        let startX = 0;
+        let startY = 0;
+        let currentX = 0;
+        let isDragging = false;
+        let startTime = 0;
+        
+        const handleTouchStart = (event) => {
+            const touch = event.touches[0];
+            startX = touch.clientX;
+            startY = touch.clientY;
+            currentX = startX;
+            startTime = performance.now();
+            isDragging = false;
+        };
+        
+        const handleTouchMove = GGeniusUtils.throttle((event) => {
+            if (!event.touches.length) return;
+            
+            const touch = event.touches[0];
+            const deltaX = touch.clientX - startX;
+            const deltaY = touch.clientY - startY;
+            currentX = touch.clientX;
+            
+            // Determine if this is a horizontal swipe
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > this.gestureThresholds.TOUCH_THRESHOLD) {
+                isDragging = true;
+                event.preventDefault();
+                
+                const navMenu = document.querySelector('.nav-menu');
+                const isOpen = navMenu.classList.contains('active');
+                
+                if (!isOpen && deltaX > 0 && startX < 50) {
+                    // Opening gesture from left edge
+                    const progress = Math.min(deltaX / 280, 1);
+                    navPanel.style.transform = `translateX(${-100 + (progress * 100)}%)`;
+                    navOverlay.style.opacity = progress * 0.5;
+                } else if (isOpen && deltaX < 0) {
+                    // Closing gesture
+                    const progress = Math.max(1 + (deltaX / 280), 0);
+                    navPanel.style.transform = `translateX(${-100 + (progress * 100)}%)`;
+                    navOverlay.style.opacity = progress * 0.5;
+                }
+            }
+        }, this.gestureThresholds.THROTTLE_MOUSEMOVE);
+        
+        const handleTouchEnd = (event) => {
+            if (!isDragging) return;
+            
+            const deltaX = currentX - startX;
+            const deltaTime = performance.now() - startTime;
+            const velocity = Math.abs(deltaX) / deltaTime;
+            
+            const navMenu = document.querySelector('.nav-menu');
+            const isOpen = navMenu.classList.contains('active');
+            
+            // Reset styles
+            navPanel.style.transform = '';
+            navOverlay.style.opacity = '';
+            
+            // Determine final state based on gesture
+            const shouldToggle = (Math.abs(deltaX) > this.gestureThresholds.SWIPE_MIN_DISTANCE) || 
+                               (velocity > 0.5 && deltaTime < this.gestureThresholds.SWIPE_MAX_TIME);
+            
+            if (shouldToggle) {
+                if (!isOpen && deltaX > 0) {
+                    this.openNavigation();
+                } else if (isOpen && deltaX < 0) {
+                    this.closeNavigation();
+                }
+            }
+            
+            isDragging = false;
+        };
+        
+        // Add touch event listeners
+        document.addEventListener('touchstart', handleTouchStart, { passive: false });
+        document.addEventListener('touchmove', handleTouchMove, { passive: false });
+        document.addEventListener('touchend', handleTouchEnd, { passive: true });
+        
+        // Store handlers for cleanup
+        this.gestureHandler = {
+            touchstart: handleTouchStart,
+            touchmove: handleTouchMove,
+            touchend: handleTouchEnd
+        };
+    }
+    
+    /**
+     * Setup keyboard navigation support
+     */
+    setupKeyboardNavigation() {
+        const handleKeyDown = (event) => {
+            const navMenu = document.querySelector('.nav-menu');
+            const isOpen = navMenu?.classList.contains('active');
+            
+            switch (event.key) {
+                case 'Escape':
+                    if (isOpen) {
+                        event.preventDefault();
+                        this.closeNavigation();
+                    }
+                    break;
+                    
+                case 'Tab':
+                    if (isOpen) {
+                        this.handleTabNavigation(event);
+                    }
+                    break;
+                    
+                case 'ArrowDown':
+                case 'ArrowUp':
+                    if (isOpen) {
+                        event.preventDefault();
+                        this.handleArrowNavigation(event.key);
+                    }
+                    break;
+                    
+                case 'Enter':
+                case ' ':
+                    const activeElement = document.activeElement;
+                    if (activeElement?.classList.contains('nav-toggle')) {
+                        event.preventDefault();
+                        this.toggleNavigation();
+                    }
+                    break;
+            }
+        };
+        
+        document.addEventListener('keydown', handleKeyDown);
+    }
+    
+    /**
+     * Handle tab navigation within menu
+     */
+    handleTabNavigation(event) {
+        const focusableElements = document.querySelectorAll(
+            '.nav-menu .nav-close, .nav-menu .nav-link, .nav-menu .theme-switch, .nav-menu .language-select'
+        );
+        
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        
+        if (event.shiftKey) {
+            if (document.activeElement === firstElement) {
+                event.preventDefault();
+                lastElement.focus();
+            }
+        } else {
+            if (document.activeElement === lastElement) {
+                event.preventDefault();
+                firstElement.focus();
+            }
+        }
+    }
+    
+    /**
+     * Handle arrow key navigation
+     */
+    handleArrowNavigation(direction) {
+        const navLinks = Array.from(document.querySelectorAll('.nav-menu .nav-link'));
+        const currentIndex = navLinks.findIndex(link => link === document.activeElement);
+        
+        let nextIndex;
+        if (direction === 'ArrowDown') {
+            nextIndex = currentIndex < navLinks.length - 1 ? currentIndex + 1 : 0;
+        } else {
+            nextIndex = currentIndex > 0 ? currentIndex - 1 : navLinks.length - 1;
+        }
+        
+        navLinks[nextIndex]?.focus();
+    }
+    
+    /**
+     * Setup accessibility features
+     */
+    setupAccessibilityFeatures() {
+        // Announce navigation state changes
+        const announcer = document.createElement('div');
+        announcer.setAttribute('aria-live', 'polite');
+        announcer.setAttribute('aria-atomic', 'true');
+        announcer.className = 'sr-only';
+        announcer.style.cssText = `
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        `;
+        document.body.appendChild(announcer);
+        
+        this.announcer = announcer;
+        
+        // Focus management
+        this.setupFocusManagement();
+        
+        // High contrast mode detection
+        if (GGENIUS_CONFIG.A11Y.HIGH_CONTRAST) {
+            document.body.classList.add('high-contrast-mode');
+        }
+        
+        // Reduced motion support
+        if (GGENIUS_CONFIG.ANIMATION.REDUCED_MOTION) {
+            document.body.classList.add('reduced-motion');
+        }
+    }
+    
+    /**
+     * Setup focus management
+     */
+    setupFocusManagement() {
+        let lastFocusedElement = null;
+        
+        // Store focus before opening navigation
+        document.addEventListener('click', (event) => {
+            if (event.target.closest('.nav-toggle')) {
+                lastFocusedElement = document.activeElement;
+            }
+        });
+        
+        // Restore focus when closing navigation
+        this.restoreFocus = () => {
+            if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+                setTimeout(() => {
+                    lastFocusedElement.focus();
+                    lastFocusedElement = null;
+                }, GGENIUS_CONFIG.A11Y.FOCUS_TIMEOUT);
+            }
+        };
+    }
+    
+    /**
+     * Setup PWA navigation features
+     */
+    setupPWANavigation() {
+        // Handle PWA installation prompt
+        window.addEventListener('beforeinstallprompt', (event) => {
+            event.preventDefault();
+            this.installPrompt = event;
+            this.showInstallButton();
+        });
+        
+        // Handle PWA app installed
+        window.addEventListener('appinstalled', () => {
+            this.hideInstallButton();
+            this.announceToUser('Додаток успішно встановлено');
+        });
+        
+        // Handle offline/online status
+        window.addEventListener('online', () => {
+            this.updateConnectionStatus(true);
+        });
+        
+        window.addEventListener('offline', () => {
+            this.updateConnectionStatus(false);
+        });
+    }
+    
+    /**
+     * Show PWA install button
+     */
+    showInstallButton() {
+        const navActions = document.querySelector('.nav-actions');
+        if (!navActions || document.querySelector('.install-button')) return;
+        
+        const installButton = document.createElement('button');
+        installButton.className = 'install-button nav-user';
+        installButton.setAttribute('aria-label', 'Встановити додаток');
+        installButton.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+            </svg>
+        `;
+        
+        installButton.addEventListener('click', () => this.handleInstallClick());
+        navActions.appendChild(installButton);
+    }
+    
+    /**
+     * Hide PWA install button
+     */
+    hideInstallButton() {
+        const installButton = document.querySelector('.install-button');
+        if (installButton) {
+            installButton.remove();
+        }
+    }
+    
+    /**
+     * Handle PWA install click
+     */
+    async handleInstallClick() {
+        if (!this.installPrompt) return;
+        
+        try {
+            const result = await this.installPrompt.prompt();
+            console.log('PWA install prompt result:', result);
+            
+            if (result.outcome === 'accepted') {
+                this.announceToUser('Розпочато встановлення додатку');
+            }
+            
+            this.installPrompt = null;
+            this.hideInstallButton();
+        } catch (error) {
+            console.error('PWA install error:', error);
+        }
+    }
+    
+    /**
+     * Update connection status indicator
+     */
+    updateConnectionStatus(isOnline) {
+        const statusIndicator = document.querySelector('.connection-status') || this.createConnectionStatus();
+        
+        statusIndicator.className = `connection-status ${isOnline ? 'online' : 'offline'}`;
+        statusIndicator.textContent = isOnline ? '🟢 Онлайн' : '🔴 Офлайн';
+        
+        this.announceToUser(isOnline ? 'З\'єднання відновлено' : 'Відсутнє з\'єднання з інтернетом');
+        
+        // Auto-hide after 3 seconds if online
+        if (isOnline) {
+            setTimeout(() => {
+                statusIndicator.style.display = 'none';
+            }, 3000);
+        } else {
+            statusIndicator.style.display = 'block';
+        }
+    }
+    
+    /**
+     * Create connection status indicator
+     */
+    createConnectionStatus() {
+        const indicator = document.createElement('div');
+        indicator.className = 'connection-status';
+        indicator.style.cssText = `
+            position: fixed;
+            top: 70px;
+            left: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            z-index: 10001;
+            display: none;
+            backdrop-filter: blur(10px);
+        `;
+        
+        document.body.appendChild(indicator);
+        return indicator;
+    }
+    
+    /**
+     * Bind all navigation events
+     */
+    bindEvents() {
+        // Navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navClose = document.querySelector('.nav-close');
+        const navOverlay = document.querySelector('.nav-overlay');
+        
+        if (navToggle) {
+            navToggle.addEventListener('click', () => this.toggleNavigation());
+        }
+        
+        if (navClose) {
+            navClose.addEventListener('click', () => this.closeNavigation());
+        }
+        
+        if (navOverlay) {
+            navOverlay.addEventListener('click', () => this.closeNavigation());
+        }
+        
+        // Navigation links
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (event) => this.handleNavLinkClick(event));
+        });
+        
+        // Tab bar buttons
+        const tabButtons = document.querySelectorAll('.tab-button');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', (event) => this.handleTabClick(event));
+        });
+        
+        // Theme toggle
+        const themeSwitch = document.querySelector('.theme-switch');
+        if (themeSwitch) {
+            themeSwitch.addEventListener('click', () => this.toggleTheme());
+        }
+        
+        // Language selector
+        const languageSelect = document.querySelector('.language-select');
+        if (languageSelect) {
+            languageSelect.addEventListener('change', (event) => this.handleLanguageChange(event));
+        }
+        
+        // Search button
+        const searchButton = document.querySelector('.nav-search');
+        if (searchButton) {
+            searchButton.addEventListener('click', () => this.handleSearchClick());
+        }
+        
+        // User button
+        const userButton = document.querySelector('.nav-user:not(.install-button)');
+        if (userButton) {
+            userButton.addEventListener('click', () => this.handleUserClick());
+        }
+    }
+    
+    /**
+     * Toggle navigation menu
+     */
+    toggleNavigation() {
+        const navMenu = document.querySelector('.nav-menu');
+        const navToggle = document.querySelector('.nav-toggle');
+        
+        if (!navMenu || !navToggle) return;
+        
+        const isOpen = navMenu.classList.contains('active');
+        
+        if (isOpen) {
+            this.closeNavigation();
+        } else {
+            this.openNavigation();
+        }
+    }
+    
+    /**
+     * Open navigation menu
+     */
+    openNavigation() {
+        const navMenu = document.querySelector('.nav-menu');
+        const navToggle = document.querySelector('.nav-toggle');
+        
+        if (!navMenu || !navToggle) return;
+        
+        navMenu.classList.add('active');
+        navToggle.classList.add('active');
+        navToggle.setAttribute('aria-expanded', 'true');
+        navMenu.setAttribute('aria-hidden', 'false');
+        
+        // Focus first menu item
+        setTimeout(() => {
+            const firstLink = document.querySelector('.nav-menu .nav-link');
+            if (firstLink) {
+                firstLink.focus();
+            }
+        }, GGENIUS_CONFIG.A11Y.FOCUS_TIMEOUT);
+        
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+        
+        this.announceToUser('Меню відкрито');
+    }
+    
+    /**
+     * Close navigation menu
+     */
+    closeNavigation() {
+        const navMenu = document.querySelector('.nav-menu');
+        const navToggle = document.querySelector('.nav-toggle');
+        
+        if (!navMenu || !navToggle) return;
+        
+        navMenu.classList.remove('active');
+        navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navMenu.setAttribute('aria-hidden', 'true');
+        
+        // Restore body scroll
+        document.body.style.overflow = '';
+        
+        // Restore focus
+        if (this.restoreFocus) {
+            this.restoreFocus();
+        }
+        
+        this.announceToUser('Меню закрито');
+    }
+    
+    /**
+     * Handle navigation link clicks
+     */
+    handleNavLinkClick(event) {
+        const link = event.target.closest('.nav-link');
+        if (!link) return;
+        
+        // Update active state
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        
+        // Close navigation on mobile
+        setTimeout(() => {
+            this.closeNavigation();
+        }, 150);
+        
+        // Track navigation
+        if (window.GGeniusAnalytics) {
+            window.GGeniusAnalytics.trackEvent('navigation', 'link_click', {
+                href: link.href,
+                text: link.textContent.trim()
+            });
+        }
+    }
+    
+    /**
+     * Handle tab button clicks
+     */
+    handleTabClick(event) {
+        const button = event.target.closest('.tab-button');
+        if (!button) return;
+        
+        const target = button.dataset.target;
+        
+        // Update active state
+        document.querySelectorAll('.tab-button').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+        });
+        
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+        
+        // Handle special "more" tab
+        if (target === 'more') {
+            this.openNavigation();
+            return;
+        }
+        
+        // Navigate to target
+        const targetUrl = this.getTargetUrl(target);
+        if (targetUrl && targetUrl !== location.pathname) {
+            window.location.href = targetUrl;
+        }
+        
+        // Track tab navigation
+        if (window.GGeniusAnalytics) {
+            window.GGeniusAnalytics.trackEvent('navigation', 'tab_click', {
+                target: target,
+                url: targetUrl
+            });
+        }
+    }
+    
+    /**
+     * Get target URL for tab
+     */
+    getTargetUrl(target) {
+        const urlMap = {
+            home: '/',
+            heroes: '/heroes',
+            builds: '/builds',
+            guides: '/guides',
+            tournaments: '/tournaments'
+        };
+        
+        return urlMap[target] || '/';
+    }
+    
+    /**
+     * Toggle theme
+     */
+    toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('ggenius-theme', newTheme);
+        
+        // Update theme button
+        const themeIcon = document.querySelector('.theme-icon');
+        const themeText = document.querySelector('.theme-text');
+        
+        if (themeIcon && themeText) {
+            if (newTheme === 'dark') {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Темна тема';
+            } else {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Світла тема';
+            }
+        }
+        
+        this.announceToUser(`Активовано ${newTheme === 'dark' ? 'темну' : 'світлу'} тему`);
+        
+        // Track theme change
+        if (window.GGeniusAnalytics) {
+            window.GGeniusAnalytics.trackEvent('theme', 'toggle', { theme: newTheme });
+        }
+    }
+    
+    /**
+     * Handle language change
+     */
+    handleLanguageChange(event) {
+        const selectedLanguage = event.target.value;
+        
+        // Store language preference
+        localStorage.setItem('ggenius-language', selectedLanguage);
+        
+        // Apply language change (would integrate with i18n system)
+        this.applyLanguage(selectedLanguage);
+        
+        this.announceToUser(`Мову змінено на ${this.getLanguageName(selectedLanguage)}`);
+        
+        // Track language change
+        if (window.GGeniusAnalytics) {
+            window.GGeniusAnalytics.trackEvent('language', 'change', { language: selectedLanguage });
+        }
+    }
+    
+    /**
+     * Apply language settings
+     */
+    applyLanguage(language) {
+        document.documentElement.setAttribute('lang', language);
+        
+        // This would integrate with your i18n system
+        // For now, just store the preference
+        console.log(`Language changed to: ${language}`);
+    }
+    
+    /**
+     * Get language display name
+     */
+    getLanguageName(code) {
+        const names = {
+            uk: 'українську',
+            en: 'англійську',
+            ru: 'російську'
+        };
+        return names[code] || code;
+    }
+    
+    /**
+     * Handle search button click
+     */
+    handleSearchClick() {
+        // This would open search modal or navigate to search page
+        console.log('Search clicked');
+        
+        // For now, just announce
+        this.announceToUser('Пошук відкрито');
+        
+        // Track search
+        if (window.GGeniusAnalytics) {
+            window.GGeniusAnalytics.trackEvent('search', 'open');
+        }
+    }
+    
+    /**
+     * Handle user button click
+     */
+    handleUserClick() {
+        // This would open user menu or navigate to profile
+        console.log('User menu clicked');
+        
+        // For now, just announce
+        this.announceToUser('Меню користувача відкрито');
+        
+        // Track user menu
+        if (window.GGeniusAnalytics) {
+            window.GGeniusAnalytics.trackEvent('user', 'menu_open');
+        }
+    }
+    
+    /**
+     * Announce message to screen readers
+     */
+    announceToUser(message) {
+        if (!this.announcer) return;
+        
+        // Clear previous message
+        this.announcer.textContent = '';
+        
+        // Set new message with slight delay for better screen reader support
+        setTimeout(() => {
+            this.announcer.textContent = message;
+        }, GGENIUS_CONFIG.A11Y.ANNOUNCE_DELAY);
+    }
+    
+    /**
+     * Update navigation state
+     */
+    updateNavigationState(page) {
+        // Update active navigation link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === page) {
+                link.classList.add('active');
+            }
+        });
+        
+        // Update active tab
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.classList.remove('active');
+            button.setAttribute('aria-selected', 'false');
+        });
+        
+        const targetTab = this.getTabFromPage(page);
+        const activeTab = document.querySelector(`[data-target="${targetTab}"]`);
+        if (activeTab) {
+            activeTab.classList.add('active');
+            activeTab.setAttribute('aria-selected', 'true');
+        }
+        
+        // Store current page
+        this.navigationState.set('currentPage', page);
+    }
+    
+    /**
+     * Get tab target from page URL
+     */
+    getTabFromPage(page) {
+        if (page === '/' || page === '/home') return 'home';
+        if (page.startsWith('/heroes')) return 'heroes';
+        if (page.startsWith('/builds')) return 'builds';
+        if (page.startsWith('/guides')) return 'guides';
+        return 'more';
+    }
+    
+    /**
+     * Destroy navigation manager
+     */
+    destroy() {
+        // Remove event listeners
+        if (this.gestureHandler) {
+            document.removeEventListener('touchstart', this.gestureHandler.touchstart);
+            document.removeEventListener('touchmove', this.gestureHandler.touchmove);
+            document.removeEventListener('touchend', this.gestureHandler.touchend);
+        }
+        
+        // Remove navigation DOM elements
+        const navContainer = document.querySelector('.ggenius-mobile-nav');
+        if (navContainer) {
+            navContainer.remove();
+        }
+        
+        // Remove styles
+        const styles = document.getElementById('ggenius-nav-styles');
+        if (styles) {
+            styles.remove();
+        }
+        
+        // Remove announcer
+        if (this.announcer) {
+            this.announcer.remove();
+        }
+        
+        // Clear state
+        this.navigationState.clear();
+        this.isInitialized = false;
+        
+        console.log('📱 MobileNavigationManager destroyed');
+    }
+}
+
+/**
+ * 🧠 INTELLIGENT CONTENT MANAGER - AI-Powered Content System
+ * Dynamic content loading, caching, and optimization
+ */
+class IntelligentContentManager {
+    constructor() {
+        this.cache = new Map();
+        this.loadingQueue = new Map();
+        this.observers = new Map();
+        this.contentMetrics = new Map();
+        this.aiProcessor = null;
+        this.isInitialized = false;
+        
+        // Content strategies based on device capabilities
+        this.deviceCapabilities = GGeniusUtils.getDeviceCapabilities();
+        this.loadingStrategy = this.determineLoadingStrategy();
+        
+        this.init();
+    }
+    
+    init() {
+        if (this.isInitialized) return;
+        
+        this.setupContentObserver();
+        this.setupPrefetching();
+        this.setupImageOptimization();
+        this.setupCriticalResourcePriority();
+        this.initializeAIProcessor();
+        this.startContentMonitoring();
+        
+        this.isInitialized = true;
+        console.log('🧠 IntelligentContentManager initialized with strategy:', this.loadingStrategy);
+    }
+    
+    /**
+     * Determine optimal loading strategy based on device capabilities
+     */
+    determineLoadingStrategy() {
+        const { performanceTier, connection, device } = this.deviceCapabilities;
+        
+        if (performanceTier === 'low' || connection.isSlowConnection) {
+            return {
+                strategy: 'conservative',
+                prefetchLimit: 2,
+                imageQuality: 'low',
+                lazyLoadThreshold: '200px',
+                batchSize: 3,
+                cacheLimit: 50
+            };
+        } else if (performanceTier === 'high' && !connection.isSlowConnection) {
+            return {
+                strategy: 'aggressive',
+                prefetchLimit: 8,
+                imageQuality: 'high',
+                lazyLoadThreshold: '500px',
+                batchSize: 10,
+                cacheLimit: 200
+            };
+        } else {
+            return {
+                strategy: 'balanced',
+                prefetchLimit: 5,
+                imageQuality: 'medium',
+                lazyLoadThreshold: '300px',
+                batchSize: 6,
+                cacheLimit: 100
+            };
+        }
+    }
+    
+    /**
+     * Setup intelligent content observer for lazy loading
+     */
+    setupContentObserver() {
+        const observerCallback = (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.loadContent(entry.target);
+                    this.contentObserver.unobserve(entry.target);
+                }
+            });
+        };
+        
+        this.contentObserver = GGeniusUtils.createIntersectionObserver(observerCallback, {
+            rootMargin: this.loadingStrategy.lazyLoadThreshold,
+            threshold: [0.1]
+        });
+        
+        // Observe all lazy-loadable content
+        this.observeLazyContent();
+    }
+    
+    /**
+     * Observe elements that should be lazy loaded
+     */
+    observeLazyContent() {
+        const lazyElements = document.querySelectorAll('[data-lazy-load]');
+        lazyElements.forEach(element => {
+            this.contentObserver.observe(element);
+        });
+    }
+    
+    /**
+     * Setup intelligent prefetching
+     */
+    setupPrefetching() {
+        // Prefetch based on user behavior patterns
+        this.setupHoverPrefetch();
+        this.setupScrollPrefetch();
+        this.setupNavigationPrefetch();
+        
+        // Prefetch critical resources
+        this.prefetchCriticalResources();
+    }
+    
+    /**
+     * Setup hover-based prefetching
+     */
+    setupHoverPrefetch() {
+        const prefetchOnHover = GGeniusUtils.debounce((target) => {
+            const href = target.getAttribute('href');
+            if (href && !this.cache.has(href)) {
+                this.prefetchResource(href, 'hover');
+            }
+        }, 150);
+        
+        document.addEventListener('mouseover', (event) => {
+            const link = event.target.closest('a[href]');
+            if (link && !link.dataset.noPrefetch) {
+                prefetchOnHover(link);
+            }
+        });
+    }
+    
+    /**
+     * Setup scroll-based prefetching
+     */
+    setupScrollPrefetch() {
+        let lastScrollY = window.scrollY;
+        let scrollDirection = 'down';
+        
+        const handleScroll = GGeniusUtils.throttle(() => {
+            const currentScrollY = window.scrollY;
+            scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+            lastScrollY = currentScrollY;
+            
+            // Prefetch content in scroll direction
+            if (scrollDirection === 'down') {
+                this.prefetchNextContent();
+            }
+        }, this.deviceCapabilities.performanceTier === 'low' ? 100 : 50);
+        
+        window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+    
+    /**
+     * Setup navigation-based prefetching
+     */
+    setupNavigationPrefetch() {
+        // Prefetch likely next pages based on current page
+        const currentPath = location.pathname;
+        const prefetchCandidates = this.getPrefetchCandidates(currentPath);
+        
+        prefetchCandidates.forEach((url, index) => {
+            setTimeout(() => {
+                this.prefetchResource(url, 'navigation');
+            }, index * 1000); // Stagger prefetching
+        });
+    }
+    
+    /**
+     * Get prefetch candidates based on current page
+     */
+    getPrefetchCandidates(path) {
+        const candidates = [];
+        
+        // Define navigation patterns
+        const navigationPatterns = {
+            '/': ['/heroes', '/builds', '/tier-list'],
+            '/heroes': ['/heroes/[slug]', '/builds', '/tier-list'],
+            '/builds': ['/builds/[slug]', '/heroes', '/guides'],
+            '/guides': ['/guides/[slug]', '/heroes', '/builds'],
+            '/tournaments': ['/tournaments/[slug]', '/community'],
+            '/community': ['/guides', '/tournaments']
+        };
+        
+        const pattern = navigationPatterns[path] || [];
+        return pattern.slice(0, this.loadingStrategy.prefetchLimit);
+    }
+    
+    /**
+     * Prefetch critical resources
+     */
+    prefetchCriticalResources() {
+        const criticalResources = [
+            '/static/css/critical.css',
+            '/static/js/core.js',
+            '/static/images/hero-sprites.webp'
+        ];
+        
+        criticalResources.forEach(resource => {
+            this.prefetchResource(resource, 'critical');
+        });
+    }
+    
+    /**
+     * Prefetch resource with intelligent caching
+     */
+    async prefetchResource(url, reason = 'unknown') {
+        if (this.cache.has(url) || this.loadingQueue.has(url)) {
+            return; // Already cached or loading
+        }
+        
+        // Check cache limits
+        if (this.cache.size >= this.loadingStrategy.cacheLimit) {
+            this.evictOldestCache();
+        }
+        
+        try {
+            this.loadingQueue.set(url, { startTime: performance.now(), reason });
+            
+            const response = await fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'force-cache',
+                priority: reason === 'critical' ? 'high' : 'low'
+            });
+            
+            if (response.ok) {
+                const content = await response.text();
+                const loadTime = performance.now() - this.loadingQueue.get(url).startTime;
+                
+                this.cache.set(url, {
+                    content,
+                    timestamp: Date.now(),
+                    loadTime,
+                    reason,
+                    size: content.length,
+                    accessed: 1
+                });
+                
+                console.log(`📦 Prefetched ${url} (${reason}) in ${loadTime.toFixed(2)}ms`);
+            }
+        } catch (error) {
+            console.warn(`⚠️ Failed to prefetch ${url}:`, error);
+        } finally {
+            this.loadingQueue.delete(url);
+        }
+    }
+    
+    /**
+     * Evict oldest cache entries
+     */
+    evictOldestCache() {
+        const entries = Array.from(this.cache.entries());
+        entries.sort((a, b) => a[1].timestamp - b[1].timestamp);
+        
+        // Remove oldest 25% of entries
+        const toRemove = Math.floor(entries.length * 0.25);
+        for (let i = 0; i < toRemove; i++) {
+            this.cache.delete(entries[i][0]);
+        }
+        
+        console.log(`🧹 Evicted ${toRemove} cache entries`);
+    }
+    
+    /**
+     * Setup image optimization
+     */
+    setupImageOptimization() {
+        this.observeImages();
+        this.setupResponsiveImages();
+        this.setupImageCompression();
+    }
+    
+    /**
+     * Observe and optimize images
+     */
+    observeImages() {
+        const imageObserver = GGeniusUtils.createIntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.optimizeImage(entry.target);
+                }
+            });
+        }, {
+            rootMargin: '50px',
+            threshold: 0.1
+        });
+        
+        const images = document.querySelectorAll('img[data-src], picture source[data-srcset]');
+        images.forEach(img => imageObserver.observe(img));
+        
+        this.observers.set('images', imageObserver);
+    }
+    
+    /**
+     * Optimize individual image
+     */
+    optimizeImage(img) {
+        const { imageQuality } = this.loadingStrategy;
+        const { isHighDPI, device } = this.deviceCapabilities;
+        
+        // Determine optimal image source
+        let src = img.dataset.src;
+        if (src) {
+            // Apply quality and size optimizations
+            src = this.getOptimizedImageUrl(src, {
+                quality: imageQuality,
+                dpr: isHighDPI ? 2 : 1,
+                width: Math.min(img.offsetWidth || device.width, 1920)
+            });
+            
+            // Create new image for loading
+            const newImg = new Image();
+            newImg.onload = () => {
+                img.src = src;
+                img.classList.add('loaded');
+                this.trackImageLoad(src, true);
+            };
+            newImg.onerror = () => {
+                console.warn(`Failed to load optimized image: ${src}`);
+                this.trackImageLoad(src, false);
+                // Fallback to original
+                if (img.dataset.fallback) {
+                    img.src = img.dataset.fallback;
+                }
+            };
+            newImg.src = src;
+        }
+        
+        // Handle responsive images
+        const srcset = img.dataset.srcset;
+        if (srcset) {
+            img.srcset = srcset;
+        }
+    }
+    
+    /**
+     * Get optimized image URL
+     */
+    getOptimizedImageUrl(src, options = {}) {
+        const { quality = 'medium', dpr = 1, width } = options;
+        
+        // Quality mapping
+        const qualityMap = {
+            low: 60,
+            medium: 80,
+            high: 95
+        };
+        
+        const params = new URLSearchParams();
+        params.set('q', qualityMap[quality]);
+        params.set('dpr', dpr);
+        if (width) params.set('w', width);
+        
+        // Add format optimization
+        if (this.deviceCapabilities.features.avif) {
+            params.set('f', 'avif');
+        } else if (this.deviceCapabilities.features.webP) {
+            params.set('f', 'webp');
+        }
+        
+        return `${src}?${params.toString()}`;
+    }
+    
+    /**
+     * Setup responsive images
+     */
+    setupRespons
